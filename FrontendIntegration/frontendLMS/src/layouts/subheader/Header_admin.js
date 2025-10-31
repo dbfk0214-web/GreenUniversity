@@ -1,16 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <body>
-    <header>
+import React from "react";
+
+const Header_admin = () => {
+  return (
+    <div>
       <div>
-        <h1>그린대학교</h1>
+        <input type="login_button" value="로그인" />
       </div>
-      <div><input type="button" value="로그인" /></div>
       <nav>
         <ul>
           <li>강의/수업관리</li>
@@ -23,6 +18,8 @@
           <li>시스템운영</li>
         </ul>
       </nav>
-    </header>
-  </body>
-</html>
+    </div>
+  );
+};
+
+export default Header_admin;

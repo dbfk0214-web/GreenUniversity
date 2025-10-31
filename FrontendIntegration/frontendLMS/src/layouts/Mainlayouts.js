@@ -3,6 +3,7 @@ import { MouseCursor } from "../api/MousecursorHandler";
 import Navbar from "../layouts/Navbar";
 import Header from "../layouts/Header";
 import Footer from "../layouts/Footer";
+import Header_admin from "./subheader/Header_admin";
 
 export default function Mainlayouts() {
   useEffect(() => {
@@ -25,7 +26,7 @@ export default function Mainlayouts() {
   return (
     <div className="h-screen flex flex-col overflow-hidden">
       <div className="h-20 shrink-0 bg-gray-900">
-        <Header />
+        <Header children={Header_admin} />
       </div>
       <div className="flex flex-1 overflow-hidden bg-white text-white cursor-none">
         <Navbar />
