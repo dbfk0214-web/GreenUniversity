@@ -3,8 +3,8 @@ import React from "react";
 const Header_admin = () => {
   return (
     <div>
-      <div id="login_button">
-        <input type="button" value="로그인" />
+      <div>
+        <input type="login_button" value="로그인" />
       </div>
       <nav id="nav">
         <ul>
