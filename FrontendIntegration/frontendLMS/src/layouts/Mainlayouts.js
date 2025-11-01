@@ -24,25 +24,19 @@ export default function Mainlayouts() {
   }, []);
 
   return (
-    <div className="h-screen flex flex-col overflow-hidden">
+    <div className="h-screen flex flex-col">
       <div className="h-20 shrink-0 bg-gray-900">
         <Header children={Header_admin} />
       </div>
-      <div className="flex flex-1 overflow-hidden bg-white text-white cursor-none">
+
+      <div className="flex flex-1 overflow-y-auto bg-white text-white cursor-none">
         <Navbar />
-        <div
-          id="cursor"
-          className="pointer-events-none fixed left-0 top-0 z-[9999] w-6 h-6 rounded-full border-2 border-orange-300 bg-orange-300 opacity-0"
-        />
-        <div
-          id="cursorTrail"
-          className="pointer-events-none fixed left-0 top-0 z-[9998] w-4 h-4 rounded-full border border-orange-300 bg-yellow-200/10 opacity-0"
-        />
-        <div className="flex-1 flex flex-col items-center justify-center bg-white overflow-hidden">
-          <div className="w-3/5 flex-1 rounded-xl border border-gray-200 bg-white"></div>
-          <div className="w-3/5 flex-1 rounded-xl border border-gray-200 bg-white"></div>
+        <div className="flex-1 flex flex-col items-center justify-start bg-white">
+          <div className="w-3/5 rounded-xl border border-gray-200 bg-white my-4 h-[600px]"></div>
+          <div className="w-3/5 rounded-xl border border-gray-200 bg-white my-4 h-[600px]"></div>
         </div>
       </div>
+
       <div className="h-12 shrink-0">
         <Footer />
       </div>
