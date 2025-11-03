@@ -3,11 +3,6 @@ import React from "react";
 const HeaderAdmin = () => {
   return (
     <div>
-      <div>
-        <button className="px-3 py-1 mb-3 rounded bg-blue-500 text-white text-sm">
-          로그인
-        </button>
-      </div>
       <nav>
         <ul className="space-y-2 text-sm text-gray-800 list-disc list-inside">
           <li>강의/수업관리(관리자)</li>
