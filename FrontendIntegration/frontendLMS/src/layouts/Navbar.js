@@ -6,7 +6,7 @@ export default function Navbar({ subHeader }) {
   const wrapRef = useRef(null);
   const barRef = useRef(null);
 
-  const [activeEl, setActiveEl] = useState(null);   // 현재 활성 li
+  const [activeEl, setActiveEl] = useState(null); // 현재 활성 li
   const [hasActive, setHasActive] = useState(false); // flex 재정렬용
   const apiRef = useRef({ moveToEl: () => {} });
   const prevElRef = useRef(null);
@@ -17,15 +17,36 @@ export default function Navbar({ subHeader }) {
     const bar = barRef.current;
     if (!wrap || !bar) return;
 
-    const lerp = 0.45, idleMs = 80, epsilon = 0.2;
-    let cx = 0, cy = 0, tx = 0, ty = 0, raf = 0, running = false, lastMoveAt = 0;
+    const lerp = 0.45,
+      idleMs = 80,
+      epsilon = 0.2;
+    let cx = 0,
+      cy = 0,
+      tx = 0,
+      ty = 0,
+      raf = 0,
+      running = false,
+      lastMoveAt = 0;
 
     const now = () => performance.now();
-    const startRaf = () => { if (!running) { running = true; raf = requestAnimationFrame(tick); } };
-    const stopRaf  = () => { if (running) { running = false; cancelAnimationFrame(raf); } };
+    const startRaf = () => {
+      if (!running) {
+        running = true;
+        raf = requestAnimationFrame(tick);
+      }
+    };
+    const stopRaf = () => {
+      if (running) {
+        running = false;
+        cancelAnimationFrame(raf);
+      }
+    };
     const clamp = (v, min, max) => Math.min(Math.max(v, min), max);
 
-    const getRects = () => ({ pr: wrap.getBoundingClientRect(), cr: bar.getBoundingClientRect() });
+    const getRects = () => ({
+      pr: wrap.getBoundingClientRect(),
+      cr: bar.getBoundingClientRect(),
+    });
 
     apiRef.current.moveToEl = (el) => {
       if (!el) return;
@@ -34,12 +55,14 @@ export default function Navbar({ subHeader }) {
 
       // li 세로 중앙으로 이동, 가로는 중앙 기준(바는 130%)
       let desiredX = (pr.width - cr.width) / 2;
-      let desiredY = lr.top - pr.top + wrap.scrollTop + (lr.height - cr.height) / 2;
+      let desiredY =
+        lr.top - pr.top + wrap.scrollTop + (lr.height - cr.height) / 2;
 
       desiredX = clamp(desiredX, pr.width - cr.width, 0);
       desiredY = clamp(desiredY, 0, pr.height - cr.height);
 
-      tx = desiredX; ty = desiredY;
+      tx = desiredX;
+      ty = desiredY;
       lastMoveAt = now();
       startRaf();
     };
@@ -52,7 +75,10 @@ export default function Navbar({ subHeader }) {
 
       const dist = Math.hypot(tx - cx, ty - cy);
       const idle = now() - lastMoveAt;
-      if (idle > idleMs && dist < epsilon) { stopRaf(); return; }
+      if (idle > idleMs && dist < epsilon) {
+        stopRaf();
+        return;
+      }
       raf = requestAnimationFrame(tick);
     };
 
@@ -65,7 +91,9 @@ export default function Navbar({ subHeader }) {
     };
     initCenter();
 
-    return () => { stopRaf(); };
+    return () => {
+      stopRaf();
+    };
   }, []);
 
   // ===== 커서 이펙트(원본 유지) =====
@@ -74,8 +102,12 @@ export default function Navbar({ subHeader }) {
     const trailEl = document.getElementById("cursorTrail");
     if (!cursorEl) return;
     const api = new MouseCursor({
-      root: document.documentElement, cursorEl, trailEl,
-      hideNative: true, speed: 0.2, ease: "expo.out",
+      root: document.documentElement,
+      cursorEl,
+      trailEl,
+      hideNative: true,
+      speed: 0.2,
+      ease: "expo.out",
     }).attach();
     return () => api.destroy();
   }, []);
@@ -84,13 +116,6 @@ export default function Navbar({ subHeader }) {
   useEffect(() => {
     const wrap = wrapRef.current;
     if (!wrap) return;
-
-    // subHeader DOM 내 "로그인" 텍스트 가진 li 제거(완전 삭제)
-    wrap.querySelectorAll("li").forEach((li) => {
-      if (/로그인/.test(li.textContent.trim())) {
-        li.remove();
-      }
-    });
 
     const lis = Array.from(wrap.querySelectorAll("li"));
     const onEnter = (el) => () => {
@@ -102,14 +127,14 @@ export default function Navbar({ subHeader }) {
       el.classList.add("is-active");
       prevElRef.current = el;
       setActiveEl(el);
-      setHasActive(true);              // flex 재정렬 트리거
-      apiRef.current.moveToEl(el);     // 바 이동
+      setHasActive(true); // flex 재정렬 트리거
+      apiRef.current.moveToEl(el); // 바 이동
     };
     const onLeave = (el) => () => {
       // hover 해제해도 최근 선택 유지하고 싶으면 아래 줄 주석 처리
       el.classList.remove("is-active");
       setActiveEl(null);
-      setHasActive(false);             // flex 원상 복귀
+      setHasActive(false); // flex 원상 복귀
     };
 
     lis.forEach((el) => {
@@ -136,20 +161,16 @@ export default function Navbar({ subHeader }) {
       <div
         ref={wrapRef}
         className={`
-          fixed left-0 top-[10%] w-[20%] h-[80%]
-          bg-blue-400 rounded-2xl
-          flex justify-center items-start pt-6
-          overflow-hidden font-extrabold
-          /* 리스트: 컬럼 정렬 + 간격. 활성 있을 땐 justify-between 로 재배치 */
-          ${hasActive ? "[&_ul]:justify-between" : "[&_ul]:justify-start"}
-          [&_ul]:list-none [&_ul]:flex [&_ul]:flex-col [&_ul]:gap-6 [&_ul]:w-full [&_ul]:p-0 m-0
-          [&_li]:px-4 [&_li]:py-4 [&_li]:rounded-lg [&_li]:relative
+    fixed left-0 top-[10%] 
+    w-[20%] 
+    bg-blue-400 rounded-2xl 
+    flex flex-col justify-start items-center
+    pt-6 pb-10 
+    transition-all duration-500 ease-in-out list-none
         `}
       >
         {/* 전달받은 메뉴 DOM (로그인은 useEffect에서 실제로 제거됨) */}
-        <div className="w-full">
-          {subHeader}
-        </div>
+        <div className="w-full">{subHeader}</div>
 
         {/* 하이라이트 바: 130% 폭, 부드러운 색/그림자/블러 트랜지션 */}
         <div
@@ -163,7 +184,7 @@ export default function Navbar({ subHeader }) {
             transform-gpu will-change-transform
             transition-[background-color,box-shadow,filter] duration-300 ease-out
             /* 시각적 부드러움 */
-            backdrop-blur-[2px]
+            backdrop-blur-[2px] line-none
           `}
           style={{ left: "-15%" }}
           aria-hidden="true"
