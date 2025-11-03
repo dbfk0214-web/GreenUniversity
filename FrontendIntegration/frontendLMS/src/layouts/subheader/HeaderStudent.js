@@ -3,7 +3,23 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 export default function HeaderStudent() {
+ const data = {
+    자유게시판: "student/free",
+    동아리게시판: "student/club",
+    학과게시판: "student/department",
+    "Q&A": "student/q&a",
+    "1대1 상담": "student/counsel",
+    질문: "question",
+  };
+  const datas = {
+    
+    "회원가입":"student/signup",
+    "계정관리":" student/accountAdministration",
+    "회원정보":"student/memberinformation",
+    "회원 비밀번호 재설정":"student/passwordreset",
+  }
   return (
+    
     <div id="StudentMain">
       <img src="" alt=""></img>
       <div className="text-left list-none">
@@ -122,7 +138,7 @@ export default function HeaderStudent() {
               >
                 <li>
                   <Link
-                    to="Student/application"
+                    to="Student/Application"
                     className="block py-1 px-2 rounded hover:bg-orange-400 hover:text-white transition-colors"
                   >
                     비교과프로그램 신청
@@ -199,7 +215,7 @@ export default function HeaderStudent() {
             {/* 지원 */}
             <li className="group">
               <Link
-                to="Student/support"
+                to="Student/Support"
                 className="block py-2 px-3 rounded-lg hover:bg-white/60 transition-colors duration-300 font-semibold"
               >
                 지원
@@ -276,17 +292,10 @@ export default function HeaderStudent() {
                     space-y-1
                   "
                   >
-                    {[
-                      "자유게시판",
-                      "동아리게시판",
-                      "학과게시판",
-                      "Q&A",
-                      "1대1 상담",
-                      "질문",
-                    ].map((v) => (
+                    {[자유게시판,동아리게시판,학과게시판,"Q&A","1대1 상담",질문].map((v) => (
                       <li key={v}>
                         <Link
-                          to="Student/Free,Student/Club,"
+                          to={data[v]}
                           className="block py-1 px-2 rounded hover:bg-orange-400 hover:text-white transition-colors"
                         >
                           {v}
@@ -324,7 +333,7 @@ export default function HeaderStudent() {
                 ].map((v) => (
                   <li key={v}>
                     <Link
-                      to="/"
+                      to={datas[v]}
                       className="block py-1 px-2 rounded hover:bg-orange-400 hover:text-white transition-colors"
                     >
                       {v}
