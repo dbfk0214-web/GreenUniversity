@@ -4,5 +4,14 @@ module.exports = {
   theme: {
     extend: {},
   },
-  plugins: [],
+  plugins: [
+    function ({ addBase }) {
+      addBase({
+        'ul, ol': {
+          listStyle: 'none',
+          paddingLeft: '0',
+        },
+      });
+    },
+  ],
 };

@@ -1,8 +1,8 @@
 import React from "react";
 
-const TimeTablePage = () => {
+const TimetablePage = () => {
   return (
-    <div>
+    <div className="">
       <table border="3">
         <caption>시간표</caption>
         <thead>
@@ -239,4 +239,4 @@ const TimeTablePage = () => {
   );
 };
 
-export default TimeTablePage;
+export default TimetablePage;
