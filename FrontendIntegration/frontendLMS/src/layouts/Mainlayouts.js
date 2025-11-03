@@ -8,7 +8,7 @@ import HeaderStudent from "./subheader/HeaderStudent";
 import HeaderProfessor from "./subheader/HeaderProfessor";
 import { useSelector } from "react-redux";
 
-export default function Mainlayouts() {
+export default function Mainlayouts({children}) {
   const [role, setRole] = useState("ADMIN");
   // const member = useSelector((s) => s.loginSlice); // {email, role, ...}
   // console.log("member:", member);
@@ -60,10 +60,10 @@ export default function Mainlayouts() {
           className="pointer-events-none fixed left-0 top-0 rounded-full bg-yellow-200/30 will-change-transform"
         />
       </div>
-      <div className="flex flex-1 overflow-y-auto bg-white text-white cursor-none">
+      <div className="flex flex-1 overflow-y-auto bg-white text-black cursor-none">
         <Navbar subHeader={roleHeader} />
         <div className="flex-1 flex flex-col items-center justify-start bg-white">
-          <div className="w-[80%] ml-[19%] rounded-xl border border-gray-200 bg-white my-4 h-[100%]"></div>
+          <div className="w-[80%] ml-[19%] rounded-xl border border-gray-200 bg-white my-4 h-[100%]">{children}</div>
         </div>
       </div>
       <div className="h-12 shrink-0">
