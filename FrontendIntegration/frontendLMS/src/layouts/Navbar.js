@@ -2,7 +2,8 @@
 import React, { useEffect, useRef } from "react";
 import { MouseCursor } from "../api/MousecursorHandler";
 
-export default function StopWhenIdleFollower() {
+export default function Navbar({ subHeader }) {
+  console.log(subHeader);
   const wrapRef = useRef(null);
   const childRef = useRef(null);
 
@@ -145,23 +146,24 @@ export default function StopWhenIdleFollower() {
 
   return (
     <div>
+      {/* 커서 효과 */}
       <div
         id="cursor"
         className="w-10 h-10 rounded-full bg-yellow-300/50 transform transition-transform duration-500 ease-out hover:scale-125"
-      ></div>
+      />
+
+      {/* 파란 사이드바 */}
       <div
         ref={wrapRef}
-        className="fixed left-0 top-[10%] w-[20%] h-[80%] bg-blue-400 rounded-md flex justify-center items-center"
+        className="fixed left-0 top-[10%] w-[20%] h-[80%] bg-blue-400 rounded-md flex justify-center items-start pt-6"
       >
+        {/* 흰 패널: 여기 안에 메뉴를 그려야 화면에 보임 */}
         <div
           ref={childRef}
-          className="
-          absolute top-[5%] w-[120%] h-[10%]
-          bg-white rounded-md shadow-2xl text-center
-          pointer-events-none
-          transform-gpu will-change-transform
-        "
-        />
+          className="absolute top-[5%] w-[120%] min-h-[120px] bg-white rounded-md shadow-2xl text-left p-4 overflow-y-auto transform-gpu will-change-transform"
+        >
+          {subHeader /* ← 이 한 줄이 핵심 */}
+        </div>
       </div>
     </div>
   );
