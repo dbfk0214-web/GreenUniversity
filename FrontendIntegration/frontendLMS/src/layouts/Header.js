@@ -1,8 +1,15 @@
-import React from 'react'
 
-export default function Header ({children}){
+export default function Header({ subHeader }) {
+
+
   return (
-    <div className="w-full bg-gray-900 h-[30%] border-red-500">{children}</div>
-  )
-};
-
+    <header className="w-full border-b border-gray-200">
+      <div className="mx-auto w-[95%] flex items-center justify-between py-3">
+        {/* 좌측 타이틀 */}
+        <div className="flex items-center gap-3">
+          <h1 className="font-semibold text-gray-800">놀라라</h1>
+        </div>
+      </div>
+    </header>
+  );
+}

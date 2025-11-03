@@ -1,14 +1,16 @@
 import React from "react";
 
-const Header_admin = () => {
+const HeaderAdmin = () => {
   return (
     <div>
       <div>
-        <input type="login_button" value="로그인" />
+        <button className="px-3 py-1 mb-3 rounded bg-blue-500 text-white text-sm">
+          로그인
+        </button>
       </div>
       <nav>
-        <ul>
-          <li>강의/수업관리</li>
+        <ul className="space-y-2 text-sm text-gray-800 list-disc list-inside">
+          <li>강의/수업관리(관리자)</li>
           <li>비교과 프로그램</li>
           <li>성적/학사</li>
           <li>지원</li>
@@ -22,4 +24,4 @@ const Header_admin = () => {
   );
 };
 
-export default Header_admin;
+export default HeaderAdmin;
