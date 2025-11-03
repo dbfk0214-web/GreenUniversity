@@ -1,11 +1,11 @@
 import logo from './logo.svg';
 import './App.css';
+import { RouterProvider } from 'react-router-dom';
+import root from './router/root';
 
 function App() {
   return (
-    <div className="App bg-gray-50">
-        안녕하세요
-    </div>
+    <RouterProvider router={root}></RouterProvider>
   );
 }
 
