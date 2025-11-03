@@ -1,0 +1,26 @@
+import { lazy, Suspense } from 'react';
+import { Navigate } from 'react-router-dom';
+import Mainlayouts from '../layouts/Mainlayouts';
+
+const Loading = <div>Loading......</div>;
+const CreditManagement = lazy(() => import("../pages/academicAffairs/CreditManagementPage"));
+const DegreeCertificates = lazy(() => import("../pages/academicAffairs/DegreeCertificatesPage"));
+
+const academicAffairsRouter = () => {
+  return [
+    {
+        path:"",
+        element:<Navigate replace to="creditmanagement" />   
+    },
+    {
+        path:"creditmanagement",
+        element:<Suspense fallback={Loading}><Mainlayouts children={<CreditManagement />}/></Suspense>
+    },
+    {
+        path:"degreecertificates",
+        element:<Suspense fallback={Loading}><Mainlayouts children={<DegreeCertificates />}/></Suspense>
+    },
+  ]
+}
+
+export default academicAffairsRouter

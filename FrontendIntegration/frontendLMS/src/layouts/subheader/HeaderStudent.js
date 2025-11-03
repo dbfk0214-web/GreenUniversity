@@ -4,12 +4,12 @@ import { Link } from "react-router-dom";
 
 export default function HeaderStudent() {
  const data = {
-    자유게시판: "student/free",
-    동아리게시판: "student/club",
-    학과게시판: "student/department",
+    "자유게시판": "student/free",
+    "동아리게시판": "student/club",
+    "학과게시판": "student/department",
     "Q&A": "student/q&a",
     "1대1 상담": "student/counsel",
-    질문: "question",
+    "질문": "question",
   };
   const datas = {
     
@@ -292,7 +292,7 @@ export default function HeaderStudent() {
                     space-y-1
                   "
                   >
-                    {[자유게시판,동아리게시판,학과게시판,"Q&A","1대1 상담",질문].map((v) => (
+                    {["자유게시판","동아리게시판","학과게시판","Q&A","1대1 상담","질문"].map((v) => (
                       <li key={v}>
                         <Link
                           to={data[v]}
