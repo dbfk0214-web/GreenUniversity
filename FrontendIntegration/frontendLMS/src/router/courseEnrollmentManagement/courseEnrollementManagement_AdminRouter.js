@@ -4,10 +4,19 @@ import Mainlayouts from "../../layouts/Mainlayouts";
 
 const Loading = <div>Loading......</div>;
 const Courses = lazy(() =>
-  import("../../pages/CourseEnfollementManagement/admin/Courses")
+  import("../../pages/CourseEnrollementManagement/admin/Courses")
 );
 const Lectures = lazy(() =>
-  import("../../pages/CourseEnfollementManagement/admin/Lectures")
+  import("../../pages/CourseEnrollementManagement/admin/Lectures")
+);
+const Curriculum = lazy(() =>
+  import("../../pages/CourseEnrollementManagement/admin/Curriculum")
+);
+const Enrollment = lazy(() =>
+  import("../../pages/CourseEnrollementManagement/admin/Enrollment")
+);
+const Schedules = lazy(() =>
+  import("../../pages/CourseEnrollementManagement/admin/Schedules")
 );
 
 const courseEnrollementManagement_AdminRouter = () => {
@@ -25,6 +34,30 @@ const courseEnrollementManagement_AdminRouter = () => {
       element: (
         <Suspense fallback={Loading}>
           <Mainlayouts children={<Lectures />} />
+        </Suspense>
+      ),
+    },
+    {
+      path: "curriculum",
+      element: (
+        <Suspense fallback={Loading}>
+          <Mainlayouts children={<Curriculum />} />
+        </Suspense>
+      ),
+    },
+    {
+      path: "enrollment",
+      element: (
+        <Suspense fallback={Loading}>
+          <Mainlayouts children={<Enrollment />} />
+        </Suspense>
+      ),
+    },
+    {
+      path: "schedules",
+      element: (
+        <Suspense fallback={Loading}>
+          <Mainlayouts children={<Schedules />} />
         </Suspense>
       ),
     },

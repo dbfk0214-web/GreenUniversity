@@ -4,28 +4,28 @@ import Mainlayouts from "../../layouts/Mainlayouts";
 
 const Loading = <div>Loading......</div>;
 const ClassOperation = lazy(() =>
-  import("../../pages/CourseEnfollementManagement/student/ClassOperation")
+  import("../../pages/CourseEnrollementManagement/student/ClassOperation")
 );
 const CourseEvaluation = lazy(() =>
-  import("../../pages/CourseEnfollementManagement/student/CourseEvaluation")
+  import("../../pages/CourseEnrollementManagement/student/CourseEvaluation")
 );
 const CourseManagement = lazy(() =>
-  import("../../pages/CourseEnfollementManagement/student/CourseManagement")
+  import("../../pages/CourseEnrollementManagement/student/CourseManagement")
 );
 const Courses = lazy(() =>
-  import("../../pages/CourseEnfollementManagement/student/Courses")
+  import("../../pages/CourseEnrollementManagement/student/Courses")
 );
 const CreditManagement = lazy(() =>
-  import("../../pages/CourseEnfollementManagement/student/CreditManagement")
+  import("../../pages/CourseEnrollementManagement/student/CreditManagement")
 );
 const Report = lazy(() =>
-  import("../../pages/CourseEnfollementManagement/student/Report")
+  import("../../pages/CourseEnrollementManagement/student/Report")
 );
 const ReportCheck = lazy(() =>
-  import("../../pages/CourseEnfollementManagement/student/ReportCheck")
+  import("../../pages/CourseEnrollementManagement/student/ReportCheck")
 );
 const Timetable = lazy(() =>
-  import("../../pages/CourseEnfollementManagement/student/Timetable")
+  import("../../pages/CourseEnrollementManagement/student/Timetable")
 );
 
 const courseEnrollementManagement_StudentRouter = () => {
