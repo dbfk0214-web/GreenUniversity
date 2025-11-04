@@ -6,7 +6,6 @@ import gradesAcademicRecordsRouter from "./gradesAcademicRecordsRouter";
 import notificationCenterRouter from "./notificationCenterRouter";
 import communityRouter from "./communityRouter";
 import courseEnrollementManagementRouter from "./courseEnrollmentManagement/courseEnrollementManagementRouter";
-import courseEnrollementManagementRouter from "./courseEnrollmentManagement/courseEnrollementManagementRouter";
 import extracurricularprogramsRouter from "./extracurricularprogramsRouter";
 
 const Mainlayouts = lazy(() => import("../layouts/Mainlayouts"));

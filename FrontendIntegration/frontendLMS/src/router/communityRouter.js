@@ -15,9 +15,15 @@ const Chatbot = lazy(() => import("../pages/community/ChatbotPage"));
 
 const communityRouter = () => {
   return [
-    {
+   {
       path: "",
-      element: <Navigate replace to="community" />,
+      element: (
+        <Suspense fallback={Loading}>
+          <Mainlayouts>
+            <communityRouter />
+          </Mainlayouts>
+        </Suspense>
+      ),
     },
     {
         path:"club",
