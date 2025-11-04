@@ -4,12 +4,12 @@ import { Link } from "react-router-dom";
 
 export default function HeaderStudent() {
  const data = {
-    "자유게시판": "student/free",
+   "자유게시판" : "student/free",
     "동아리게시판": "student/club",
     "학과게시판": "student/department",
     "Q&A": "student/q&a",
     "1대1 상담": "student/counsel",
-    "질문": "question",
+    질문: "student/question",
   };
   const datas = {
     
@@ -48,7 +48,7 @@ export default function HeaderStudent() {
               >
                 <li>
                   <Link
-                    to="Student/CourseManagement"
+                    to="student/courseManagement"
                     className="block py-1 px-2 rounded hover:bg-orange-400 hover:text-white transition-colors"
                   >
                     강의 관리
@@ -56,7 +56,7 @@ export default function HeaderStudent() {
                 </li>
                 <li>
                   <Link
-                    to="Student/Timetable"
+                    to="student/timetable"
                     className="block py-1 px-2 rounded hover:bg-orange-400 hover:text-white transition-colors"
                   >
                     시간표
@@ -64,7 +64,7 @@ export default function HeaderStudent() {
                 </li>
                 <li>
                   <Link
-                    to="Student/ClassOperation"
+                    to="student/classOperation"
                     className="block py-1 px-2 rounded hover:bg-orange-400 hover:text-white transition-colors"
                   >
                     출결
@@ -72,7 +72,7 @@ export default function HeaderStudent() {
                 </li>
                 <li>
                   <Link
-                    to="Student/CourseEvaluation"
+                    to="student/courseEvaluation"
                     className="block py-1 px-2 rounded hover:bg-orange-400 hover:text-white transition-colors"
                   >
                     강의 평가
@@ -101,7 +101,7 @@ export default function HeaderStudent() {
               >
                 <li>
                   <Link
-                    to="Student/CreditManagement"
+                    to="student/creditManagement"
                     className="block py-1 px-2 rounded hover:bg-orange-400 hover:text-white transition-colors"
                   >
                     학점관리
@@ -109,7 +109,7 @@ export default function HeaderStudent() {
                 </li>
                 <li>
                   <Link
-                    to="Student/Degree"
+                    to="student/degree"
                     className="block py-1 px-2 rounded hover:bg-orange-400 hover:text-white transition-colors"
                   >
                     학위 증명
@@ -138,7 +138,7 @@ export default function HeaderStudent() {
               >
                 <li>
                   <Link
-                    to="Student/Application"
+                    to="student/application"
                     className="block py-1 px-2 rounded hover:bg-orange-400 hover:text-white transition-colors"
                   >
                     비교과프로그램 신청
@@ -146,7 +146,7 @@ export default function HeaderStudent() {
                 </li>
                 <li>
                   <Link
-                    to="Student/Cancle"
+                    to="student/cancle"
                     className="block py-1 px-2 rounded hover:bg-orange-400 hover:text-white transition-colors"
                   >
                     비교과프로그램 신청 취소
@@ -158,7 +158,7 @@ export default function HeaderStudent() {
             {/* 성적 */}
             <li className="group">
               <Link
-                to="Student/Grades"
+                to="student/grades"
                 className="block py-2 px-3 rounded-lg hover:bg-white/60 transition-colors duration-300 font-semibold"
               >
                 성적·학사
@@ -175,7 +175,7 @@ export default function HeaderStudent() {
               >
                 <li className="group/inner">
                   <Link
-                    to="Student/Report"
+                    to="student/report"
                     className="block py-1 px-2 rounded hover:bg-orange-400 hover:text-white transition-colors"
                   >
                     성적표
@@ -193,7 +193,7 @@ export default function HeaderStudent() {
                   >
                     <li>
                       <Link
-                        to="Student/Check"
+                        to="student/check"
                         className="block py-1 px-2 rounded hover:bg-orange-400 hover:text-white transition-colors"
                       >
                         조회
@@ -201,7 +201,7 @@ export default function HeaderStudent() {
                     </li>
                     <li>
                       <Link
-                        to="Student/Output"
+                        to="student/output"
                         className="block py-1 px-2 rounded hover:bg-orange-400 hover:text-white transition-colors"
                       >
                         출력
@@ -215,7 +215,7 @@ export default function HeaderStudent() {
             {/* 지원 */}
             <li className="group">
               <Link
-                to="Student/Support"
+                to="student/support"
                 className="block py-2 px-3 rounded-lg hover:bg-white/60 transition-colors duration-300 font-semibold"
               >
                 지원
@@ -232,7 +232,7 @@ export default function HeaderStudent() {
               >
                 <li>
                   <Link
-                    to="Student/Mentoring"
+                    to="student/mentoring"
                     className="block py-1 px-2 rounded hover:bg-orange-400 hover:text-white transition-colors"
                   >
                     멘토링*진로/취업
@@ -240,7 +240,7 @@ export default function HeaderStudent() {
                 </li>
                 <li>
                   <Link
-                    to="Student/ProfessorWithMentoring"
+                    to="student/professorWithMentoring"
                     className="block py-1 px-2 rounded hover:bg-orange-400 hover:text-white transition-colors"
                   >
                     교수와의 멘토링
@@ -248,7 +248,7 @@ export default function HeaderStudent() {
                 </li>
                 <li>
                   <Link
-                    to="Student/Employmentsuppor"
+                    to="student/employmentsuppor"
                     className="block py-1 px-2 rounded hover:bg-orange-400 hover:text-white transition-colors"
                   >
                     취업지원 * 상담
@@ -260,7 +260,7 @@ export default function HeaderStudent() {
             {/* 커뮤니티 */}
             <li className="group">
               <Link
-                to="Student/Community"
+                to="student/community"
                 className="block py-2 px-3 rounded-lg hover:bg-white/60 transition-colors duration-300 font-semibold"
               >
                 커뮤니티
@@ -277,7 +277,7 @@ export default function HeaderStudent() {
               >
                 <li className="group/inner">
                   <Link
-                    to="Student/Entire"
+                    to="student/entire"
                     className="block py-1 px-2 rounded hover:bg-orange-400 hover:text-white transition-colors"
                   >
                     전체게시판
@@ -310,7 +310,7 @@ export default function HeaderStudent() {
             {/* 보안 */}
             <li className="group">
               <Link
-                to="/security"
+                to="student/security"
                 className="block py-2 px-3 rounded-lg hover:bg-white/60 transition-colors duration-300 font-semibold"
               >
                 인증/계정보안

@@ -1,0 +1,43 @@
+import { lazy, Suspense } from "react";
+import { Navigate } from "react-router-dom";
+import Mainlayouts from "../layouts/Mainlayouts";
+import QaAPage from "../pages/community/QaAPage";
+
+const Loading = <div>Loading......</div>;
+const Club = lazy(() => import("../pages/community/ClubPage"));
+const Department = lazy(() => import("../pages/community/DepartmentPage"));
+const Free = lazy(() => import("../pages/community/FreePage"));
+const QaA = lazy(() => import("../pages/community/QaAPage"));
+const Question = lazy(() => import("../pages/community/QuestionPage"));
+
+
+const communityRouter = () => {
+  return [
+    {
+      path: "",
+      element: <Navigate replace to="community" />,
+    },
+    {
+        path:"club",
+        element:<Suspense fallback={()=><Loading/>}><Mainlayouts children={<Club />}/></Suspense>
+    },
+    {
+        path:"department",
+        element:<Suspense fallback={Loading}><Mainlayouts children={<Department />}/></Suspense>
+    },
+    {
+        path:"free",
+        element:<Suspense fallback={Loading}><Mainlayouts children={<Free />}/></Suspense>
+    },
+    {
+        path:"qanda",
+        element:<Suspense fallback={Loading}><Mainlayouts children={<QaA />}/></Suspense>
+    },
+    {
+        path:"question",
+        element:<Suspense fallback={Loading}><Mainlayouts children={<Question />}/></Suspense>
+    },
+  ];
+};
+
+export default communityRouter;

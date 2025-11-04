@@ -2,9 +2,8 @@ import React from 'react'
 
 const Header = () => {
   return (
-    <div className="w-full bg-gray-900 h-[30%] border-red-500"></div>
+    <div>Header</div>
   )
-};
+}
 
-export default Header;
-
+export default Header
