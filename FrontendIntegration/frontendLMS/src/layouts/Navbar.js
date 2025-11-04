@@ -6,12 +6,11 @@ export default function Navbar({ subHeader }) {
   const wrapRef = useRef(null);
   const barRef = useRef(null);
 
-  const [activeEl, setActiveEl] = useState(null); // 현재 활성 li
-  const [hasActive, setHasActive] = useState(false); // flex 재정렬용
+  const [activeEl, setActiveEl] = useState(null); 
+  const [hasActive, setHasActive] = useState(false); 
   const apiRef = useRef({ moveToEl: () => {} });
   const prevElRef = useRef(null);
 
-  // ===== 하이라이트 바 애니메이션 엔진(기존 유지, 보간) =====
   useEffect(() => {
     const wrap = wrapRef.current;
     const bar = barRef.current;
@@ -53,7 +52,6 @@ export default function Navbar({ subHeader }) {
       const { pr, cr } = getRects();
       const lr = el.getBoundingClientRect();
 
-      // li 세로 중앙으로 이동, 가로는 중앙 기준(바는 130%)
       let desiredX = (pr.width - cr.width) / 2;
       let desiredY =
         lr.top - pr.top + wrap.scrollTop + (lr.height - cr.height) / 2;
@@ -70,7 +68,6 @@ export default function Navbar({ subHeader }) {
     const tick = () => {
       cx += (tx - cx) * lerp;
       cy += (ty - cy) * lerp;
-      // transform 자체도 부드럽지만, 추가적인 트윈 느낌을 위해 will-change + GPU 사용
       bar.style.transform = `translate3d(${cx}px, ${cy}px, 0)`;
 
       const dist = Math.hypot(tx - cx, ty - cy);
@@ -82,7 +79,6 @@ export default function Navbar({ subHeader }) {
       raf = requestAnimationFrame(tick);
     };
 
-    // 초기 중앙
     const initCenter = () => {
       const { pr, cr } = getRects();
       cx = tx = (pr.width - cr.width) / 2;
@@ -96,7 +92,6 @@ export default function Navbar({ subHeader }) {
     };
   }, []);
 
-  // ===== 커서 이펙트(원본 유지) =====
   useEffect(() => {
     const cursorEl = document.getElementById("cursor");
     const trailEl = document.getElementById("cursorTrail");
@@ -112,7 +107,6 @@ export default function Navbar({ subHeader }) {
     return () => api.destroy();
   }, []);
 
-  // ===== li 이벤트 연결 + '로그인' 완전 제거 + flex 재정렬 =====
   useEffect(() => {
     const wrap = wrapRef.current;
     if (!wrap) return;
@@ -151,13 +145,10 @@ export default function Navbar({ subHeader }) {
 
   return (
     <div>
-      {/* 커서 */}
       <div
         id="cursor"
         className="w-10 h-10 rounded-full bg-yellow-300/50 transform transition-transform duration-500 ease-out hover:scale-125"
       />
-
-      {/* 사이드바 */}
       <div
         ref={wrapRef}
         className={`
@@ -169,10 +160,7 @@ export default function Navbar({ subHeader }) {
     transition-all duration-500 ease-in-out list-none
         `}
       >
-        {/* 전달받은 메뉴 DOM (로그인은 useEffect에서 실제로 제거됨) */}
         <div className="w-full">{subHeader}</div>
-
-        {/* 하이라이트 바: 130% 폭, 부드러운 색/그림자/블러 트랜지션 */}
         <div
           ref={barRef}
           className={`
@@ -189,8 +177,6 @@ export default function Navbar({ subHeader }) {
           style={{ left: "-15%" }}
           aria-hidden="true"
         />
-
-        {/* 텍스트는 항상 바 위에 보이게 + 활성 시 검정으로 변경 */}
         <style>{`
           li { position: relative; z-index: 2; color: #1f2937; transition: color .25s ease; }
           li.is-active { color: #000000 !important; }
