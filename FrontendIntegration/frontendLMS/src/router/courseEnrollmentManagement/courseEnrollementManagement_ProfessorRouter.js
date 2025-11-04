@@ -4,32 +4,32 @@ import Mainlayouts from "../../layouts/Mainlayouts";
 
 const Loading = <div>Loading......</div>;
 const Attendance = lazy(() =>
-  import("../../pages/CourseEnfollementManagement/professor/Attendance")
+  import("../../pages/CourseEnrollementManagement/professor/Attendance")
 );
 const CancellationAnnouncement = lazy(() =>
   import(
-    "../../pages/CourseEnfollementManagement/professor/CancellationAnnouncement"
+    "../../pages/CourseEnrollementManagement/professor/CancellationAnnouncement"
   )
 );
 const Classmanagement = lazy(() =>
-  import("../../pages/CourseEnfollementManagement/professor/Classmanagement")
+  import("../../pages/CourseEnrollementManagement/professor/Classmanagement")
 );
 const ExamNotice = lazy(() =>
-  import("../../pages/CourseEnfollementManagement/professor/ExamNotice")
+  import("../../pages/CourseEnrollementManagement/professor/ExamNotice")
 );
 const ExtracurricularApplicationStatus = lazy(() =>
   import(
-    "../../pages/CourseEnfollementManagement/professor/ExtracurricularApplicationStatus"
+    "../../pages/CourseEnrollementManagement/professor/ExtracurricularApplicationStatus"
   )
 );
 const GradeEntry = lazy(() =>
-  import("../../pages/CourseEnfollementManagement/professor/GradeEntry")
+  import("../../pages/CourseEnrollementManagement/professor/GradeEntry")
 );
 const LectureManagement = lazy(() =>
-  import("../../pages/CourseEnfollementManagement/professor/LectureManagement")
+  import("../../pages/CourseEnrollementManagement/professor/LectureManagement")
 );
 const StudentEvaluation = lazy(() =>
-  import("../../pages/CourseEnfollementManagement/professor/StudentEvaluation")
+  import("../../pages/CourseEnrollementManagement/professor/StudentEvaluation")
 );
 
 const courseEnrollementManagement_ProfessorRouter = () => {
