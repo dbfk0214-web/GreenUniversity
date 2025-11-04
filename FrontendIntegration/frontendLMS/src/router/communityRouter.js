@@ -9,6 +9,8 @@ const Department = lazy(() => import("../pages/community/DepartmentPage"));
 const Free = lazy(() => import("../pages/community/FreePage"));
 const QaA = lazy(() => import("../pages/community/QaAPage"));
 const Question = lazy(() => import("../pages/community/QuestionPage"));
+const Chatbot = lazy(() => import("../pages/community/ChatbotPage"));
+
 
 
 const communityRouter = () => {
@@ -36,6 +38,10 @@ const communityRouter = () => {
     {
         path:"question",
         element:<Suspense fallback={Loading}><Mainlayouts children={<Question />}/></Suspense>
+    },
+        {
+        path:"chatbot",
+        element:<Suspense fallback={Loading}><Mainlayouts children={<Chatbot />}/></Suspense>
     },
   ];
 };
