@@ -5,6 +5,7 @@ import financeSupportRouter from "./financeSupportRouter";
 import gradesAcademicRecordsRouter from "./gradesAcademicRecordsRouter";
 import notificationCenterRouter from "./notificationCenterRouter";
 import communityRouter from "./communityRouter";
+import courseEnrollementManagementRouter from "./courseEnrollmentManagement/courseEnrollementManagementRouter";
 
 const Mainlayouts = lazy(() => import("../layouts/Mainlayouts"));
 
@@ -32,6 +33,10 @@ const root = createBrowserRouter([
   {
     path: "community",
     children: communityRouter(),
+  },
+  {
+    path: "courseenrollementmanagement",
+    children: courseEnrollementManagementRouter(),
   },
 ]);
 
