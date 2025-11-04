@@ -36,7 +36,7 @@ export default function HeaderAdmin() {
                 {/* 공지사항 관리 */}
                 <li className="group/inner">
                   <Link
-                    to="#"
+                    to="/admin/notice"
                     className="block py-1 px-2 rounded hover:bg-orange-400 hover:text-white transition-colors"
                   >
                     공지사항 관리
@@ -61,7 +61,7 @@ export default function HeaderAdmin() {
 
                 <li>
                   <Link
-                    to="#"
+                    to="/admin/news"
                     className="block py-1 px-2 rounded hover:bg-orange-400 hover:text-white transition-colors"
                   >
                     학과 소식/뉴스 관리
@@ -71,7 +71,7 @@ export default function HeaderAdmin() {
                 {/* 자료실 관리 */}
                 <li className="group/inner">
                   <Link
-                    to="#"
+                    to="/admin/file-management"
                     className="block py-1 px-2 rounded hover:bg-orange-400 hover:text-white transition-colors"
                   >
                     자료실 관리
@@ -82,7 +82,7 @@ export default function HeaderAdmin() {
                     {["카테고리 관리", "파일 업로드/다운로드 관리"].map((v) => (
                       <li key={v}>
                         <Link
-                          to="#"
+                          to="/admin/document management"
                           className="block py-1 px-2 rounded hover:bg-orange-400 hover:text-white transition-colors"
                         >
                           {v}
@@ -107,7 +107,7 @@ export default function HeaderAdmin() {
               >
                 <li className="group/inner">
                   <Link
-                    to="#"
+                    to="/admin/users"
                     className="block py-1 px-2 rounded hover:bg-orange-400 hover:text-white transition-colors"
                   >
                     사용자 계정 관리
@@ -119,7 +119,7 @@ export default function HeaderAdmin() {
                       (v) => (
                         <li key={v}>
                           <Link
-                            to="#"
+                            to="/admin/account management"
                             className="block py-1 px-2 rounded hover:bg-orange-400 hover:text-white transition-colors"
                           >
                             {v}
@@ -132,7 +132,7 @@ export default function HeaderAdmin() {
 
                 <li className="group/inner">
                   <Link
-                    to="#"
+                    to="admin/roles"
                     className="block py-1 px-2 rounded hover:bg-orange-400 hover:text-white transition-colors"
                   >
                     권한(Role) 관리
@@ -155,7 +155,7 @@ export default function HeaderAdmin() {
 
                 <li>
                   <Link
-                    to="#"
+                    to="/admin/user log"
                     className="block py-1 px-2 rounded hover:bg-orange-400 hover:text-white transition-colors"
                   >
                     사용자 활동 로그
@@ -176,9 +176,9 @@ export default function HeaderAdmin() {
                 className={`${subMenu} group-hover:max-h-[900px] group-hover:opacity-100 group-focus-within:max-h-[900px] group-focus-within:opacity-100`}
               >
                 {/* 강의 개설 관리 */}
-                <li className="group/inner">
+                <li className="/admin/course">
                   <Link
-                    to="#"
+                    to="/admin/course offering management"
                     className="block py-1 px-2 rounded hover:bg-orange-400 hover:text-white transition-colors"
                   >
                     강의 개설 관리
@@ -202,7 +202,7 @@ export default function HeaderAdmin() {
                 {/* 강의계획서 관리 */}
                 <li className="group/inner">
                   <Link
-                    to="#"
+                    to="/admin/lectures"
                     className="block py-1 px-2 rounded hover:bg-orange-400 hover:text-white transition-colors"
                   >
                     강의계획서 관리
@@ -226,7 +226,7 @@ export default function HeaderAdmin() {
                 {/* 수강 인원/신청 관리 */}
                 <li className="group/inner">
                   <Link
-                    to="#"
+                    to="/admin/enrollment management"
                     className="block py-1 px-2 rounded hover:bg-orange-400 hover:text-white transition-colors"
                   >
                     수강 인원/신청 관리
@@ -250,7 +250,7 @@ export default function HeaderAdmin() {
                 {/* 강의실 및 시간표 관리 */}
                 <li className="group/inner">
                   <Link
-                    to="#"
+                    to="/admin/classroom and timetablemanagement"
                     className="block py-1 px-2 rounded hover:bg-orange-400 hover:text-white transition-colors"
                   >
                     강의실 및 시간표 관리
@@ -274,7 +274,7 @@ export default function HeaderAdmin() {
                 {/* 이수체계/커리큘럼 관리 */}
                 <li className="group/inner">
                   <Link
-                    to="#"
+                    to="/admin/curriculum structure management"
                     className="block py-1 px-2 rounded hover:bg-orange-400 hover:text-white transition-colors"
                   >
                     이수체계/커리큘럼 관리
@@ -300,7 +300,7 @@ export default function HeaderAdmin() {
             {/* 학과 일정 및 행사 관리 */}
             <li className="group">
               <Link
-                to="#"
+                to="/admin/department schedule and event management"
                 className="block py-2 px-3 rounded-lg hover:bg-white/60 transition-colors duration-300 font-semibold"
               >
                 학과 일정 및 행사 관리
@@ -310,7 +310,7 @@ export default function HeaderAdmin() {
               >
                 <li className="group/inner">
                   <Link
-                    to="#"
+                    to="/admin/academic calendar management"
                     className="block py-1 px-2 rounded hover:bg-orange-400 hover:text-white transition-colors"
                   >
                     학사 일정 관리
@@ -333,7 +333,7 @@ export default function HeaderAdmin() {
 
                 <li className="group/inner">
                   <Link
-                    to="#"
+                    to="/admin/seminar and event management"
                     className="block py-1 px-2 rounded hover:bg-orange-400 hover:text-white transition-colors"
                   >
                     행사/세미나 관리
@@ -359,7 +359,7 @@ export default function HeaderAdmin() {
             {/* 문의 / 민원 관리 */}
             <li className="group">
               <Link
-                to="#"
+                to="/admin/inquiry and complaint management"
                 className="block py-2 px-3 rounded-lg hover:bg-white/60 transition-colors duration-300 font-semibold"
               >
                 문의 / 민원 관리
@@ -369,7 +369,7 @@ export default function HeaderAdmin() {
               >
                 <li className="group/inner">
                   <Link
-                    to="#"
+                    to="/admin/inquiry board management"
                     className="block py-1 px-2 rounded hover:bg-orange-400 hover:text-white transition-colors"
                   >
                     문의 게시판 관리
@@ -392,7 +392,7 @@ export default function HeaderAdmin() {
 
                 <li className="group/inner">
                   <Link
-                    to="#"
+                    to="/admin/complanint handling status"
                     className="block py-1 px-2 rounded hover:bg-orange-400 hover:text-white transition-colors"
                   >
                     민원 처리 현황
@@ -418,7 +418,7 @@ export default function HeaderAdmin() {
             {/* 자원 관리 */}
             <li className="group">
               <Link
-                to="#"
+                to="admin/support management"
                 className="block py-2 px-3 rounded-lg hover:bg-white/60 transition-colors duration-300 font-semibold"
               >
                 자원 관리
@@ -428,7 +428,7 @@ export default function HeaderAdmin() {
               >
                 <li className="group/inner">
                   <Link
-                    to="#"
+                    to="/admin/classroom and meeting room management"
                     className="block py-1 px-2 rounded hover:bg-orange-400 hover:text-white transition-colors"
                   >
                     강의실/회의실 관리
@@ -451,7 +451,7 @@ export default function HeaderAdmin() {
 
                 <li className="group/inner">
                   <Link
-                    to="#"
+                    to="/admin/equipment and inventory management"
                     className="block py-1 px-2 rounded hover:bg-orange-400 hover:text-white transition-colors"
                   >
                     장비/비품 관리
@@ -474,7 +474,7 @@ export default function HeaderAdmin() {
 
                 <li>
                   <Link
-                    to="#"
+                    to="/admin/budget management"
                     className="block py-1 px-2 rounded hover:bg-orange-400 hover:text-white transition-colors"
                   >
                     예산 관리
@@ -486,7 +486,7 @@ export default function HeaderAdmin() {
             {/* 시스템 관리 */}
             <li className="group">
               <Link
-                to="#"
+                to="/admin/system management"
                 className="block py-2 px-3 rounded-lg hover:bg-white/60 transition-colors duration-300 font-semibold"
               >
                 시스템 관리
@@ -511,7 +511,7 @@ export default function HeaderAdmin() {
 
                 <li className="group/inner">
                   <Link
-                    to="#"
+                    to="/admin/log and statistics management"
                     className="block py-1 px-2 rounded hover:bg-orange-400 hover:text-white transition-colors"
                   >
                     로그 / 통계 관리
@@ -537,7 +537,7 @@ export default function HeaderAdmin() {
             {/* 내부 관리자 커뮤니티 */}
             <li className="group">
               <Link
-                to="#"
+                to="/admin/internal admin community"
                 className="block py-2 px-3 rounded-lg hover:bg-white/60 transition-colors duration-300 font-semibold"
               >
                 내부 관리자 커뮤니티

@@ -11,7 +11,7 @@ export default function HeaderProfessor() {
             {/* 강의/수업관리(교수) */}
             <li className="group">
               <Link
-                to="/prof/courses"
+                to="/professor/courses"
                 className="block py-2 px-3 rounded-lg hover:bg-white/60 transition-colors duration-300 font-semibold"
               >
                 강의/수업관리(교수)
@@ -28,17 +28,16 @@ export default function HeaderProfessor() {
               >
                 <li>
                   <Link
-                    to="/"
+                    to="/professor/lecture management"
                     className="block py-1 px-2 rounded hover:bg-orange-400 hover:text-white transition-colors"
                   >
                     강의 관리
                   </Link>
                 </li>
-
                 {/* 수업 운영 (2뎁스) */}
                 <li className="group/inner">
                   <Link
-                    to="/"
+                    to="/professor/class management"
                     className="block py-1 px-2 rounded hover:bg-orange-400 hover:text-white transition-colors"
                   >
                     수업 운영
@@ -55,7 +54,7 @@ export default function HeaderProfessor() {
                   >
                     <li>
                       <Link
-                        to="/"
+                        to="/professor/cancellation announcement:"
                         className="block py-1 px-2 rounded hover:bg-orange-400 hover:text-white transition-colors"
                       >
                         휴강 알림
@@ -63,7 +62,7 @@ export default function HeaderProfessor() {
                     </li>
                     <li>
                       <Link
-                        to="/"
+                        to="/professor/exam notice"
                         className="block py-1 px-2 rounded hover:bg-orange-400 hover:text-white transition-colors"
                       >
                         중간·기말고사 공지
@@ -74,7 +73,7 @@ export default function HeaderProfessor() {
 
                 <li>
                   <Link
-                    to="/"
+                    to="/professor/attendance"
                     className="block py-1 px-2 rounded hover:bg-orange-400 hover:text-white transition-colors"
                   >
                     출결
@@ -82,7 +81,7 @@ export default function HeaderProfessor() {
                 </li>
                 <li>
                   <Link
-                    to="/"
+                    to="/professor/student evaluation"
                     className="block py-1 px-2 rounded hover:bg-orange-400 hover:text-white transition-colors"
                   >
                     학생 평가
@@ -111,7 +110,7 @@ export default function HeaderProfessor() {
               >
                 <li>
                   <Link
-                    to="/"
+                    to="/professor/extracurricular application status"
                     className="block py-1 px-2 rounded hover:bg-orange-400 hover:text-white transition-colors"
                   >
                     비교과 프로그램 신청 현황
@@ -142,7 +141,7 @@ export default function HeaderProfessor() {
                   (v) => (
                     <li key={v}>
                       <Link
-                        to="/"
+                        to="/professor/mentoring"
                         className="block py-1 px-2 rounded hover:bg-orange-400 hover:text-white transition-colors"
                       >
                         {v}
@@ -173,7 +172,7 @@ export default function HeaderProfessor() {
               >
                 <li>
                   <Link
-                    to="/"
+                    to="/professor/grade entry"
                     className="block py-1 px-2 rounded hover:bg-orange-400 hover:text-white transition-colors"
                   >
                     성적표 입력
