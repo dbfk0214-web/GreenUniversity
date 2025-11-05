@@ -6,7 +6,7 @@ export const doLogin = async (loginParam) => {
   console.log("login post를 받았다", loginParam);
   const header = { headers: { "Content-Type": "application/json" } };
   // const form = new FormData();
-  const { email, password } = loginParam;
+  const { email, password, nickname } = loginParam;
   // form.append("email", loginParam.email);
   // form.append("password", loginParam.pw);
   const res = await axios.post(`${host}/login`, { email, password }, header);

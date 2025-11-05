@@ -36,7 +36,10 @@ const LoginComponent = () => {
     try {
       setLoading(true);
       // 1) 백엔드 로그인 호출
-      const res = await doLogin({ email: form.email, password: form.pw });
+      const res = await doLogin({
+        email: form.email,
+        password: form.pw,
+      });
       console.log("res:", res);
       // 2) 응답 체크 (프로젝트 응답 포맷에 맞게 조정)
       // 예: 스프링 시큐리티 successHandler가 { ok:true, user:{...} }를 리턴한다고 가정
@@ -48,11 +51,12 @@ const LoginComponent = () => {
       const user = { ...res };
       console.log("user:,", user);
       dispatch(login(user));
-
-      alert("로그인 성공");
+      alert(user.nickname + "님환영합니다");
+      // "환영합니다 로그인에 성공했습니다"
       navigate("/");
     } catch (err) {
       console.error(err);
+      alert("로그인 정보가 올바르지 않습니다");
       setErrMsg("로그인 요청에 실패했습니다.");
     } finally {
       setLoading(false);
@@ -60,48 +64,66 @@ const LoginComponent = () => {
   };
 
   return (
-    <div className="border-2 border-sky-200 mt-10 m-2 p-6 max-w-2xl mx-auto rounded">
-      <h1 className="text-4xl mb-6 font-extrabold text-blue-500 text-center">
-        로그인
-      </h1>
-      <form onSubmit={onSubmit} className="space-y-5">
-        <div className="flex items-center">
-          <label className="w-40 text-right pr-4 font-bold">이메일</label>
-          <input
-            type="text"
-            name="email"
-            value={form.email}
-            onChange={onChange}
-            className="flex-1 p-4 rounded border border-neutral-500 shadow-md"
-            placeholder="you@example.com"
-            autoComplete="username"
-          />
-        </div>
-        <div className="flex items-center">
-          <label className="w-40 text-right pr-4 font-bold">비밀번호</label>
-          <input
-            type="password"
-            name="pw"
-            value={form.pw}
-            onChange={onChange}
-            className="flex-1 p-4 rounded border border-neutral-500 shadow-md"
-            placeholder="비밀번호"
-            autoComplete="current-password"
-          />
-        </div>
-        {errMsg && <p className="text-red-600 text-sm text-center">{errMsg}</p>}
-        <div className="flex justify-center pt-2">
+    <div className="flex justify-center items-center py-20">
+      <div className="bg-white shadow-xl rounded-xl w-96 p-8 text-center border border-gray-200">
+        <h2 className="text-2xl font-bold text-gray-900 mb-6">로그인</h2>
+
+        <form onSubmit={onSubmit}>
+          {/* 이메일 입력 */}
+          <div className="mb-4 text-left">
+            <label
+              htmlFor="email"
+              className="block text-sm font-medium text-gray-700 mb-1"
+            >
+              이메일
+            </label>
+            <input
+              type="text"
+              id="email"
+              name="email" // 로직 연결
+              value={form.email} // 로직 연결
+              onChange={onChange} // 로직 연결
+              placeholder="이메일을 입력하세요"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-black focus:outline-none"
+              autoComplete="username"
+            />
+          </div>
+
+          {/* 비밀번호 입력 */}
+          <div className="mb-4 text-left">
+            <label
+              htmlFor="password"
+              className="block text-sm font-medium text-gray-700 mb-1"
+            >
+              비밀번호
+            </label>
+            <input
+              type="password"
+              id="password"
+              name="pw" // 로직 연결
+              value={form.pw} // 로직 연결
+              onChange={onChange} // 로직 연결
+              placeholder="비밀번호를 입력하세요"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-black focus:outline-none"
+              autoComplete="current-password"
+            />
+          </div>
+
+          {/* 에러 메시지 (로직 연결) */}
+          {errMsg && (
+            <p className="mb-4 text-red-600 text-sm text-center">{errMsg}</p>
+          )}
+
+          {/* 로그인 버튼 (로직 연결) */}
           <button
             type="submit"
-            disabled={loading}
-            className={`rounded p-4 w-36 text-xl text-white ${
-              loading ? "bg-gray-400" : "bg-blue-500 hover:bg-blue-600"
-            }`}
+            disabled={loading} // 로직 연결
+            className="w-full py-3 mt-2 bg-black text-white font-bold rounded-lg hover:bg-gray-800 transition disabled:bg-gray-400"
           >
             {loading ? "로그인 중..." : "로그인"}
           </button>
-        </div>
-      </form>
+        </form>
+      </div>
     </div>
   );
 };

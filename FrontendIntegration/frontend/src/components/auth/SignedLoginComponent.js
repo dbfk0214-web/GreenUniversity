@@ -19,7 +19,7 @@ const SignedLoginComponent = () => {
           className="text-gray-200 font-medium hover:text-white no-underline"
         >
           마이페이지
-        </div> */}
+        </div> *중요* 나중에 쓸 예정이니 내바둠 */}
       </div>
     </div>
   );

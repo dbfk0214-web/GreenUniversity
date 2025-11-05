@@ -8,15 +8,25 @@ export const useNavigationTest = () => {
   const dispatch = useDispatch();
 
   const Home = () => {
-    navigate("/");
-    console.log("확인", Home);
-  };
-  const handleLogout = (e) => {
-    e.preventDefault();
-    dispatch(logout());
-    alert("로그아웃 되었습니다.");
+    alert(" ^ ^ ^ ^ ^ ^ 만 들 어 주 세 요 ^ ^ ^ ^ ^ ^ ^ ^ ^ ");
     navigate("/");
   };
 
-  return { Home, handleLogout };
+  const handleLogout = (e) => {
+    e.preventDefault();
+    dispatch(logout());
+    alert("로그아웃 되었습니다");
+    navigate("/");
+  };
+
+  const handleLogin = () => {
+    navigate("/account/login");
+  };
+
+  const signUp = () => {
+    alert("구 현 해 야 합 니 다 ");
+    navigate("/account/sign");
+  };
+
+  return { Home, handleLogout, handleLogin, signUp };
 };
