@@ -10,7 +10,6 @@ const JoinComponent = () => {
     email: "",
     password: "",
     nickname: "",
-    positon: "",
     role: "",
   };
   const [form, setForm] = useState(initialState);
@@ -27,19 +26,13 @@ const JoinComponent = () => {
     setErrMsg("");
     setLoading(true);
     // 1) 백엔드 회원가입
-    const res = await doRegister(
-      //   id: form.id,
-      //   email: form.email,
-      //   password: form.password,
-      //   nickname: form.nickname,
-      form
-    );
-    console.log("form:", form);
-    console.log("res:", res);
+    const res = await doRegister(form);
+    console.log("2) form:", form);
+    console.log("3) res:", res);
 
-    const user = { ...res };
-    console.log("user:,", user);
-    alert(user.nickname + "님 가입을 환영합니다");
+    // const user = { ...res };
+    // console.log("user:,", user);
+    alert(res.nickname + "님 가입을 환영합니다");
     navigate("/");
   };
   const changeHandler = (e) => {
@@ -124,6 +117,7 @@ const JoinComponent = () => {
           </div>
           <div>
             <select name="role" onChange={changeHandler}>
+              <option></option>
               <option>학생</option>
               <option>교수</option>
             </select>
