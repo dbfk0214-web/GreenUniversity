@@ -153,22 +153,3 @@ export default function SidebarNav({ menu = defaultMenu }) {
     </aside>
   );
 }
-
-// 기본 메뉴 샘플 (관리자 예시; 필요에 맞게 주입 가능)
-const defaultMenu = [
-  {
-    title: "공지 및 게시 관리",
-    to: "/admin/board",
-    children: [
-      { title: "공지사항 관리", to: "/admin/board/notice" },
-      { title: "학과 소식/뉴스 관리", to: "/admin/board/news" },
-      { title: "자료실 관리", to: "/admin/board/files" },
-    ],
-  },
-  { title: "사용자 및 권한 관리", to: "/admin/users" },
-  { title: "강의/수업 관리", to: "/admin/courses" },
-  { title: "학과 일정 및 행사 관리", to: "/admin/schedule" },
-  { title: "문의 / 민원 관리", to: "/admin/inquiry" },
-  { title: "자원 관리", to: "/admin/resources" },
-  { title: "시스템 관리", to: "/admin/system" },
-];
