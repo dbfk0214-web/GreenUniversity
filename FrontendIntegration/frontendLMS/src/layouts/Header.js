@@ -1,20 +1,35 @@
 import React from "react";
-import logo from "../images/1.png";
-export default function Header({ subHeader }) {
+import { useNavigationTest } from "../hook/useNavigationTest";
+import { useSelector } from "react-redux";
+import SignedLoginComponent from "../components/auth/SignedLoginComponent";
+import UnSignedLoginComponent from "../components/auth/UnSignedLoginComponent";
+
+const Header = () => {
+  const { Home } = useNavigationTest();
+  const loginState = useSelector((state) => state.loginSlice);
+
   return (
-    <header className="w-full border-b border-gray-200">
-      <div className="mx-auto w-[95%] flex items-center justify-between py-3">
-        {/* 좌측 타이틀 */}
-        <div className="flex items-center gap-3">
-          <img src={logo} alt="logo" className="w-12 h-12 object-contain"></img>
+    <div className="sticky top-0 z-50 w-full bg-white shadow-sm">
+      <header className="flex justify-between items-center px-8 py-4 bg-black text-white border-b border-gray-800 h-[68px]">
+        <div className="text-2xl font-bold">
+          <div
+            onClick={Home}
+            className="text-gray-200 font-medium hover:text-white no-underline"
+          >
+            테스트입니다
+          </div>
         </div>
-        <div className=" flex-1 items-center justify-center text-center font-extrabold font-black">
-          그린 대학교 학사 지원 시스템
+        <div>
+          {/* loginState에 email 값이 있으면 로그인 된 상태, 없으면 로그아웃 상태 */}
+          {loginState.email ? (
+            <SignedLoginComponent />
+          ) : (
+            <UnSignedLoginComponent />
+          )}
         </div>
-        <button>
-          로그인
-        </button>
-      </div>
-    </header>
+      </header>
+    </div>
   );
-}
+};
+
+export default Header;

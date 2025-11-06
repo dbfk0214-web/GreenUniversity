@@ -7,6 +7,7 @@ import notificationCenterRouter from "./notificationCenterRouter";
 import communityRouter from "./communityRouter";
 import courseEnrollementManagementRouter from "./courseEnrollmentManagement/courseEnrollementManagementRouter";
 import extracurricularprogramsRouter from "./extracurricularprogramsRouter";
+import accountRouter from "./accountRouter";
 
 const Mainlayouts = lazy(() => import("../layouts/Mainlayouts"));
 
@@ -39,9 +40,14 @@ const root = createBrowserRouter([
     path: "courseenrollementmanagement",
     children: courseEnrollementManagementRouter(),
   },
-    {
+  {
     path: "extracurricularprograms",
     children: extracurricularprogramsRouter(),
+  },
+  {
+    path: "account",
+    // element: <Suspense fallback={Loading}><Basiclayout children={<Main />}></Basiclayout></Suspense>,
+    children: accountRouter(),
   },
 ]);
 
