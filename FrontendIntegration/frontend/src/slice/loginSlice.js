@@ -37,7 +37,7 @@ const loginSlice = createSlice({
         console.log("fulfilled");
         const payload = action.payload;
         //정상적인 로그인시에만 저장
-        if (!payload.error) setCookie("member", JSON.stringify(payload), 1); //일
+        if (!payload.error) setCookie("user", JSON.stringify(payload), 1); //일
         return action.payload;
       })
       .addCase(loginPostAsync.pending, (state, action) => {

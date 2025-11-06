@@ -7,8 +7,8 @@ import { login } from "../../slice/loginSlice"; // 리덕스 액션
 const LoginComponent = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const loginState = useSelector((state) => state.loginSlice);
-  console.log("loginState:", loginState);
+  // const loginState = useSelector((state) => state.loginSlice);
+  // console.log("loginState:", loginState);
   const [form, setForm] = useState({ email: "", pw: "" });
   const [loading, setLoading] = useState(false);
   const [errMsg, setErrMsg] = useState("");
