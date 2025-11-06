@@ -4,6 +4,10 @@
 
 @layer base {
   ul, ol {
-    @apply list-none pl-0;
+    @apply list-none p-0 m-0;
+  }
+
+  li::marker {
+    content: "";
   }
 }

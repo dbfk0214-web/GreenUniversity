@@ -165,7 +165,7 @@ export default function Navbar({ subHeader }) {
           ref={barRef}
           className={`
             absolute top-0 z-[1]
-            w-[130%] min-h-[52px]
+            w-[130%] min-h-[30px]
             ${activeEl ? "bg-orange-400" : "bg-white"}
             rounded-2xl shadow-2xl
             pointer-events-none

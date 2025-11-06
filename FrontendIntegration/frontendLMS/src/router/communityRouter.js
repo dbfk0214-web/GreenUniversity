@@ -16,7 +16,7 @@ const Chatbot = lazy(() => import("../pages/community/ChatbotPage"));
 const communityRouter = () => {
   return [
    {
-      path: "",
+      path: "community/",
       element: (
         <Suspense fallback={Loading}>
           <Mainlayouts>
@@ -27,6 +27,10 @@ const communityRouter = () => {
     },
     {
         path:"club",
+        element:<Suspense fallback={()=><Loading/>}><Mainlayouts children={<Club />}/></Suspense>
+    },
+      {
+        path:"entire",
         element:<Suspense fallback={()=><Loading/>}><Mainlayouts children={<Club />}/></Suspense>
     },
     {
