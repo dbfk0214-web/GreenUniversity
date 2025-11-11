@@ -1,9 +1,10 @@
 import React from 'react'
+import CampusGuideComponent from '../../components/aboutGreen/CampusGuideComponent'
 
 const CampusGuidePage = () => {
   return (
     <div>
-      CampusGuidePage
+      <CampusGuideComponent />
     </div>
   )
 }

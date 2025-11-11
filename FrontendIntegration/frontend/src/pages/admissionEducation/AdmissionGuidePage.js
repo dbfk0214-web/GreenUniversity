@@ -1,9 +1,10 @@
 import React from 'react'
+import AdmissionGuideComponent from '../../components/admissionEducation/AdmissionGuideComponent'
 
 const AdmissionGuidePage = () => {
   return (
     <div>
-      AdmissionGuidePage
+      <AdmissionGuideComponent />
     </div>
   )
 }

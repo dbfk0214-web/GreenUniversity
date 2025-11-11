@@ -1,9 +1,10 @@
 import React from 'react'
+import CareersComponent from '../../components/information/CareersComponent'
 
 const CareersPage = () => {
   return (
     <div>
-      CareersPage
+      <CareersComponent />
     </div>
   )
 }
