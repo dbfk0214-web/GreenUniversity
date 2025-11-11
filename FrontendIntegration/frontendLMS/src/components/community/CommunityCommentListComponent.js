@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { comment } from "../../api/commentApi";
+import { attendance } from "../../api/attendanceApi";
 import { Await } from "react-router-dom";
 
 const CommunityCommentListComponent = () => {
@@ -9,7 +9,7 @@ const CommunityCommentListComponent = () => {
   useEffect(() => {
     (async () => {
       try {
-        const data = await comment();
+        const data = await attendance();
         setComments(Array.isArray(data) ? data : []);
       } catch (e) {
         console.error("댓글 목록 불러오기 실패:", e);
@@ -20,7 +20,7 @@ const CommunityCommentListComponent = () => {
   }, []);
 
   if (loading) return <div>Loading...</div>;
-  if (!comments.length) return <div>댓글이 없습니다.</div>;
+  if (!comments.length) return <div>데이터가 없습니다.</div>;
 
   return (
     <div>

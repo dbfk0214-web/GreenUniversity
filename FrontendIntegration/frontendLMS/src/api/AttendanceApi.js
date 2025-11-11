@@ -4,7 +4,7 @@ import { Await } from "react-router-dom";
 
 export const attendance = async () => {
   console.log("attendance가 가동되었다.");
-  const res = await axios.get(`${host}/api/attendance/student/checkclass`);
+  const res = await axios.get(`${API_SERVER_HOST}/api/attendance/all`);
   return res.data;
 };
 // 출석 확인
