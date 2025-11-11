@@ -9,8 +9,8 @@ const Header = () => {
   const loginState = useSelector((state) => state.loginSlice);
 
   return (
-    <div className="sticky top-0 z-50 w-full bg-white shadow-sm">
-      <header className="flex justify-between items-center px-8 py-4 bg-black text-white border-b border-gray-800 h-[68px]">
+    <div className="sticky top-0 z-100 w-full bg-white shadow-sm z-index:1">
+      <header className="flex justify-between items-center px-8 py-4 bg-sky-300 text-white border-b border-gray-800 h-[68px]">
         <div className="text-2xl font-bold">
           <div
             onClick={Home}
