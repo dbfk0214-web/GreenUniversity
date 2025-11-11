@@ -13,7 +13,6 @@ const BasicLayout = ({ children }) => {
     <div className="h-screen flex flex-col">
       <div className="h-20 shrink-0 bg-sky-300">
         <Header />
-        {children}
       </div>
       <div className="w-full h-screen grid place-items-center bg-white">
         <div className="relative-z w-[50%] aspect-square">
@@ -46,7 +45,7 @@ const BasicLayout = ({ children }) => {
               />
             </div>
           </div>
-          <div className="w-full h-screen">Content</div>
+          <div className="w-full h-screen">{children}</div>
           <div className="w-full h-screen">Content</div>
           <div className="w-full h-screen">Content</div>
           <div className="w-full h-screen">Content</div>
