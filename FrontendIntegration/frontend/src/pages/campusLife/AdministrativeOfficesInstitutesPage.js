@@ -1,9 +1,10 @@
 import React from 'react'
+import AdministrativeOfficesInstitutesComponent from '../../components/campusLife/AdministrativeOfficesInstitutesComponent'
 
 const AdministrativeOfficesInstitutesPage = () => {
   return (
     <div>
-      AdministrativeOfficesInstitutesPage
+      <AdministrativeOfficesInstitutesComponent />
     </div>
   )
 }

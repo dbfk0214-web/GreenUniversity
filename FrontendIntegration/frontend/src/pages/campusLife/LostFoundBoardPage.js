@@ -1,9 +1,10 @@
 import React from 'react'
+import LostFoundBoardComponent from '../../components/campusLife/LostFoundBoardComponent'
 
 const LostFoundBoardPage = () => {
   return (
     <div>
-      LostFoundBoardPage
+      <LostFoundBoardComponent />
     </div>
   )
 }
