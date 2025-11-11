@@ -1,9 +1,10 @@
 import React from 'react'
+import ScholarshipsComponent from '../../components/academicSupport/ScholarshipsComponent'
 
 const ScholarshipsPage = () => {
   return (
     <div>
-      ScholarshipsPage
+      <ScholarshipsComponent />
     </div>
   )
 }

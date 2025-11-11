@@ -1,9 +1,10 @@
 import React from 'react'
+import UniversityOverviewComponent from '../../components/aboutGreen/UniversityOverviewComponent'
 
 const UniversityOverviewPage = () => {
   return (
     <div>
-      UniversityOverviewPage
+      <UniversityOverviewComponent />
     </div>
   )
 }

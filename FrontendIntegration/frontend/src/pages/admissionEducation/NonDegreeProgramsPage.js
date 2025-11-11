@@ -1,9 +1,10 @@
 import React from 'react'
+import NonDegreeProgramsComponent from '../../components/admissionEducation/NonDegreeProgramsComponent'
 
 const NonDegreeProgramsPage = () => {
   return (
     <div>
-      Non_degreeProgramsPage
+      <NonDegreeProgramsComponent />
     </div>
   )
 }
