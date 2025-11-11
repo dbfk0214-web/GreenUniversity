@@ -1,4 +1,4 @@
-import { lazy } from "react";
+import { lazy, Suspense } from "react";
 import { createBrowserRouter } from "react-router-dom";
 import academicAffairsRouter from "./academicAffairsRouter";
 import financeSupportRouter from "./financeSupportRouter";
