@@ -27,7 +27,7 @@ const extracurricularprogramsRouter = () => {
       ),
     },
     {
-      path: "programapplication",
+      path: "application",
       element: (
         <Suspense fallback={Loading}>
           <Mainlayouts>

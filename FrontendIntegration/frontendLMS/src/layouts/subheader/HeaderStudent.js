@@ -5,9 +5,7 @@ export default function HeaderStudent() {
     "자유게시판" : "/community/free",
     "동아리게시판": "/community/club",
     "학과게시판": "/community/department",
-    "Q&A": "/community/q&a",
-    "1대1 상담": "/community/counsel",
-    질문: "/community/question",
+    "Q&A": "/community/qanda",
   };
   const datas = {
     
@@ -119,7 +117,7 @@ export default function HeaderStudent() {
             {/* 비교과 */}
             <li className="group">
               <Link
-                to="Programs"
+                to=""
                 className="block py-2 px-3 rounded-lg hover:bg-white/60 transition-colors duration-300 font-semibold"
               >
                 비교과 프로그램
@@ -144,7 +142,7 @@ export default function HeaderStudent() {
                 </li>
                 <li>
                   <Link
-                    to="cancle"
+                    to="cancellation"
                     className="block py-1 px-2 rounded hover:bg-orange-400 hover:text-white transition-colors"
                   >
                     비교과프로그램 신청 취소
@@ -275,7 +273,7 @@ export default function HeaderStudent() {
               >
                 <li className="group/inner">
                   <Link
-                    to="/community/entire"
+                    to="/community"
                     className="block py-1 px-2 rounded hover:bg-orange-400 hover:text-white transition-colors"
                   >
                     전체게시판
@@ -290,7 +288,7 @@ export default function HeaderStudent() {
                     space-y-1
                   "
                   >
-                    {["자유게시판","동아리게시판","학과게시판","Q&A","1대1 상담","질문"].map((v) => (
+                    {["자유게시판","동아리게시판","학과게시판","Q&A"].map((v) => (
                       <li key={v}>
                         <Link
                           to={data[v]}

@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import SignedLoginComponent from "../components/auth/SignedLoginComponent";
 import UnSignedLoginComponent from "../components/auth/UnSignedLoginComponent";
 import Img1 from "../images/1.png";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   const { Home } = useNavigationTest();
@@ -17,7 +18,7 @@ const Header = () => {
             <img src={Img1} alt="1.png" className="object-contain h-12"></img>
           </div>
         </div>
-        <div>그린 대학교 학사 관리 시스템</div>
+        <div><Link to = {"http://localhost:3000"}>그린 대학교 학사 관리 시스템</Link></div>
         <div>
           {/* loginState에 email 값이 있으면 로그인 된 상태, 없으면 로그아웃 상태 */}
           {loginState.email ? (

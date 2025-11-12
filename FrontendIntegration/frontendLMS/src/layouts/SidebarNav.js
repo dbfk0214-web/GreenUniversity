@@ -1,5 +1,3 @@
-// SidebarNav.jsx  (Navbar 대체 가능)
-// Tailwind 필요: group, transition, etc.
 import React, { useEffect, useRef, useState } from "react";
 import { NavLink } from "react-router-dom";
 
@@ -7,10 +5,9 @@ export default function SidebarNav({ menu = defaultMenu }) {
   const wrapRef = useRef(null);
   const barRef = useRef(null);
   const itemRefs = useRef([]);
-  const [activeIndex, setActiveIndex] = useState(0);    // 클릭으로 고정되는 인덱스
-  const [hoverIndex, setHoverIndex] = useState(null);   // 현재 hover 중인 인덱스
+  const [activeIndex, setActiveIndex] = useState(0);    
+  const [hoverIndex, setHoverIndex] = useState(null);   
 
-  // === 움직이는 바 애니메이션 상태 ===
   const current = useRef({ y: 0 });
   const target = useRef({ y: 0 });
   const rafId = useRef(0);
@@ -57,7 +54,6 @@ export default function SidebarNav({ menu = defaultMenu }) {
     if (barRef.current) {
       // hover 중이면 주황색, 아니면 흰색
       barRef.current.classList.toggle("bg-orange-400", hoverIndex !== null);
-      barRef.current.classList.toggle("bg-white", hoverIndex === null);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [hoverIndex, activeIndex]);

@@ -54,7 +54,6 @@ export default function Mainlayouts({children}) {
         >
           <div className="w-10 h-10 rounded-full bg-yellow-300/50 transition-transform duration-150 ease-out hover:scale-125" />
         </div>
-
         <div
           id="cursorTrail"
           className="pointer-events-none fixed left-0 top-0 rounded-full bg-yellow-200/30 will-change-transform"
