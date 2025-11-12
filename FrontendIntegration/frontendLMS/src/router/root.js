@@ -1,4 +1,4 @@
-import { lazy } from "react";
+import { lazy, Suspense } from "react";
 import { createBrowserRouter } from "react-router-dom";
 import academicAffairsRouter from "./academicAffairsRouter";
 import financeSupportRouter from "./financeSupportRouter";
@@ -8,6 +8,7 @@ import communityRouter from "./communityRouter";
 import courseEnrollementManagementRouter from "./courseEnrollmentManagement/courseEnrollementManagementRouter";
 import extracurricularprogramsRouter from "./extracurricularprogramsRouter";
 import accountRouter from "./accountRouter";
+import Data from "../components/Data";
 
 const Mainlayouts = lazy(() => import("../layouts/Mainlayouts"));
 
@@ -48,6 +49,10 @@ const root = createBrowserRouter([
     path: "account",
     // element: <Suspense fallback={Loading}><Basiclayout children={<Main />}></Basiclayout></Suspense>,
     children: accountRouter(),
+  },
+  {
+    path: "academic_info.json",
+   element:<Data/>
   },
 ]);
 

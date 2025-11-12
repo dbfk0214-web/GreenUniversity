@@ -1,9 +1,10 @@
 import React from 'react'
+import CertificatesIssuanceComponent from '../../components/academicSupport/CertificatesIssuanceComponent'
 
 const CertificatesIssuancePage = () => {
   return (
     <div>
-      CertificatesIssuancePage
+      <CertificatesIssuanceComponent />
     </div>
   )
 }

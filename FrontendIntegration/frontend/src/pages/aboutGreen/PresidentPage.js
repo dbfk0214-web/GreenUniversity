@@ -1,9 +1,10 @@
 import React from 'react'
+import PresidentComponent from '../../components/aboutGreen/PresidentComponent'
 
 const PresidentPage = () => {
   return (
     <div>
-      PresidentPage
+      <PresidentComponent />
     </div>
   )
 }
