@@ -46,18 +46,15 @@ const aboutGreenRouter = () => {
         </Suspense>
       ),
     },
-    // {
-    //     path:"president",
-    //     element:<Suspense fallback={Loading}><BasicLayout children={<President />}/></Suspense>
-    // },
     {
       path: "president",
       element: (
         <Suspense fallback={Loading}>
-          <President />
+          <BasicLayout children={<President />} />
         </Suspense>
       ),
     },
+
     {
       path: "universityoverview",
       element: (
