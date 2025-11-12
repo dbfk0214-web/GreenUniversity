@@ -1,12 +1,12 @@
-import React from 'react'
-import CampusGuideComponent from '../../components/aboutGreen/CampusGuideComponent'
+import React from "react";
+import CampusGuideComponent from "../../components/aboutGreen/CampusGuideComponent";
 
 const CampusGuidePage = () => {
   return (
     <div>
       <CampusGuideComponent />
     </div>
-  )
-}
+  );
+};
 
-export default CampusGuidePage
+export default CampusGuidePage;

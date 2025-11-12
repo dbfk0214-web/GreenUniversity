@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 // jsonData 경로는 실제 프로젝트 구조에 맞게 확인해 주세요.
-import jsonData from "../../slice/president_profile.json";
+import jsonData from "../../json/president_profile.json";
 
 const PresidentComponent = () => {
   const [profileData, setProfileData] = useState(null);
