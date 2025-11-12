@@ -8,6 +8,7 @@ import campusLifeRouter from "./campusLifeRouter";
 import extraServicesRouter from "./extraServicesRouter";
 import informationRouter from "./informationRouter";
 import accountRouter from "./accountRouter";
+import adminRouter from "./adminRouter";
 
 const { createBrowserRouter } = require("react-router-dom");
 const Loading = <div>Loading......</div>;
@@ -59,6 +60,12 @@ const root = createBrowserRouter([
     // element: <Suspense fallback={Loading}><Basiclayout children={<Main />}></Basiclayout></Suspense>,
     children: accountRouter(),
   },
+    {
+    path: "admin",
+    // element: <Suspense fallback={Loading}><Basiclayout children={<Main />}></Basiclayout></Suspense>,
+    children: adminRouter(),
+  },
+  
 ]);
 
 export default root;

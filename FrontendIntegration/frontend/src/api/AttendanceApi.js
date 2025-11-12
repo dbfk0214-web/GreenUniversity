@@ -1,12 +1,37 @@
 import axios from "axios";
-import { API_SERVER_HOST } from "./commonApi";
+import { API_SERVER_HOST, typeEnum } from "./commonApi";
 import { Await } from "react-router-dom";
+import { useState } from "react";
 
-export const Attendance = async () => {
+// excludeKeys정의
+const excludeKeys = ["memo"];
+
+const Attendance = async () => {
   console.log("attendance가 가동되었다.");
-  const res = await axios.get(`${host}/api/attendance/student/checkclass`);
+  const res = await axios.get(`${API_SERVER_HOST}/api/attendance/student/checkclass`);
   return res.data;
 };
+
+const readAll = async () => {
+  console.log("attendance가 가동되었다.");
+  const res = await axios.get(`${API_SERVER_HOST}/api/attendance/all`);
+  return res.data;
+};
+
+const config = {
+  columns: {
+    attendance: "이름",
+    localDateTime: "출석일",
+    status: "상태",
+  },
+  func:{Attendance,readAll},
+  excludeKeys: excludeKeys,
+  formData: {},
+  type:typeEnum.default
+};
+
+
+export default {config};
 // 출석 확인
 
 // export const attendanceHandler = async () => {
