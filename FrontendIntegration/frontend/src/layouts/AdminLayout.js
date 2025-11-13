@@ -1,13 +1,15 @@
   import axios from "axios";
-  import React, { use, useEffect, useState } from "react";
+  import React, { use, useContext, useEffect, useState } from "react";
   import { typeEnum } from "../api/commonApi";
+import AdminSelectedContext from "../components/admin/AdminSelectContext";
 
-  const AdminLayout = ({ config,select }) => {
+  const AdminLayout = ({ config }) => {
     // 데이터 가져오기
     const { columns, funcs, formData, type} = config;
-    const {selectId, setSelectId} = select;
-
     const { readAll ,readOne, deleteOne, insert, update } = funcs;
+
+    const { selectId, setSelectId } = useContext(AdminSelectedContext);
+
 
     // useState 사용
     const [readData, setReadData] = useState([]);
