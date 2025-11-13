@@ -5,7 +5,9 @@ export default function HeaderStudent() {
     "자유게시판" : "/community/free",
     "동아리게시판": "/community/club",
     "학과게시판": "/community/department",
-    "Q&A": "/community/qanda",
+    "데이터공유게시판":"/community/dataSharing",
+    "Q&A": "/community/qanda"
+
   };
   const datas = {
     
@@ -288,7 +290,7 @@ export default function HeaderStudent() {
                     space-y-1
                   "
                   >
-                    {["자유게시판","동아리게시판","학과게시판","Q&A"].map((v) => (
+                    {["자유게시판","동아리게시판","학과게시판","데이터공유게시판","Q&A"].map((v) => (
                       <li key={v}>
                         <Link
                           to={data[v]}

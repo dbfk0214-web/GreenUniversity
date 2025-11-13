@@ -5,20 +5,20 @@ import Mainlayouts from "../layouts/Mainlayouts";
 
 const Loading = <div>Loading......</div>;
 
-const Club = lazy(() => import("../pages/community/ClubPage"));
-const Department = lazy(() => import("../pages/community/DepartmentPage"));
-const Free = lazy(() => import("../pages/community/FreePage"));
-const QaA = lazy(() => import("../pages/community/QaAPage"));
+const Club = lazy(() => import("../components/community/ClubPageComponent"));
+const Department = lazy(() => import("../components/community/DepartmentPageComponent"));
+const Free = lazy(() => import("../components/community/FreePageComponent"));
+const QaA = lazy(() => import("../components/community/QaAPageComponent"));
 const Chatbot = lazy(() => import("../pages/community/ChatbotPage"));
 const CommunityList = lazy(() =>
-  import("../pages/community/CommunityListPage")
+  import("../components/community/CommunityListPageComponent")
 );
 const Mentoringinfo = lazy(() =>
   import("../components/community/Mentoringinfo")
 );
-const Entrie = lazy(() => import("../pages/community/EntriePage"))
-const CommunityPage = lazy(() => import("../pages/community/CommunityPage"))
-
+const Entrie = lazy(() => import("../components/community/EntriePageComponent"))
+const CommunityPage = lazy(() => import("../components/community/CommunityPageComponent"))
+const DataShareBoardPage = lazy(() => import("../components/community/DataSharingPageComponent"))
 const communityRouter = () => [
   {
     path: "/community",
@@ -38,7 +38,8 @@ const communityRouter = () => [
       { path: "qanda", element: <QaA /> },
       { path: "chatbot", element: <Chatbot /> },
       { path: "commentList", element: <CommunityList /> },
-      { path: "mentoringinfo", element: <Mentoringinfo /> }, // 소문자 경로 추천
+      { path: "mentoringinfo", element: <Mentoringinfo /> },
+      { path: "dataSharing", element: <DataShareBoardPage /> },  // 소문자 경로 추천
     ],
   },
 ];
