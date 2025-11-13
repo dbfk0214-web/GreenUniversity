@@ -50,7 +50,7 @@ const BOARDS = [
   { key: "files", name: "자료실", path: "/files", color: "from-sky-300 to-blue-500" },
 ];
 
-export default function BoardsHubPage() {
+export default function EntriePageComponent() {
   const nav = useNavigate();
 
   const [query, setQuery] = useState("");

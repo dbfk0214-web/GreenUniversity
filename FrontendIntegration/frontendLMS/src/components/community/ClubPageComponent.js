@@ -53,7 +53,7 @@ const EMPTY_FORM = {
   tags: [],
 };
 
-export default function ClubPage() {
+export default function ClubPageComponent() {
   const [posts, setPosts] = useState(SEED);
   const [query, setQuery] = useState("");
   const [modalOpen, setModalOpen] = useState(false);

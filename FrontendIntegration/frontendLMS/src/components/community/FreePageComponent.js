@@ -46,7 +46,7 @@ const SEED = [
 
 const EMPTY_FORM = { title: "", author: "", content: "", tags: [] };
 
-export default function FreeBoardPage() {
+export default function FreePageComponent() {
   const [posts, setPosts] = useState(SEED);
   const [query, setQuery] = useState("");
   const [sort, setSort] = useState("latest"); // latest | views | likes

@@ -1,8 +1,9 @@
 import React from 'react'
+import CommunityListPageComponent from '../../components/community/CommunityListPageComponent'
 
 const CommunityListPage = () => {
   return (
-    <div>CommunityListPage</div>
+    <div><CommunityListPageComponent /></div>
   )
 }
 

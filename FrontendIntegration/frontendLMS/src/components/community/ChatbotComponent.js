@@ -37,7 +37,7 @@ function makeBotReply(userText) {
   return "음… 일단 내가 바로 답해본 내용이야!\n조금 더 구체적으로 말해주면, 더 디테일하게 같이 정리해볼게 ✨";
 }
 
-export default function ChatBotPage() {
+export default function ChatbotComponent() {
   const [messages, setMessages] = useState(initialMessages);
   const [input, setInput] = useState("");
   const [isBotTyping, setIsBotTyping] = useState(false);

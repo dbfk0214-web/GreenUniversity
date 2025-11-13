@@ -72,7 +72,7 @@ const SEED = [
 const EMPTY_FORM_Q = { title: "", author: "", content: "", tags: [] };
 const EMPTY_FORM_A = { author: "", content: "" };
 
-export default function QnaPage() {
+export default function QaAPageComponent() {
   const [items, setItems] = useState(SEED);
   const [query, setQuery] = useState("");
   const [sort, setSort] = useState("latest"); // latest | votes | views | unanswered

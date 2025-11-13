@@ -51,7 +51,7 @@ const buildDepartments = () => {
   }));
 };
 
-export default function DepartmentPage() {
+export default function DepartmentPageComponent() {
   const [selected, setSelected] = useState(null);
   const [q, setQ] = useState("");
   const departments = useMemo(buildDepartments, []);

@@ -72,7 +72,7 @@ const PHOTOS = [
 /** 텍스트 줄임 */
 const clamp = (s, n = 70) => (s.length > n ? s.slice(0, n) + "…" : s);
 
-export default function CommunityHomePage() {
+export default function CommunityPageComponent() {
   const [likes, setLikes] = useState(() => Object.fromEntries(COMMUNITIES.map(c => [c.id, 0])));
   const tagCloud = useMemo(
     () => ["#러닝", "#코딩", "#전시", "#플리마켓", "#보드게임", "#버스킹", "#스터디", "#사진", "#취미", "#크루", "#친구", "#FUN"],

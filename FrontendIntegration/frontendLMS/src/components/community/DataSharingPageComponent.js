@@ -36,7 +36,7 @@ const tagStyles = {
   Excel: "bg-amber-100 text-amber-700",
 };
 
-export default function DataShareBoardPage() {
+export default function DataSharingPageComponent() {
   const [search, setSearch] = useState("");
   const [selectedTag, setSelectedTag] = useState("ALL");
 
