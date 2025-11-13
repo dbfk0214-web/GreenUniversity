@@ -39,7 +39,6 @@ const AdminComponent = () => {
               formData : excludeColumns(AttendanceApi.config.columns,AttendanceApi.config.excludeKeys)
             }
           }
-          select={{selectId,setSelectId}}
         />
       </AdminSelectedContext.Provider>
     </div>
