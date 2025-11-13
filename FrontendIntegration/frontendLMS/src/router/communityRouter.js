@@ -13,9 +13,8 @@ const Chatbot = lazy(() => import("../pages/community/ChatbotPage"));
 const CommunityList = lazy(() =>
   import("../pages/community/CommunityListPage")
 );
-const Mentoringinfo = lazy(() =>
-  import("../components/community/Mentoringinfo")
-);
+const DataSharing = lazy(() => import("../components/community/DataSharingPageComponent"));
+
 const Entrie = lazy(() => import("../pages/community/EntriePage"))
 const CommunityPage = lazy(() => import("../pages/community/CommunityPage"))
 
@@ -28,8 +27,7 @@ const communityRouter = () => {
       { path: "free", element: <Mainlayouts children={<Free />} /> },
       { path: "qanda", element: <Mainlayouts children={<QaA />} /> },
       { path: "chatbot", element: <Mainlayouts children={<Chatbot />} /> },
-      { path: "commentList", element: <Mainlayouts children={<CommunityList />} /> },
-      { path: "mentoringinfo", element: <Mainlayouts children={<Mentoringinfo />} /> }, // 소문자 경로 추천
+      { path: "dataSharing", element: <Mainlayouts children={<DataSharing />} /> },// 소문자 경로 추천
 ]
 }
 
