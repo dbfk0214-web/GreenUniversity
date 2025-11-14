@@ -1,187 +1,193 @@
-// StopWhenIdleFollower.jsx
-import React, { useEffect, useRef, useState } from "react";
-import { MouseCursor } from "../api/MousecursorHandler";
+// src/layouts/Navbar.js
+import React, { useState } from "react";
+import { NavLink } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { menus } from "../layouts/subheader/menuconfig";
 
-export default function Navbar({ subHeader }) {
-  const wrapRef = useRef(null);
-  const barRef = useRef(null);
+export default function Navbar() {
+  const loginState = useSelector((state) => state.loginSlice);
 
-  const [activeEl, setActiveEl] = useState(null); 
-  const [hasActive, setHasActive] = useState(false); 
-  const apiRef = useRef({ moveToEl: () => {} });
-  const prevElRef = useRef(null);
+  // 로그인 역할에 따라 메뉴 세트 선택
+  let menuData = menus.student;
+  if (loginState?.role === "ADMIN") menuData = menus.admin;
+  else if (loginState?.role === "PROFESSOR") menuData = menus.professor;
 
-  useEffect(() => {
-    const wrap = wrapRef.current;
-    const bar = barRef.current;
-    if (!wrap || !bar) return;
+  // 어떤 대분류/중분류가 열려 있는지 상태
+  const [openMain, setOpenMain] = useState(null); // 대분류 index
+  const [openSub, setOpenSub] = useState(null);   // "mIdx-sIdx"
 
-    const lerp = 0.45,
-      idleMs = 80,
-      epsilon = 0.2;
-    let cx = 0,
-      cy = 0,
-      tx = 0,
-      ty = 0,
-      raf = 0,
-      running = false,
-      lastMoveAt = 0;
+  const handleMainClick = (idx) => {
+    setOpenMain((prev) => (prev === idx ? null : idx));
+    setOpenSub(null); // 다른 대분류 열면 소분류는 초기화
+  };
 
-    const now = () => performance.now();
-    const startRaf = () => {
-      if (!running) {
-        running = true;
-        raf = requestAnimationFrame(tick);
-      }
-    };
-    const stopRaf = () => {
-      if (running) {
-        running = false;
-        cancelAnimationFrame(raf);
-      }
-    };
-    const clamp = (v, min, max) => Math.min(Math.max(v, min), max);
-
-    const getRects = () => ({
-      pr: wrap.getBoundingClientRect(),
-      cr: bar.getBoundingClientRect(),
-    });
-
-    apiRef.current.moveToEl = (el) => {
-      if (!el) return;
-      const { pr, cr } = getRects();
-      const lr = el.getBoundingClientRect();
-
-      let desiredX = (pr.width - cr.width) / 2;
-      let desiredY =
-        lr.top - pr.top + wrap.scrollTop + (lr.height - cr.height) / 2;
-
-      desiredX = clamp(desiredX, pr.width - cr.width, 0);
-      desiredY = clamp(desiredY, 0, pr.height - cr.height);
-
-      tx = desiredX;
-      ty = desiredY;
-      lastMoveAt = now();
-      startRaf();
-    };
-
-    const tick = () => {
-      cx += (tx - cx) * lerp;
-      cy += (ty - cy) * lerp;
-      bar.style.transform = `translate3d(${cx}px, ${cy}px, 0)`;
-
-      const dist = Math.hypot(tx - cx, ty - cy);
-      const idle = now() - lastMoveAt;
-      if (idle > idleMs && dist < epsilon) {
-        stopRaf();
-        return;
-      }
-      raf = requestAnimationFrame(tick);
-    };
-
-    const initCenter = () => {
-      const { pr, cr } = getRects();
-      cx = tx = (pr.width - cr.width) / 2;
-      cy = ty = (pr.height - cr.height) / 2;
-      bar.style.transform = `translate3d(${cx}px, ${cy}px, 0)`;
-    };
-    initCenter();
-
-    return () => {
-      stopRaf();
-    };
-  }, []);
-
-  useEffect(() => {
-    const cursorEl = document.getElementById("cursor");
-    const trailEl = document.getElementById("cursorTrail");
-    if (!cursorEl) return;
-    const api = new MouseCursor({
-      root: document.documentElement,
-      cursorEl,
-      trailEl,
-      hideNative: true,
-      speed: 0.2,
-      ease: "expo.out",
-    }).attach();
-    return () => api.destroy();
-  }, []);
-
-  useEffect(() => {
-    const wrap = wrapRef.current;
-    if (!wrap) return;
-
-    const lis = Array.from(wrap.querySelectorAll("li"));
-    const onEnter = (el) => () => {
-      // 이전 활성 클래스 제거
-      if (prevElRef.current && prevElRef.current !== el) {
-        prevElRef.current.classList.remove("is-active");
-      }
-      // 현재 활성
-      el.classList.add("is-active");
-      prevElRef.current = el;
-      setActiveEl(el);
-      setHasActive(true); // flex 재정렬 트리거
-      apiRef.current.moveToEl(el); // 바 이동
-    };
-    const onLeave = (el) => () => {
-      // hover 해제해도 최근 선택 유지하고 싶으면 아래 줄 주석 처리
-      el.classList.remove("is-active");
-      setActiveEl(null);
-      setHasActive(false); // flex 원상 복귀
-    };
-
-    lis.forEach((el) => {
-      el.addEventListener("mouseenter", onEnter(el));
-      el.addEventListener("focusin", onEnter(el));
-      el.addEventListener("mouseleave", onLeave(el));
-      el.addEventListener("focusout", onLeave(el));
-    });
-
-    return () => {
-      lis.forEach((el) => el.replaceWith(el.cloneNode(true)));
-    };
-  }, [subHeader]);
+  const handleSubClick = (mIdx, sIdx) => {
+    const key = `${mIdx}-${sIdx}`;
+    setOpenSub((prev) => (prev === key ? null : key));
+  };
 
   return (
-    <div>
-      <div
-        id="cursor"
-        className="w-10 h-10 rounded-full bg-yellow-300/50 transform transition-transform duration-500 ease-out hover:scale-125"
-      />
-      <div
-        ref={wrapRef}
-        className={`
-    fixed left-0 top-[10%] 
-    w-[20%] 
-    bg-blue-400 rounded-2xl 
-    flex flex-col justify-start items-center
-    pt-6 pb-10 
-    transition-all duration-500 ease-in-out list-none
-        `}
-      >
-        <div className="w-full">{subHeader}</div>
-        <div
-          ref={barRef}
-          className={`
-            absolute top-0 z-[1]
-            w-[130%] min-h-[30px]
-            ${activeEl ? "bg-orange-400" : "bg-white"}
-            rounded-2xl shadow-2xl
-            pointer-events-none
-            transform-gpu will-change-transform
-            transition-[background-color,box-shadow,filter] duration-300 ease-out
-            /* 시각적 부드러움 */
-            backdrop-blur-[2px] line-none
-          `}
-          style={{ left: "-15%" }}
-          aria-hidden="true"
-        />
-        <style>{`
-          li { position: relative; z-index: 2; color: #1f2937; transition: color .25s ease; }
-          li.is-active { color: #000000 !important; }
-        `}</style>
-      </div>
-    </div>
+    <aside
+      className="
+        fixed left-0 top-[10%]
+        w-[20%]
+        bg-blue-300/90 backdrop-blur-lg
+        rounded-[32px]
+        px-5 pt-8 pb-10
+        shadow-2xl
+        max-h-[80vh] overflow-y-auto
+        transition-all duration-500
+      "
+    >
+      <nav>
+        <ul className="space-y-4 text-gray-900 font-semibold list-none">
+          {menuData.map((main, mIdx) => {
+            const mainOpen = openMain === mIdx;
+            const mainHasChildren =
+              Array.isArray(main.children) && main.children.length > 0;
+
+            return (
+              <li key={main.label} className="group">
+                {/* ───────── 대분류 (URL + 토글) ───────── */}
+                <NavLink
+                  to={main.to || "#"}
+                  onClick={() => handleMainClick(mIdx)}
+                  className={`
+                    w-full flex items-center justify-between
+                    py-3 px-4
+                    bg-white/80 hover:bg-white
+                    rounded-[24px]
+                    shadow-md hover:shadow-lg
+                    transition-all duration-300
+                    text-left
+                    ${mainOpen ? "scale-[1.02]" : "scale-[1]"}
+                  `}
+                >
+                  <span className="text-[17px]">{main.label}</span>
+                  {mainHasChildren && (
+                    <span
+                      className={`
+                        text-sm transition-transform duration-300
+                        ${mainOpen ? "rotate-90" : "rotate-0"}
+                      `}
+                    >
+                      ▸
+                    </span>
+                  )}
+                </NavLink>
+
+                {/* ───────── 중분류 영역 (대분류 클릭 시 스르륵) ───────── */}
+                {mainHasChildren && (
+                  <ul
+                    className={`
+                      ml-3 mt-2 space-y-2
+                      overflow-hidden
+                      transform
+                      transition-[max-height,opacity,transform] duration-500 ease-out
+                      ${
+                        mainOpen
+                          ? "max-h-[800px] opacity-100 translate-y-0"
+                          : "max-h-0 opacity-0 -translate-y-3"
+                      }
+                    `}
+                  >
+                    {main.children.map((mid, sIdx) => {
+                      const subKey = `${mIdx}-${sIdx}`;
+                      const subOpen = openSub === subKey;
+                      const midHasChildren =
+                        Array.isArray(mid.children) && mid.children.length > 0;
+
+                      return (
+                        <li key={mid.label} className="pl-1">
+                          {midHasChildren ? (
+                            <>
+                              {/* ───── 중분류 (URL + 토글) ───── */}
+                              <NavLink
+                                to={mid.to || "#"}
+                                onClick={() => handleSubClick(mIdx, sIdx)}
+                                className={`
+                                  w-full flex items-center justify-between
+                                  py-2 px-3
+                                  bg-white/70 hover:bg-white
+                                  rounded-[20px]
+                                  shadow-sm hover:shadow-md
+                                  transition-all duration-300
+                                  text-left
+                                  ${subOpen ? "scale-[1.02]" : "scale-[1]"}
+                                `}
+                              >
+                                <span className="text-[15px]">
+                                  {mid.label}
+                                </span>
+                                <span
+                                  className={`
+                                    text-xs transition-transform duration-300
+                                    ${subOpen ? "rotate-90" : "rotate-0"}
+                                  `}
+                                >
+                                  ▸
+                                </span>
+                              </NavLink>
+
+                              {/* ───── 소분류 영역 (중분류 클릭 시 스르륵) ───── */}
+                              <ul
+                                className={`
+                                  ml-4 mt-1 space-y-1
+                                  overflow-hidden
+                                  transform
+                                  transition-[max-height,opacity,transform] duration-500 ease-out
+                                  ${
+                                    subOpen
+                                      ? "max-h-[500px] opacity-100 translate-y-0"
+                                      : "max-h-0 opacity-0 -translate-y-3"
+                                  }
+                                `}
+                              >
+                                {mid.children.map((leaf) => (
+                                  <li key={leaf.label}>
+                                    <NavLink
+                                      to={leaf.to}
+                                      className="
+                                        block py-1.5 px-3
+                                        rounded-[16px]
+                                        bg-white/60 hover:bg-orange-300 hover:text-white
+                                        shadow-sm hover:shadow-lg
+                                        transition-all duration-300
+                                        text-[14px]
+                                      "
+                                    >
+                                      {leaf.label}
+                                    </NavLink>
+                                  </li>
+                                ))}
+                              </ul>
+                            </>
+                          ) : (
+                            // 소분류 없는 중분류 → 바로 링크만
+                            <NavLink
+                              to={mid.to || "#"}
+                              className="
+                                block py-2 px-3
+                                rounded-[20px]
+                                bg-white/70 hover:bg-orange-300 hover:text-white
+                                shadow-sm hover:shadow-md
+                                transition-all duration-300
+                                text-[15px]
+                              "
+                            >
+                              {mid.label}
+                            </NavLink>
+                          )}
+                        </li>
+                      );
+                    })}
+                  </ul>
+                )}
+              </li>
+            );
+          })}
+        </ul>
+      </nav>
+    </aside>
   );
 }
