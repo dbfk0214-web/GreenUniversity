@@ -1,193 +1,188 @@
-// src/layouts/Navbar.js
 import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { menus } from "../layouts/subheader/menuconfig";
+import { Link } from "react-router-dom";
 
-export default function Navbar() {
-  const loginState = useSelector((state) => state.loginSlice);
+export default function Navbar({ subHeader }) {
+  // subHeader가 undefined/null이어도 안전하게
+  const sections = Array.isArray(subHeader) ? subHeader : [];
 
-  // 로그인 역할에 따라 메뉴 세트 선택
-  let menuData = menus.student;
-  if (loginState?.role === "ADMIN") menuData = menus.admin;
-  else if (loginState?.role === "PROFESSOR") menuData = menus.professor;
+  // index 기반 열림 상태
+  const [openSections, setOpenSections] = useState({});
+  const [openChildren, setOpenChildren] = useState({});
 
-  // 어떤 대분류/중분류가 열려 있는지 상태
-  const [openMain, setOpenMain] = useState(null); // 대분류 index
-  const [openSub, setOpenSub] = useState(null);   // "mIdx-sIdx"
-
-  const handleMainClick = (idx) => {
-    setOpenMain((prev) => (prev === idx ? null : idx));
-    setOpenSub(null); // 다른 대분류 열면 소분류는 초기화
+  const toggleSection = (index) => {
+    setOpenSections((prev) => ({
+      ...prev,
+      [index]: !prev[index],
+    }));
   };
 
-  const handleSubClick = (mIdx, sIdx) => {
-    const key = `${mIdx}-${sIdx}`;
-    setOpenSub((prev) => (prev === key ? null : key));
+  const toggleChild = (index) => {
+    setOpenChildren((prev) => ({
+      ...prev,
+      [index]: !prev[index],
+    }));
   };
 
   return (
     <aside
       className="
-        fixed left-0 top-[10%]
-        w-[20%]
-        bg-blue-300/90 backdrop-blur-lg
-        rounded-[32px]
-        px-5 pt-8 pb-10
-        shadow-2xl
-        max-h-[80vh] overflow-y-auto
-        transition-all duration-500
+        fixed
+        left-6
+        top-1/2
+        -translate-y-1/2
+        z-30
+        pointer-events-auto
       "
     >
-      <nav>
-        <ul className="space-y-4 text-gray-900 font-semibold list-none">
-          {menuData.map((main, mIdx) => {
-            const mainOpen = openMain === mIdx;
-            const mainHasChildren =
-              Array.isArray(main.children) && main.children.length > 0;
+      <div
+        className="
+          w-64
+          max-h-[80vh]
+          bg-white
+          rounded-2xl
+          shadow-xl
+          border border-gray-200
+          overflow-y-auto
+        "
+      >
+        <nav className="px-4 py-4 space-y-4">
+          {sections.map((section, sectionIndex) => {
+            const children = Array.isArray(section.children)
+              ? section.children
+              : [];
+            const hasChildren = children.length > 0;
+
+            // ✅ 기본 닫힘 (false)
+            const isOpen = !!openSections[sectionIndex];
 
             return (
-              <li key={main.label} className="group">
-                {/* ───────── 대분류 (URL + 토글) ───────── */}
-                <NavLink
-                  to={main.to || "#"}
-                  onClick={() => handleMainClick(mIdx)}
-                  className={`
-                    w-full flex items-center justify-between
-                    py-3 px-4
-                    bg-white/80 hover:bg-white
-                    rounded-[24px]
-                    shadow-md hover:shadow-lg
-                    transition-all duration-300
-                    text-left
-                    ${mainOpen ? "scale-[1.02]" : "scale-[1]"}
-                  `}
-                >
-                  <span className="text-[17px]">{main.label}</span>
-                  {mainHasChildren && (
-                    <span
-                      className={`
-                        text-sm transition-transform duration-300
-                        ${mainOpen ? "rotate-90" : "rotate-0"}
-                      `}
-                    >
-                      ▸
-                    </span>
-                  )}
-                </NavLink>
-
-                {/* ───────── 중분류 영역 (대분류 클릭 시 스르륵) ───────── */}
-                {mainHasChildren && (
-                  <ul
-                    className={`
-                      ml-3 mt-2 space-y-2
-                      overflow-hidden
-                      transform
-                      transition-[max-height,opacity,transform] duration-500 ease-out
-                      ${
-                        mainOpen
-                          ? "max-h-[800px] opacity-100 translate-y-0"
-                          : "max-h-0 opacity-0 -translate-y-3"
-                      }
-                    `}
+              <div key={section.label} className="space-y-1">
+                {/* 대분류: 링크 + 토글 버튼 분리 */}
+                <div className="w-full flex items-center gap-1">
+                  {/* 대분류 링크 */}
+                  <Link
+                    to={section.to || "#"}
+                    className="
+                      flex-1
+                      text-[0.85rem] font-semibold
+                      px-3 py-2
+                      rounded-xl
+                      bg-sky-50
+                      text-sky-800
+                      hover:bg-orange-100 hover:text-orange-600
+                      transition-colors duration-150
+                      truncate
+                    "
                   >
-                    {main.children.map((mid, sIdx) => {
-                      const subKey = `${mIdx}-${sIdx}`;
-                      const subOpen = openSub === subKey;
-                      const midHasChildren =
-                        Array.isArray(mid.children) && mid.children.length > 0;
+                    {section.label}
+                  </Link>
+
+                  {/* 대분류 펼치기/접기 토글 */}
+                  {hasChildren && (
+                    <button
+                      type="button"
+                      onClick={() => toggleSection(sectionIndex)}
+                      className="
+                        flex-shrink-0
+                        text-[11px]
+                        px-2 py-1
+                        rounded-full
+                        text-sky-500
+                        bg-slate-50
+                        hover:bg-orange-100 hover:text-orange-600
+                        border border-gray-200
+                        transition-colors duration-150
+                      "
+                    >
+                      {isOpen ? "▾" : "▸"}
+                    </button>
+                  )}
+                </div>
+
+                {/* 중분류 */}
+                {hasChildren && isOpen && (
+                  <ul className="pl-2 mt-1 space-y-1">
+                    {children.map((child, childIndex) => {
+                      const grandChildren = Array.isArray(child.children)
+                        ? child.children
+                        : [];
+                      const hasGrand = grandChildren.length > 0;
+
+                      const key = `${sectionIndex}-${childIndex}`;
+                      const isChildOpen = !!openChildren[key];
 
                       return (
-                        <li key={mid.label} className="pl-1">
-                          {midHasChildren ? (
-                            <>
-                              {/* ───── 중분류 (URL + 토글) ───── */}
-                              <NavLink
-                                to={mid.to || "#"}
-                                onClick={() => handleSubClick(mIdx, sIdx)}
-                                className={`
-                                  w-full flex items-center justify-between
-                                  py-2 px-3
-                                  bg-white/70 hover:bg-white
-                                  rounded-[20px]
-                                  shadow-sm hover:shadow-md
-                                  transition-all duration-300
-                                  text-left
-                                  ${subOpen ? "scale-[1.02]" : "scale-[1]"}
-                                `}
-                              >
-                                <span className="text-[15px]">
-                                  {mid.label}
-                                </span>
-                                <span
-                                  className={`
-                                    text-xs transition-transform duration-300
-                                    ${subOpen ? "rotate-90" : "rotate-0"}
-                                  `}
-                                >
-                                  ▸
-                                </span>
-                              </NavLink>
-
-                              {/* ───── 소분류 영역 (중분류 클릭 시 스르륵) ───── */}
-                              <ul
-                                className={`
-                                  ml-4 mt-1 space-y-1
-                                  overflow-hidden
-                                  transform
-                                  transition-[max-height,opacity,transform] duration-500 ease-out
-                                  ${
-                                    subOpen
-                                      ? "max-h-[500px] opacity-100 translate-y-0"
-                                      : "max-h-0 opacity-0 -translate-y-3"
-                                  }
-                                `}
-                              >
-                                {mid.children.map((leaf) => (
-                                  <li key={leaf.label}>
-                                    <NavLink
-                                      to={leaf.to}
-                                      className="
-                                        block py-1.5 px-3
-                                        rounded-[16px]
-                                        bg-white/60 hover:bg-orange-300 hover:text-white
-                                        shadow-sm hover:shadow-lg
-                                        transition-all duration-300
-                                        text-[14px]
-                                      "
-                                    >
-                                      {leaf.label}
-                                    </NavLink>
-                                  </li>
-                                ))}
-                              </ul>
-                            </>
-                          ) : (
-                            // 소분류 없는 중분류 → 바로 링크만
-                            <NavLink
-                              to={mid.to || "#"}
+                        <li key={child.label} className="space-y-1">
+                          <div className="flex items-center justify-between">
+                            <Link
+                              to={child.to || "#"}
                               className="
-                                block py-2 px-3
-                                rounded-[20px]
-                                bg-white/70 hover:bg-orange-300 hover:text-white
-                                shadow-sm hover:shadow-md
-                                transition-all duration-300
-                                text-[15px]
+                                flex-1
+                                text-[0.8rem]
+                                text-sky-700
+                                px-3 py-1.5
+                                rounded-lg
+                                hover:bg-orange-100 hover:text-orange-600
+                                transition-colors duration-150
+                                flex items-center gap-2
                               "
                             >
-                              {mid.label}
-                            </NavLink>
+                              <span className="w-1 h-1 rounded-full bg-sky-400" />
+                              <span className="truncate">{child.label}</span>
+                            </Link>
+
+                            {hasGrand && (
+                              <button
+                                type="button"
+                                onClick={() => toggleChild(key)}
+                                className="
+                                  ml-1
+                                  text-[10px]
+                                  px-1.5 py-0.5
+                                  rounded-full
+                                  text-sky-500
+                                  hover:bg-orange-100 hover:text-orange-600
+                                  transition-colors duration-150
+                                "
+                              >
+                                {isChildOpen ? "▾" : "▸"}
+                              </button>
+                            )}
+                          </div>
+
+                          {/* 소분류 */}
+                          {hasGrand && isChildOpen && (
+                            <ul className="ml-4 border-l border-gray-200 pl-3 space-y-0.5">
+                              {grandChildren.map((gChild) => (
+                                <li key={gChild.label}>
+                                  <Link
+                                    to={gChild.to || "#"}
+                                    className="
+                                      block
+                                      text-[0.75rem]
+                                      text-sky-600
+                                      px-2 py-1
+                                      rounded-lg
+                                      hover:bg-orange-100 hover:text-orange-600
+                                      transition-colors duration-150
+                                    "
+                                  >
+                                    {gChild.label}
+                                  </Link>
+                                </li>
+                              ))}
+                            </ul>
                           )}
                         </li>
                       );
                     })}
                   </ul>
                 )}
-              </li>
+              </div>
             );
           })}
-        </ul>
-      </nav>
+        </nav>
+      </div>
     </aside>
   );
 }

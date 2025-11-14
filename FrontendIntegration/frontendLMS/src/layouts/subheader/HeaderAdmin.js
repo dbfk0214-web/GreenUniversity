@@ -2,7 +2,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-export default function HeaderAdmin() {
+export default function HeaderAdmin({ msg }) {
   // 서브메뉴 공통 스타일
   const subMenu = `
     ml-4 list-disc list-inside text-[0.95rem]
@@ -19,6 +19,7 @@ export default function HeaderAdmin() {
 
   return (
     <div>
+      {msg}
       <div className="text-left list-none">
         <nav>
           <ul className="space-y-3 text-sm text-gray-800 list-none">

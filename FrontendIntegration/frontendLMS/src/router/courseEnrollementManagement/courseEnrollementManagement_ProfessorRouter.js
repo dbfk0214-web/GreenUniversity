@@ -31,7 +31,9 @@ const LectureManagement = lazy(() =>
 const StudentEvaluation = lazy(() =>
   import("../../pages/CourseEnrollementManagement/professor/StudentEvaluation")
 );
-
+const Courses = lazy(() =>
+  import("../../pages/CourseEnrollementManagement/professor/Courses")
+);
 const courseEnrollementManagement_ProfessorRouter = () => {
   return [
     {
@@ -95,6 +97,14 @@ const courseEnrollementManagement_ProfessorRouter = () => {
       element: (
         <Suspense fallback={Loading}>
           <Mainlayouts children={<StudentEvaluation />} />
+        </Suspense>
+      ),
+    },
+    {
+      path: "courses",
+      element: (
+        <Suspense fallback={Loading}>
+          <Mainlayouts children={<Courses />} />
         </Suspense>
       ),
     },

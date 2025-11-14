@@ -18,7 +18,7 @@ const courseEnrollementManagementRouter = () => {
       children: courseEnrollementManagement_StudentRouter(),
     },
     {
-      path: "proffesor",
+      path: "professor",
       children: courseEnrollementManagement_ProfessorRouter(),
     },
     {

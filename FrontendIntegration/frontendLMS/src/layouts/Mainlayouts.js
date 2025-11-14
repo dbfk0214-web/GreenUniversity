@@ -3,28 +3,26 @@ import { MouseCursor } from "../api/MousecursorHandler";
 import Navbar from "./Navbar";
 import Header from "../layouts/Header";
 import Footer from "../layouts/Footer";
+
 import HeaderAdmin from "./subheader/HeaderAdmin";
 import HeaderStudent from "./subheader/HeaderStudent";
 import HeaderProfessor from "./subheader/HeaderProfessor";
-import { useSelector } from "react-redux";
 
-export default function Mainlayouts({children}) {
-  const [role, setRole] = useState("STUDENT");
-  // const member = useSelector((s) => s.loginSlice); // {email, role, ...}
-  // console.log("member:", member);
-  // const role = (
-  //   (member.userRoleList && member?.userRoleList[0]) ||
-  //   "STUDENT"
-  // ).toUpperCase();
-  // console.log("role:", role);
-  const roleHeader =
-    role === "ADMIN" ? (
-      <HeaderAdmin />
-    ) : role === "PROFESSOR" ? (
-      <HeaderProfessor />
-    ) : (
-      <HeaderStudent />
-    );
+import { menus } from "../layouts/subheader/menuconfig"; // 실제 파일명 대소문자 확인
+
+export default function Mainlayouts({ children, msg }) {
+  const [role, setRole] = useState("PROFESSOR");
+
+  const HEADER_BY_ROLE = {
+    ADMIN: HeaderAdmin,
+    PROFESSOR: HeaderProfessor,
+    STUDENT: HeaderStudent,
+  };
+
+  const HeaderComponent = HEADER_BY_ROLE[role] || HeaderStudent;
+
+  const menuList = menus[role] || menus[role.toLowerCase()] || [];
+
   useEffect(() => {
     const cursorEl = document.getElementById("cursor");
     const trailEl = document.getElementById("cursorTrail");
@@ -46,7 +44,10 @@ export default function Mainlayouts({children}) {
     <div className="h-screen flex flex-col">
       <div className="h-20 shrink-0 bg-white">
         <Header />
+        {/* <HeaderComponent menus={menuList} /> */}
+        <HeaderComponent menus={menuList} msg={"STUDENT"} />
       </div>
+
       <div>
         <div
           id="cursor"
@@ -59,12 +60,16 @@ export default function Mainlayouts({children}) {
           className="pointer-events-none fixed left-0 top-0 rounded-full bg-yellow-200/30 will-change-transform"
         />
       </div>
+
       <div className="flex flex-1 overflow-y-auto bg-white text-black cursor-none">
-        <Navbar subHeader={roleHeader} />
+        <Navbar subHeader={menuList} />
         <div className="flex-1 flex flex-col items-center justify-start bg-white">
-          <div className="w-[80%] ml-[19%] rounded-xl border border-gray-200 bg-white my-4 h-[100%]">{children}</div>
+          <div className="w-[80%] ml-[19%] rounded-xl border border-gray-200 bg-white my-4 h-[100%]">
+            {children}
+          </div>
         </div>
       </div>
+
       <div className="h-12 shrink-0">
         <Footer />
       </div>
