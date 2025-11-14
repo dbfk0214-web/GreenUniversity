@@ -13,34 +13,22 @@ const Chatbot = lazy(() => import("../pages/community/ChatbotPage"));
 const CommunityList = lazy(() =>
   import("../pages/community/CommunityListPage")
 );
-const Mentoringinfo = lazy(() =>
-  import("../components/community/Mentoringinfo")
-);
+const DataSharing = lazy(() => import("../components/community/DataSharingPageComponent"));
+
 const Entrie = lazy(() => import("../pages/community/EntriePage"))
 const CommunityPage = lazy(() => import("../pages/community/CommunityPage"))
 
-const communityRouter = () => [
-  {
-    path: "/community",
-    element: (
-      <Suspense fallback={Loading}>
-        <Mainlayouts>
-          <Outlet />
-        </Mainlayouts>
-      </Suspense>
-    ),
-    children: [
-      { path: "", element: <Entrie /> },
-      { path: "community", element: <CommunityPage /> },
-      { path: "club", element: <Club /> },
-      { path: "department", element: <Department /> },
-      { path: "free", element: <Free /> },
-      { path: "qanda", element: <QaA /> },
-      { path: "chatbot", element: <Chatbot /> },
-      { path: "commentList", element: <CommunityList /> },
-      { path: "mentoringinfo", element: <Mentoringinfo /> }, // 소문자 경로 추천
-    ],
-  },
-];
+const communityRouter = () => {
+  return [
+      { path: "", element: <Mainlayouts children={<Entrie />} /> },
+      { path: "community", element: <Mainlayouts children={<CommunityPage />} /> },
+      { path: "club", element: <Mainlayouts children={<Club />} /> },
+      { path: "department", element: <Mainlayouts children={<Department />} /> },
+      { path: "free", element: <Mainlayouts children={<Free />} /> },
+      { path: "qanda", element: <Mainlayouts children={<QaA />} /> },
+      { path: "chatbot", element: <Mainlayouts children={<Chatbot />} /> },
+      { path: "dataSharing", element: <Mainlayouts children={<DataSharing />} /> },// 소문자 경로 추천
+]
+}
 
 export default communityRouter;

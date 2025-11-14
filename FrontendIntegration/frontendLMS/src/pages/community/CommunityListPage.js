@@ -1,11 +1,9 @@
 import React from 'react'
-import CommunityCommentListComponent from '../../components/community/CommunityCommentListComponent'
+import CommunityListPageComponent from '../../components/community/CommunityListPageComponent'
 
 const CommunityListPage = () => {
   return (
-    <div>
-        <CommunityCommentListComponent/>
-    </div>
+    <div><CommunityListPageComponent /></div>
   )
 }
 
