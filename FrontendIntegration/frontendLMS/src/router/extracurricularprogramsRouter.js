@@ -13,9 +13,7 @@ const ProgramApplication = lazy(() =>
 const Cancellation = lazy(() =>
   import("../pages/extracurricularPrograms/CancellationPage")
 );
-
-const status = lazy(() => import("../pages/extracurricularPrograms/statusPage"));
-
+const status = lazy(() => import ("../pages/extracurricularPrograms/statusPage"));
 const extracurricularprogramsRouter = () => {
   return [
     {
@@ -44,6 +42,15 @@ const extracurricularprogramsRouter = () => {
         <Suspense fallback={Loading}>
           <Mainlayouts>
             <Cancellation />
+          </Mainlayouts>
+        </Suspense>
+      ),
+    },    {
+      path: "status",
+      element: (
+        <Suspense fallback={Loading}>
+          <Mainlayouts>
+            <status/>
           </Mainlayouts>
         </Suspense>
       ),

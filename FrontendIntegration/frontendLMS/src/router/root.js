@@ -5,10 +5,9 @@ import financeSupportRouter from "./financeSupportRouter";
 import gradesAcademicRecordsRouter from "./gradesAcademicRecordsRouter";
 import notificationCenterRouter from "./notificationCenterRouter";
 import communityRouter from "./communityRouter";
-import courseEnrollementManagementRouter from "./courseEnrollementManagement/courseEnrollementManagementRouter";
 import extracurricularprogramsRouter from "./extracurricularprogramsRouter";
 import accountRouter from "./accountRouter";
-
+import courseEnrollementManagementRouter from "./courseEnrollmentManagement/courseEnrollementManagementRouter";
 const Mainlayouts = lazy(() => import("../layouts/Mainlayouts"));
 
 const root = createBrowserRouter([
@@ -37,10 +36,6 @@ const root = createBrowserRouter([
     children: communityRouter(),
   },
   {
-    path: "courseenrollementmanagement",
-    children: courseEnrollementManagementRouter(),
-  },
-  {
     path: "extracurricularprograms",
     children: extracurricularprogramsRouter(),
   },
@@ -48,6 +43,11 @@ const root = createBrowserRouter([
     path: "account",
     // element: <Suspense fallback={Loading}><Basiclayout children={<Main />}></Basiclayout></Suspense>,
     children: accountRouter(),
+  },
+    {
+    path: "courseenrollmentmanagement",
+    // element: <Suspense fallback={Loading}><Basiclayout children={<Main />}></Basiclayout></Suspense>,
+    children: courseEnrollementManagementRouter(),
   },
 ]);
 

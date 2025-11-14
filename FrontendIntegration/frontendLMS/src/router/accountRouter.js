@@ -4,6 +4,9 @@ import BasicLayout from "../layouts/Basiclayout";
 import Mainlayouts from "../layouts/Mainlayouts";
 
 const Loading = <div>Loading......</div>;
+const account = lazy(() =>
+  import("../pages/authentication_Account_Security/accountPage")
+);
 const Login = lazy(() =>
   import("../pages/authentication_Account_Security/LoginPage")
 );
@@ -30,7 +33,11 @@ const accountRouter = () => {
   return [
     {
       path: "",
-      element: <Navigate replace to="login" />,
+      element: (
+        <Suspense fallback={Loading}>
+          <Mainlayouts children={<account />} />
+        </Suspense>
+      ),
     },
     {
       path: "login",

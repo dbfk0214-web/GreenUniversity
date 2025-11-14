@@ -24,10 +24,10 @@ export const menus = {
           label: "자료실 관리",
           to: "/admin/file-management",
           children: [
-            { label: "카테고리 관리", to: "/admin/file-management/categories" },
+            { label: "카테고리 관리", to: "/admin/document management" },
             {
               label: "파일 업로드/다운로드 관리",
-              to: "/admin/file-management/files",
+              to: "/admin/document management",
             },
           ],
         },
@@ -225,7 +225,7 @@ export const menus = {
   PROFESSOR: [
     {
       label: "강의/수업관리(교수)",
-      to: "/courseenrollementmanagement/professor/courses",
+      to: "/CourseEnrollementManagement/professor/CoursePageProfessor",
       children: [
         {
           label: "강의 관리",
@@ -260,8 +260,8 @@ export const menus = {
       to: "/extracurricularprograms",
       children: [
         {
-          label: "비교과프로그램 신청",
-          to: "/extracurricularprograms/application",
+          label: "비교과프로그램 신청 현황",
+          to: "/extracurricularprograms/status",
         },
         {
           label: "비교과프로그램 신청 취소",
@@ -293,15 +293,15 @@ export const menus = {
     },
     {
       label: "성적·학사",
-      to: "/gradesAcademicRecord/gradePage",
+      to: "/gradesAcademicRecords",
       children: [
         {
           label: "성적표",
           to: "/gradesAcademicRecords/gradereport",
           children: [
             { label: "조회", to: "/gradesAcademicRecords/check" },
-            { label: "출력", to: "/gradesAcademicRecords/print" },
-            { label: "입력", to: "/gradesAcademicRecords/report" },
+            { label: "출력", to: "/gradesAcademicRecords/output" },
+            { label: "입력", to: "/gradesAcademicRecords/gradeEntry" },
           ],
         },
       ],
