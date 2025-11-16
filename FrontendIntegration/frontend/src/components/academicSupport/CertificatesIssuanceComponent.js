@@ -1,9 +1,11 @@
 import React from 'react'
+import nonDegreeProgram from "../../json/academicSupport/nonDegreeProgram.json";
+import { jsonToDiv } from '../../util/makeComponentUtil';
 
 const CertificatesIssuanceComponent = () => {
   return (
     <div>
-      CertificatesIssuanceComponent
+      {nonDegreeProgram && jsonToDiv(nonDegreeProgram)}
     </div>
   )
 }
