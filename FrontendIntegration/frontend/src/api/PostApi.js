@@ -2,6 +2,7 @@ import axios from "axios";
 import { API_SERVER_HOST, typeEnum } from "./commonApi";
 import { Await } from "react-router-dom";
 
+// 나중에 메서드 이름 혹은 역할을 변경 , 미사용 시, 삭제할 것
 const Post = async () => {
   console.log("Post가 가동되었다.");
   const res = await axios.get(`${API_SERVER_HOST}/api/post/all`);
@@ -9,10 +10,26 @@ const Post = async () => {
 };
 
 const readAll = async () => {
-  console.log("Post가 가동되었다.");
+  console.log("Post readAll");
   const res = await axios.get(`${API_SERVER_HOST}/api/post/all`);
   return res.data;
 };
+
+const readOne = async () => {
+  console.log("Post readOne");
+}
+
+const writeOne = async () => {
+  console.log("Post writeOne");
+}
+
+const deleteOne = async () => {
+  console.log("Post deleteOne");
+}
+
+const updateOne = async () => {
+  console.log("Post updateOne");
+}
 
 // 세팅
 const config = {
@@ -24,13 +41,13 @@ const config = {
     postId: "게시글아이디",
     title: "제목",
     content: "내용",
-    created_at: "작성일자",
+    createAt: "작성일자",
     userDTO: "유저",
   },
   excludeList: ["userDTO"],
-  funcs: { Post, readAll },
+  funcs: { Post, readAll, readOne ,writeOne, deleteOne, updateOne },
   formData: {},
-  type: typeEnum.default
+  type: typeEnum.read
 };
 
 export default { config, Post };

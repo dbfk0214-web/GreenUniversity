@@ -40,7 +40,6 @@ const AdminComponent = () => {
       }, {});
   }
 
-
   return (
     <div>
       {/* --Attendance-- */}
@@ -48,7 +47,11 @@ const AdminComponent = () => {
         value={{ selectId: selectAttendance, setSelectId: setSelectAttendance }}
       >
         <AdminLayout
-          config={AttendanceApi.config}
+          config={{
+            ...AttendanceApi.config,
+            columns: excludeColumns(AttendanceApi.config.columns, AttendanceApi.config.excludeList),
+            formData: excludeColumns(AttendanceApi.config.columns, AttendanceApi.config.excludeList)
+          }}
         />
       </AdminSelectedContext.Provider>
 
@@ -59,7 +62,8 @@ const AdminComponent = () => {
         <AdminLayout
           config={{
             ...BoardApi.config,
-            columns: excludeColumns(BoardApi.config.columns, BoardApi.config.excludeList)
+            columns: excludeColumns(BoardApi.config.columns, BoardApi.config.excludeList),
+            formData: excludeColumns(BoardApi.config.columns, BoardApi.config.excludeList)
           }}
         />
       </AdminSelectedContext.Provider>
@@ -71,7 +75,8 @@ const AdminComponent = () => {
         <AdminLayout
           config={{
             ...CommentApi.config,
-            columns: excludeColumns(CommentApi.config.columns, CommentApi.config.excludeList)
+            columns: excludeColumns(CommentApi.config.columns, CommentApi.config.excludeList),
+            formData: excludeColumns(CommentApi.config.columns, CommentApi.config.excludeList)
           }}
         />
       </AdminSelectedContext.Provider>
@@ -83,7 +88,8 @@ const AdminComponent = () => {
         <AdminLayout
           config={{
             ...CourseApi.config,
-            columns: excludeColumns(CourseApi.config.columns, CourseApi.config.excludeList)
+            columns: excludeColumns(CourseApi.config.columns, CourseApi.config.excludeList),
+            formData: excludeColumns(CourseApi.config.columns, CourseApi.config.excludeList)
           }}
         />
       </AdminSelectedContext.Provider>
@@ -95,7 +101,8 @@ const AdminComponent = () => {
         <AdminLayout
           config={{
             ...CourseOfferingApi.config,
-            columns: excludeColumns(CourseOfferingApi.config.columns, CourseOfferingApi.config.excludeList)
+            columns: excludeColumns(CourseOfferingApi.config.columns, CourseOfferingApi.config.excludeList),
+            formData: excludeColumns(CourseOfferingApi.config.columns, CourseOfferingApi.config.excludeList)
           }}
         />
       </AdminSelectedContext.Provider>
@@ -107,7 +114,8 @@ const AdminComponent = () => {
         <AdminLayout
           config={{
             ...GradeApi.config,
-            columns: excludeColumns(GradeApi.config.columns, GradeApi.config.excludeList)
+            columns: excludeColumns(GradeApi.config.columns, GradeApi.config.excludeList),
+            formData: excludeColumns(GradeApi.config.columns, GradeApi.config.excludeList)
           }}
         />
       </AdminSelectedContext.Provider>
@@ -132,7 +140,8 @@ const AdminComponent = () => {
         <AdminLayout
           config={{
             ...PostApi.config,
-            columns: excludeColumns(PostApi.config.columns, PostApi.config.excludeList)
+            columns: excludeColumns(PostApi.config.columns, PostApi.config.excludeList),
+            formData: excludeColumns(PostApi.config.columns, PostApi.config.excludeList)
           }}
         />
       </AdminSelectedContext.Provider>
@@ -144,7 +153,8 @@ const AdminComponent = () => {
         <AdminLayout
           config={{
             ...ReviewApi.config,
-            columns: excludeColumns(ReviewApi.config.columns, ReviewApi.config.excludeList)
+            columns: excludeColumns(ReviewApi.config.columns, ReviewApi.config.excludeList),
+            formData: excludeColumns(ReviewApi.config.columns, ReviewApi.config.excludeList)
           }}
         />
       </AdminSelectedContext.Provider>
@@ -156,11 +166,12 @@ const AdminComponent = () => {
         <AdminLayout
           config={{
             ...TimeTableApi.config,
-            columns: excludeColumns(TimeTableApi.config.columns, TimeTableApi.config.excludeList)
+            columns: excludeColumns(TimeTableApi.config.columns, TimeTableApi.config.excludeList),
+            formData: excludeColumns(TimeTableApi.config.columns, TimeTableApi.config.excludeList)
           }}
         />
       </AdminSelectedContext.Provider>
-      
+
       {/* --User-- */}
       <AdminSelectedContext.Provider
         value={{ selectId: selectUser, setSelectId: setSelectUser }}
@@ -168,7 +179,8 @@ const AdminComponent = () => {
         <AdminLayout
           config={{
             ...userApi.config,
-            columns: excludeColumns(userApi.config.columns, userApi.config.excludeList)
+            columns: excludeColumns(userApi.config.columns, userApi.config.excludeList),
+            formData: excludeColumns(userApi.config.columns, userApi.config.excludeList)
           }}
         />
       </AdminSelectedContext.Provider>

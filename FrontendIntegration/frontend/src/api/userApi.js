@@ -53,7 +53,7 @@ const config = {
   excludeList: ["offerings","enrollments","comments","posts","notices"],
   funcs: { readAll },
   formData: {},
-  type: typeEnum.default
+  type: typeEnum.read
 };
 
 export default { config };
