@@ -1,7 +1,7 @@
 import { lazy, Suspense } from "react";
 import { Navigate } from "react-router-dom";
 import Mainlayouts from "../layouts/Mainlayouts";
-import GradePage from "../pages/gradesAcademicRecords/gradePage";
+import GradePage from "../pages/gradesAcademicRecords/GradePage";
 
 const Loading = <div>Loading......</div>;
 

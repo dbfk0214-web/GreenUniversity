@@ -4,19 +4,24 @@ import Mainlayouts from "../../layouts/Mainlayouts";
 
 const Loading = <div>Loading......</div>;
 const Courses = lazy(() =>
-  import("../../pages/CourseEnrollementManagement/admin/Courses")
+  // import("../../pages/CourseEnrollementManagement/admin/Courses")
+  import("../../pages/courseenrollmentmanagement/admin/CoursesPage")
 );
 const Lectures = lazy(() =>
-  import("../../pages/CourseEnrollementManagement/admin/Lectures")
+  // import("../../pages/CourseEnrollementManagement/admin/Lectures")
+  import("../../pages/courseenrollmentmanagement/admin/LecturesPage")
 );
 const Curriculum = lazy(() =>
-  import("../../pages/CourseEnrollementManagement/admin/Curriculum")
+  // import("../../pages/CourseEnrollementManagement/admin/Curriculum")
+  import("../../pages/courseenrollmentmanagement/admin/CurriculumPage")
 );
 const Enrollment = lazy(() =>
-  import("../../pages/CourseEnrollementManagement/admin/Enrollment")
+  // import("../../pages/CourseEnrollementManagement/admin/Enrollment")
+  import("../../pages/courseenrollmentmanagement/admin/EnrollmentPage")
 );
 const Schedules = lazy(() =>
-  import("../../pages/CourseEnrollementManagement/admin/Schedules")
+  // import("../../pages/CourseEnrollementManagement/admin/Schedules")
+  import("../../pages/courseenrollmentmanagement/admin/SchedulesPage")
 );
 
 const courseEnrollementManagement_AdminRouter = () => {

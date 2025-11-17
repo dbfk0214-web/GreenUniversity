@@ -1,9 +1,6 @@
-import { lazy, Suspense } from "react";
-import { Navigate } from "react-router-dom";
-import Mainlayouts from "../../layouts/Mainlayouts";
-import courseEnrollementManagement_StudentRouter from "./courseEnrollementManagement_StudentRouter";
-import courseEnrollementManagement_ProfessorRouter from "./courseEnrollementManagement_ProfessorRouter";
-import courseEnrollementManagement_AdminRouter from "./courseEnrollementManagement_AdminRouter";
+import courseEnrollementManagementStudentRouter from "./courseEnrollementManagementStudentRouter";
+import courseEnrollementManagementProfessorRouter from "./courseEnrollementManagementProfessorRouter";
+import courseEnrollementManagementAdminRouter from "./courseEnrollementManagementAdminRouter";
 
 const Loading = <div>Loading......</div>;
 
@@ -15,15 +12,15 @@ const courseEnrollementManagementRouter = () => {
     // },
     {
       path: "student",
-      children: courseEnrollementManagement_StudentRouter(),
+      children: courseEnrollementManagementStudentRouter(),
     },
     {
       path: "professor",
-      children: courseEnrollementManagement_ProfessorRouter(),
+      children: courseEnrollementManagementProfessorRouter(),
     },
     {
       path: "admin",
-      children: courseEnrollementManagement_AdminRouter(),
+      children: courseEnrollementManagementAdminRouter(),
     },
   ];
 };
