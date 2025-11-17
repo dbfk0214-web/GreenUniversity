@@ -2,7 +2,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-export default function HeaderProfessor() {
+export default function HeaderProfessor({ msg }) {
   return (
     <div>
       <div className="text-left list-none">
@@ -11,7 +11,7 @@ export default function HeaderProfessor() {
             {/* 강의/수업관리(교수) */}
             <li className="group">
               <Link
-                to="/professor/courses"
+                to="/CourseEnrollementManagement/professor/courses"
                 className="block py-2 px-3 rounded-lg hover:bg-white/60 transition-colors duration-300 font-semibold"
               >
                 강의/수업관리(교수)
@@ -28,7 +28,7 @@ export default function HeaderProfessor() {
               >
                 <li>
                   <Link
-                    to="/professor/lecture management"
+                    to="/CourseEnrollementManagement/professor/lecturemanagement"
                     className="block py-1 px-2 rounded hover:bg-orange-400 hover:text-white transition-colors"
                   >
                     강의 관리
@@ -37,7 +37,7 @@ export default function HeaderProfessor() {
                 {/* 수업 운영 (2뎁스) */}
                 <li className="group/inner">
                   <Link
-                    to="/professor/class management"
+                    to="/CourseEnrollementManagement/professor/classmanagement"
                     className="block py-1 px-2 rounded hover:bg-orange-400 hover:text-white transition-colors"
                   >
                     수업 운영
@@ -54,7 +54,7 @@ export default function HeaderProfessor() {
                   >
                     <li>
                       <Link
-                        to="/professor/cancellation announcement:"
+                        to="/CourseEnrollementManagementprofessor/cancellationannouncement:"
                         className="block py-1 px-2 rounded hover:bg-orange-400 hover:text-white transition-colors"
                       >
                         휴강 알림
@@ -62,7 +62,7 @@ export default function HeaderProfessor() {
                     </li>
                     <li>
                       <Link
-                        to="/professor/exam notice"
+                        to="/CourseEnrollementManagement/professor/examnotice"
                         className="block py-1 px-2 rounded hover:bg-orange-400 hover:text-white transition-colors"
                       >
                         중간·기말고사 공지
@@ -73,7 +73,7 @@ export default function HeaderProfessor() {
 
                 <li>
                   <Link
-                    to="/professor/attendance"
+                    to="/CourseEnrollementManagement/professor/attendance"
                     className="block py-1 px-2 rounded hover:bg-orange-400 hover:text-white transition-colors"
                   >
                     출결
@@ -81,7 +81,7 @@ export default function HeaderProfessor() {
                 </li>
                 <li>
                   <Link
-                    to="/professor/student evaluation"
+                    to="/CourseEnrollementManagement/professor/studentevaluation"
                     className="block py-1 px-2 rounded hover:bg-orange-400 hover:text-white transition-colors"
                   >
                     학생 평가
@@ -96,7 +96,7 @@ export default function HeaderProfessor() {
                 to="/programs"
                 className="block py-2 px-3 rounded-lg hover:bg-white/60 transition-colors duration-300 font-semibold"
               >
-                비교과 프로그램
+                비교과 프로그램       {msg}
               </Link>
               <ul
                 className="

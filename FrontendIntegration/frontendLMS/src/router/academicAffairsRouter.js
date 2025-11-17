@@ -5,12 +5,13 @@ import Mainlayouts from '../layouts/Mainlayouts';
 const Loading = <div>Loading......</div>;
 const CreditManagement = lazy(() => import("../pages/academicAffairs/CreditManagementPage"));
 const DegreeCertificates = lazy(() => import("../pages/academicAffairs/DegreeCertificatesPage"));
+const academicAffairs = lazy(() => import("../pages/academicAffairs/academicAffairsPage"))
 
 const academicAffairsRouter = () => {
   return [
     {
         path:"",
-        element:<Navigate replace to="creditmanagement" />   
+        element:<Suspense fallback={Loading}><Mainlayouts children={<academicAffairs />}/></Suspense>
     },
     {
         path:"creditmanagement",

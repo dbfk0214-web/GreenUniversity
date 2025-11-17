@@ -1,8 +1,12 @@
 import React, { lazy, Suspense } from "react";
 import { Navigate } from "react-router-dom";
 import BasicLayout from "../layouts/Basiclayout";
+import Mainlayouts from "../layouts/Mainlayouts";
 
 const Loading = <div>Loading......</div>;
+const account = lazy(() =>
+  import("../pages/authentication_Account_Security/accountPage")
+);
 const Login = lazy(() =>
   import("../pages/authentication_Account_Security/LoginPage")
 );
@@ -29,13 +33,17 @@ const accountRouter = () => {
   return [
     {
       path: "",
-      element: <Navigate replace to="login" />,
+      element: (
+        <Suspense fallback={Loading}>
+          <Mainlayouts children={<account />} />
+        </Suspense>
+      ),
     },
     {
       path: "login",
       element: (
         <Suspense fallback={Loading}>
-          <BasicLayout children={<Login />} />
+          <Mainlayouts children={<Login />} />
         </Suspense>
       ),
     },
@@ -43,7 +51,7 @@ const accountRouter = () => {
       path: "logout",
       element: (
         <Suspense fallback={Loading}>
-          <BasicLayout children={<Logout />} />
+          <Mainlayouts children={<Logout />} />
         </Suspense>
       ),
     },
@@ -51,7 +59,7 @@ const accountRouter = () => {
       path: "manage",
       element: (
         <Suspense fallback={Loading}>
-          <BasicLayout children={<Manage />} />
+          <Mainlayouts children={<Manage />} />
         </Suspense>
       ),
     },
@@ -59,7 +67,7 @@ const accountRouter = () => {
       path: "member",
       element: (
         <Suspense fallback={Loading}>
-          <BasicLayout children={<Member />} />
+          <Mainlayouts children={<Member />} />
         </Suspense>
       ),
     },
@@ -67,7 +75,7 @@ const accountRouter = () => {
       path: "reset",
       element: (
         <Suspense fallback={Loading}>
-          <BasicLayout children={<Reset />} />
+          <Mainlayouts children={<Reset />} />
         </Suspense>
       ),
     },
@@ -75,7 +83,7 @@ const accountRouter = () => {
       path: "sign",
       element: (
         <Suspense fallback={Loading}>
-          <BasicLayout children={<Sign />} />
+          <Mainlayouts children={<Sign />} />
         </Suspense>
       ),
     },

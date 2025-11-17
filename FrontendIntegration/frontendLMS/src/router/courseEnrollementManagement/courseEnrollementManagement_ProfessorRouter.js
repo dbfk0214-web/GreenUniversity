@@ -1,6 +1,7 @@
 import { lazy, Suspense } from "react";
 import { Navigate } from "react-router-dom";
 import Mainlayouts from "../../layouts/Mainlayouts";
+import CoursePageProfessor from "../../pages/CourseEnrollementManagement/professor/CoursePageProfessor.js";
 
 const Loading = <div>Loading......</div>;
 const Attendance = lazy(() =>
@@ -23,7 +24,7 @@ const ExtracurricularApplicationStatus = lazy(() =>
   )
 );
 const GradeEntry = lazy(() =>
-  import("../../pages/CourseEnrollementManagement/professor/GradeEntry")
+  import("../../pages/gradesAcademicRecords/GradeEntry")
 );
 const LectureManagement = lazy(() =>
   import("../../pages/CourseEnrollementManagement/professor/LectureManagement")
@@ -31,9 +32,20 @@ const LectureManagement = lazy(() =>
 const StudentEvaluation = lazy(() =>
   import("../../pages/CourseEnrollementManagement/professor/StudentEvaluation")
 );
+// const CoursePageProfessor = lazy(() =>
+//   import("../../pages/CourseEnrollementManagement/professor/CoursePageProfessor.js")
+// );
 
 const courseEnrollementManagement_ProfessorRouter = () => {
   return [
+       {
+      path: "courseprofessor",
+      element: (
+        <Suspense fallback={Loading}>
+          <Mainlayouts children={<CoursePageProfessor/>} />
+        </Suspense>
+      ),
+    },
     {
       path: "cancellationannouncement",
       element: (
@@ -75,14 +87,6 @@ const courseEnrollementManagement_ProfessorRouter = () => {
       ),
     },
     {
-      path: "gradeEntry",
-      element: (
-        <Suspense fallback={Loading}>
-          <Mainlayouts children={<GradeEntry />} />
-        </Suspense>
-      ),
-    },
-    {
       path: "lecturemanagement",
       element: (
         <Suspense fallback={Loading}>
@@ -95,6 +99,14 @@ const courseEnrollementManagement_ProfessorRouter = () => {
       element: (
         <Suspense fallback={Loading}>
           <Mainlayouts children={<StudentEvaluation />} />
+        </Suspense>
+      ),
+    },
+    {
+      path: "courses",
+      element: (
+        <Suspense fallback={Loading}>
+          <Mainlayouts children={<Courses />} />
         </Suspense>
       ),
     },
