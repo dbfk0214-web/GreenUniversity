@@ -1,9 +1,11 @@
-import React from 'react'
+import React from 'react';
+import graduateSchool from "../../json/academicSupport/graduateSchool.json";
+import { recursiveRender } from '../../util/makeComponentUtil';
 
 const AcademicInformationComponent = () => {
   return (
     <div>
-      AcademicInformationComponent
+      {graduateSchool && recursiveRender(graduateSchool)}
     </div>
   )
 }

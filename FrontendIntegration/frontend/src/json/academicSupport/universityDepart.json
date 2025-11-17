@@ -1,0 +1,148 @@
+{
+  "colleges": [
+    {
+      "name": "문과대학",
+      "image": "images/문과대학.png",
+      "description": "문과대학은 가장 오랜 역사와 전통을 바탕으로 과거와 현재에 걸쳐 한국 인문학을 선도하고 있다.",
+      "location": "외솔관 101-1호",
+      "phone": "02-2123-2252~5",
+      "departments": [
+        {
+          "name": "국어국문학",
+          "officeLocation": "외솔관 214호",
+          "phone": "02-2123-2265",
+          "homepage": ""
+        },
+        {
+          "name": "중어중문학",
+          "officeLocation": "외솔관 318호",
+          "phone": "02-2123-2285",
+          "homepage": ""
+        },
+        {
+          "name": "영어영문학",
+          "officeLocation": "외솔관 322호",
+          "phone": "02-2123-2300",
+          "homepage": ""
+        },
+        {
+          "name": "독어독문학",
+          "officeLocation": "외솔관 420호",
+          "phone": "02-2123-2330",
+          "homepage": ""
+        },
+        {
+          "name": "불어불문학",
+          "officeLocation": "외솔관 418호",
+          "phone": "02-2123-2345",
+          "homepage": ""
+        },
+        {
+          "name": "노어노문학",
+          "officeLocation": "외솔관 218-1호",
+          "phone": "02-2123-2360",
+          "homepage": ""
+        },
+        {
+          "name": "사학",
+          "officeLocation": "외솔관 519호",
+          "phone": "02-2123-2370",
+          "homepage": ""
+        },
+        {
+          "name": "철학",
+          "officeLocation": "외솔관 522호",
+          "phone": "02-2123-2390",
+          "homepage": ""
+        },
+        {
+          "name": "문헌정보학",
+          "officeLocation": "위당관 423호",
+          "phone": "02-2123-2405",
+          "homepage": ""
+        },
+        {
+          "name": "심리학",
+          "officeLocation": "위당관 410호",
+          "phone": "02-2123-2433",
+          "homepage": ""
+        }
+      ]
+    },
+
+    {
+      "name": "상경대학",
+      "image": "images/상경대학.png",
+      "description": "한국 상경계 최초로 개교한 역사 깊은 대학이며 경제학부와 응용통계학과로 구성된다.",
+      "location": "대우관 본관 205호",
+      "phone": "02-2123-2453",
+      "departments": [
+        {
+          "name": "경제학부",
+          "officeLocation": "대우관 본관 206호",
+          "phone": "02-2123-7465"
+        },
+        {
+          "name": "응용통계학",
+          "officeLocation": "대우관 본관 205호",
+          "phone": "02-2123-8535"
+        }
+      ]
+    },
+
+    {
+      "name": "경영대학",
+      "image": "images/경영대학.png",
+      "description": "세계를 변화시키고 미래를 선도하는 크리에이티브 리더 배출을 목표로 한다.",
+      "location": "경영관 406호",
+      "phone": "02-2123-3258",
+      "departments": [
+        {
+          "name": "경영학과",
+          "officeLocation": "경영관 406호",
+          "phone": "02-2123-3258"
+        }
+      ]
+    },
+
+    {
+      "name": "이과대학",
+      "image": "images/이과대학.png",
+      "description": "창의적·봉사적 엘리트 육성과 기초과학 연구 프런티어 창출을 목표로 한다.",
+      "location": "과학관",
+      "phone": "02-2123-2552~6",
+      "departments": [
+        {
+          "name": "수학",
+          "officeLocation": "과학관 226B",
+          "phone": "02-2123-2580"
+        },
+        {
+          "name": "물리학",
+          "officeLocation": "과학관 327A",
+          "phone": "02-2123-2605"
+        },
+        {
+          "name": "화학",
+          "officeLocation": "과학관 423호",
+          "phone": "02-2123-2630"
+        },
+        {
+          "name": "지구시스템과학",
+          "officeLocation": "과학원 2층",
+          "phone": "02-2123-2665"
+        },
+        {
+          "name": "천문우주학",
+          "officeLocation": "과학관 610B",
+          "phone": "02-2123-8224"
+        },
+        {
+          "name": "대기과학",
+          "officeLocation": "과학관 528A",
+          "phone": "02-2123-8150"
+        }
+      ]
+    }
+  ]
+}
