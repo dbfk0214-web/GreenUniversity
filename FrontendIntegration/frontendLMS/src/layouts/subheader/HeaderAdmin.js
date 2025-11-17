@@ -419,7 +419,7 @@ export default function HeaderAdmin({ msg }) {
             {/* 자원 관리 */}
             <li className="group">
               <Link
-                to="admin/support management"
+                to="admin/supportmanagement"
                 className="block py-2 px-3 rounded-lg hover:bg-white/60 transition-colors duration-300 font-semibold"
               >
                 자원 관리
@@ -487,7 +487,7 @@ export default function HeaderAdmin({ msg }) {
             {/* 시스템 관리 */}
             <li className="group">
               <Link
-                to="/admin/system management"
+                to="/admin/systemmanagement"
                 className="block py-2 px-3 rounded-lg hover:bg-white/60 transition-colors duration-300 font-semibold"
               >
                 시스템 관리
@@ -538,7 +538,7 @@ export default function HeaderAdmin({ msg }) {
             {/* 내부 관리자 커뮤니티 */}
             <li className="group">
               <Link
-                to="/admin/internal admin community"
+                to="/admin/internaladmincommunity"
                 className="block py-2 px-3 rounded-lg hover:bg-white/60 transition-colors duration-300 font-semibold"
               >
                 내부 관리자 커뮤니티
