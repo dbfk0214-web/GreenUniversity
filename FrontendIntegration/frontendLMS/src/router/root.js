@@ -7,7 +7,7 @@ import notificationCenterRouter from "./notificationCenterRouter";
 import communityRouter from "./communityRouter";
 import extracurricularprogramsRouter from "./extracurricularprogramsRouter";
 import accountRouter from "./accountRouter";
-import courseEnrollementManagementRouter from "./courseEnrollmentManagement/courseEnrollementManagementRouter";
+import courseEnrollementManagementRouter from "./courseEnrollementManagement/courseEnrollementManagementRouter";
 const Mainlayouts = lazy(() => import("../layouts/Mainlayouts"));
 
 const root = createBrowserRouter([
