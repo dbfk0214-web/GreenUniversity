@@ -5,15 +5,18 @@ import { Navigate } from "react-router-dom";
 const Loading = <div>Loading......</div>;
 
 const ExtracurricularPrograms = lazy(() =>
+  // import("../../pages/extracurricularPrograms/ExtracurricularProgramsPage")
   import("../pages/extracurricularPrograms/ExtracurricularProgramsPage")
 );
 const ProgramApplication = lazy(() =>
+  // import("../../pages/extracurricularPrograms/ProgramApplicationPage")
   import("../pages/extracurricularPrograms/ProgramApplicationPage")
 );
 const Cancellation = lazy(() =>
+  // import("../../pages/extracurricularPrograms/CancellationPage")
   import("../pages/extracurricularPrograms/CancellationPage")
 );
-
+const status = lazy(() => import ("../pages/extracurricularPrograms/statusPage"));
 const extracurricularprogramsRouter = () => {
   return [
     {
@@ -42,6 +45,25 @@ const extracurricularprogramsRouter = () => {
         <Suspense fallback={Loading}>
           <Mainlayouts>
             <Cancellation />
+          </Mainlayouts>
+        </Suspense>
+      ),
+    },    {
+      path: "status",
+      element: (
+        <Suspense fallback={Loading}>
+          <Mainlayouts>
+            <status/>
+          </Mainlayouts>
+        </Suspense>
+      ),
+    },
+        {
+      path: "status",
+      element: (
+        <Suspense fallback={Loading}>
+          <Mainlayouts>
+            <status />
           </Mainlayouts>
         </Suspense>
       ),

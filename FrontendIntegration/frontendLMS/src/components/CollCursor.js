@@ -10,7 +10,7 @@ export default function CoolCursor() {
   useEffect(() => {
     if (!cursorRef.current) return;
 
-    // 생성자 호출 ✅
+
     instanceRef.current = new MouseCursor({
       root: document,
       cursorEl: cursorRef.current,
