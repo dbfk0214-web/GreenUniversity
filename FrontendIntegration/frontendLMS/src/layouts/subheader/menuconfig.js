@@ -5,29 +5,29 @@ export const menus = {
     // ───────── 공지 및 게시 관리 ─────────
     {
       label: "공지 및 게시 관리",
-      to: "#",
+      to: "/adminmanagement/adminnotice",
       children: [
         {
           label: "공지사항 관리",
-          to: "/admin/notices",
+          to: "/adminmanagement/adminnotice",
           children: [
-            { label: "공지 등록", to: "/admin/notices/create" },
-            { label: "공지 수정/삭제", to: "/admin/notices/edit" },
-            { label: "게시기간 설정", to: "/admin/notices/period" },
+            { label: "공지 등록", to: "/adminmanagement/adminnotice/register" },
+            { label: "공지 수정/삭제", to: "/adminmanagement/adminnotice/noticeedit" },
+            { label: "게시기간 설정", to: "/adminmanagement/adminnotice/noticeperiod" },
           ],
         },
         {
           label: "학과 소식/뉴스 관리",
-          to: "/admin/news",
+          to: "/adminmanagement/news",
         },
         {
           label: "자료실 관리",
-          to: "/admin/file-management",
+          to: "/admin/adminmanagement/AdminNew",
           children: [
-            { label: "카테고리 관리", to: "/admin/document management" },
+            { label: "카테고리 관리", to: "/admin/adminnotice/documentmanagement" },
             {
               label: "파일 업로드/다운로드 관리",
-              to: "/admin/document management",
+              to: "/admin/adminnotice/noticemanagement",
             },
           ],
         },
@@ -210,14 +210,14 @@ export const menus = {
     // ───────── 내부 관리자 커뮤니티 ─────────
     {
       label: "내부 관리자 커뮤니티",
-      to: "/admin/internal-community",
+      to: "/admin/cominuty",
       children: [
-        { label: "내부 공지", to: "/admin/internal-community/notices" },
+        { label: "내부 공지", to: "/admin/cominuty/notices" },
         {
           label: "회의록 / 메모 공유",
-          to: "/admin/internal-community/minutes",
+          to: "/admin/cominuty/minutes",
         },
-        { label: "파일 공유", to: "/admin/internal-community/files" },
+        { label: "파일 공유", to: "/admin/cominuty/files" },
       ],
     },
   ],
