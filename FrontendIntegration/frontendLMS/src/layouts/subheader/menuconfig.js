@@ -1,5 +1,3 @@
-// 메뉴를 한 곳에서만 관리하는 설정 파일
-
 export const menus = {
   ADMIN: [
     // ───────── 공지 및 게시 관리 ─────────
@@ -11,9 +9,9 @@ export const menus = {
           label: "공지사항 관리",
           to: "/adminmanagement/adminnotice",
           children: [
-            { label: "공지 등록", to: "/adminmanagement/adminnotice/register" },
-            { label: "공지 수정/삭제", to: "/adminmanagement/adminnotice/noticeedit" },
-            { label: "게시기간 설정", to: "/adminmanagement/adminnotice/noticeperiod" },
+            { label: "공지 등록", to: "/adminmanagement/register" },
+            { label: "공지 수정/삭제", to: "/adminmanagement/noticeedit" },
+            { label: "게시기간 설정", to: "/adminmanagement/noticeperiod" },
           ],
         },
         {
@@ -22,12 +20,12 @@ export const menus = {
         },
         {
           label: "자료실 관리",
-          to: "/admin/adminmanagement/AdminNew",
+          to: "/adminmanagement/adminnew",
           children: [
-            { label: "카테고리 관리", to: "/admin/adminnotice/documentmanagement" },
+            { label: "카테고리 관리", to: "/adminnotice/documentmanagement" },
             {
               label: "파일 업로드/다운로드 관리",
-              to: "/admin/adminnotice/noticemanagement",
+              to: "/adminnotice/noticemanagements",
             },
           ],
         },
@@ -210,14 +208,11 @@ export const menus = {
     // ───────── 내부 관리자 커뮤니티 ─────────
     {
       label: "내부 관리자 커뮤니티",
-      to: "/admin/cominuty",
+      to: "/admin/community",
       children: [
-        { label: "내부 공지", to: "/admin/cominuty/notices" },
-        {
-          label: "회의록 / 메모 공유",
-          to: "/admin/cominuty/minutes",
-        },
-        { label: "파일 공유", to: "/admin/cominuty/files" },
+        { label: "내부 공지", to: "/admin/community/notices" },
+        { label: "회의록 / 메모 공유", to: "/admin/community/minutes" },
+        { label: "파일 공유", to: "/admin/community/files" },
       ],
     },
   ],
@@ -225,36 +220,37 @@ export const menus = {
   PROFESSOR: [
     {
       label: "강의/수업관리(교수)",
-      to: "/CourseEnrollementManagement/professor/CoursePageProfessor",
+      to: "/courseenrollmentmanagement/professor/courseprofessor",
       children: [
         {
           label: "강의 관리",
-          to: "/CourseEnrollementManagement/professor/lecturemanagement",
+          to: "/courseenrollmentmanagement/professor/lecturemanagement",
         },
         {
           label: "수업 운영",
-          to: "/CourseEnrollementManagement/professor/classmanagement",
+          to: "/courseenrollmentmanagement/professor/classmanagement",
           children: [
             {
               label: "휴강 알림",
-              to: "/CourseEnrollementManagement/professor/cancellationannouncement:",
+              to: "/courseenrollmentmanagement/professor/cancellationannouncement",
             },
             {
               label: "중간·기말고사 공지",
-              to: "/CourseEnrollementManagement/professor/examnotice",
+              to: "/courseenrollmentmanagement/professor/examnotice",
             },
           ],
         },
         {
           label: "출결",
-          to: "/CourseEnrollementManagement/professor/attendance",
+          to: "/courseenrollmentmanagement/professor/attendance",
         },
         {
           label: "학생 평가",
-          to: "/CourseEnrollementManagement/professor/studentevaluation",
+          to: "/courseenrollmentmanagement/professor/studentevaluation",
         },
       ],
     },
+
     {
       label: "비교과 프로그램",
       to: "/extracurricularprograms",
@@ -273,6 +269,7 @@ export const menus = {
         },
       ],
     },
+
     {
       label: "지원",
       to: "/financesupport",
@@ -291,24 +288,26 @@ export const menus = {
         },
       ],
     },
+
     {
       label: "성적·학사",
-      to: "/gradesAcademicRecords",
+      to: "/gradesacademicrecords",
       children: [
         {
           label: "성적표",
-          to: "/gradesAcademicRecords/gradereport",
+          to: "/gradesacademicrecords/gradereport",
           children: [
-            { label: "조회", to: "/gradesAcademicRecords/check" },
-            { label: "출력", to: "/gradesAcademicRecords/output" },
-            { label: "입력", to: "/gradesAcademicRecords/gradeEntry" },
+            { label: "조회", to: "/gradesacademicrecords/check" },
+            { label: "출력", to: "/gradesacademicrecords/print" },
+            { label: "입력", to: "/gradesacademicrecords/gradeentry" },
           ],
         },
       ],
     },
+
     {
       label: "커뮤니티",
-      to: "/community/community",
+      to: "/community",
       children: [
         {
           label: "전체게시판",
@@ -323,6 +322,7 @@ export const menus = {
         },
       ],
     },
+
     {
       label: "인증/계정보안",
       to: "/account",
@@ -338,34 +338,36 @@ export const menus = {
   STUDENT: [
     {
       label: "강의/수업관리(학생)",
-      to: "/courseenrollementmanagement/student/classoperation",
+      to: "/courseenrollmentmanagement/student/classoperation",
       children: [
         {
           label: "강의 관리",
-          to: "/CourseEnrollementManagement/student/courseManagement",
+          to: "/courseenrollmentmanagement/student/coursemanagement",
         },
         {
           label: "시간표",
-          to: "/CourseEnrollementManagement/student/timetable",
+          to: "/courseenrollmentmanagement/student/timetable",
         },
         {
           label: "출결",
-          to: "/CourseEnrollementManagement/student/classOperation",
+          to: "/courseenrollmentmanagement/student/attendance",
         },
         {
           label: "강의 평가",
-          to: "/CourseEnrollementManagement/student/courseEvaluation",
+          to: "/courseenrollmentmanagement/student/courseevaluation",
         },
       ],
     },
+
     {
       label: "학사행정·학적·증명·재정",
-      to: "/academicAffairs",
+      to: "/academicaffairs",
       children: [
-        { label: "학점관리", to: "/academicAffairs/creditmanagement" },
-        { label: "학위 증명", to: "/academicAffairs/degreecertificates" },
+        { label: "학점관리", to: "/academicaffairs/creditmanagement" },
+        { label: "학위 증명", to: "/academicaffairs/degreecertificates" },
       ],
     },
+
     {
       label: "비교과 프로그램",
       to: "/extracurricularprograms",
@@ -380,20 +382,22 @@ export const menus = {
         },
       ],
     },
+
     {
       label: "성적·학사",
-      to: "/gradesAcademicRecord/gradePage",
+      to: "/gradesacademicrecords",
       children: [
         {
           label: "성적표",
-          to: "/gradesAcademicRecords/gradereport",
+          to: "/gradesacademicrecords/gradereport",
           children: [
-            { label: "조회", to: "/gradesAcademicRecords/check" },
-            { label: "출력", to: "/gradesAcademicRecords/print" },
+            { label: "조회", to: "/gradesacademicrecords/check" },
+            { label: "출력", to: "/gradesacademicrecords/print" },
           ],
         },
       ],
     },
+
     {
       label: "지원",
       to: "/financesupport",
@@ -412,9 +416,10 @@ export const menus = {
         },
       ],
     },
+
     {
       label: "커뮤니티",
-      to: "/community/community",
+      to: "/community",
       children: [
         {
           label: "전체게시판",
@@ -429,6 +434,7 @@ export const menus = {
         },
       ],
     },
+
     {
       label: "인증/계정보안",
       to: "/account",
