@@ -48,11 +48,31 @@ const config = {
   // 급할 경우, 직접 데이터를 제외해야합니다.
   excludeList: ["posts"],
   // 사용할 함수를 정의합니다.
-  funcs: { Board, readAll, readOne , writeOne, deleteOne, updateOne},
+  funcs: { Board, readAll, readOne, writeOne, deleteOne, updateOne },
   // formData는 write할 때 사용하는 데이터입니다.
   formData: {},
   // 추후 레이아웃에 세팅을 위함. 지금은 default만사용합니다.
-  type: typeEnum.read
+  type: typeEnum.read,
+  buttonDataList: [
+    {
+      label: "모두읽기",
+      action: readAll,
+      enumType: typeEnum.read,
+      style: "bg-red-300 hover:bg-red-700",
+    },
+    {
+      label: "데이터추가",
+      action: null,
+      enumType: typeEnum.write,
+      style: "bg-green-500 hover:bg-green-600",
+    },
+    {
+      label: "검색",
+      action: null,
+      enumType: typeEnum.search,
+      style: "bg-blue-500 hover:bg-blue-600",
+    },
+  ],
 };
 
 

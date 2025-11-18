@@ -45,9 +45,29 @@ const config = {
     userDTO: "유저",
   },
   excludeList: ["userDTO"],
-  funcs: { Post, readAll, readOne ,writeOne, deleteOne, updateOne },
+  funcs: { Post, readAll, readOne, writeOne, deleteOne, updateOne },
   formData: {},
-  type: typeEnum.read
+  type: typeEnum.read,
+  buttonDataList: [
+    {
+      label: "모두읽기",
+      action: readAll,
+      enumType: typeEnum.read,
+      style: "bg-red-300 hover:bg-red-700",
+    },
+    {
+      label: "데이터추가",
+      action: null,
+      enumType: typeEnum.write,
+      style: "bg-green-500 hover:bg-green-600",
+    },
+    {
+      label: "검색",
+      action: null,
+      enumType: typeEnum.search,
+      style: "bg-blue-500 hover:bg-blue-600",
+    },
+  ],
 };
 
 export default { config, Post };

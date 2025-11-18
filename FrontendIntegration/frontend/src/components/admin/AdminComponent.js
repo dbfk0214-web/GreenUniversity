@@ -15,6 +15,7 @@ import userApi from "../../api/userApi";
 
 import AdminSelectedContext from "./AdminSelectContext";
 import TimeTableApi from "../../api/TimeTableApi";
+import { typeEnum } from "../../api/commonApi";
 
 const AdminComponent = () => {
   // useState 정의
@@ -30,7 +31,7 @@ const AdminComponent = () => {
   const [selectTimeTable, setSelectTimeTable] = useState("none");
   const [selectUser, setSelectUser] = useState("none");
 
-
+  // 함수 정의
   const excludeColumns = (columns, excludeArray) => {
     return Object.keys(columns)
       .filter(key => !excludeArray.includes(key))

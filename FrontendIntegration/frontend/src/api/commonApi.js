@@ -7,7 +7,9 @@ export const typeEnum = {
     "default" : "default",
     "read" : "read",
     "oneRead" : "oneRead",
+    "search" : "search",
     "write" : "write",
     "delete" : "delete",
     "update" : "update",
-  }
+    "loading" : "loading",
+}
