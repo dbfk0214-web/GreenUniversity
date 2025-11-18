@@ -3,6 +3,7 @@ import { API_SERVER_HOST, typeEnum } from "./commonApi";
 import { Await } from "react-router-dom";
 import { useState } from "react";
 
+// 나중에 메서드 이름 혹은 역할을 변경 , 미사용 시, 삭제할 것
 const Attendance = async () => {
   console.log("attendance가 가동되었다.");
   const res = await axios.get(`${API_SERVER_HOST}/api/attendance/student/checkclass`);
@@ -10,10 +11,27 @@ const Attendance = async () => {
 };
 
 const readAll = async () => {
-  console.log("attendance가 가동되었다.");
+  console.log("attendance readAll");
   const res = await axios.get(`${API_SERVER_HOST}/api/attendance/all`);
   return res.data;
 };
+
+const readOne = async () => {
+  console.log("attendance readOne");
+  return {};
+}
+
+const writeOne = async () => {
+  console.log("attendance writeOne");
+}
+
+const deleteOne = async () => {
+  console.log("attendance deleteOne");
+}
+
+const updateOne = async () => {
+  console.log("attendance updateOne");
+}
 
 const config = {
   tableInfo: {
@@ -21,13 +39,14 @@ const config = {
     tableName: "출석",
   },
   columns: {
-    attendance: "이름",
+    attendanceId: "이름",
     localDateTime: "출석일",
     status: "상태",
   },
-  funcs: { Attendance, readAll },
+  excludeList: [],
+  funcs: { Attendance, readAll, readOne ,writeOne, deleteOne, updateOne },
   formData: {},
-  type: typeEnum.default
+  type: typeEnum.read
 };
 
 

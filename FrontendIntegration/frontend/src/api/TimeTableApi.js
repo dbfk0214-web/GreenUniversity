@@ -2,6 +2,7 @@ import axios from "axios";
 import { API_SERVER_HOST, typeEnum } from "./commonApi";
 import { Await } from "react-router-dom";
 
+// 나중에 메서드 이름 혹은 역할을 변경 , 미사용 시, 삭제할 것
 const TimeTable = async () => {
   console.log("TimeTable가 가동되었다.");
   const res = await axios.get(`${API_SERVER_HOST}/api/time/all`);
@@ -9,10 +10,26 @@ const TimeTable = async () => {
 };
 
 const readAll = async () => {
-  console.log("TimeTable가 가동되었다.");
+  console.log("TimeTable readAll");
   const res = await axios.get(`${API_SERVER_HOST}/api/time/all`);
   return res.data;
 };
+
+const readOne = async () => {
+  console.log("TimeTable readOne");
+}
+
+const writeOne = async () => {
+  console.log("TimeTable writeOne");
+}
+
+const deleteOne = async () => {
+  console.log("TimeTable deleteOne");
+}
+
+const updateOne = async () => {
+  console.log("TimeTable updateOne");
+}
 
 // 세팅
 const config = {
@@ -29,9 +46,9 @@ const config = {
     courseOffering: "실제수업",
   },
   excludeList: ["courseOffering"],
-  funcs: { TimeTable, readAll },
+  funcs: { TimeTable, readAll, readOne ,writeOne, deleteOne, updateOne },
   formData: {},
-  type: typeEnum.default
+  type: typeEnum.read
 };
 
 export default { config, TimeTable };

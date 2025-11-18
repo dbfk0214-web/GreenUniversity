@@ -2,6 +2,7 @@ import axios from "axios";
 import { API_SERVER_HOST, typeEnum } from "./commonApi";
 import { Await } from "react-router-dom";
 
+// 나중에 메서드 이름 혹은 역할을 변경 , 미사용 시, 삭제할 것
 const Notice= async () => {
   console.log("notice가 가동되었다.");
   const res = await axios.get(`${API_SERVER_HOST}/api/notice/all`);
@@ -9,10 +10,26 @@ const Notice= async () => {
 };
 
 const readAll= async () => {
-  console.log("notice가 가동되었다.");
+  console.log("notice readAll");
   const res = await axios.get(`${API_SERVER_HOST}/api/notice/all`);
   return res.data;
 };
+
+const readOne = async () => {
+  console.log("notice readOne");
+}
+
+const writeOne = async () => {
+  console.log("notice writeOne");
+}
+
+const deleteOne = async () => {
+  console.log("notice deleteOne");
+}
+
+const updateOne = async () => {
+  console.log("notice updateOne");
+}
 
 // 세팅
 const config = {
@@ -21,16 +38,16 @@ const config = {
     tableName: "공지사항",
   },
   columns: {
-    notice_id: "공지사항아이디",
+    noticeId: "공지사항아이디",
     title: "제목",
     content: "내용",
-    created_at: "작성일자",
+    createdAt: "작성일자",
     userDTO: "유저",
   },
   excludeList: ["userDTO"],
-  funcs: { Notice, readAll },
+  funcs: { Notice, readAll, readOne ,writeOne, deleteOne, updateOne },
   formData: {},
-  type: typeEnum.default
+  type: typeEnum.read
 };
 
 export default { config, Notice };
