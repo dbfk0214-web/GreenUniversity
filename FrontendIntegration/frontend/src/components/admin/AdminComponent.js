@@ -10,12 +10,10 @@ import GradeApi from "../../api/GradeApi";
 import NoticeApi from "../../api/NoticeApi";
 import PostApi from "../../api/PostApi";
 import ReviewApi from "../../api/ReviewApi";
-import ReviTimeTableApiewApi from "../../api/TimeTableApi";
+import TimeTableApi from "../../api/TimeTableApi";
 import userApi from "../../api/userApi";
 
 import AdminSelectedContext from "./AdminSelectContext";
-import TimeTableApi from "../../api/TimeTableApi";
-import { typeEnum } from "../../api/commonApi";
 
 const AdminComponent = () => {
   // useState 정의
@@ -43,6 +41,15 @@ const AdminComponent = () => {
 
   return (
     <div>
+      {/* --소개글-- */}
+      <h1 className="text-2xl font-bold mb-6">
+        실험실 페이지
+      </h1>
+      <h2>
+        프론트엔드와 백엔드 통신을 해야할 때, 실제로 해보는 장소입니다.
+        자유롭게 내용을 추가하면 됩니다.
+      </h2>
+
       {/* --Attendance-- */}
       <AdminSelectedContext.Provider
         value={{ selectId: selectAttendance, setSelectId: setSelectAttendance }}
