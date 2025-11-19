@@ -1,5 +1,4 @@
 import { lazy, Suspense } from "react";
-import { Navigate } from "react-router-dom";
 import Mainlayouts from "../layouts/Mainlayouts";
 import GradePage from "../pages/gradesAcademicRecords/GradePage";
 
@@ -8,9 +7,6 @@ const Loading = <div>Loading......</div>;
 const Grade = lazy(() =>
   import("../pages/gradesAcademicRecords/GradeReportPage")
 );
-const check = lazy(() => import("../pages/gradesAcademicRecords/check"));
-const print = lazy(() => import("../pages/gradesAcademicRecords/print"));
-const report = lazy(() => import("../pages/gradesAcademicRecords/report"));
 
 const gradesAcademicRecordsRouter = () => {
   return [
