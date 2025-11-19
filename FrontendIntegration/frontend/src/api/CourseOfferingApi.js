@@ -48,10 +48,30 @@ const config = {
     enrollments: "수강내역들",
     timeTables: "시간표들",
   },
-  excludeList: ["course", "user","enrollments","timeTables"],
-  funcs: { CourseOffering, readAll, readOne ,writeOne, deleteOne, updateOne },
+  excludeList: ["course", "user", "enrollments", "timeTables"],
+  funcs: { CourseOffering, readAll, readOne, writeOne, deleteOne, updateOne },
   formData: {},
-  type: typeEnum.read
+  type: typeEnum.read,
+  buttonDataList: [
+    {
+      label: "모두읽기",
+      action: readAll,
+      enumType: typeEnum.read,
+      style: "bg-red-300 hover:bg-red-700",
+    },
+    {
+      label: "데이터추가",
+      action: null,
+      enumType: typeEnum.write,
+      style: "bg-green-500 hover:bg-green-600",
+    },
+    {
+      label: "검색",
+      action: null,
+      enumType: typeEnum.search,
+      style: "bg-blue-500 hover:bg-blue-600",
+    },
+  ],
 };
 
 export default { config, CourseOffering };

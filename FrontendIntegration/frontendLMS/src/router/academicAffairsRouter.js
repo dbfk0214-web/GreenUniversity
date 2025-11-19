@@ -1,27 +1,50 @@
-import { lazy, Suspense } from 'react';
-import { Navigate } from 'react-router-dom';
-import Mainlayouts from '../layouts/Mainlayouts';
+import { lazy, Suspense } from "react";
+import Mainlayouts from "../layouts/Mainlayouts";
 
-const Loading = <div>Loading......</div>;
-const CreditManagement = lazy(() => import("../pages/academicAffairs/CreditManagementPage"));
-const DegreeCertificates = lazy(() => import("../pages/academicAffairs/DegreeCertificatesPage"));
-const academicAffairs = lazy(() => import("../pages/academicAffairs/academicAffairsPage"))
+const Loading = <div>Loading...</div>;
 
-const academicAffairsRouter = () => {
-  return [
-    {
-        path:"",
-        element:<Suspense fallback={Loading}><Mainlayouts children={<academicAffairs />}/></Suspense>
-    },
-    {
-        path:"creditmanagement",
-        element:<Suspense fallback={Loading}><Mainlayouts children={<CreditManagement />}/></Suspense>
-    },
-    {
-        path:"degreecertificates",
-        element:<Suspense fallback={Loading}><Mainlayouts children={<DegreeCertificates />}/></Suspense>
-    },
-  ]
-}
+// lazy load
+const AcademicAffairsPage = lazy(() =>
+  import("../pages/academicAffairs/AcademicAffairsPage")
+);
+const CreditManagementPage = lazy(() =>
+  import("../pages/academicAffairs/creditManagement/CreditManagementPage")
+);
+const DegreeCertificatesPage = lazy(() =>
+  import("../pages/academicAffairs/degreeCertificates/DegreeCertificatesPage")
+);
 
-export default academicAffairsRouter
+const academicAffairsRouter = () => [
+  {
+    path: "",
+    element: (
+      <Suspense fallback={Loading}>
+        <Mainlayouts>
+          <AcademicAffairsPage />
+        </Mainlayouts>
+      </Suspense>
+    ),
+  },
+  {
+    path: "creditmanagement",
+    element: (
+      <Suspense fallback={Loading}>
+        <Mainlayouts>
+          <CreditManagementPage />
+        </Mainlayouts>
+      </Suspense>
+    ),
+  },
+  {
+    path: "degreecertificates",
+    element: (
+      <Suspense fallback={Loading}>
+        <Mainlayouts>
+          <DegreeCertificatesPage />
+        </Mainlayouts>
+      </Suspense>
+    ),
+  },
+];
+
+export default academicAffairsRouter;

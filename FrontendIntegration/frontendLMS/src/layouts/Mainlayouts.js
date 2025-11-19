@@ -11,7 +11,7 @@ import HeaderProfessor from "./subheader/HeaderProfessor";
 import { menus } from "../layouts/subheader/menuconfig"; // 실제 파일명 대소문자 확인
 
 export default function Mainlayouts({ children, msg }) {
-  const [role, setRole] = useState("ADMIN");
+  const [role, setRole] = useState("STUDENT");
 
   const HEADER_BY_ROLE = {
     ADMIN: HeaderAdmin,
@@ -70,7 +70,7 @@ export default function Mainlayouts({ children, msg }) {
         </div>
       </div>
 
-      <div className="h-12 shrink-0">
+      <div className="h-10">
         <Footer />
       </div>
     </div>

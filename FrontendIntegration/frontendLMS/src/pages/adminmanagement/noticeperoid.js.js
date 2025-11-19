@@ -1,9 +1,9 @@
 import React from 'react'
 
-const peroid = () => {
+const noticeperoid = () => {
   return (
     <div>peroid</div>
   )
 }
 
-export default peroid
+export default noticeperoid;
