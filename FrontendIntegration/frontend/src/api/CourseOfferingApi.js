@@ -9,6 +9,10 @@ const CourseOffering = async () => {
   return res.data;
 };
 
+const findByKeyword = async () => {
+  console.log("CourseOffering findByKeyword");
+}
+
 const readAll = async () => {
   console.log("courseOffering readAll");
   const res = await axios.get(`${API_SERVER_HOST}/api/courseoffering/all`);
@@ -49,9 +53,10 @@ const config = {
     timeTables: "시간표들",
   },
   excludeList: ["course", "user", "enrollments", "timeTables"],
-  funcs: { CourseOffering, readAll, readOne, writeOne, deleteOne, updateOne },
+  funcs: { CourseOffering, findByKeyword, readAll, readOne, writeOne, deleteOne, updateOne },
   formData: {},
   type: typeEnum.read,
+  color: "bg-yellow-100",
   buttonDataList: [
     {
       label: "모두읽기",

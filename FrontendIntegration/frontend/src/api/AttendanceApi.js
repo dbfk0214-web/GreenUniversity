@@ -10,6 +10,10 @@ const Attendance = async () => {
   return res.data;
 };
 
+const findByKeyword = async () => {
+  console.log("attendance findByKeyword");
+}
+
 const readAll = async () => {
   console.log("attendance readAll");
   const res = await axios.get(`${API_SERVER_HOST}/api/attendance/all`);
@@ -44,9 +48,10 @@ const config = {
     status: "상태",
   },
   excludeList: [],
-  funcs: { Attendance, readAll, readOne, writeOne, deleteOne, updateOne },
+  funcs: { Attendance, findByKeyword, readAll, readOne, writeOne, deleteOne, updateOne },
   formData: {},
   type: typeEnum.read,
+  color: "bg-gray-100",  
   buttonDataList: [
     {
       label: "모두읽기",

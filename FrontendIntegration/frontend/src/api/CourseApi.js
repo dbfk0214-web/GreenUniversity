@@ -9,6 +9,10 @@ const Course = async () => {
   return res.data;
 };
 
+const findByKeyword = async () => {
+  console.log("Course findByKeyword");
+}
+
 const readAll = async () => {
   console.log("Course readAll");
   const res = await axios.get(`${API_SERVER_HOST}/api/course/all`);
@@ -47,9 +51,10 @@ const config = {
     offerings: "하위강의들",
   },
   excludeList: ["department", "offerings"],
-  funcs: { Course, readAll, readOne, writeOne, deleteOne, updateOne },
+  funcs: { Course, findByKeyword, readAll, readOne, writeOne, deleteOne, updateOne },
   formData: {},
   type: typeEnum.read,
+  color: "bg-neutral-200",
   buttonDataList: [
     {
       label: "모두읽기",

@@ -6,8 +6,8 @@ import { createButton } from "../util/button";
 
 const AdminLayout = ({ config }) => {
   // 데이터 가져오기
-  const { tableInfo, columns, funcs, formData, type, buttonDataList } = config;
-  const { readAll, readOne, writeOne, deleteOne, updateOne } = funcs;
+  const { tableInfo, columns, funcs, formData, type, buttonDataList, color } = config;
+  const { findByKeyword, readAll, readOne, writeOne, deleteOne, updateOne } = funcs;
 
   // 리덕스
   const { selectId, setSelectId } = useContext(AdminSelectedContext);
@@ -20,6 +20,7 @@ const AdminLayout = ({ config }) => {
 
   // 갱신용 useState
   const [layoutEnum, setLayoutEnum] = useState(type || null);
+  const [newCurrentLayoutEnum, setNewCurrentLayoutEnum] = useState(null);
   const [selectedColumn, setSelectedColumn] = useState([]);
   const [buttonList, setButtonList] = useState(buttonDataList);
 
@@ -50,6 +51,12 @@ const AdminLayout = ({ config }) => {
     }
   };
 
+  const changeEnum = (prev, newEnum) => {
+    if (prev === newEnum) return;
+
+    setLayoutEnum(newEnum);
+  }
+
   // 핸들러
   const changeHandler = (e) => {
     const { name, value } = e.target;
@@ -72,7 +79,6 @@ const AdminLayout = ({ config }) => {
       })
   }
 
-
   const onSearch = (e) => {
     e.preventDefault();
 
@@ -85,7 +91,7 @@ const AdminLayout = ({ config }) => {
     console.log("입력된 검색어:", searchText);
 
     setLoading(true);
-    findByKeyword(selectKeyword,searchText)
+    findByKeyword(selectKeyword, searchText)
       .then((result) => {
         console.log("결과값 : ", result);
         setReadData(result);
@@ -111,14 +117,16 @@ const AdminLayout = ({ config }) => {
     }
   }, []);
 
+  useEffect(() => {
+    changeEnum(layoutEnum, newCurrentLayoutEnum)
+  }, [newCurrentLayoutEnum])
 
   useEffect(() => {
     // 실행 조건
     if (!selectId) return;
     if (layoutEnum !== typeEnum.readOne) return;
 
-    // 데이터가 리스트 형태여서 0번을 가져오기로함
-    // 수정해야할 문제
+    // 데이터가 리스트 형태여서 0번을 가져오기로함. 수정이 필요함
     setLoading(true);
     readOne(selectId)
       .then((item) => {
@@ -136,7 +144,7 @@ const AdminLayout = ({ config }) => {
   }, [layoutEnum, selectId]);
 
   return (
-    <div className="container mx-auto mt-8 px-4">
+    <div className={`container mx-auto mt-8 px-4 ${color} py-10`}>
       {tableInfo && <>
         <h2 className="text-2xl font-bold text-gray-800 mb-6">
           {tableInfo.tableName}
@@ -166,8 +174,9 @@ const AdminLayout = ({ config }) => {
                   label: btnData.label,
                   style: btnData.style,
                   onClick: () => {
-                    setLayoutEnum(btnData.enumType);
+                    setNewCurrentLayoutEnum(btnData.enumType);
                     if (btnData.action) btnData.action();
+                    if (btnData.action === readAll) getList();
                   }
                 })}
               </div>
@@ -190,7 +199,7 @@ const AdminLayout = ({ config }) => {
                     ))}
                   </div>
 
-                  {/* 데이터 목록 keys[0]번이 id키라는 가정하에 진행됨. 추후 작업 필요함 */}
+                  {/* 데이터 목록 */}
                   {typeof readData === "object" && readData.map((data, index) => {
                     var keys = Object.keys(columns);
                     var mainKey = getTableId[tableInfo.tableName];
@@ -205,7 +214,7 @@ const AdminLayout = ({ config }) => {
                         style: "bg-red-300 hover:bg-red-700",
                         size: "20%",
                         onClick: () => {
-                          setLayoutEnum(typeEnum.readOne);
+                          setNewCurrentLayoutEnum(typeEnum.readOne);
                           setSelectId(data[mainKey]);
                         }
                       })}</div>)
@@ -216,27 +225,27 @@ const AdminLayout = ({ config }) => {
 
             {/* enum값이 write 경우, 추가모드 */}
             {layoutEnum === typeEnum.write && (
-              <div>
-                <h1>write모드</h1>
+              <div className="p-4 bg-white rounded-lg shadow-md">
+                <h1 className="text-xl font-bold mb-4">Write 모드</h1>
                 {selectedColumn && (
-                  <form onSubmit={e => onSubmit(e, writeOne)}>
+                  <form onSubmit={e => onSubmit(e, writeOne)}
+                    className="space-y-4">
                     {selectedColumn.map((column, index) =>
-                      <div key={index}>
-                        <label className="font-medium">
+                      <div key={index} className="space-y-1">
+                        <label className="font-medium text-gray-700 block">
                           {column}
                         </label>
                         <input
                           type="text"
-                          className="p-2 border rounded"
+                          className="p-2 border border-gray-300 rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
                           name={column}
                           value={form[column] || ""}
-                          onChange={(e) =>
-                            changeHandler(e)
-                          }
+                          onChange={changeHandler}
                         />
                       </div>
                     )}
-                    <button type="submit">제출</button>
+                    <button type="submit"
+                      className="w-full py-2 rounded bg-blue-600 text-white font-semibold hover:bg-blue-700">제출</button>
                   </form>
                 )}
               </div>
@@ -270,7 +279,7 @@ const AdminLayout = ({ config }) => {
                           enumType: typeEnum.update,
                           style: "bg-yellow-400 hover:bg-yellow-500",
                           onClick: () => {
-                            setLayoutEnum(typeEnum.update);
+                            setNewCurrentLayoutEnum(typeEnum.update);
                           }
                         })}
                         {createButton({
@@ -278,7 +287,7 @@ const AdminLayout = ({ config }) => {
                           enumType: typeEnum.delete,
                           style: "bg-red-300 hover:bg-red-700",
                           onClick: () => {
-                            setLayoutEnum(typeEnum.delete);
+                            setNewCurrentLayoutEnum(typeEnum.delete);
                           }
                         })}
                       </div>
@@ -311,6 +320,7 @@ const AdminLayout = ({ config }) => {
                       type="text"
                       name="searchText"
                       className="flex-grow p-2 border rounded"
+                      required
                     />
                     <button type="submit" className="mt-4 px-4 py-2 bg-blue-500 text-white rounded">
                       제출
@@ -344,7 +354,7 @@ const AdminLayout = ({ config }) => {
                           enumType: typeEnum.loading,
                           style: "bg-green-300 hover:bg-green-500",
                           onClick: () => {
-                            setLayoutEnum(typeEnum.loading);
+                            setNewCurrentLayoutEnum(typeEnum.loading);
                             deleteOne(findReadOne[getTableId[tableInfo.tableName]]);
                           }
                         })}
@@ -359,28 +369,30 @@ const AdminLayout = ({ config }) => {
 
             {/* enum값이 update 경우, 업데이트모드 */}
             {layoutEnum === typeEnum.update && (
-              <div>
-                <h1>update모드</h1>
+              <div className="p-4 bg-white rounded-lg shadow-md">
+                <h1 className="text-xl font-bold mb-4">Update 모드</h1>
                 {selectedColumn && findReadOne ?
-                  (<form onSubmit={e => onSubmit(e, updateOne)}>
+                  (<form onSubmit={e => onSubmit(e, updateOne)}
+                    className="space-y-4">
                     {selectedColumn.map((column, index) => (
-                      <div key={column}>
-                        <label className="font-medium">
+                      <div key={column} className="space-y-1">
+                        <label className="font-medium text-gray-700 block">
                           {column}
                         </label>
                         <input
                           type="text"
-                          className="p-2 border rounded"
+                          className="p-2 border border-gray-300 rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
                           name={column}
                           value={form[column] || ""}
-                          onChange={(e) =>
-                            changeHandler(e)
-                          }
+                          onChange={changeHandler}
                           readOnly={index === 0}
                         />
                       </div>
                     ))}
-                    <button type="submit" className="mt-4 px-4 py-2 bg-blue-500 text-white rounded">
+                    <button
+                      type="submit"
+                      className="w-full py-2 rounded bg-blue-600 text-white font-semibold hover:bg-blue-700"
+                    >
                       제출
                     </button>
                   </form>)
@@ -403,8 +415,7 @@ const AdminLayout = ({ config }) => {
               size: "90%",
               onClick: () => {
                 setOpen(true);
-                getList();
-                setLayoutEnum(type);
+                setNewCurrentLayoutEnum(type);
               }
             })}
           </div>

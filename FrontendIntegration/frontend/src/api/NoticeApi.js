@@ -9,6 +9,10 @@ const Notice = async () => {
   return res.data;
 };
 
+const findByKeyword = async () => {
+  console.log("Notice findByKeyword");
+}
+
 const readAll = async () => {
   console.log("notice readAll");
   const res = await axios.get(`${API_SERVER_HOST}/api/notice/all`);
@@ -45,9 +49,10 @@ const config = {
     userDTO: "유저",
   },
   excludeList: ["userDTO"],
-  funcs: { Notice, readAll, readOne, writeOne, deleteOne, updateOne },
+  funcs: { Notice, findByKeyword, readAll, readOne, writeOne, deleteOne, updateOne },
   formData: {},
   type: typeEnum.read,
+  color: "bg-orange-100",
   buttonDataList: [
     {
       label: "모두읽기",

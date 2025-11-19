@@ -9,6 +9,10 @@ const Board = async () => {
   return res.data;
 };
 
+const findByKeyword = async () => {
+  console.log("Board findByKeyword");
+}
+
 const readAll = async () => {
   console.log("board readAll");
   const res = await axios.get(`${API_SERVER_HOST}/api/board/all`);
@@ -48,11 +52,12 @@ const config = {
   // 급할 경우, 직접 데이터를 제외해야합니다.
   excludeList: ["posts"],
   // 사용할 함수를 정의합니다.
-  funcs: { Board, readAll, readOne, writeOne, deleteOne, updateOne },
+  funcs: { Board, findByKeyword ,readAll, readOne, writeOne, deleteOne, updateOne },
   // formData는 write할 때 사용하는 데이터입니다.
   formData: {},
   // 추후 레이아웃에 세팅을 위함. 지금은 default만사용합니다.
   type: typeEnum.read,
+  color: "bg-gray-200",  
   buttonDataList: [
     {
       label: "모두읽기",

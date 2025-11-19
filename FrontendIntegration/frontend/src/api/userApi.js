@@ -26,6 +26,10 @@ export const doRegister = async (a) => {
   }
 };
 
+const findByKeyword = async () => {
+  console.log("User findByKeyword");
+}
+
 const readAll = async () => {
   console.log("User가 가동되었다.");
   const res = await axios.get(`${API_SERVER_HOST}/api/user/all`);
@@ -51,9 +55,10 @@ const config = {
     notices: "공지내역",
   },
   excludeList: ["offerings", "enrollments", "comments", "posts", "notices"],
-  funcs: { readAll },
+  funcs: { readAll, findByKeyword },
   formData: {},
   type: typeEnum.read,
+  color: "bg-teal-100", 
   buttonDataList: [
     {
       label: "모두읽기",

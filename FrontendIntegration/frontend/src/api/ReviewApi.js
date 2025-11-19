@@ -9,6 +9,10 @@ const Review = async () => {
   return res.data;
 };
 
+const findByKeyword = async () => {
+  console.log("Review findByKeyword");
+}
+
 const readAll = async () => {
   console.log("review readAll");
   const res = await axios.get(`${API_SERVER_HOST}/api/review/all`);
@@ -45,9 +49,10 @@ const config = {
     enrollmentDTO: "수강내역",
   },
   excludeList: ["enrollmentDTO"],
-  funcs: { Review, readAll, readOne, writeOne, deleteOne, updateOne },
+  funcs: { Review, findByKeyword, readAll, readOne, writeOne, deleteOne, updateOne },
   formData: {},
   type: typeEnum.read,
+  color: "bg-green-100",
   buttonDataList: [
     {
       label: "모두읽기",
