@@ -6,7 +6,7 @@ import { createButton } from "../util/button";
 
 const AdminLayout = ({ config }) => {
   // 데이터 가져오기
-  const { tableInfo, columns, funcs, formData, type, buttonDataList, color } = config;
+  const { tableInfo, columns, funcs, formData, type, buttonDataList, extrahButtonDataList, color } = config;
   const { findByKeyword, readAll, readOne, writeOne, deleteOne, updateOne } = funcs;
 
   // 리덕스
@@ -18,14 +18,27 @@ const AdminLayout = ({ config }) => {
   const [form, setForm] = useState(formData || {});
   const [isLoading, setLoading] = useState(false);
 
+  const [findData, setFindData] = useState([]);
+  const [findColumns, setFindColumns] = useState({});
+
+  const [selectData, setSelectData] = useState({});
+  const [selectIndex, setSelectIndex] = useState(0);
+
   // 갱신용 useState
   const [layoutEnum, setLayoutEnum] = useState(type || null);
   const [newCurrentLayoutEnum, setNewCurrentLayoutEnum] = useState(null);
+
+
   const [selectedColumn, setSelectedColumn] = useState([]);
+  const [formColumn, setFormColumn] = useState([]);
+  const [targetColumn, setTargetColumn] = useState(null);
+
   const [buttonList, setButtonList] = useState(buttonDataList);
+  const [extrahButtonList, setExtrahButtonList] = useState(extrahButtonDataList);
 
   // 출력될 버튼 모음
   const [isOpen, setOpen] = useState(false);
+  const [isModalOepn, setModalOpen] = useState(false);
 
   const getTableId = {
     "Attendance": "attendanceId",
@@ -102,6 +115,10 @@ const AdminLayout = ({ config }) => {
       })
   }
 
+  const selectCheckbox = (id) => {
+    setSelectData(findData[id]);
+  }
+
   useEffect(() => {
     if (typeof columns === "object") {
       var columnKey = Object.keys(columns);
@@ -109,13 +126,32 @@ const AdminLayout = ({ config }) => {
         setSelectedColumn(columnKey);
       }
     }
+
+    if (typeof formData === "object") {
+      var formColumnKey = Object.keys(formData);
+      if (formColumnKey.length > 0) {
+        setFormColumn(formColumnKey);
+      }
+    }
+
     // 버튼 생성
     if (buttonDataList && buttonDataList.length > 0) {
       if (buttonDataList && buttonDataList.length > 0) {
         setButtonList(buttonDataList);
       }
     }
+
+    // 모달에서 쓰이는 버튼 생성
+    if (extrahButtonDataList && extrahButtonDataList.length > 0) {
+      if (extrahButtonDataList && extrahButtonDataList.length > 0) {
+        setExtrahButtonList(extrahButtonDataList);
+      }
+    }
   }, []);
+
+  useEffect(() => {
+    console.log(selectData);
+  }, [selectData])
 
   useEffect(() => {
     changeEnum(layoutEnum, newCurrentLayoutEnum)
@@ -212,7 +248,7 @@ const AdminLayout = ({ config }) => {
                       {createButton({
                         label: "한건조회",
                         style: "bg-red-300 hover:bg-red-700",
-                        size: "20%",
+                        size: "10%",
                         onClick: () => {
                           setNewCurrentLayoutEnum(typeEnum.readOne);
                           setSelectId(data[mainKey]);
@@ -230,22 +266,51 @@ const AdminLayout = ({ config }) => {
                 {selectedColumn && (
                   <form onSubmit={e => onSubmit(e, writeOne)}
                     className="space-y-4">
-                    {selectedColumn.map((column, index) =>
+                    {formColumn.map((column, index) =>
                       <div key={index} className="space-y-1">
                         <label className="font-medium text-gray-700 block">
                           {column}
                         </label>
-                        <input
-                          type="text"
-                          className="p-2 border border-gray-300 rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
-                          name={column}
-                          value={form[column] || ""}
-                          onChange={changeHandler}
-                        />
+                        {extrahButtonList.some(column) ?
+                          <div>
+                            <input 
+                              type="text"
+                              name={column}
+                              // value={selectData.test}
+                              readOnly
+                            />
+
+                            <button
+                              type="button"
+                              className="p-2 bg-green-300 rounded hover:bg-green-700 text-white flex-1"
+                              onClick={() => {
+                                setModalOpen(true);
+                                setTargetColumn(column); // 어떤 컬럼에 넣을지 저장
+                              }}
+                            >
+                              필요한 데이터 불러오기
+                            </button>
+                          </div>
+
+                          :
+                          <>
+                            <input
+                              type="text"
+                              className="p-2 border border-gray-300 rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+                              name={column}
+                              value={form[column] || ""}
+                              onChange={changeHandler}
+                            />
+                          </>
+                        }
+
                       </div>
                     )}
                     <button type="submit"
-                      className="w-full py-2 rounded bg-blue-600 text-white font-semibold hover:bg-blue-700">제출</button>
+                      className="w-full py-2 rounded bg-blue-600 text-white font-semibold hover:bg-blue-700">
+                      제출
+                    </button>
+
                   </form>
                 )}
               </div>
@@ -404,6 +469,117 @@ const AdminLayout = ({ config }) => {
               </div>
             )}
           </div>
+
+          {/* 모달창 */}
+          {isModalOepn && (
+            <div className="fixed inset-0 z-50 flex items-center justify-center">
+              {/* 흐린 배경 */}
+              <div
+                className="absolute inset-0 bg-black bg-opacity-50 backdrop-blur-sm"
+                onClick={() => setModalOpen(false)}
+              ></div>
+
+              {/* 모달 박스 */}
+              <div className="relative bg-white rounded-xl p-6 shadow-xl z-50 w-[90%] max-h-[80vh] overflow-y-auto">
+                <div className="flex items-center justify-between mt-4">
+                  <h2 className="text-xl font-bold text-center flex-1">
+                    모달창
+                  </h2>
+                </div>
+                <div>
+                  <button
+                    className="w-[10%] p-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+                    onClick={() => {
+                      selectCheckbox(selectId);
+                      setModalOpen(false);
+                    }}
+                  >
+                    선택하기
+                  </button>
+                  <button
+                    className="w-[10%] p-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+                    onClick={() => setFindData([])}
+                  >
+                    리셋
+                  </button>
+                  <button
+                    className="w-[10%] p-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+                    onClick={() => setModalOpen(false)}
+                  >
+                    닫기
+                  </button>
+                </div>
+
+                {/* 버튼 리스트 */}
+                <div className="flex flex-wrap gap-2 mb-4 justify-end">
+                  {extrahButtonList.map((btnData, index) => (
+                    <div key={index} className="flex-1">
+                      {createButton({
+                        label: btnData.label,
+                        style: btnData.style,
+                        onClick: () => {
+                          if (btnData.action) {
+                            btnData.action().then((result) => {
+                              var data = [];
+                              result.forEach(d => {
+                                var temp = {};
+                                Object.keys(btnData.columns).forEach(key => {
+                                  if (d[key] != null)
+                                    temp[key] = d[key];
+                                })
+                                data.push(temp);
+                              });
+                              setFindColumns(btnData.columns);
+                              setFindData(data);
+                              console.log(result);
+                            });
+                          }
+                        },
+                      })}
+                    </div>
+                  ))}
+                </div>
+
+                {/* 데이터가 있을 경우 */}
+                {findData && findData.length > 0 && findColumns && (
+                  <div>
+                    {/* 테이블 제목 */}
+                    <h3 className="text-3xl font-bold mb-4 p-4 bg-blue-100 rounded-md shadow-md">
+                      {tableInfo.tableName}:{tableInfo.tableEng}
+                    </h3>
+
+                    {/* 컬럼 헤더 */}
+                    <div className="flex font-semibold border-b pb-1 mb-2">
+                      <div className="flex-none px-2">선택</div>
+                      {Object.keys(findColumns).map((key) => (
+                        <div key={key} className="flex-1">
+                          {key}:{findColumns[key]}
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* 데이터 행 */}
+                    {findData.map((data, index) => (
+                      <div key={index} className="flex border-b py-1 items-center">
+                        <div className="flex-none px-2">
+                          <input type="checkbox"
+                            onChange={() => setSelectId(index)}
+                          />
+                        </div>
+                        {Object.keys(findColumns).map((key) => (
+                          <div key={key} className="flex-1">
+                            {data[key]}
+                          </div>
+                        ))}
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+              </div>
+            </div>
+          )}
+
         </>
         :
         <>
@@ -420,8 +596,7 @@ const AdminLayout = ({ config }) => {
             })}
           </div>
         </>}
-    </div >
+    </div>
   );
-};
-
+}
 export default AdminLayout;

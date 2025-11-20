@@ -1,7 +1,8 @@
 import axios from "axios";
-import { API_SERVER_HOST, typeEnum } from "./commonApi";
+import { API_SERVER_HOST, excludeColumns, typeEnum } from "./commonApi";
 import { Await } from "react-router-dom";
 import { useState } from "react";
+import EnrollmentApi from "./EnrollmentApi";
 
 // 나중에 메서드 이름 혹은 역할을 변경 , 미사용 시, 삭제할 것
 const Attendance = async () => {
@@ -46,12 +47,13 @@ const config = {
     attendanceId: "이름",
     localDateTime: "출석일",
     status: "상태",
+    enrollment: "수강내역",
   },
-  excludeList: [],
+  excludeList: ["enrollment"],
   funcs: { Attendance, findByKeyword, readAll, readOne, writeOne, deleteOne, updateOne },
   formData: {},
   type: typeEnum.read,
-  color: "bg-gray-100",  
+  color: "bg-gray-100",
   buttonDataList: [
     {
       label: "모두읽기",
@@ -72,6 +74,15 @@ const config = {
       style: "bg-blue-500 hover:bg-blue-600",
     },
   ],
+  extrahButtonDataList : [
+    {
+      label: "Enrollment 정보 읽기",
+      action: EnrollmentApi.config.funcs.readAll,
+      // enumType: typeEnum.read,
+      style: "bg-red-300 hover:bg-red-700",
+      columns: excludeColumns(EnrollmentApi.config.columns,EnrollmentApi.config.excludeList),
+    },
+  ]
 };
 
 
