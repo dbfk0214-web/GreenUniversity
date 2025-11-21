@@ -6,16 +6,18 @@ import BoardApi from "../../api/BoardApi";
 import CommentApi from "../../api/CommentApi";
 import CourseApi from "../../api/CourseApi";
 import CourseOfferingApi from "../../api/CourseOfferingApi";
+import DepartmentApi from "../../api/DepartmentApi";
 import GradeApi from "../../api/GradeApi";
 import NoticeApi from "../../api/NoticeApi";
 import PostApi from "../../api/PostApi";
 import ReviewApi from "../../api/ReviewApi";
-import ReviTimeTableApiewApi from "../../api/TimeTableApi";
+import TimeTableApi from "../../api/TimeTableApi";
 import userApi from "../../api/userApi";
+import EnrollmentApi from "../../api/EnrollmentApi";
 
 import AdminSelectedContext from "./AdminSelectContext";
-import TimeTableApi from "../../api/TimeTableApi";
-import { typeEnum } from "../../api/commonApi";
+import { excludeColumns } from "../../api/commonApi";
+
 
 const AdminComponent = () => {
   // useState 정의
@@ -24,6 +26,8 @@ const AdminComponent = () => {
   const [setlectComment, setSetlectComment] = useState("none");
   const [selectCourse, setSelectCourse] = useState("none");
   const [selectCourseOffering, setSelectCourseOffering] = useState("none");
+  const [selectDepartment, setSelectDepartment] = useState("none");
+  const [selectEnrollment, setSelectEnrollment] = useState("none");
   const [selectGrade, setSelectGrade] = useState("none");
   const [selectNotice, setSelectNotice] = useState("none");
   const [selectPost, setSelectPost] = useState("none");
@@ -31,18 +35,19 @@ const AdminComponent = () => {
   const [selectTimeTable, setSelectTimeTable] = useState("none");
   const [selectUser, setSelectUser] = useState("none");
 
-  // 함수 정의
-  const excludeColumns = (columns, excludeArray) => {
-    return Object.keys(columns)
-      .filter(key => !excludeArray.includes(key))
-      .reduce((acc, key) => {
-        acc[key] = columns[key];
-        return acc
-      }, {});
-  }
+
 
   return (
     <div>
+      {/* --소개글-- */}
+      <h1 className="text-2xl font-bold mb-6">
+        개발 편의를 위한 자동화 페이지
+      </h1>
+      <h2>
+        프론트엔드와 백엔드 통신을 해야할 때, 실제로 해보는 장소입니다.
+        양식에 맞게, 데이터를 세팅하면, 연동이 됩니다.
+      </h2>
+
       {/* --Attendance-- */}
       <AdminSelectedContext.Provider
         value={{ selectId: selectAttendance, setSelectId: setSelectAttendance }}
@@ -50,8 +55,8 @@ const AdminComponent = () => {
         <AdminLayout
           config={{
             ...AttendanceApi.config,
+            formData: AttendanceApi.config.columns,
             columns: excludeColumns(AttendanceApi.config.columns, AttendanceApi.config.excludeList),
-            formData: excludeColumns(AttendanceApi.config.columns, AttendanceApi.config.excludeList)
           }}
         />
       </AdminSelectedContext.Provider>
@@ -104,6 +109,32 @@ const AdminComponent = () => {
             ...CourseOfferingApi.config,
             columns: excludeColumns(CourseOfferingApi.config.columns, CourseOfferingApi.config.excludeList),
             formData: excludeColumns(CourseOfferingApi.config.columns, CourseOfferingApi.config.excludeList)
+          }}
+        />
+      </AdminSelectedContext.Provider>
+
+      {/* --Department-- */}
+      <AdminSelectedContext.Provider
+        value={{ selectId: selectDepartment, setSelectId: setSelectDepartment }}
+      >
+        <AdminLayout
+          config={{
+            ...DepartmentApi.config,
+            columns: excludeColumns(DepartmentApi.config.columns, DepartmentApi.config.excludeList),
+            formData: excludeColumns(DepartmentApi.config.columns, DepartmentApi.config.excludeList)
+          }}
+        />
+      </AdminSelectedContext.Provider>
+
+      {/* --Enrollment-- */}
+      <AdminSelectedContext.Provider
+        value={{ selectId: selectEnrollment, setSelectId: setSelectEnrollment }}
+      >
+        <AdminLayout
+          config={{
+            ...EnrollmentApi.config,
+            columns: excludeColumns(EnrollmentApi.config.columns, EnrollmentApi.config.excludeList),
+            formData: excludeColumns(EnrollmentApi.config.columns, EnrollmentApi.config.excludeList)
           }}
         />
       </AdminSelectedContext.Provider>
