@@ -9,6 +9,10 @@ const Grade = async () => {
   return res.data;
 };
 
+const findByKeyword = async () => {
+  console.log("Grade findByKeyword");
+}
+
 const readAll = async () => {
   console.log("grade readAll");
   const res = await axios.get(`${API_SERVER_HOST}/api/grade/all`);
@@ -47,9 +51,10 @@ const config = {
     enrollment: "수강내역",
   },
   excludeList: ["enrollment", "courseName"],
-  funcs: { Grade, readAll, readOne, writeOne, deleteOne, updateOne },
+  funcs: { Grade, findByKeyword, readAll, readOne, writeOne, deleteOne, updateOne },
   formData: {},
   type: typeEnum.read,
+  color: "bg-amber-100",
   buttonDataList: [
     {
       label: "모두읽기",

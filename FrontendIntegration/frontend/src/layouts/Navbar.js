@@ -73,6 +73,7 @@ const Navbar = () => {
           <ul className="space-y-2">
             <li><a href="http://localhost:3000/extraservices/donate" className="hover:underline">후원하기</a></li>
             <li><a href="http://localhost:3000/extraservices/chatbot" className="hover:underline">챗봇</a></li>
+            <li><a href="http://localhost:3000/admin/one" className="hover:underline">괸라자 혹은 실험실</a></li>
           </ul>
         </div>
 

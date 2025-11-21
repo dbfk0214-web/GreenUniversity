@@ -9,6 +9,10 @@ const TimeTable = async () => {
   return res.data;
 };
 
+const findByKeyword = async () => {
+  console.log("TimeTable findByKeyword");
+}
+
 const readAll = async () => {
   console.log("TimeTable readAll");
   const res = await axios.get(`${API_SERVER_HOST}/api/time/all`);
@@ -46,9 +50,10 @@ const config = {
     courseOffering: "실제수업",
   },
   excludeList: ["courseOffering"],
-  funcs: { TimeTable, readAll, readOne, writeOne, deleteOne, updateOne },
+  funcs: { TimeTable, findByKeyword, readAll, readOne, writeOne, deleteOne, updateOne },
   formData: {},
   type: typeEnum.read,
+  color: "bg-emerald-100",
   buttonDataList: [
     {
       label: "모두읽기",

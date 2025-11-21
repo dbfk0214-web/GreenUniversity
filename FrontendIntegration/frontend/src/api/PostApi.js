@@ -9,6 +9,10 @@ const Post = async () => {
   return res.data;
 };
 
+const findByKeyword = async () => {
+  console.log("Post findByKeyword");
+}
+
 const readAll = async () => {
   console.log("Post readAll");
   const res = await axios.get(`${API_SERVER_HOST}/api/post/all`);
@@ -45,9 +49,10 @@ const config = {
     userDTO: "유저",
   },
   excludeList: ["userDTO"],
-  funcs: { Post, readAll, readOne, writeOne, deleteOne, updateOne },
+  funcs: { Post, findByKeyword, readAll, readOne, writeOne, deleteOne, updateOne },
   formData: {},
   type: typeEnum.read,
+  color: "bg-lime-100",
   buttonDataList: [
     {
       label: "모두읽기",

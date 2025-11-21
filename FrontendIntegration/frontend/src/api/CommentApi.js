@@ -9,9 +9,13 @@ const Comment = async () => {
   return res.data;
 };
 
+const findByKeyword = async () => {
+  console.log("Comment findByKeyword");
+}
+
 const readAll = async () => {
   console.log("comment readAll");
-  const res = await axios.get(`${API_SERVER_HOST}/api/comment/all`);
+  const res = await axios.get(`${API_SERVER_HOST}/api/comment/commentlist`);
   return res.data;
 };
 
@@ -45,9 +49,10 @@ const config = {
     posts: "게시판글",
   },
   excludeList: ["user", "posts"],
-  funcs: { Comment, readAll, readOne, writeOne, deleteOne, updateOne },
+  funcs: { Comment, findByKeyword, readAll, readOne, writeOne, deleteOne, updateOne },
   formData: {},
   type: typeEnum.read,
+  color: "bg-stone-100",
   buttonDataList: [
     {
       label: "모두읽기",
