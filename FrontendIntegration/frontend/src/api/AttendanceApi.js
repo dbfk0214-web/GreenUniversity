@@ -3,6 +3,7 @@ import { API_SERVER_HOST, excludeColumns, typeEnum } from "./commonApi";
 import { Await } from "react-router-dom";
 import { useState } from "react";
 import EnrollmentApi from "./EnrollmentApi";
+import DepartmentApi from "./DepartmentApi";
 
 // 나중에 메서드 이름 혹은 역할을 변경 , 미사용 시, 삭제할 것
 const Attendance = async () => {
@@ -48,6 +49,7 @@ const config = {
     localDateTime: "출석일",
     status: "상태",
     enrollment: "수강내역",
+    department: "학과",
   },
   excludeList: ["enrollment"],
   funcs: { Attendance, findByKeyword, readAll, readOne, writeOne, deleteOne, updateOne },
@@ -74,52 +76,17 @@ const config = {
       style: "bg-blue-500 hover:bg-blue-600",
     },
   ],
-  extrahButtonDataList : [
+  extrahButtonDataList: [
     {
       label: "Enrollment 정보 읽기",
       action: EnrollmentApi.config.funcs.readAll,
       // enumType: typeEnum.read,
       style: "bg-red-300 hover:bg-red-700",
-      columns: excludeColumns(EnrollmentApi.config.columns,EnrollmentApi.config.excludeList),
+      columns: { ...excludeColumns(EnrollmentApi.config.columns, EnrollmentApi.config.excludeList) },
+      tableName: "enrollment"
     },
   ]
 };
 
 
-export default { config };
-// 출석 확인
-
-// export const attendanceHandler = async () => {
-//   const attendanceData = {
-//     userId: Number(userId), //input에서 받은 값
-//     date,
-//     status: "PRESENT",
-//     memo
-//   };
-//   const res = await axios.post(`${API_SERVER_HOST}/api/attendance`, attendanceData);
-//   console.log(res.data);
-// };
-//출석 입력
-
-
-// 더미 데이터
-/* const [dummyData, setDummyData] = useState([
-  {
-    name: "홍길동",
-    date: "2025-11-12",
-    status: "출석",
-    memo: "지각 없음",
-  },
-  {
-    name: "김철수",
-    date: "2025-11-12",
-    status: "결석",
-    memo: "사유서 제출 예정",
-  },
-  {
-    name: "이영희",
-    date: "2025-11-12",
-    status: "지각",
-    memo: "10분 늦음",
-  },
-]); */
+export default { config };  

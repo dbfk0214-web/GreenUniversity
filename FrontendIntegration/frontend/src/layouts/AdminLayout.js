@@ -15,7 +15,7 @@ const AdminLayout = ({ config }) => {
   // useState 사용
   const [readData, setReadData] = useState([]);
   const [findReadOne, setFindReadOne] = useState({});
-  const [form, setForm] = useState(formData || {});
+  const [form, setForm] = useState(formData);
   const [isLoading, setLoading] = useState(false);
 
   const [findData, setFindData] = useState([]);
@@ -80,6 +80,21 @@ const AdminLayout = ({ config }) => {
   const onSubmit = (e, action) => {
     e.preventDefault();
 
+    const relatedColumns = extrahButtonList.map(data => data.columns);
+    const formData = new FormData(e.target);
+    console.log(relatedColumns);
+
+    for (const columns of relatedColumns) {
+      for (const column of Object.keys(columns)) {
+        const searchObject = formData.get(column);
+
+        if (!searchObject || searchObject.trim() === "") {
+          alert(`'${column}' 값이 비었습니다. 입력해주세요.`);
+          return;
+        }
+      }
+    }
+    
     setLoading(true);
     action(form)
       .then((result) => {
@@ -117,6 +132,7 @@ const AdminLayout = ({ config }) => {
 
   const selectCheckbox = (id) => {
     setSelectData(findData[id]);
+
   }
 
   useEffect(() => {
@@ -150,7 +166,14 @@ const AdminLayout = ({ config }) => {
   }, []);
 
   useEffect(() => {
+    // console.log(form, "변화");
+  }, [form])
+
+  useEffect(() => {
+    if (!selectData || Object.keys(selectData).length === 0) return;
+
     console.log(selectData);
+    setForm(prev => ({ ...prev, [targetColumn]: selectData }));
   }, [selectData])
 
   useEffect(() => {
@@ -263,49 +286,91 @@ const AdminLayout = ({ config }) => {
             {layoutEnum === typeEnum.write && (
               <div className="p-4 bg-white rounded-lg shadow-md">
                 <h1 className="text-xl font-bold mb-4">Write 모드</h1>
+                {
+                  createButton({
+                    label: "write 리셋",
+                    style: "bg-yellow-400 hover:bg-yellow-500",
+                    size: "20%",
+                    onClick: () => {
+                      setSelectData({});
+                      setForm(formData);
+                    }
+                  })
+                }
+
                 {selectedColumn && (
                   <form onSubmit={e => onSubmit(e, writeOne)}
                     className="space-y-4">
-                    {formColumn.map((column, index) =>
-                      <div key={index} className="space-y-1">
-                        <label className="font-medium text-gray-700 block">
-                          {column}
-                        </label>
-                        {extrahButtonList.some(column) ?
-                          <div>
-                            <input 
-                              type="text"
-                              name={column}
-                              // value={selectData.test}
-                              readOnly
-                            />
+                    {formColumn.map((column, index) => {
+                      const relatedButtons = extrahButtonList.filter(item => item.tableName === column);
 
-                            <button
-                              type="button"
-                              className="p-2 bg-green-300 rounded hover:bg-green-700 text-white flex-1"
-                              onClick={() => {
-                                setModalOpen(true);
-                                setTargetColumn(column); // 어떤 컬럼에 넣을지 저장
-                              }}
-                            >
-                              필요한 데이터 불러오기
-                            </button>
-                          </div>
+                      return (<div key={index} className="space-y-1">
+                        {relatedButtons.length > 0 ?
+                          <>
+                            {relatedButtons.map(item =>
+                              <div>
+                                <>
+                                  <div className="flex items-center gap-2 mb-1">
+                                    <label className="font-medium text-gray-700 block">
+                                      {column}
+                                    </label>
+                                    <button
+                                      type="button"
+                                      className="p-2 bg-green-300 rounded hover:bg-green-700 text-white flex-1"
+                                      onClick={() => {
+                                        setModalOpen(true);
+                                        setTargetColumn(column); // 어떤 컬럼에 넣을지 저장
+                                      }}
+                                    >
+                                      필요한 데이터 불러오기
+                                    </button>
+                                  </div>
 
+                                  {/* 선택한 데이터 확인 */}
+                                  <div className="container mx-auto mt-8 px-4 py-10 bg-purple-300 rounded-lg shadow-md">
+                                    <div className="space-y-6">
+                                      {
+                                        Object.keys(item.columns).filter(key => key != item.tableName)
+                                          .map(key => (
+                                            <div key={key} className="bg-white rounded-md shadow p-4">
+                                              <label className="block text-sm font-semibold text-gray-700 mb-2">{key}</label>
+                                              <input
+                                                type="text"
+                                                name={key}
+                                                value={form[item.tableName][key] ?? ""}
+                                                onChange={changeHandler}
+                                                readOnly
+                                                className="w-full rounded-md border border-gray-300 shadow-sm p-2 focus:ring-indigo-500 focus:border-indigo-500"
+                                              />
+                                            </div>
+                                          ))
+                                      }
+                                    </div>
+                                  </div>
+                                </>
+                              </div>
+                            )}
+                          </>
                           :
                           <>
+                            <label className="font-medium text-gray-700 block">
+                              {column}
+                            </label>
+                            {/* {typeof extrahButtonList === "object" && JSON.stringify(extrahButtonList)} */}
                             <input
                               type="text"
                               className="p-2 border border-gray-300 rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
                               name={column}
-                              value={form[column] || ""}
+                              value={form[column]}
                               onChange={changeHandler}
+                              required
                             />
                           </>
                         }
-
-                      </div>
+                      </div>)
+                    }
                     )}
+
                     <button type="submit"
                       className="w-full py-2 rounded bg-blue-600 text-white font-semibold hover:bg-blue-700">
                       제출
@@ -512,32 +577,39 @@ const AdminLayout = ({ config }) => {
 
                 {/* 버튼 리스트 */}
                 <div className="flex flex-wrap gap-2 mb-4 justify-end">
-                  {extrahButtonList.map((btnData, index) => (
-                    <div key={index} className="flex-1">
-                      {createButton({
-                        label: btnData.label,
-                        style: btnData.style,
-                        onClick: () => {
-                          if (btnData.action) {
-                            btnData.action().then((result) => {
-                              var data = [];
-                              result.forEach(d => {
-                                var temp = {};
-                                Object.keys(btnData.columns).forEach(key => {
-                                  if (d[key] != null)
-                                    temp[key] = d[key];
-                                })
-                                data.push(temp);
+
+                  {extrahButtonList
+                    .filter(btnData => btnData.tableName === targetColumn)
+                    .map((btnData, index) => (
+                      <div key={index} className="flex-1">
+                        {createButton({
+                          label: btnData.label,
+                          style: btnData.style,
+                          onClick: () => {
+                            if (btnData.action) {
+                              btnData.action().then((result) => {
+                                var data = [];
+                                result.forEach(d => {
+                                  var temp = {};
+                                  Object.keys(btnData.columns).forEach(key => {
+                                    if (key !== null && d[key] !== null)
+                                      temp[key] = d[key];
+                                  })
+                                  if (Object.keys(temp).length > 0) {
+                                    data.push(temp);
+                                  }
+                                });
+                                setFindColumns(btnData.columns);
+                                setFindData(data.filter(item => item !== null));
+                                console.log(result);
                               });
-                              setFindColumns(btnData.columns);
-                              setFindData(data);
-                              console.log(result);
-                            });
-                          }
-                        },
-                      })}
-                    </div>
-                  ))}
+                            }
+                          },
+                        })}
+                      </div>
+                    ))
+                  }
+
                 </div>
 
                 {/* 데이터가 있을 경우 */}
@@ -596,7 +668,7 @@ const AdminLayout = ({ config }) => {
             })}
           </div>
         </>}
-    </div>
+    </div >
   );
 }
 export default AdminLayout;
