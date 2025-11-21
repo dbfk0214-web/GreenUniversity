@@ -3,7 +3,7 @@ import { createTableConfig, excludeColumns } from "./commonApi";
 import DepartmentApi from "./DepartmentApi";
 import { tableDefinitions } from "./tablesConfig";
 
-const tableName = "timeTable";
+const tableName = "timetable";
 
 const extraButtons =
   [

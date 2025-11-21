@@ -28,7 +28,7 @@ export const createCrudApi = (tableName) => ({
   },
   writeOne: (dto) => {
     console.log(`${tableName} writeOne`, dto);
-    return axios.post(`${API_SERVER_HOST}/api/${tableName}`, dto).then(r => r.data);
+    return axios.post(`${API_SERVER_HOST}/api/${tableName}/create`, dto).then(r => r.data);
   },
   updateOne: (dto) => {
     console.log(`${tableName} updateOne`);

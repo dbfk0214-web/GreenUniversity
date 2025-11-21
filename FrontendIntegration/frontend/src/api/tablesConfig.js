@@ -157,16 +157,18 @@ export const tableDefinitions = {
         columns: {
             reviewId: "리뷰아이디",
             rating: "평가점수",
-            comment: "댓글내영",
-            createAt: "작성일자",
-            enrollmentDTO: "수강내역",
+            comment: "댓글내용",
+            createdAt: "작성일자",
+            updatedAt: "수정날짜",
+            courseName: "강의이름",
+            studentNickname: "학생이름",
         },
 
         excludeList: ["enrollmentDTO"],
         color: "bg-green-100",
     },
-    "timeTable": {
-        key: "timeTable",
+    "timetable": {
+        key: "timetable",
         tableEng: "TimeTable",
         tableName: "시간표",
         columns: {
@@ -175,7 +177,8 @@ export const tableDefinitions = {
             startTime: "수업시작시간",
             endTime: "수업종료시간",
             location: "위치",
-            courseOffering: "실제수업",
+            courseName: "강의명",
+            nickName:"학생이름"
         },
 
         excludeList: ["courseOffering"],
