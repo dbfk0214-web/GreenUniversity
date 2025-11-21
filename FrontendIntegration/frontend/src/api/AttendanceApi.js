@@ -49,7 +49,6 @@ const config = {
     localDateTime: "출석일",
     status: "상태",
     enrollment: "수강내역",
-    department: "학과",
   },
   excludeList: ["enrollment"],
   funcs: { Attendance, findByKeyword, readAll, readOne, writeOne, deleteOne, updateOne },
