@@ -1,81 +1,12 @@
 import axios from "axios";
-import { API_SERVER_HOST, excludeColumns, typeEnum } from "./commonApi";
-import { Await } from "react-router-dom";
-import { useState } from "react";
+import {createTableConfig, excludeColumns } from "./commonApi";
 import EnrollmentApi from "./EnrollmentApi";
-import DepartmentApi from "./DepartmentApi";
+import { tableDefinitions } from "./tablesConfig";
 
-// 나중에 메서드 이름 혹은 역할을 변경 , 미사용 시, 삭제할 것
-const Attendance = async () => {
-  console.log("attendance가 가동되었다.");
-  const res = await axios.get(`${API_SERVER_HOST}/api/attendance/student/checkclass`);
-  return res.data;
-};
+const tableName = "attendance";
 
-const findByKeyword = async () => {
-  console.log("attendance findByKeyword");
-}
-
-const readAll = async () => {
-  console.log("attendance readAll");
-  const res = await axios.get(`${API_SERVER_HOST}/api/attendance/all`);
-  return res.data;
-};
-
-const readOne = async () => {
-  console.log("attendance readOne");
-  return {};
-}
-
-const writeOne = async () => {
-  console.log("attendance writeOne");
-}
-
-const deleteOne = async () => {
-  console.log("attendance deleteOne");
-}
-
-const updateOne = async () => {
-  console.log("attendance updateOne");
-}
-
-const config = {
-  tableInfo: {
-    tableEng: "Attendance",
-    tableName: "출석",
-  },
-  columns: {
-    attendanceId: "이름",
-    localDateTime: "출석일",
-    status: "상태",
-    enrollment: "수강내역",
-  },
-  excludeList: ["enrollment"],
-  funcs: { Attendance, findByKeyword, readAll, readOne, writeOne, deleteOne, updateOne },
-  formData: {},
-  type: typeEnum.read,
-  color: "bg-gray-100",
-  buttonDataList: [
-    {
-      label: "모두읽기",
-      action: readAll,
-      enumType: typeEnum.read,
-      style: "bg-red-300 hover:bg-red-700",
-    },
-    {
-      label: "데이터추가",
-      action: null,
-      enumType: typeEnum.write,
-      style: "bg-green-500 hover:bg-green-600",
-    },
-    {
-      label: "검색",
-      action: null,
-      enumType: typeEnum.search,
-      style: "bg-blue-500 hover:bg-blue-600",
-    },
-  ],
-  extrahButtonDataList: [
+const extraButtons =
+  [
     {
       label: "Enrollment 정보 읽기",
       action: EnrollmentApi.config.funcs.readAll,
@@ -84,8 +15,21 @@ const config = {
       columns: { ...excludeColumns(EnrollmentApi.config.columns, EnrollmentApi.config.excludeList) },
       tableName: "enrollment"
     },
-  ]
-};
+  ];
+
+const config = createTableConfig(tableDefinitions[tableName], extraButtons);
 
 
 export default { config };  
+
+
+// 나중에 메서드 이름 혹은 역할을 변경 , 미사용 시, 삭제할 것
+// const Attendance = async () => {
+//   console.log("attendance가 가동되었다.");
+//   const res = await axios.get(`${API_SERVER_HOST}/api/attendance/student/checkclass`);
+//   return res.data;
+// };
+
+// const findByKeyword = async () => {
+//   console.log("attendance findByKeyword");
+// }
