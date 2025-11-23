@@ -257,7 +257,7 @@ export const menus = {
       children: [
         {
           label: "비교과프로그램 신청 현황",
-          to: "/extracurricularprograms/status",
+          to: "/extracurricularprograms/ProgramApplicationPage",
         },
         {
           label: "비교과프로그램 신청 취소",
