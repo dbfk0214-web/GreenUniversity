@@ -38,10 +38,7 @@ function CircleGauge({ percent, color, duration = 1200 }) {
 
       {/* 안쪽 흰 원 + 퍼센트 텍스트 */}
       <div className="absolute inset-[6px] md:inset-[8px] rounded-full bg-white flex items-center justify-center">
-        <span
-          className="text-2xl md:text-3xl font-bold"
-          style={{ color }}
-        >
+        <span className="text-2xl md:text-3xl font-bold" style={{ color }}>
           {current}%
         </span>
       </div>
@@ -120,9 +117,7 @@ export default function AttendancePage() {
     e.preventDefault();
     setLoginError("");
 
-    const target = students.find(
-      (s) => s.name === nameInput.trim()
-    );
+    const target = students.find((s) => s.name === nameInput.trim());
 
     if (!target) {
       setLoginError("해당 이름의 학생을 찾을 수 없습니다.");
@@ -292,7 +287,8 @@ export default function AttendancePage() {
 
           {!selectedStudent ? (
             <p className="text-xs md:text-sm text-gray-400">
-              좌측에서 학생을 선택하거나 로그인하면 강의별 출결 현황이 표시됩니다.
+              좌측에서 학생을 선택하거나 로그인하면 강의별 출결 현황이
+              표시됩니다.
             </p>
           ) : lectureAttendance.length === 0 ? (
             <p className="text-xs md:text-sm text-gray-400">
