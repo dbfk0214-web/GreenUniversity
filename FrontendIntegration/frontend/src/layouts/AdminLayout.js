@@ -6,11 +6,18 @@ import { createButton } from "../util/button";
 
 const AdminLayout = ({ config }) => {
   // 데이터 가져오기
-  const { tableInfo, columns, funcs, formData, type, buttonDataList, extrahButtonDataList, color } = config;
+  const { key, tableInfo, columns, funcs, formData, type, buttonDataList, extrahButtonDataList, color } = config;
   const { findByKeyword, readAll, readOne, writeOne, deleteOne, updateOne } = funcs;
 
   // 리덕스
-  const { selectId, setSelectId } = useContext(AdminSelectedContext);
+  const { selectedIds, setSelectId } = useContext(AdminSelectedContext);
+
+  const selectId = selectedIds[key]; // 현재 테이블 선택 ID
+
+  const changeSelectId = (id) => {
+    setSelectId(key, id); // Context에 전달
+  };
+
 
   // useState 사용
   const [readData, setReadData] = useState([]);
@@ -25,7 +32,7 @@ const AdminLayout = ({ config }) => {
   const [selectIndex, setSelectIndex] = useState(0);
 
   // 갱신용 useState
-  const [layoutEnum, setLayoutEnum] = useState(type || null);
+  const [layoutEnum, setLayoutEnum] = useState(typeEnum.default);
   const [newCurrentLayoutEnum, setNewCurrentLayoutEnum] = useState(null);
 
 
@@ -54,9 +61,9 @@ const AdminLayout = ({ config }) => {
     "User": "userId",
   }
 
-  const getList = async () => {
+  const getList = (result) => {
     try {
-      const data = await readAll();
+      const data = result;
       console.log(data);
       setReadData(data);
     } catch (error) {
@@ -82,7 +89,6 @@ const AdminLayout = ({ config }) => {
 
     const relatedColumns = extrahButtonList.map(data => data.columns);
     const formData = new FormData(e.target);
-    console.log(relatedColumns);
 
     for (const columns of relatedColumns) {
       for (const column of Object.keys(columns)) {
@@ -94,7 +100,7 @@ const AdminLayout = ({ config }) => {
         }
       }
     }
-    
+
     setLoading(true);
     action(form)
       .then((result) => {
@@ -234,8 +240,13 @@ const AdminLayout = ({ config }) => {
                   style: btnData.style,
                   onClick: () => {
                     setNewCurrentLayoutEnum(btnData.enumType);
-                    if (btnData.action) btnData.action();
-                    if (btnData.action === readAll) getList();
+                    if (btnData.action) {
+                      btnData.action().then(result => {
+                        if (btnData.enumType === typeEnum.read) {
+                          getList(result);
+                        }
+                      })
+                    }
                   }
                 })}
               </div>
@@ -274,7 +285,7 @@ const AdminLayout = ({ config }) => {
                         size: "10%",
                         onClick: () => {
                           setNewCurrentLayoutEnum(typeEnum.readOne);
-                          setSelectId(data[mainKey]);
+                          changeSelectId(data[mainKey]);
                         }
                       })}</div>)
                   }
@@ -635,7 +646,7 @@ const AdminLayout = ({ config }) => {
                       <div key={index} className="flex border-b py-1 items-center">
                         <div className="flex-none px-2">
                           <input type="checkbox"
-                            onChange={() => setSelectId(index)}
+                            onChange={() => changeSelectId(index)}
                           />
                         </div>
                         {Object.keys(findColumns).map((key) => (
