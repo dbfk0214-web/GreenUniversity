@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import guide from "../../json/green_guide.json";
+import guide from "../../json/aboutGreen/green_guide.json";
 
 const StarList = ({ i, className }) => {
   if (!Array.isArray(i) || i.length === 0) {

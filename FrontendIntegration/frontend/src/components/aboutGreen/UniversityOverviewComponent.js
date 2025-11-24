@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import bob from "../../json/green_status.json";
+import bob from "../../json/aboutGreen/green_status.json";
 
 const UniversityOverviewComponent = () => {
   const [lunch, setLunch] = useState(bob);

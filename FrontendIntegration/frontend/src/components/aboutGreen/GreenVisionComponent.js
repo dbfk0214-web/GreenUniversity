@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import dd from "../../json/green_spirit.json";
+import dd from "../../json/aboutGreen/green_spirit.json";
 
 const GreenVisionComponent = () => {
   const [data, setData] = useState(dd);
