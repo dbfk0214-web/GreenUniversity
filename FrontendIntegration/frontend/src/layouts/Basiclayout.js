@@ -58,7 +58,6 @@ const datas = {
         <Header />
       </div>
       {/* <LogoLayout /> */}
-        <Navbar children={{arrayData : datas}}/>
         <div className="w-full h-screen">{children}</div>
           <div>
             {/* <img src={Logo} alt="캠퍼스 사진" className="object-contain" /> */}
