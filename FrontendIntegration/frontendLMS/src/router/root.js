@@ -12,6 +12,7 @@ import accountRouter from "./accountRouter";
 import courseEnrollmentManagementRouter from "./courseEnrollmentManagementRouter";
 
 import { adminmanagementRouter } from "./adminmanagementRouter";
+import AdminComponent from "../components/admin/AdminComponent";
 
 const Mainlayouts = lazy(() => import("../layouts/Mainlayouts"));
 
@@ -59,6 +60,10 @@ const root = createBrowserRouter([
   {
     path: "adminnotice",
   },
+  {
+    path: "admin/one",
+    element: <AdminComponent />
+  }
 ]);
 
 export default root;

@@ -1,9 +1,22 @@
 import axios from "axios";
-import { API_SERVER_HOST } from "./commonApi";
-import { Await } from "react-router-dom";
+import {createTableConfig, excludeColumns } from "./commonApi";
+import PostApi from "./PostApi";
+import { tableDefinitions } from "./tablesConfig";
 
-export const board = async () => {
-  console.log("boarde가 가동되었다.");
-  const res = await axios.get(`${API_SERVER_HOST}/community/board/all`);
-  return res.data;
-};
+const tableName = "board";
+
+const extraButtons =
+  [
+    {
+      label: "Post 정보 읽기",
+      action: PostApi.config.funcs.readAll,
+      style: "bg-red-300 hover:bg-red-700",
+      columns: { ...excludeColumns(PostApi.config.columns, PostApi.config.excludeList) },
+      tableName: "post"
+    },
+  ];
+
+const config = createTableConfig(tableDefinitions[tableName], extraButtons);
+
+
+export default { config };  

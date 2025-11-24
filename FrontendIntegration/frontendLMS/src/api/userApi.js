@@ -1,6 +1,11 @@
 import axios from "axios";
-import { API_SERVER_HOST } from "./commonApi";
+import { API_SERVER_HOST, typeEnum } from "./commonApi";
+import { createTableConfig, excludeColumns } from "./commonApi";
+import DepartmentApi from "./DepartmentApi";
+import { tableDefinitions } from "./tablesConfig";
+
 const host = `${API_SERVER_HOST}/api/user`;
+const tableName = "user";
 
 export const doLogin = async (a) => {
   console.log("login post를 받았다", a);
@@ -25,3 +30,19 @@ export const doRegister = async (a) => {
     throw err;
   }
 };
+
+const findByKeyword = async () => {
+  console.log("User findByKeyword");
+}
+
+
+const extraButtons =
+  [
+
+  ];
+
+const config = createTableConfig(tableDefinitions[tableName], extraButtons);
+
+
+
+export default { config };

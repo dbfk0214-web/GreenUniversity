@@ -1,9 +1,22 @@
 import axios from "axios";
-import { API_SERVER_HOST } from "./commonApi";
-import { Await } from "react-router-dom";
+import { createTableConfig, excludeColumns } from "./commonApi";
+import DepartmentApi from "./DepartmentApi";
+import { tableDefinitions } from "./tablesConfig";
 
-export const course = async () => {
-  console.log("Course가 가동되었다.");
-  const res = await axios.get(`${host}/api/course/all`);
-  return res.data;
-};
+const tableName = "course";
+
+const extraButtons =
+  [
+    {
+      label: "department 정보 읽기",
+      action: DepartmentApi.config.funcs.readAll,
+      style: "bg-red-300 hover:bg-red-700",
+      columns: { ...excludeColumns(DepartmentApi.config.columns, DepartmentApi.config.excludeList) },
+      tableName: "department"
+    },
+  ];
+
+const config = createTableConfig(tableDefinitions[tableName], extraButtons);
+
+
+export default { config };  
