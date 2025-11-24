@@ -41,7 +41,6 @@ const AdminComponent = () => {
     setSelectedIds(prev => ({ ...prev, [tableKey]: id }));
   };
 
-  // ← 여기! AdminComponent 안에 선언
   const tableApis = {
     attendance: AttendanceApi,
     board: BoardApi,

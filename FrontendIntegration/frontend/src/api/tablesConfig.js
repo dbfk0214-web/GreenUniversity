@@ -1,6 +1,7 @@
 export const tableDefinitions = {
     "attendance": {
         key: "attendance",
+        primaryKey: "attendanceId",
         tableEng: "Attendance",
         tableName: "출석",
         columns: {
@@ -15,6 +16,7 @@ export const tableDefinitions = {
     },
     "board": {
         key: "board",
+        primaryKey: "boardId",
         tableEng: "Board",
         tableName: "게시판종류",
         columns: {
@@ -28,6 +30,7 @@ export const tableDefinitions = {
     },
     "comment": {
         key: "comment",
+        primaryKey: "commentId",
         tableEng: "Comment",
         tableName: "댓글",
         columns: {
@@ -45,6 +48,7 @@ export const tableDefinitions = {
         key: "course",
         tableEng: "Course",
         tableName: "강의종류",
+        primaryKey: "courseId",
         columns: {
             courseId: "강의과목코드",
             courseName: "과목명",
@@ -59,6 +63,7 @@ export const tableDefinitions = {
     },
     "courseOffering": {
         key: "courseOffering",
+        primaryKey: "offeringId",
         tableEng: "CourseOffering",
         tableName: "개설강의",
         columns: {
@@ -78,6 +83,7 @@ export const tableDefinitions = {
     },
     "department": {
         key: "department",
+        primaryKey: "departmentId",
         tableEng: "Department",
         tableName: "학과",
         columns: {
@@ -91,6 +97,7 @@ export const tableDefinitions = {
     },
     "enrollment": {
         key: "enrollment",
+        primaryKey: "enrollmentId",
         tableEng: "Enrollment",
         tableName: "수강신청내역",
         columns: {
@@ -108,6 +115,7 @@ export const tableDefinitions = {
     },
     "grade": {
         key: "grade",
+        primaryKey: "gradeId",
         tableEng: "Grade",
         tableName: "성적",
         columns: {
@@ -122,6 +130,7 @@ export const tableDefinitions = {
     },
     "notice": {
         key: "notice",
+        primaryKey: "noticeId",
         tableEng: "Notice",
         tableName: "공지사항",
         columns: {
@@ -137,6 +146,7 @@ export const tableDefinitions = {
     },
     "post": {
         key: "post",
+        primaryKey: "postId",
         tableEng: "Post",
         tableName: "게시글",
         columns: {
@@ -152,6 +162,7 @@ export const tableDefinitions = {
     },
     "review": {
         key: "review",
+        primaryKey: "reviewId",
         tableEng: "Review",
         tableName: "리뷰",
         columns: {
@@ -169,6 +180,7 @@ export const tableDefinitions = {
     },
     "timetable": {
         key: "timetable",
+        primaryKey: "timetableId",
         tableEng: "TimeTable",
         tableName: "시간표",
         columns: {
@@ -178,7 +190,7 @@ export const tableDefinitions = {
             endTime: "수업종료시간",
             location: "위치",
             courseName: "강의명",
-            nickName:"학생이름"
+            nickName: "학생이름"
         },
 
         excludeList: ["courseOffering"],
@@ -186,6 +198,7 @@ export const tableDefinitions = {
     },
     "user": {
         key: "user",
+        primaryKey: "userId",
         tableEng: "User",
         tableName: "유저",
         columns: {
