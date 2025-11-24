@@ -391,8 +391,7 @@ export const menus = {
           label: "성적표",
           to: "/gradesacademicrecords/gradereport",
           children: [
-            { label: "조회", to: "/gradesacademicrecords/check" },
-            { label: "출력", to: "/gradesacademicrecords/print" },
+            { label: "조회 및 출력", to: "/gradesacademicrecords/check" },
           ],
         },
       ],
@@ -440,7 +439,6 @@ export const menus = {
       to: "/account",
       children: [
         { label: "회원가입", to: "/account/sign" },
-        { label: "계정관리", to: "/account/manage" },
         { label: "회원정보", to: "/account/member" },
         { label: "회원 비밀번호 재설정", to: "/account/reset" },
       ],
