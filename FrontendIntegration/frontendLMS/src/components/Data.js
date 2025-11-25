@@ -1,9 +1,9 @@
-import React from 'react'
+// import React from 'react'
 
-const Data = () => {
-  return (
-    <div>Data</div>
-  )
-}
+// const Data = () => {
+//   return (
+//     <div>Data</div>
+//   )
+// }
 
-export default Data
+// export default Data
