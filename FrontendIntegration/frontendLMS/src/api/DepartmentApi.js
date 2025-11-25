@@ -1,0 +1,16 @@
+import axios from "axios";
+import { createTableConfig, excludeColumns } from "./commonApi";
+import DepartmentApi from "./DepartmentApi";
+import { tableDefinitions } from "./tablesConfig";
+
+const tableName = "department";
+
+const extraButtons =
+  [
+   
+  ];
+
+const config = createTableConfig(tableDefinitions[tableName], extraButtons);
+
+
+export default { config };  
