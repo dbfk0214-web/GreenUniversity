@@ -7,7 +7,7 @@ const BasicLayout = ({ children }) => {
       <div className="h-20 shrink-0 bg-gray-900">
         <Header />
       </div>
-
+    <header className="print:hidden !print:hidden"></header>
       <div className="flex flex-1 overflow-y-auto">
         <div className="flex-1 flex flex-col items-center justify-start">
           <div className="w-3/5 rounded-xl border border-gray-200 my-4 h-[600px]">

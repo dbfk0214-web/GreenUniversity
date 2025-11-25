@@ -1,5 +1,5 @@
 import React, { use, useEffect, useState } from 'react';
-import sitemap from "../../json/sitemap.json";
+import sitemap from "../../json/information/sitemap.json";
 import { jsonToDiv } from '../../util/makeComponentUtil';
 
 const SitemapComponent = () => {

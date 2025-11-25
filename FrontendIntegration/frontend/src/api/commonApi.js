@@ -78,11 +78,12 @@ export const makeDefaultButtonDataList = (overrides = {}) => [
 
 
 export const createTableConfig = (tabelDef, extraButtons = []) => {
-  const { key, tableEng, tableName, columns, excludeList, color } = tabelDef;
+  const { key, primaryKey, tableEng, tableName, columns, excludeList, color } = tabelDef;
   const funcs = createCrudApi(key);
 
   return {
     key,
+    primaryKey,
     tableInfo: { tableEng, tableName },
     columns,
     excludeList,

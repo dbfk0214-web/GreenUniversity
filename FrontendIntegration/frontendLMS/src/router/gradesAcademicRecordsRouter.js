@@ -1,20 +1,22 @@
 import { lazy, Suspense } from "react";
 import Mainlayouts from "../layouts/Mainlayouts";
 import GradePage from "../pages/gradesAcademicRecords/GradePage";
+import CheckPage from "../pages/gradesAcademicRecords/CheckPage";
 
 const Loading = <div>Loading......</div>;
 
 const Grade = lazy(() =>
   import("../pages/gradesAcademicRecords/GradeReportPage")
 );
-
+const gradesAcademicRecords = lazy(() => import("../pages/gradesAcademicRecords/gradesAcademicRecords"));
+const check = lazy(() => import("../pages/gradesAcademicRecords/CheckPage"));
 const gradesAcademicRecordsRouter = () => {
   return [
     {
-      path: "gradepage",
+      path: "",
       element: (
         <Suspense fallback={Loading}>
-          <Mainlayouts children={<GradePage />} />
+          <Mainlayouts children={<gradesAcademicRecordss/>} />
         </Suspense>
       ),
     },
@@ -30,7 +32,7 @@ const gradesAcademicRecordsRouter = () => {
       path: "check",
       element: (
         <Suspense fallback={Loading}>
-          <Mainlayouts children={<check />} />
+          <Mainlayouts children={<CheckPage />} />
         </Suspense>
       ),
     },

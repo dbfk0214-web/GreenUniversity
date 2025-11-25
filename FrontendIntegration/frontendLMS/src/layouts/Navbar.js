@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 export default function Navbar({ subHeader }) {
+  
   // subHeader가 undefined/null이어도 안전하게
   const sections = Array.isArray(subHeader) ? subHeader : [];
 
