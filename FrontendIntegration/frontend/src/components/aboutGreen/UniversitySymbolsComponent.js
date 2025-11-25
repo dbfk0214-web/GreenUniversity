@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import ic from "../../json/green_icon.json";
+import ic from "../../json/aboutGreen/green_icon.json";
 
 const ItemList = ({ items, className }) => {
   if (!Array.isArray(items) || items.length === 0) {

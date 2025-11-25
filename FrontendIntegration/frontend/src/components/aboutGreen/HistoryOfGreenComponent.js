@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import his from "../../json/green_history.json";
+import his from "../../json/aboutGreen/green_history.json";
 
 const HistoryOfGreenComponent = () => {
   const [data, setData] = useState(his);
