@@ -13,7 +13,7 @@ import AdminDetailViewComponent from "../components/admin/AdminDetailViewCompone
 
 const AdminLayout = ({ config }) => {
   // 데이터 가져오기
-  const { key, tableInfo, allColumns, funcs, formData, type, buttonDataList, extrahButtonDataList, color } = config;
+  const { key, primaryKey, tableInfo, allColumns, funcs, formData, type, buttonDataList, extrahButtonDataList, color } = config;
   const { findByKeyword, readAll, readOne, writeOne, deleteOne, updateOne } = funcs;
 
   const { columns, createColumns, responseColumns, updateColumns } = allColumns;
@@ -157,7 +157,7 @@ const AdminLayout = ({ config }) => {
   const updateSelectForm = (e) => {
     if (!e) return;
 
-    const {name, value} = e.target;
+    const { name, value } = e.target;
 
     setSelectData(prev => ({ ...prev, [name]: value }));
   }
@@ -208,21 +208,20 @@ const AdminLayout = ({ config }) => {
   }, []);
 
   useEffect(() => {
+
+    console.log("확인");
     // 실행 조건
     if (!selectId) return;
     if (viewMode !== typeEnum.readOne) return;
+
+    console.log("통과했냐")
 
     // 데이터가 리스트 형태여서 0번을 가져오기로함. 수정이 필요함
     setLoading(true);
     readOne(selectId)
       .then((item) => {
-        if (item && item.length > 0) {
-          setFindReadOne(item[0]);
-          setForm(item[0]);
-        } else {
-          setFindReadOne(item);
-          setForm(item);
-        }
+        setFindReadOne(item[0]);
+        setForm(item[0]);
       })
       .finally(() => {
         setLoading(false);
@@ -284,6 +283,7 @@ const AdminLayout = ({ config }) => {
                 readData={readData}
                 changeViewMode={changeViewMode}
                 changeSelectId={changeSelectId}
+                primaryKey={primaryKey}
               />
             )}
 
@@ -326,11 +326,13 @@ const AdminLayout = ({ config }) => {
               <AdminDetailViewComponent
                 tableInfo={tableInfo}
                 findReadOne={findReadOne}
+                readOne={funcs.readOne}
                 selectedColumn={selectedColumn}
                 columns={columns}
                 createButton={createButton}
                 typeEnum={typeEnum}
                 changeViewMode={changeViewMode}
+                primaryKey={config.primaryKey}  // ✅ 추가
               />
             )}
 
@@ -354,6 +356,7 @@ const AdminLayout = ({ config }) => {
                 typeEnum={typeEnum}
                 changeViewMode={changeViewMode}
                 deleteOne={deleteOne}
+                primaryKey={primaryKey}
               />
             )}
           </div>

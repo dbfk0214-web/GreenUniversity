@@ -77,7 +77,10 @@ const AdminComponent = () => {
             key={key}
             config={{
               ...tableApis[key].config,
-              funcs: { ...tableApis[key].config.funcs, writeOne: (dto) => tableApis[key].config.funcs.writeOne(dto, userEmail) }
+              funcs: {
+                ...tableApis[key].config.funcs, writeOne: (dto) => tableApis[key].config.funcs.writeOne(dto, userEmail)
+                , deleteOne: (dto) => tableApis[key].config.funcs.deleteOne(dto, userEmail)
+              }
             }}
           />
         ))}
