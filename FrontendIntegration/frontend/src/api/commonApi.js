@@ -42,14 +42,14 @@ export const createCrudApi = (tableName) => ({
 
 
 // 함수 정의
-export const excludeColumns = (columns, excludeArray) => {
-  return Object.keys(columns)
-    .filter(key => !excludeArray.includes(key))
-    .reduce((acc, key) => {
-      acc[key] = columns[key];
-      return acc
-    }, {});
-}
+// export const excludeColumns = (columns, excludeArray) => {
+//   return Object.keys(columns)
+//     .filter(key => !excludeArray.includes(key))
+//     .reduce((acc, key) => {
+//       acc[key] = columns[key];
+//       return acc
+//     }, {});
+// }
 
 
 export const makeDefaultButtonDataList = (overrides = {}) => [
@@ -78,17 +78,17 @@ export const makeDefaultButtonDataList = (overrides = {}) => [
 
 
 export const createTableConfig = (tabelDef, extraButtons = []) => {
-  const { key, primaryKey, tableEng, tableName, columns, excludeList, color } = tabelDef;
+  const { key, primaryKey, tableEng, tableName, allColumns, excludeList, color } = tabelDef;
   const funcs = createCrudApi(key);
 
   return {
     key,
     primaryKey,
     tableInfo: { tableEng, tableName },
-    columns,
-    excludeList,
+    allColumns,
+    // excludeList,
     funcs,
-    formData: excludeColumns(columns, excludeList),
+    // formData: excludeColumns(columns, excludeList),
     type: typeEnum.read,
     color,
     buttonDataList: makeDefaultButtonDataList({

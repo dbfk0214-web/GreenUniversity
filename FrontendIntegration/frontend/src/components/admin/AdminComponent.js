@@ -16,7 +16,6 @@ import TimeTableApi from "../../api/TimeTableApi";
 import userApi from "../../api/userApi";
 
 import AdminSelectedContext from "./AdminSelectContext";
-import { excludeColumns } from "../../api/commonApi";
 
 
 const AdminComponent = () => {
@@ -72,11 +71,7 @@ const AdminComponent = () => {
         {Object.keys(tableApis).map(key => (
           <AdminLayout
             key={key}
-            config={{
-              ...tableApis[key].config,
-              formData: tableApis[key].config.columns,
-              columns: excludeColumns(tableApis[key].config.columns, tableApis[key].config.excludeList),
-            }}
+            config={tableApis[key].config}
           />
         ))}
       </AdminSelectedContext.Provider>
