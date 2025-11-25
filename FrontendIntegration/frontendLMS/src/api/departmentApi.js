@@ -1,9 +1,16 @@
 import axios from "axios";
-import { API_SERVER_HOST } from "./commonApi";
-import { Await } from "react-router-dom";
+import { createTableConfig, excludeColumns } from "./commonApi";
+import DepartmentApi from "./DepartmentApi";
+import { tableDefinitions } from "./tablesConfig";
 
-export const department = async () => {
-  console.log("department가 가동되었다.");
-  const res = await axios.get(`${host}/api/department`);
-  return res.data;
-};
+const tableName = "department";
+
+const extraButtons =
+  [
+   
+  ];
+
+const config = createTableConfig(tableDefinitions[tableName], extraButtons);
+
+
+export default { config };  

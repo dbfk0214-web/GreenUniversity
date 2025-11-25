@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { doLogin } from "../../api/userApi"; // API 함수 별칭으로 임포트
+import { doLogin } from "../../api/UserApi"; // API 함수 별칭으로 임포트
 import { login } from "../../slice/loginSlice"; // 리덕스 액션
 
 const LoginComponent = () => {

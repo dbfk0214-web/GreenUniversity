@@ -35,11 +35,17 @@ export default function GradeReportViewPrintPage() {
   const GPA = gradeData.length ? (totalScore / totalCredits).toFixed(2) : "-";
 
   const handlePrint = () => {
+    const printContents = document.getElementById("print").innerHTML;
+    const originalContents = document.body.innerHTML;
+
+    document.body.innerHTML = printContents;
     window.print();
+    document.body.innerHTML = originalContents;
+
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 py-10 px-4 print:bg-white">
+    <div id="print" className="min-h-screen bg-gray-100 py-10 px-4 print:bg-white">
       {/* 상단 제목 + 조회/출력 버튼 영역 (인쇄 시 숨김) */}
       <div className="max-w-4xl mx-auto mb-6 flex items-center justify-between print:hidden">
         <h1 className="text-2xl font-bold text-gray-800">
