@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { doRegister } from "../../api/userApi";
+import { doRegister } from "../../api/UserApi";
 
 const JoinComponent = () => {
   const navigate = useNavigate();

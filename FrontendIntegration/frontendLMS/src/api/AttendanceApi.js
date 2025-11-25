@@ -1,22 +1,41 @@
 import axios from "axios";
-import { API_SERVER_HOST } from "./commonApi";
-import { Await } from "react-router-dom";
+import {createTableConfig, excludeColumns } from "./commonApi";
+import EnrollmentApi from "./EnrollmentApi";
+import { tableDefinitions } from "./tablesConfig";
 
-export const attendance = async () => {
+const tableName = "attendance";
+
+const extraButtons =
+  [
+    {
+      label: "Enrollment 정보 읽기",
+      action: EnrollmentApi.config.funcs.readAll,
+      // enumType: typeEnum.read,
+      style: "bg-red-300 hover:bg-red-700",
+      columns: { ...excludeColumns(EnrollmentApi.config.columns, EnrollmentApi.config.excludeList) },
+      tableName: "enrollment"
+    },
+  ];
+
+const config = createTableConfig(tableDefinitions[tableName], extraButtons);
+
+export const Attendance = async () => {
   console.log("attendance가 가동되었다.");
-  const res = await axios.get(`${API_SERVER_HOST}/api/attendance/all`);
+  const res = await config.funcs.readAll();
   return res.data;
 };
-// 출석 확인
 
-// export const attendanceHandler = async () => {
-//   const attendanceData = {
-//     userId: Number(userId), //input에서 받은 값
-//     date,                              
-//     status: "PRESENT",               
-//     memo
-//   };
-//   const res = await axios.post(`${API_SERVER_HOST}/api/attendance`, attendanceData);
-//   console.log(res.data);
+
+export default { config };  
+
+
+// 나중에 메서드 이름 혹은 역할을 변경 , 미사용 시, 삭제할 것
+// const Attendance = async () => {
+//   console.log("attendance가 가동되었다.");
+//   const res = await axios.get(`${API_SERVER_HOST}/api/attendance/student/checkclass`);
+//   return res.data;
 // };
-//출석 입력
+
+// const findByKeyword = async () => {
+//   console.log("attendance findByKeyword");
+// }

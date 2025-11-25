@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 // import { attendance } from "../../api/attendanceApi";
-import { attendance } from "../../api/AttendanceApi";
+import attendance from "../../api/AttendanceApi";
 import { Await } from "react-router-dom";
 
 const CommunityCommentListComponent = () => {

@@ -2,6 +2,19 @@
 // Works with or without GSAP. If GSAP is present, it uses gsap.quickTo for buttery motion.
 
 export class MouseCursor {
+  /**
+   * @param {Object} options
+   * @param {HTMLElement|Document} [options.root=document]  // 이벤트 붙일 루트
+   * @param {HTMLElement} options.cursorEl                  // 필수: 커서 메인 엘리먼트
+   * @param {HTMLElement|null} [options.trailEl=null]       // 선택: 꼬리/잔상
+   * @param {HTMLElement|null} [options.boundsEl=null]      // 선택: 이동 범위 요소(기본 viewport)
+   * @param {boolean} [options.hideNative=true]             // 네이티브 커서 숨김
+   * @param {number} [options.speed=0.18]                   // 부드러움(작을수록 천천히)
+   * @param {string} [options.ease="expo.out"]              // GSAP 사용 시 easing
+   * @param {boolean} [options.center=true]                 // 커서 요소의 중심을 포인터 위치에 맞출지
+   * @param {boolean} [options.clampToBounds=false]         // bounds 안으로 좌표 클램프
+   * @param {Object} [options.states]                       // 상태명 → {className?, style?}
+   */
   constructor({
     root = document,
     cursorEl,
@@ -245,5 +258,3 @@ export class MouseCursor {
     return this;
   }
 }
-
-
