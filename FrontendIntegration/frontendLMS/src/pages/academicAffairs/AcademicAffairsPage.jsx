@@ -23,7 +23,7 @@ export default function AcademicAffairsHomePage() {
         <section className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
           {/* 학점관리 카드 */}
           <Link
-            to="/academic-affairs/credit-management"
+            to="/academicaffairs/creditmanagement"
             className="group flex flex-col justify-between rounded-2xl border border-emerald-100 bg-white/80 p-5 shadow-sm backdrop-blur transition hover:-translate-y-1 hover:shadow-md"
           >
             <div>
@@ -49,7 +49,7 @@ export default function AcademicAffairsHomePage() {
 
           {/* 학위증명 카드 */}
           <Link
-            to="/academic-affairs/degree-certificates"
+            to="/academicaffairs/degreecertificates"
             className="group flex flex-col justify-between rounded-2xl border border-sky-100 bg-white/80 p-5 shadow-sm backdrop-blur transition hover:-translate-y-1 hover:shadow-md"
           >
             <div>

@@ -14,13 +14,15 @@ const DegreeCertificatesPage = lazy(() =>
   import("../pages/academicAffairs/degreeCertificates/DegreeCertificatesPage")
 );
 
+const gradesAcademicRecords = lazy(() => import("../pages/gradesAcademicRecords/gradesAcademicRecords"));
+
 const academicAffairsRouter = () => [
   {
     path: "",
     element: (
       <Suspense fallback={Loading}>
         <Mainlayouts>
-          <AcademicAffairsPage />
+          <gradesAcademicRecords />
         </Mainlayouts>
       </Suspense>
     ),

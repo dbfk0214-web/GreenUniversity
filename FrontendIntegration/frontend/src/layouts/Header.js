@@ -3,31 +3,42 @@ import { useNavigationTest } from "../hook/useNavigationTest";
 import { useSelector } from "react-redux";
 import SignedLoginComponent from "../components/auth/SignedLoginComponent";
 import UnSignedLoginComponent from "../components/auth/UnSignedLoginComponent";
+import logo from "../images/1.png";
+import Navbar from "./Navbar";
 
 const Header = () => {
   const { Home } = useNavigationTest();
   const loginState = useSelector((state) => state.loginSlice);
 
   return (
-    <div className="sticky top-0 z-100 w-full bg-white shadow-sm z-index:1">
-      <header className="flex justify-between items-center px-8 py-4 bg-sky-300 text-white border-b border-gray-800 h-[68px]">
-        <div className="text-2xl font-bold">
-          <div
+    // 헤더 전체를 sticky로
+    <div className="sticky top-0 z-[100] w-full">
+      {/* 🔹 1줄차 상단 바: 로고 + 로그인 */}
+      <div className="w-full bg-sky-300 text-white shadow-sm border-b border-sky-400">
+        <div className="max-w-7xl mx-auto flex items-center justify-between h-[64px] px-8">
+          {/* 로고 */}
+          <button
+            type="button"
             onClick={Home}
-            className="text-gray-200 font-medium hover:text-white no-underline"
+            className="flex items-center gap-2"
           >
-            테스트입니다
+            <img src={logo} alt="로고" className="h-10" />
+          </button>
+
+          {/* 로그인 / 회원가입 */}
+          <div className="flex items-center gap-4">
+           { /* loginState에 email 값이 있으면 로그인 된 상태, 없으면 로그아웃 상태 */}
+            {loginState.email ? (
+              <SignedLoginComponent />
+            ) : (
+              <UnSignedLoginComponent />
+            )}
           </div>
         </div>
-        <div>
-          {/* loginState에 email 값이 있으면 로그인 된 상태, 없으면 로그아웃 상태 */}
-          {loginState.email ? (
-            <SignedLoginComponent />
-          ) : (
-            <UnSignedLoginComponent />
-          )}
-        </div>
-      </header>
+      </div>
+
+      {/* 🔹 2줄차 네비게이션(사이트맵 스타일) */}
+      <Navbar />
     </div>
   );
 };
