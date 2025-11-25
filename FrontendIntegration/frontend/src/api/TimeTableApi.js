@@ -5,12 +5,8 @@ import { tableDefinitions } from "./tablesConfig";
 
 const tableName = "time";
 
-const extraButtons =
-  [
-   
-  ];
+const extraButtons = [];
 
 const config = createTableConfig(tableDefinitions[tableName], extraButtons);
 
-
-export default { config };  
+export default { config };
