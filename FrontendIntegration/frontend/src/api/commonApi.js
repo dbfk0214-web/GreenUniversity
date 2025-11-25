@@ -25,14 +25,8 @@ export const createCrudApi = (tableName) => ({
   },
   readOne: (id) => {
     console.log(`${tableName} readOne`);
-    return axios
-      .get(`${API_SERVER_HOST}/api/${tableName}/${id}`)
-      .then((r) => r.data);
+    return axios.get(`${API_SERVER_HOST}/api/${tableName}/one/${id}`).then(r => r.data);
   },
-  // writeOne: (dto) => {
-  //   console.log(`${tableName} writeOne`, dto);
-  //   return axios.post(`${API_SERVER_HOST}/api/${tableName}/create`, Headers{}).then(r => r.data);
-  // },
   writeOne: async (dto, userEmail) => {
     console.log(`${tableName} writeOne`, dto, userEmail);
     try {

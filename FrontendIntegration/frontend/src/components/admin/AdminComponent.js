@@ -18,51 +18,14 @@ import TimeTableApi from "../../api/TimeTableApi";
 import userApi from "../../api/userApi";
 
 import AdminSelectedContext from "./AdminSelectContext";
+import { useSelector } from "react-redux";
 
 const AdminComponent = () => {
   const loginState = useSelector((state) => state.loginSlice);
   const userEmail = loginState.email;
 
-  const handleCreateTimeTable = async (dto) => {
-    // API 호출 시 userEmail 전달
-    await TimeTableApi.config.funcs.writeOne(dto, userEmail);
-  };
-
-  const handleCreateReview = async (dto) => {
-    await ReviewApi.config.funcs.writeOne(dto, userEmail);
-  };
-
-  const onSubmitReview = async (dto) => {
-    // [중요] 실제로 어떤 데이터를 보내는지 확인
-    console.log("실제 전송 데이터:", JSON.stringify(dto, null, 2));
-
-    try {
-      await ReviewApi.config.funcs.writeOne(dto, userEmail);
-      alert("리뷰가 등록되었습니다.");
-    } catch (err) {
-      console.log("Error Response:", err.response);
-      console.log("Error Data:", err.response?.data);
-      console.log("Error Status:", err.response?.status);
-
-      const errorData = err.response?.data;
-
-      if (!errorData) {
-        alert("서버와 연결할 수 없거나 알 수 없는 오류입니다.");
-        return;
-      }
-
-      if (typeof errorData === "string") {
-        alert(errorData);
-      } else if (errorData.message) {
-        alert(errorData.message);
-      } else {
-        alert("요청 처리 중 오류가 발생했습니다.");
-      }
-
-      console.error("Error Details:", err);
-    }
-  };
-
+  const loginState = useSelector((state) => state.loginSlice);
+  const userEmail = loginState.email;
   // 상태 통합
   const [selectedIds, setSelectedIds] = useState({
     attendance: "none",
@@ -112,8 +75,14 @@ const AdminComponent = () => {
       </h2>
 
       <AdminSelectedContext.Provider value={{ selectedIds, setSelectId }}>
-        {Object.keys(tableApis).map((key) => (
-          <AdminLayout key={key} config={tableApis[key].config} />
+        {Object.keys(tableApis).map(key => (
+          <AdminLayout
+            key={key}
+            config={{
+              ...tableApis[key].config,
+              funcs: { ...tableApis[key].config.funcs, writeOne: (dto) => tableApis[key].config.funcs.writeOne(dto, userEmail) }
+            }}
+          />
         ))}
       </AdminSelectedContext.Provider>
     </div>
