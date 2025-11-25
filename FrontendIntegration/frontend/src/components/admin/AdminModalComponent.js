@@ -1,7 +1,6 @@
 import React from 'react';
 
 const AdminModalComponent = ({
-  // 상태 값 (State)
   isModalOpen,
   selectId,
   findData,
@@ -9,36 +8,26 @@ const AdminModalComponent = ({
   tableInfo,
   extrahButtonList,
   targetColumn,
-  
-  // 상태 변경 함수 (Setters)
   setModalOpen,
   setFindData,
   setFindColumns,
-  
-  // 로직 함수 (Functions)
   selectCheckbox,
   changeSelectId,
-  createButton, // 버튼 생성 유틸리티 함수
+  createButton,
 }) => {
-
-  // 모달이 닫혀있으면 렌더링하지 않음
   if (!isModalOpen) return null;
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
-      {/* 흐린 배경 */}
       <div
         className="absolute inset-0 bg-black bg-opacity-50 backdrop-blur-sm"
         onClick={() => setModalOpen(false)}
       ></div>
 
-      {/* 모달 박스 */}
       <div className="relative bg-white rounded-xl p-6 shadow-xl z-50 w-[90%] max-h-[80vh] overflow-y-auto">
-        
-        {/* 헤더 */}
         <div className="flex items-center justify-between mt-4">
           <h2 className="text-xl font-bold text-center flex-1">
-            모달창
+            모달창 - {targetColumn}
           </h2>
         </div>
 
@@ -55,7 +44,10 @@ const AdminModalComponent = ({
           </button>
           <button
             className="w-[10%] p-2 bg-blue-600 text-white rounded hover:bg-blue-700"
-            onClick={() => setFindData([])}
+            onClick={() => {
+              setFindData([]);
+              setFindColumns({});
+            }}
           >
             리셋
           </button>
@@ -78,20 +70,42 @@ const AdminModalComponent = ({
                   style: btnData.style,
                   onClick: () => {
                     if (btnData.action) {
+                      console.log('버튼 데이터:', btnData);
                       btnData.action().then((result) => {
-                        const data = [];
-                        result.forEach((d) => {
+                        console.log('API 결과:', result);
+
+                        // ✅ createColumns 사용
+                        const createColumns = btnData.allColumns?.createColumns || {};
+                        const columnKeys = Object.keys(createColumns);
+
+                        console.log('사용할 컬럼:', createColumns);
+
+                        // ✅ responseColumns 사용
+                        const responseColumns = btnData.allColumns?.responseColumns || {};
+                        const responseColumKeys = Object.keys(responseColumns);
+
+                        console.log('사용할 컬럼:', responseColumns);
+
+                        const data = result.map((d) => {
                           const temp = {};
-                          Object.keys(btnData.columns).forEach((key) => {
-                            if (key !== null && d[key] !== null)
+                          columnKeys.forEach((key) => {
+                            if (d[key] !== null) {
                               temp[key] = d[key];
+                            }
                           });
-                          if (Object.keys(temp).length > 0) {
-                            data.push(temp);
-                          }
-                        });
-                        setFindColumns(btnData.columns);
-                        setFindData(data.filter((item) => item !== null));
+                          responseColumKeys.forEach((key) => {
+                            if (d[key] !== null) {
+                              temp[key] = d[key];
+                            }
+                          });
+                          return temp;
+                        }).filter((item) => Object.keys(item).length > 0);
+
+                        console.log('가공된 데이터:', data);
+
+                        // ✅ createColumns 객체 설정
+                        setFindColumns(createColumns);
+                        setFindData(data);
                       });
                     }
                   },
@@ -100,8 +114,8 @@ const AdminModalComponent = ({
             ))}
         </div>
 
-        {/* 데이터 테이블 (데이터가 있을 경우만 표시) */}
-        {findData && findData.length > 0 && findColumns && (
+        {/* 데이터 테이블 */}
+        {findData && findData.length > 0 && findColumns && Object.keys(findColumns).length > 0 ? (
           <div>
             {/* 테이블 제목 */}
             <h3 className="text-3xl font-bold mb-4 p-4 bg-blue-100 rounded-md shadow-md">
@@ -109,33 +123,40 @@ const AdminModalComponent = ({
             </h3>
 
             {/* 컬럼 헤더 */}
-            <div className="flex font-semibold border-b pb-1 mb-2">
-              <div className="flex-none px-2">선택</div>
+            <div className="flex font-semibold border-b pb-1 mb-2 bg-gray-50">
+              <div className="flex-none px-2 w-16">선택</div>
               {Object.keys(findColumns).map((key) => (
-                <div key={key} className="flex-1">
-                  {key}:{findColumns[key]}
+                <div key={key} className="flex-1 px-2">
+                  <div className="font-bold">{findColumns[key]}</div>
+                  <div className="text-xs text-gray-500">({key})</div>
                 </div>
               ))}
             </div>
 
             {/* 데이터 행 */}
             {findData.map((data, index) => (
-              <div key={index} className="flex border-b py-1 items-center">
-                <div className="flex-none px-2">
+              <div key={index} className="flex border-b py-2 items-center hover:bg-gray-50">
+                <div className="flex-none px-2 w-16">
                   <input
-                    type="checkbox"
+                    type="radio"
+                    name="modalSelection"
                     onChange={() => changeSelectId(index)}
-                    // 필요하다면 checked 속성도 추가 고려
-                    // checked={selectId === index} 
+                    checked={selectId === index}
                   />
                 </div>
                 {Object.keys(findColumns).map((key) => (
-                  <div key={key} className="flex-1">
-                    {data[key]}
+                  <div key={key} className="flex-1 px-2">
+                    {typeof data[key] === 'object'
+                      ? JSON.stringify(data[key])
+                      : (data[key] || '-')}
                   </div>
                 ))}
               </div>
             ))}
+          </div>
+        ) : (
+          <div className="text-center p-8 text-gray-500">
+            버튼을 클릭하여 데이터를 불러오세요
           </div>
         )}
       </div>

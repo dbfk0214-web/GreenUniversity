@@ -93,7 +93,8 @@ const AdminLayout = ({ config }) => {
   const onSubmit = (e, action) => {
     e.preventDefault();
 
-    const relatedColumns = extrahButtonList.map(data => data.columns);
+
+    const relatedColumns = extrahButtonList.map(data => data.allColumns.createColumns);
     const formData = new FormData(e.target);
 
     for (const columns of relatedColumns) {
@@ -151,6 +152,14 @@ const AdminLayout = ({ config }) => {
     if (!selectData || Object.keys(selectData).length === 0) return;
 
     setForm(prev => ({ ...prev, [targetColumn]: selectData }));
+  }
+
+  const updateSelectForm = (e) => {
+    if (!e) return;
+
+    const {name, value} = e.target;
+
+    setSelectData(prev => ({ ...prev, [name]: value }));
   }
 
   useEffect(() => {
@@ -285,9 +294,11 @@ const AdminLayout = ({ config }) => {
                 form={form}
                 formData={createColumnsObj}  // 객체로 변경
                 extrahButtonList={extrahButtonList}
+                selectData={selectData}
                 setForm={setForm}
                 setSelectData={setSelectData}
                 changeHandler={changeHandler}
+                updateSelectForm={updateSelectForm}
                 onSubmit={e => onSubmit(e, writeOne)}
                 setModalOpen={setModalOpen}
                 setTargetColumn={setTargetColumn}
@@ -346,7 +357,6 @@ const AdminLayout = ({ config }) => {
               />
             )}
           </div>
-
           {/* 모달창 */}
           {isModalOpen &&
             <AdminModalComponent
@@ -357,10 +367,10 @@ const AdminLayout = ({ config }) => {
               changeSelectId={changeSelectId}
               setFindData={setFindData}
               findData={findData}
-              findColumns={findColumns}
+              findColumns={findColumns}  // ✅ findColumns 객체 전달 (targetColumn이 아님!)
               setFindColumns={setFindColumns}
               extrahButtonList={extrahButtonList}
-              targetColumn={targetColumn}
+              targetColumn={targetColumn}  // 이건 필터링용으로 유지
               createButton={createButton}
               tableInfo={tableInfo}
             />

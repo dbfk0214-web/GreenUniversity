@@ -11,6 +11,8 @@ const AdminWriteComponent = (props) => {
       showResetButton={true}
       readOnlyFirstField={false}
     />
+
+
   );
 };
 

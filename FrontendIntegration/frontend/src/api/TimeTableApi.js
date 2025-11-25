@@ -7,7 +7,7 @@ const tableName = "time";
 
 const extraButtons =
   [
-   
+    
   ];
 
 const config = createTableConfig(tableDefinitions[tableName], extraButtons);

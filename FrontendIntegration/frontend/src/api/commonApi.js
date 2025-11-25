@@ -24,11 +24,26 @@ export const createCrudApi = (tableName) => ({
   },
   readOne: (id) => {
     console.log(`${tableName} readOne`);
-    return axios.get(`${API_SERVER_HOST}/api/${tableName}/${id}`).then(r => r.data);
+    return axios.get(`${API_SERVER_HOST}/api/${tableName}/one/${id}`).then(r => r.data);
   },
-  writeOne: (dto) => {
-    console.log(`${tableName} writeOne`, dto);
-    return axios.post(`${API_SERVER_HOST}/api/${tableName}/create`, dto).then(r => r.data);
+  writeOne: async (dto, userEmail) => {
+    console.log(`${tableName} writeOne`, dto, userEmail);
+    try {
+      const r = await axios.post(
+        `${API_SERVER_HOST}/api/${tableName}/create`,
+        dto,
+        {
+          headers: {
+            "X-User-Email": userEmail, // 실제로는 로그인한 사용자 이메일
+          },
+        }
+      );
+      return r.data;
+    } catch (error) {
+      console.error(`${tableName} writeOne error:`, error);
+      console.log("실제 전송 데이터:", JSON.stringify(dto, null, 2));
+      throw error;
+    }
   },
   updateOne: (dto) => {
     console.log(`${tableName} updateOne`);
@@ -94,7 +109,7 @@ export const createTableConfig = (tabelDef, extraButtons = []) => {
     buttonDataList: makeDefaultButtonDataList({
       readAll: { action: funcs.readAll },
     }),
-    extrahButtonDataList : extraButtons,
+    extrahButtonDataList: extraButtons,
   };
 }
 
