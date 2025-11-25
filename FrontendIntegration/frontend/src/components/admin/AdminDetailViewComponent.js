@@ -3,8 +3,8 @@ import React from 'react';
 const AdminDetailViewComponent = ({
   tableInfo,
   findReadOne,
-  selectedColumn,
-  columns,
+  selectedColumn, // 키 배열
+  columns, // 컬럼 객체
   createButton,
   typeEnum,
   changeViewMode,
@@ -16,11 +16,10 @@ const AdminDetailViewComponent = ({
         {tableInfo?.tableName}:{tableInfo?.tableEng}
       </h3>
       
-      {findReadOne &&
+      {findReadOne && Object.keys(findReadOne).length > 0 ? (
         <div>
           {/* 컬럼 헤더 */}
           <div className="flex font-semibold border-b pb-1 mb-2">
-            {/* 타이틀 */}
             {selectedColumn && selectedColumn.map((key) => (
               <div key={key} className="flex-1">
                 {key}:{columns?.[key]}
@@ -33,7 +32,7 @@ const AdminDetailViewComponent = ({
             {/* 데이터 표시 */}
             {selectedColumn && selectedColumn.map(key => (
               <div key={key} className="flex-1">
-                {findReadOne[key]}
+                {findReadOne[key] || '-'}
               </div>
             ))}
 
@@ -42,7 +41,6 @@ const AdminDetailViewComponent = ({
               {/* 수정 버튼 */}
               {createButton({
                 label: "수정하기",
-                enumType: typeEnum?.update,
                 style: "bg-yellow-400 hover:bg-yellow-500 text-white py-1 px-3 rounded",
                 onClick: () => {
                   changeViewMode(typeEnum?.update);
@@ -51,7 +49,6 @@ const AdminDetailViewComponent = ({
               {/* 삭제 버튼 */}
               {createButton({
                 label: "삭제하기",
-                enumType: typeEnum?.delete,
                 style: "bg-red-400 hover:bg-red-600 text-white py-1 px-3 rounded",
                 onClick: () => {
                   changeViewMode(typeEnum?.delete);
@@ -60,7 +57,11 @@ const AdminDetailViewComponent = ({
             </div>
           </div>
         </div>
-      }
+      ) : (
+        <div className="text-center p-4 text-gray-500">
+          데이터를 불러오는 중이거나 선택된 데이터가 없습니다.
+        </div>
+      )}
     </div>
   );
 };
