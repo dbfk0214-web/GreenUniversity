@@ -1,9 +1,13 @@
 import { RouterProvider } from "react-router-dom";
-import root from "./router/root";
+import router from "./router/root";          // ← root가 default export라면 이렇게
+import CursorLayer from "../src/layouts/cursorlayout"; // 아까 만든 커서 레이어
 
 function App() {
   return (
-      <RouterProvider router={root}></RouterProvider>
+    <>
+      <CursorLayer />
+      <RouterProvider router={router} />
+    </>
   );
 }
 

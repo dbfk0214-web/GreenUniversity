@@ -1,29 +1,65 @@
+import styles from "../App.css";
 import React, { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import { MouseCursor } from "../api/MousecursorHandler";
 import Navbar from "./Navbar";
-import Header from "../layouts/Header";
 import Footer from "../layouts/Footer";
 
-import HeaderAdmin from "./subheader/HeaderAdmin";
-import HeaderStudent from "./subheader/HeaderStudent";
-import HeaderProfessor from "./subheader/HeaderProfessor";
+import { menus } from "../layouts/subheader/menuconfig";
+import UserDashboard from "./subheader/UserDashboard";
+import ProfessorHomeDashboard from "./subheader/ProfessorHomeDashboard";
+import StudentHomeDashboard from "./subheader/StudentHomeDashboard";
+import AdminHomeDashboard from "./subheader/AdminHomeDashboard";
+import Header from "./Header";
 
-import { menus } from "../layouts/subheader/menuconfig"; // 실제 파일명 대소문자 확인
 
-export default function Mainlayouts({ children, msg }) {
-  const [role, setRole] = useState("STUDENT");
+// ✅ ROLE을 "문자열"로 돌려주는 더미 함수 (실제로는 API 사용)
+const fetchUserRole = async () => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      const roleKey = "PROFESSOR"; // "ADMIN" | "PROFESSOR" | "STUDENT" | "USER"
+      resolve(roleKey);
+    }, 500);
+  });
+};
 
-  const HEADER_BY_ROLE = {
-    ADMIN: HeaderAdmin,
-    PROFESSOR: HeaderProfessor,
-    STUDENT: HeaderStudent,
+export default function Mainlayouts({ children }) {
+  const [role, setRole] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const location = useLocation();
+
+  // ROLE → 대시보드 컴포넌트 매핑 (함수 컴포넌트로 저장)
+  const DASHBOARD_BY_ROLE = {
+    ADMIN: AdminHomeDashboard,
+    PROFESSOR: ProfessorHomeDashboard,
+    STUDENT: StudentHomeDashboard,
+    USER: UserDashboard,
   };
 
-  const HeaderComponent = HEADER_BY_ROLE[role] || HeaderStudent;
+  // role이 없거나 매핑되지 않으면 기본값은 Student 대시보드
+  const DashboardComponent = DASHBOARD_BY_ROLE[role] || StudentHomeDashboard;
 
-  const menuList = menus[role] || menus[role.toLowerCase()] || [];
+  // ROLE에 맞는 메뉴 가져오기
+  const menuList =
+    menus[role] || (role ? menus[String(role).toLowerCase()] : []) || [];
 
   useEffect(() => {
+    const loadUserRole = async () => {
+      try {
+        const userRole = await fetchUserRole();
+        console.log("role:", userRole);
+        setRole(userRole);
+      } catch (error) {
+        console.error("사용자 역할을 가져오는 중 오류 발생:", error);
+        setRole("USER");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadUserRole();
+
+    // 마우스 커서 로직
     const cursorEl = document.getElementById("cursor");
     const trailEl = document.getElementById("cursorTrail");
     if (!cursorEl) return;
@@ -40,36 +76,41 @@ export default function Mainlayouts({ children, msg }) {
     return () => api.destroy();
   }, []);
 
+  if (loading) {
+    return (
+      <div className="h-screen flex items-center justify-center text-2xl font-bold">
+        <span class="loader"></span>
+        로딩 중...
+      </div>
+    );
+  }
+
   return (
     <div className="h-screen flex flex-col">
+      {/* 상단 공통 헤더 */}
       <div className="h-20 shrink-0 bg-white">
         <Header />
-        {/* <HeaderComponent menus={menuList} /> */}
-        <HeaderComponent menus={menuList} msg={"STUDENT"} />
       </div>
-
-      <div>
-        <div
-          id="cursor"
-          className="pointer-events-none fixed left-0 top-0 will-change-transform"
-        >
-          <div className="w-10 h-10 rounded-full bg-yellow-300/50 transition-transform duration-150 ease-out hover:scale-125" />
-        </div>
-        <div
-          id="cursorTrail"
-          className="pointer-events-none fixed left-0 top-0 rounded-full bg-yellow-200/30 will-change-transform"
-        />
-      </div>
-
+      {/* 메인 레이아웃 */}
       <div className="flex flex-1 overflow-y-auto bg-white text-black cursor-none">
+        {/* 왼쪽: 역할별 메뉴 */}
         <Navbar subHeader={menuList} />
+
+        {/* 오른쪽: 메인 컨텐츠 영역 */}
         <div className="flex-1 flex flex-col items-center justify-start bg-white">
-          <div className="w-[80%] ml-[19%] rounded-xl border border-gray-200 bg-white my-4 h-[100%]">
-            {children}
+          <div className="w-[80%] ml-[15%] rounded-xl border border-gray-200 bg-white my-4 h-[100%]">
+            <div className="p-4">
+              {/* ✅ 오로지 localhost:3000/ 일 때만 대시보드 렌더 */}
+              {location.pathname === "/" && <DashboardComponent />}
+
+              {/* ✅ 다른 페이지 컴포넌트(children)는 항상 여기서 렌더 */}
+              {children}
+            </div>
           </div>
         </div>
       </div>
 
+      {/* 푸터 */}
       <div className="h-10">
         <Footer />
       </div>

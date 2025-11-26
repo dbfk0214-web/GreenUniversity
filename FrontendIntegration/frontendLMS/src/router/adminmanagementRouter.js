@@ -1,15 +1,16 @@
 import { lazy } from "react";
 
 import Mainlayouts from "../layouts/Mainlayouts";
+import AdminHomeDashboard from "../pages/adminmanagement/AdminHomeDashboard";
 
 const adminnews = lazy(() => import("../pages/adminmanagement/adminnews"));
-const adminNotice = lazy(() => import("../pages/adminmanagement/adminnotice"));
+const adminpage = lazy(() => import("../pages/adminmanagement/AdminHomeDashboard"));
 const register = lazy(() => import("../pages/adminmanagement/register"));
 
 export const adminmanagementRouter = [
   {
-    path: "adminnotice",
-    element: <Mainlayouts children={<adminNotice/>} />,
+    path: "",
+    element: <Mainlayouts children={<AdminHomeDashboard/>} />,
   },
   {
     path: "adminnews",
