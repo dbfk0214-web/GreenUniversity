@@ -8,7 +8,8 @@ const AdminTableListComponent = ({
   selectedColumn,  // 키 배열
   readData,
   changeViewMode,
-  changeSelectId
+  changeSelectId,
+  primaryKey
 }) => {
   return (
     <div>
@@ -38,7 +39,8 @@ const AdminTableListComponent = ({
               size: "10%",
               onClick: () => {
                 changeViewMode(typeEnum.readOne);
-                changeSelectId(data[tableInfo.primaryKey]);
+                changeSelectId(data[primaryKey]);
+                console.log(data[primaryKey]);
               }
             })}
           </div>

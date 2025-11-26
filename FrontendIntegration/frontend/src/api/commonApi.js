@@ -52,12 +52,25 @@ export const createCrudApi = (tableName) => ({
       .put(`${API_SERVER_HOST}/api/${tableName}`, dto)
       .then((r) => r.data);
   },
-  deleteOne: (id) => {
-    console.log(`${tableName} deleteOne`);
-    return axios
-      .delete(`${API_SERVER_HOST}/api/${tableName}/${id}`)
-      .then((r) => r.data);
+  deleteOne: async (id, userEmail) => {
+    console.log(`${tableName} writeOne`, id, userEmail);
+    try {
+      const r = await axios.delete(
+        `${API_SERVER_HOST}/api/${tableName}/delete/${id}`,
+        {
+          headers: {
+            "X-User-Email": userEmail, // 실제로는 로그인한 사용자 이메일
+          },
+        }
+      );
+      return r.data;
+    } catch (error) {
+      console.error(`${tableName} deleteOne error:`, error);
+      console.log("실제 전송 데이터:", JSON.stringify(id, null, 2));
+      throw error;
+    }
   },
+
 });
 
 // 함수 정의

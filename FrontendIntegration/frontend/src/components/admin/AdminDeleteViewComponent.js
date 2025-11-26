@@ -9,6 +9,7 @@ const AdminDeleteViewComponent = ({
   typeEnum,
   changeViewMode,
   deleteOne,
+  primaryKey
 }) => {
   return (
     <div>
@@ -53,7 +54,7 @@ const AdminDeleteViewComponent = ({
               onClick: () => {
                 if (window.confirm('정말로 삭제하시겠습니까?')) {
                   changeViewMode(typeEnum?.loading);
-                  deleteOne(findReadOne[tableInfo.primaryKey]);
+                  deleteOne(findReadOne[primaryKey]);
                 }
               },
             })}

@@ -18,14 +18,11 @@ import TimeTableApi from "../../api/TimeTableApi";
 import userApi from "../../api/userApi";
 
 import AdminSelectedContext from "./AdminSelectContext";
-import { useSelector } from "react-redux";
 
 const AdminComponent = () => {
   const loginState = useSelector((state) => state.loginSlice);
   const userEmail = loginState.email;
 
-  const loginState = useSelector((state) => state.loginSlice);
-  const userEmail = loginState.email;
   // 상태 통합
   const [selectedIds, setSelectedIds] = useState({
     attendance: "none",
@@ -80,7 +77,10 @@ const AdminComponent = () => {
             key={key}
             config={{
               ...tableApis[key].config,
-              funcs: { ...tableApis[key].config.funcs, writeOne: (dto) => tableApis[key].config.funcs.writeOne(dto, userEmail) }
+              funcs: {
+                ...tableApis[key].config.funcs, writeOne: (dto) => tableApis[key].config.funcs.writeOne(dto, userEmail)
+                , deleteOne: (dto) => tableApis[key].config.funcs.deleteOne(dto, userEmail)
+              }
             }}
           />
         ))}
