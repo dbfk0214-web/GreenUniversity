@@ -4,8 +4,8 @@ import { createButton } from '../../util/button';
 
 const AdminTableListComponent = ({
   tableInfo,
-  columns,
-  selectedColumn,
+  columns,  // 이제 객체를 받음
+  selectedColumn,  // 키 배열
   readData,
   changeViewMode,
   changeSelectId
@@ -25,11 +25,9 @@ const AdminTableListComponent = ({
 
       {/* 데이터 목록 */}
       {Array.isArray(readData) && readData.map((data, index) => {
-        const keys = Object.keys(columns);
-
         return (
           <div key={index} className="flex border-b py-1">
-            {keys.map((key) => (
+            {selectedColumn.map((key) => (  // selectedColumn 사용
               <div key={key} className="flex-1">
                 {data[key]}
               </div>

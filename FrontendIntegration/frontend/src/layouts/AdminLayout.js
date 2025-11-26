@@ -1,5 +1,5 @@
 import axios from "axios";
-import {useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { typeEnum } from "../api/commonApi";
 import AdminSelectedContext from "../components/admin/AdminSelectContext";
 import { createButton } from "../util/button";
@@ -13,8 +13,10 @@ import AdminDetailViewComponent from "../components/admin/AdminDetailViewCompone
 
 const AdminLayout = ({ config }) => {
   // 데이터 가져오기
-  const { key, tableInfo, columns, funcs, formData, type, buttonDataList, extrahButtonDataList, color } = config;
+  const { key, tableInfo, allColumns, funcs, formData, type, buttonDataList, extrahButtonDataList, color } = config;
   const { findByKeyword, readAll, readOne, writeOne, deleteOne, updateOne } = funcs;
+
+  const { columns, createColumns, responseColumns, updateColumns } = allColumns;
 
   // 리덕스
   const { selectedIds, setSelectId } = useContext(AdminSelectedContext);
@@ -25,16 +27,34 @@ const AdminLayout = ({ config }) => {
     setSelectId(key, id); // Context에 전달
   };
 
+  // ✅ createColumns 키를 기반으로 빈 폼 객체 생성
+  const initialForm = formData || Object.keys(createColumns || {}).reduce((acc, key) => {
+    acc[key] = '';
+    return acc;
+  }, {});
+
+  const [form, setForm] = useState(initialForm);
+
 
   // useState 사용
   const [readData, setReadData] = useState([]);
   const [findReadOne, setFindReadOne] = useState({});
-  const [form, setForm] = useState(formData);
+  // const [form, setForm] = useState(formData);
   const [isLoading, setLoading] = useState(false);
 
   const [findData, setFindData] = useState([]);
-  const [findColumns, setFindColumns] = useState({});
   const [selectData, setSelectData] = useState({});
+
+  // ✅ 초기값을 직접 설정
+  const [findColumns, setFindColumns] = useState({});
+  const [findCreateColumns, setFindCreateColumns] = useState(Object.keys(createColumns || {}));
+  const [findResponseColumns, setFindResponseColumns] = useState(Object.keys(responseColumns || {}));
+  const [findUpdateColumns, setFindUpdateColumns] = useState(Object.keys(updateColumns || {}));
+
+  // ✅ 원본 컬럼 객체들도 직접 초기화
+  const [responseColumnsObj, setResponseColumnsObj] = useState(responseColumns || {});
+  const [createColumnsObj, setCreateColumnsObj] = useState(createColumns || {});
+  const [updateColumnsObj, setUpdateColumnsObj] = useState(updateColumns || {});
 
   // 갱신용 useState
   const [viewMode, setViewMode] = useState(typeEnum.default);
@@ -73,7 +93,8 @@ const AdminLayout = ({ config }) => {
   const onSubmit = (e, action) => {
     e.preventDefault();
 
-    const relatedColumns = extrahButtonList.map(data => data.columns);
+
+    const relatedColumns = extrahButtonList.map(data => data.allColumns.createColumns);
     const formData = new FormData(e.target);
 
     for (const columns of relatedColumns) {
@@ -133,6 +154,14 @@ const AdminLayout = ({ config }) => {
     setForm(prev => ({ ...prev, [targetColumn]: selectData }));
   }
 
+  const updateSelectForm = (e) => {
+    if (!e) return;
+
+    const {name, value} = e.target;
+
+    setSelectData(prev => ({ ...prev, [name]: value }));
+  }
+
   useEffect(() => {
     if (typeof columns === "object") {
       const columnKey = Object.keys(columns);
@@ -141,10 +170,27 @@ const AdminLayout = ({ config }) => {
       }
     }
 
-    if (typeof formData === "object") {
-      const formColumnKey = Object.keys(formData);
-      if (formColumnKey.length > 0) {
-        setFormColumn(formColumnKey);
+    if (typeof createColumns === "object") {
+      setCreateColumnsObj(createColumns);  // 원본 객체 저장
+      const createColumnKey = Object.keys(createColumns);
+      if (createColumnKey.length > 0) {
+        setFindCreateColumns(createColumnKey);
+      }
+    }
+
+    if (typeof responseColumns === "object") {
+      setResponseColumnsObj(responseColumns);  // 원본 객체 저장
+      const responseColumnKey = Object.keys(responseColumns);
+      if (responseColumnKey.length > 0) {
+        setFindResponseColumns(responseColumnKey);
+      }
+    }
+
+    if (typeof updateColumns === "object") {
+      setUpdateColumnsObj(updateColumns);  // 원본 객체 저장
+      const updateColumnKey = Object.keys(updateColumns);
+      if (updateColumnKey.length > 0) {
+        setFindUpdateColumns(updateColumnKey);
       }
     }
 
@@ -233,8 +279,8 @@ const AdminLayout = ({ config }) => {
             {viewMode === typeEnum.read && (
               <AdminTableListComponent
                 tableInfo={tableInfo}
-                columns={columns}
-                selectedColumn={selectedColumn}
+                columns={responseColumnsObj}  // 객체 전달
+                selectedColumn={findResponseColumns}  // 키 배열 전달
                 readData={readData}
                 changeViewMode={changeViewMode}
                 changeSelectId={changeSelectId}
@@ -244,14 +290,32 @@ const AdminLayout = ({ config }) => {
             {/* enum값이 write 경우, 추가모드 */}
             {viewMode === typeEnum.write && (
               <AdminWriteComponent
-                formColumn={formColumn}
+                formColumn={findCreateColumns}  // 키 배열
                 form={form}
-                formData={formData}
+                formData={createColumnsObj}  // 객체로 변경
+                extrahButtonList={extrahButtonList}
+                selectData={selectData}
+                setForm={setForm}
+                setSelectData={setSelectData}
+                changeHandler={changeHandler}
+                updateSelectForm={updateSelectForm}
+                onSubmit={e => onSubmit(e, writeOne)}
+                setModalOpen={setModalOpen}
+                setTargetColumn={setTargetColumn}
+              />
+            )}
+
+            {/* enum값이 update 경우, 업데이트모드 */}
+            {viewMode === typeEnum.update && (
+              <AdminUpdateComponent
+                formColumn={findUpdateColumns}  // 키 배열
+                form={form}
+                formData={updateColumnsObj}  // 객체로 변경
                 extrahButtonList={extrahButtonList}
                 setForm={setForm}
                 setSelectData={setSelectData}
                 changeHandler={changeHandler}
-                onSubmit={e => onSubmit(e, writeOne)}
+                onSubmit={e => onSubmit(e, updateOne)}
                 setModalOpen={setModalOpen}
                 setTargetColumn={setTargetColumn}
               />
@@ -259,7 +323,7 @@ const AdminLayout = ({ config }) => {
 
             {/* enum값이 readone 경우, 하나 읽기 모드 */}
             {viewMode === typeEnum.readOne && (
-              <AdminDetailViewComponent 
+              <AdminDetailViewComponent
                 tableInfo={tableInfo}
                 findReadOne={findReadOne}
                 selectedColumn={selectedColumn}
@@ -281,7 +345,7 @@ const AdminLayout = ({ config }) => {
 
             {/* enum값이 delete 경우, 삭제모드 */}
             {viewMode === typeEnum.delete && (
-              <AdminDeleteViewComponent 
+              <AdminDeleteViewComponent
                 tableInfo={tableInfo}
                 findReadOne={findReadOne}
                 selectedColumn={selectedColumn}
@@ -292,24 +356,7 @@ const AdminLayout = ({ config }) => {
                 deleteOne={deleteOne}
               />
             )}
-
-            {/* enum값이 update 경우, 업데이트모드 */}
-            {viewMode === typeEnum.update && (
-              <AdminUpdateComponent
-                formColumn={selectedColumn}
-                form={form}
-                formData={formData}
-                extrahButtonList={extrahButtonList}
-                setForm={setForm}
-                setSelectData={setSelectData}
-                changeHandler={changeHandler}
-                onSubmit={e => onSubmit(e, updateOne)}
-                setModalOpen={setModalOpen}
-                setTargetColumn={setTargetColumn}
-              />
-            )}
           </div>
-
           {/* 모달창 */}
           {isModalOpen &&
             <AdminModalComponent
@@ -320,10 +367,10 @@ const AdminLayout = ({ config }) => {
               changeSelectId={changeSelectId}
               setFindData={setFindData}
               findData={findData}
-              findColumns={findColumns}
+              findColumns={findColumns}  // ✅ findColumns 객체 전달 (targetColumn이 아님!)
               setFindColumns={setFindColumns}
               extrahButtonList={extrahButtonList}
-              targetColumn={targetColumn}
+              targetColumn={targetColumn}  // 이건 필터링용으로 유지
               createButton={createButton}
               tableInfo={tableInfo}
             />

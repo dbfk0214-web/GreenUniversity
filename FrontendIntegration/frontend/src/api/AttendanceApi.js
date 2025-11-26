@@ -1,5 +1,5 @@
 import axios from "axios";
-import {createTableConfig, excludeColumns } from "./commonApi";
+import { createTableConfig, excludeColumns } from "./commonApi";
 import EnrollmentApi from "./EnrollmentApi";
 import { tableDefinitions } from "./tablesConfig";
 
@@ -12,7 +12,7 @@ const extraButtons =
       action: EnrollmentApi.config.funcs.readAll,
       // enumType: typeEnum.read,
       style: "bg-red-300 hover:bg-red-700",
-      columns: { ...excludeColumns(EnrollmentApi.config.columns, EnrollmentApi.config.excludeList) },
+      allColumns: EnrollmentApi.config.allColumns,
       tableName: "enrollment"
     },
   ];
@@ -20,7 +20,7 @@ const extraButtons =
 const config = createTableConfig(tableDefinitions[tableName], extraButtons);
 
 
-export default { config };  
+export default { config };
 
 
 // 나중에 메서드 이름 혹은 역할을 변경 , 미사용 시, 삭제할 것
