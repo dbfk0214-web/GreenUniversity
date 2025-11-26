@@ -46,11 +46,24 @@ export const createCrudApi = (tableName) => ({
       throw error;
     }
   },
-  updateOne: (dto) => {
-    console.log(`${tableName} updateOne`);
-    return axios
-      .put(`${API_SERVER_HOST}/api/${tableName}`, dto)
-      .then((r) => r.data);
+   updateOne: async (dto, userEmail) => {
+    console.log(`${tableName} writeOne`, dto, userEmail);
+    try {
+      const r = await axios.put(
+        `${API_SERVER_HOST}/api/${tableName}/update`,
+        dto,
+        {
+          headers: {
+            "X-User-Email": userEmail, // 실제로는 로그인한 사용자 이메일
+          },
+        }
+      );
+      return r.data;
+    } catch (error) {
+      console.error(`${tableName} updateOne error:`, error);
+      console.log("실제 전송 데이터:", JSON.stringify(dto, null, 2));
+      throw error;
+    }
   },
   deleteOne: async (id, userEmail) => {
     console.log(`${tableName} writeOne`, id, userEmail);

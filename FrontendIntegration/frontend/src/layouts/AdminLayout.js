@@ -327,7 +327,7 @@ const AdminLayout = ({ config }) => {
                 tableInfo={tableInfo}
                 findReadOne={findReadOne}
                 readOne={funcs.readOne}
-                selectedColumn={selectedColumn}
+                selectedColumn={findResponseColumns}
                 columns={columns}
                 createButton={createButton}
                 typeEnum={typeEnum}
