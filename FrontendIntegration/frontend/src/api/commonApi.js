@@ -25,7 +25,9 @@ export const createCrudApi = (tableName) => ({
   },
   readOne: (id) => {
     console.log(`${tableName} readOne`);
-    return axios.get(`${API_SERVER_HOST}/api/${tableName}/one/${id}`).then(r => r.data);
+    return axios
+      .get(`${API_SERVER_HOST}/api/${tableName}/one/${id}`)
+      .then((r) => r.data);
   },
   writeOne: async (dto, userEmail) => {
     console.log(`${tableName} writeOne`, dto, userEmail);
@@ -43,6 +45,10 @@ export const createCrudApi = (tableName) => ({
     } catch (error) {
       console.error(`${tableName} writeOne error:`, error);
       console.log("실제 전송 데이터:", JSON.stringify(dto, null, 2));
+      console.error(
+        "백엔드 오류",
+        JSON.stringify(error.response?.data, null, 2)
+      );
       throw error;
     }
   },
@@ -80,10 +86,13 @@ export const createCrudApi = (tableName) => ({
     } catch (error) {
       console.error(`${tableName} deleteOne error:`, error);
       console.log("실제 전송 데이터:", JSON.stringify(id, null, 2));
+      console.error(
+        "백엔드 오류",
+        JSON.stringify(error.response?.data, null, 2)
+      );
       throw error;
     }
   },
-
 });
 
 // 함수 정의
