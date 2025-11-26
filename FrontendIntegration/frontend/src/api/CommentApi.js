@@ -12,14 +12,14 @@ const extraButtons =
       label: "user 정보 읽기",
       action: UserApi.config.funcs.readAll,
       style: "bg-red-300 hover:bg-red-700",
-      columns: { ...excludeColumns(UserApi.config.columns, UserApi.config.excludeList) },
+      allColumns: UserApi.config.allColumns,
       tableName: "user"
     },
     {
       label: "post 정보 읽기",
       action: PostApi.config.funcs.readAll,
       style: "bg-red-300 hover:bg-red-700",
-      columns: { ...excludeColumns(PostApi.config.columns, PostApi.config.excludeList) },
+      allColumns: PostApi.config.allColumns,
       tableName: "post"
     },
   ];

@@ -1,0 +1,42 @@
+export const TimeTableDef = {
+    key: "time",
+    primaryKey: "timetableId",
+    tableEng: "TimeTable",
+    tableName: "시간표",
+    allColumns: {
+        columns: {
+            timetableId: "시간표아이디",
+            dayOfWeek: "요일",
+            startTime: "수업시작시간",
+            endTime: "수업종료시간",
+            location: "위치",
+            courseName: "강의명",
+            nickName: "학생이름",
+        },
+        createColumns: {
+            offeringId: "개설강의고유Id",
+            dayOfWeek: "요일",
+            startTime: "시작시간",
+            endTime: "종료시간",
+            location: "강의실",
+        },
+        responseColumns: {
+            timetableId: "시간표 아이디",
+            dayOfWeek: "요일",
+            startTime: "시간시간",
+            endTime: "종료시간",
+            location: "강의실",
+            courseName: "강의명",
+            professorNickname: "학생이름",
+            offeringId: "개설강의고유Id",
+        },
+        updateColumns: {
+            dayOfWeek: "요일",
+            startTime: "시간시간",
+            endTime: "종료시간",
+            location: "강의실",
+        },
+    },
+    excludeList: ["courseOffering"],
+    color: "bg-emerald-100",
+} 
