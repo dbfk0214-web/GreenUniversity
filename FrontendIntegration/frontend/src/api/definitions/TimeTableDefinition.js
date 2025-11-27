@@ -31,6 +31,7 @@ export const TimeTableDef = {
             offeringId: "개설강의고유Id",
         },
         updateColumns: {
+            timetableId:"시간표아이디",
             dayOfWeek: "요일",
             startTime: "시간시간",
             endTime: "종료시간",
