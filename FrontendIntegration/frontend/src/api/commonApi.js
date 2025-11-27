@@ -25,7 +25,9 @@ export const createCrudApi = (tableName) => ({
   },
   readOne: (id) => {
     console.log(`${tableName} readOne`);
-    return axios.get(`${API_SERVER_HOST}/api/${tableName}/one/${id}`).then(r => r.data);
+    return axios
+      .get(`${API_SERVER_HOST}/api/${tableName}/one/${id}`)
+      .then((r) => r.data);
   },
   writeOne: async (dto, userEmail) => {
     console.log(`${tableName} writeOne`, dto, userEmail);
@@ -43,14 +45,31 @@ export const createCrudApi = (tableName) => ({
     } catch (error) {
       console.error(`${tableName} writeOne error:`, error);
       console.log("실제 전송 데이터:", JSON.stringify(dto, null, 2));
+      console.error(
+        "백엔드 오류",
+        JSON.stringify(error.response?.data, null, 2)
+      );
       throw error;
     }
   },
-  updateOne: (dto) => {
-    console.log(`${tableName} updateOne`);
-    return axios
-      .put(`${API_SERVER_HOST}/api/${tableName}`, dto)
-      .then((r) => r.data);
+   updateOne: async (dto, userEmail) => {
+    console.log(`${tableName} writeOne`, dto, userEmail);
+    try {
+      const r = await axios.put(
+        `${API_SERVER_HOST}/api/${tableName}/update`,
+        dto,
+        {
+          headers: {
+            "X-User-Email": userEmail, // 실제로는 로그인한 사용자 이메일
+          },
+        }
+      );
+      return r.data;
+    } catch (error) {
+      console.error(`${tableName} updateOne error:`, error);
+      console.log("실제 전송 데이터:", JSON.stringify(dto, null, 2));
+      throw error;
+    }
   },
   deleteOne: async (id, userEmail) => {
     console.log(`${tableName} writeOne`, id, userEmail);
@@ -67,10 +86,13 @@ export const createCrudApi = (tableName) => ({
     } catch (error) {
       console.error(`${tableName} deleteOne error:`, error);
       console.log("실제 전송 데이터:", JSON.stringify(id, null, 2));
+      console.error(
+        "백엔드 오류",
+        JSON.stringify(error.response?.data, null, 2)
+      );
       throw error;
     }
   },
-
 });
 
 // 함수 정의
