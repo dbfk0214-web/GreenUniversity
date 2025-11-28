@@ -138,6 +138,7 @@ export const createTableConfig = (tabelDef, extraButtons = []) => {
     allColumns,
     excludeList,
     color,
+    readOnlyList,
   } = tabelDef;
   const funcs = createCrudApi(key);
 
@@ -155,5 +156,6 @@ export const createTableConfig = (tabelDef, extraButtons = []) => {
       readAll: { action: funcs.readAll },
     }),
     extrahButtonDataList: extraButtons,
+    readOnlyList,
   };
 };

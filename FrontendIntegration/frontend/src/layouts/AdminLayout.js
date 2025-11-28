@@ -13,7 +13,7 @@ import AdminDetailViewComponent from "../components/admin/AdminDetailViewCompone
 
 const AdminLayout = ({ config }) => {
   // 데이터 가져오기
-  const { key, primaryKey, tableInfo, allColumns, funcs, formData, type, buttonDataList, extrahButtonDataList, color } = config;
+  const { key, primaryKey, tableInfo, allColumns, funcs, formData, type, buttonDataList, extrahButtonDataList, color,readOnlyList } = config;
   const { findByKeyword, readAll, readOne, writeOne, deleteOne, updateOne } = funcs;
 
   const { columns, createColumns, responseColumns, updateColumns } = allColumns;
@@ -318,6 +318,7 @@ const AdminLayout = ({ config }) => {
                 onSubmit={e => onSubmit(e, updateOne)}
                 setModalOpen={setModalOpen}
                 setTargetColumn={setTargetColumn}
+                readOnlyList={readOnlyList}
               />
             )}
 
