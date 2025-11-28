@@ -14,17 +14,21 @@ export const EnrollmentDef = {
             reviews: "리뷰들",
         },
         createColumns: {
-            userId: "유저 식별 코드",
-            offeringId: "강의 개설 id",
             enrollDate: "강의 개설 날짜",
+            offeringId: "강의 개설 id",
+            userId: "유저 식별 코드",
         },
         responseColumns: {
             enrollmentId: "수강 내역 아이디",
             enrollDate: "강의 개설 날짜",
-            userId: "유저식별ID",
+            offeringId: "강의 개설 아이디",
+            userId : "유저 아이디"
         },
         updateColumns: {
-            enrollDate: "해당 날짜"
+            enrollmentId: "수강 내역 아이디",
+            enrollDate: "강의 개설 날짜",
+            offeringId: "강의 개설 아이디",
+            userId : "유저 아이디"
         },
     },
 
