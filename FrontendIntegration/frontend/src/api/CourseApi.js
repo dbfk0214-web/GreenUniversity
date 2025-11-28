@@ -7,13 +7,6 @@ const tableName = "course";
 
 const extraButtons =
   [
-    {
-      label: "department 정보 읽기",
-      action: DepartmentApi.config.funcs.readAll,
-      style: "bg-red-300 hover:bg-red-700",
-      allColumns: DepartmentApi.config.allColumns,
-      tableName: "department"
-    },
   ];
 
 const config = createTableConfig(tableDefinitions[tableName], extraButtons);
