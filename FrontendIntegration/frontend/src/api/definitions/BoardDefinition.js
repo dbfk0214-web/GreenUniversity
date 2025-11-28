@@ -9,7 +9,7 @@ export const BoardDef = {
             boardName: "게시판종류",
         },
         createColumns: {
-            boardId: "게시판번호",
+            boardId:"게시판번호",
             boardName: "게시판종류",
         },
         responseColumns: {
