@@ -6,6 +6,7 @@ import { doLogin } from "../api/userApi";
 const initialState = {
   email: "",
   nickname: "",
+  role:"ADMIN",
 };
 const loadAccounterCookie = () => {
   const userInfo = getCookie("user");
