@@ -1,23 +1,25 @@
 import axios from "axios";
-import { createTableConfig, excludeColumns } from "./commonApi";
-import EnrollmentApi from "./EnrollmentApi";
+import { API_SERVER_HOST, createTableConfig } from "./commonApi";
 import { tableDefinitions } from "./tablesConfig";
 
 const tableName = "attendance";
 
 const extraButtons =
   [
-    {
-      label: "Enrollment 정보 읽기",
-      action: EnrollmentApi.config.funcs.readAll,
-      // enumType: typeEnum.read,
-      style: "bg-red-300 hover:bg-red-700",
-      allColumns: EnrollmentApi.config.allColumns,
-      tableName: "enrollment"
-    },
+
   ];
 
-const config = createTableConfig(tableDefinitions[tableName], extraButtons);
+var tableDefinition = tableDefinitions[tableName];
+tableDefinition = {
+  ...tableDefinition,
+  allColumns: {
+    ...tableDefinition.allColumns,
+    searchColumns: {
+      "one": tableDefinition.allColumns.responseColumns
+    }
+  }
+}
+const config = createTableConfig(tableDefinition, extraButtons);
 
 
 export default { config };
