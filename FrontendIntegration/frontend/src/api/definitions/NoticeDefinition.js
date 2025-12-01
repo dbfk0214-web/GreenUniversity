@@ -12,25 +12,21 @@ export const NoticeDef = {
             userDTO: "유저",
         },
         createColumns: {
-            noticeId: "공지사항아이디",
             title: "제목",
             content: "내용",
             createdAt: "작성일자",
-            userDTO: "유저",
         },
         responseColumns: {
             noticeId: "공지사항아이디",
             title: "제목",
             content: "내용",
             createdAt: "작성일자",
-            userDTO: "유저",
         },
         updateColumns: {
             noticeId: "공지사항아이디",
             title: "제목",
             content: "내용",
             createdAt: "작성일자",
-            userDTO: "유저",
         },
     },
 

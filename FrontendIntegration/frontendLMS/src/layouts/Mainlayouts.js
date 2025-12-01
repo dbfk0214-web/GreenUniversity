@@ -17,7 +17,7 @@ import Header from "./Header";
 const fetchUserRole = async () => {
   return new Promise((resolve) => {
     setTimeout(() => {
-      const roleKey = "PROFESSOR"; // "ADMIN" | "PROFESSOR" | "STUDENT" | "USER"
+      const roleKey = "USER"; // "ADMIN" | "PROFESSOR" | "STUDENT" | "USER"
       resolve(roleKey);
     }, 500);
   });
