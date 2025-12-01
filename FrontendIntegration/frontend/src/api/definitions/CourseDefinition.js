@@ -34,5 +34,6 @@ export const CourseDef = {
     },
 
     excludeList: ["department", "offerings"],
+    readOnlyList: [],
     color: "bg-neutral-200",
 }
