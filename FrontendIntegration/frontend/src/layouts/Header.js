@@ -15,7 +15,6 @@ const Header = () => {
   //   if (user.role === "GUEST") console.log("게스트입니다.")
   //   else console.log("게스트가 아닙니다.");
   // }, [user]);
-
   return (
     // 헤더 전체를 sticky로
     <div className="sticky top-0 z-[100] w-full">
@@ -42,7 +41,7 @@ const Header = () => {
           </div>
         </div>
       </div>
-
+            
       {/* 🔹 2줄차 네비게이션(사이트맵 스타일) */}
       {user.role === "GUEST" ? (
         <div/>
