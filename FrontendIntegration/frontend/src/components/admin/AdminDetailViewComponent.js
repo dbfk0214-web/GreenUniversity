@@ -10,6 +10,7 @@ const AdminDetailViewComponent = ({
   typeEnum,
   changeViewMode,
   primaryKey, // ✅ 추가
+  setForm,
 }) => {
   // ✅ 데이터 검증
   const hasData = findReadOne && Object.keys(findReadOne).length > 0;
@@ -58,6 +59,7 @@ const AdminDetailViewComponent = ({
                 onClick: () => {
                   console.log('수정 모드 진입:', findReadOne);
                   changeViewMode(typeEnum?.update);
+                  setForm(findReadOne);
                 }
               })}
               {/* 삭제 버튼 */}

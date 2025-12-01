@@ -15,7 +15,8 @@ const AdminFormComponent = ({
   setTargetColumn,
   title,
   showResetButton,
-  readOnlyFirstField
+  readOnlyFirstField,
+  readOnlyList
 }) => {
   return (
     <div>
@@ -25,7 +26,8 @@ const AdminFormComponent = ({
         {/* 기본 폼 필드 */}
         {formColumn && formColumn.map((key, index) => {
           const isFirstField = index === 0;
-          const shouldBeReadOnly = readOnlyFirstField && isFirstField;
+          // const shouldBeReadOnly = readOnlyFirstField && isFirstField;
+          const shouldBeReadOnly = readOnlyList?.includes(key) || (readOnlyFirstField && isFirstField);
 
           return (
             <div key={key} className="flex flex-col">

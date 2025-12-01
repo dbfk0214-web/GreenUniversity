@@ -13,7 +13,7 @@ import AdminDetailViewComponent from "../components/admin/AdminDetailViewCompone
 
 const AdminLayout = ({ config }) => {
   // 데이터 가져오기
-  const { key, primaryKey, tableInfo, allColumns, funcs, formData, type, buttonDataList, extrahButtonDataList, color } = config;
+  const { key, primaryKey, tableInfo, allColumns, funcs, formData, type, buttonDataList, extrahButtonDataList, color,readOnlyList } = config;
   const { findByKeyword, readAll, readOne, writeOne, deleteOne, updateOne } = funcs;
 
   const { columns, createColumns, responseColumns, updateColumns } = allColumns;
@@ -292,12 +292,14 @@ const AdminLayout = ({ config }) => {
               <AdminWriteComponent
                 formColumn={findCreateColumns}  // 키 배열
                 form={form}
+                setForm={setForm}
                 formData={createColumnsObj}  // 객체로 변경
                 extrahButtonList={extrahButtonList}
+
                 selectData={selectData}
-                setForm={setForm}
                 setSelectData={setSelectData}
                 changeHandler={changeHandler}
+
                 updateSelectForm={updateSelectForm}
                 onSubmit={e => onSubmit(e, writeOne)}
                 setModalOpen={setModalOpen}
@@ -310,14 +312,19 @@ const AdminLayout = ({ config }) => {
               <AdminUpdateComponent
                 formColumn={findUpdateColumns}  // 키 배열
                 form={form}
+                setForm={setForm}
                 formData={updateColumnsObj}  // 객체로 변경
                 extrahButtonList={extrahButtonList}
-                setForm={setForm}
+                
+                selectData={selectData}
                 setSelectData={setSelectData}
                 changeHandler={changeHandler}
+
+                updateSelectForm={updateSelectForm}
                 onSubmit={e => onSubmit(e, updateOne)}
                 setModalOpen={setModalOpen}
                 setTargetColumn={setTargetColumn}
+                readOnlyList={readOnlyList}
               />
             )}
 
@@ -333,6 +340,7 @@ const AdminLayout = ({ config }) => {
                 typeEnum={typeEnum}
                 changeViewMode={changeViewMode}
                 primaryKey={config.primaryKey}  // ✅ 추가
+                setForm={setForm}
               />
             )}
 

@@ -22,5 +22,6 @@ export const DepartmentDef = {
         },
     },
     excludeList: ["courses"],
+    readOnlyList: [],
     color: "bg-yellow-200",
 }
