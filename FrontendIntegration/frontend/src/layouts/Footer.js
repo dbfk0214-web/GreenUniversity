@@ -2,7 +2,7 @@
 
 const footer = () => {
   return (
-    <div className="flex bg-blue-50 fixed bottom-0 w-full">
+    <div className="flex bg-blue-50 bottom-0 w-full">
       <hr />
       <p style={{ fontSize: "150%", fontWeight: "bold" }}>그린대학교</p>
       <p style={{ fontSize: "100%" }}>경기 성남시 분당구 돌마로 46</p>
