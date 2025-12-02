@@ -13,10 +13,10 @@ import AdminDetailViewComponent from "../components/admin/AdminDetailViewCompone
 
 const AdminLayout = ({ config }) => {
   // 데이터 가져오기
-  const { key, primaryKey, tableInfo, allColumns, funcs, formData, type, buttonDataList, extrahButtonDataList, color,readOnlyList } = config;
+  const { key, primaryKey, tableInfo, allColumns, funcs, formData, type, buttonDataList, extrahButtonDataList, color, readOnlyList } = config;
   const { findByKeyword, readAll, readOne, writeOne, deleteOne, updateOne } = funcs;
 
-  const { columns, createColumns, responseColumns, updateColumns } = allColumns;
+  const { columns, createColumns, responseColumns, updateColumns, searchColumns } = allColumns;
 
   // 리덕스
   const { selectedIds, setSelectId } = useContext(AdminSelectedContext);
@@ -50,6 +50,7 @@ const AdminLayout = ({ config }) => {
   const [findCreateColumns, setFindCreateColumns] = useState(Object.keys(createColumns || {}));
   const [findResponseColumns, setFindResponseColumns] = useState(Object.keys(responseColumns || {}));
   const [findUpdateColumns, setFindUpdateColumns] = useState(Object.keys(updateColumns || {}));
+  const [findSearchColumns, setFindSearchColumns] = useState(Object.keys(searchColumns || {}));
 
   // ✅ 원본 컬럼 객체들도 직접 초기화
   const [responseColumnsObj, setResponseColumnsObj] = useState(responseColumns || {});
@@ -65,6 +66,9 @@ const AdminLayout = ({ config }) => {
 
   const [buttonList, setButtonList] = useState(buttonDataList);
   const [extrahButtonList, setExtrahButtonList] = useState(extrahButtonDataList);
+
+  const [selectKeyword, setSelectKeyword] = useState("");
+  const [searchSelectDatas, setSearchSelectDatas] = useState([]);
 
   // 출력될 버튼 모음
   const [isOpen, setOpen] = useState(false);
@@ -135,7 +139,8 @@ const AdminLayout = ({ config }) => {
     findByKeyword(selectKeyword, searchText)
       .then((result) => {
         console.log("결과값 : ", result);
-        setReadData(result);
+        setSearchSelectDatas(result);
+        setSelectKeyword(selectKeyword);
       })
       .catch(err => console.log("에러발생 : ", err))
       .finally(() => {
@@ -315,7 +320,7 @@ const AdminLayout = ({ config }) => {
                 setForm={setForm}
                 formData={updateColumnsObj}  // 객체로 변경
                 extrahButtonList={extrahButtonList}
-                
+
                 selectData={selectData}
                 setSelectData={setSelectData}
                 changeHandler={changeHandler}
@@ -347,9 +352,18 @@ const AdminLayout = ({ config }) => {
             {/* enum값이 search 경우, search모드 */}
             {viewMode === typeEnum.search && (
               <AdminSearchFormComponent
-                onSubmit={onSubmit}
-                selectedColumn={selectedColumn}
+                onSearch={onSearch}
+                searchColumns={searchColumns}
+                findSearchColumns={findSearchColumns}
                 tableInfo={tableInfo}
+                searchSelectDatas={searchSelectDatas}
+                selectKeyword={selectKeyword}
+                columns={responseColumnsObj}  // 객체 전달
+                selectedColumn={findResponseColumns}  // 키 배열 전달
+                readData={readData}
+                changeViewMode={changeViewMode}
+                changeSelectId={changeSelectId}
+                primaryKey={primaryKey}
               />
             )}
 

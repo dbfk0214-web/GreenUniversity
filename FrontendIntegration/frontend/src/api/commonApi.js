@@ -52,7 +52,7 @@ export const createCrudApi = (tableName) => ({
       throw error;
     }
   },
-   updateOne: async (dto, userEmail) => {
+  updateOne: async (dto, userEmail) => {
     console.log(`${tableName} writeOne`, dto, userEmail);
     try {
       const r = await axios.put(
@@ -94,6 +94,16 @@ export const createCrudApi = (tableName) => ({
     }
   },
 });
+
+const createExtraApi = (tableName) => ({
+  findByKeyword: async (selectKeyword, searchText) => {
+    console.log(`${tableName} keyword`);
+    // API_SERVER_HOST => 
+    return axios
+      .get(`${API_SERVER_HOST}/api/${tableName}/${selectKeyword}/${searchText}`)
+      .then((r) => r.data);
+  },
+})
 
 // 함수 정의
 // export const excludeColumns = (columns, excludeArray) => {
@@ -140,7 +150,11 @@ export const createTableConfig = (tabelDef, extraButtons = []) => {
     color,
     readOnlyList,
   } = tabelDef;
-  const funcs = createCrudApi(key);
+
+  const funcs = {
+    ...createCrudApi(key),
+    ...createExtraApi(key),
+  };
 
   return {
     key,
