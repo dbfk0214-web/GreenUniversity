@@ -39,7 +39,7 @@ export const menus = {
     // ───────── 내부 관리자 커뮤니티 ─────────
     {
       label: "내부 관리자 커뮤니티",
-      to: "/adminmanagement/interalcommunity",
+      to: "/adminmanagement/internalcommunity",
     },
   ],
 
