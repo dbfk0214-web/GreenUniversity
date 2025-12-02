@@ -1,22 +1,28 @@
-import React, { useEffect } from "react";
-import { getCookie, removeCookie } from "../util/cookieUtil";
+import React, { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import LogoLayout from "../layouts/LogoLayout";
+import AnimatedBorderBox from "../layouts/AnimatedBorderBox";
 
 const MainPage = () => {
   const user = useSelector((s) => s.loginSlice);
   console.log("user정보:", user);
-  //   useEffect(() => {
-  //   if(user.role === "GUEST") console.log("게스트입니다.")
-  //     else console.log("게스트가 아닙니다.")
-  // }, [user])
+
   return (
-  <div>
     <div>
-      <LogoLayout/>
+      <div>
+        <a href="http://localhost:3000"><LogoLayout /></a>
+      </div>
+      <div className="h-[20%] flex items-start justify-start pl-10">
+        <AnimatedBorderBox />
+      </div>
+      <div className="h-[600px] flex items-end justify-end">
+        <AnimatedBorderBox />
+      </div>
+      <div className="h-[1200px] flex items-center justify-center pr-10">
+        <AnimatedBorderBox />
+      </div>
     </div>
-    메인페이지입니다
-  </div>
-)};
+  );
+};
 
 export default MainPage;

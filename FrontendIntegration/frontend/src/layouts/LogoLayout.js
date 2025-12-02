@@ -1,46 +1,46 @@
+import React from "react";
 import Logo2 from "../images/2.svg";
-import ddi from "../images/ddi_one.svg";
-import ddi2 from "../images/ddi_two.svg";
-import ddi3 from "../images/ddi_three.svg";
 import "../style/tailwind.css";
-import { ReactComponent as Stripe } from "../images/ddi_three.svg";
-import { hover } from "@testing-library/user-event/dist/hover";
+
 const LogoLayout = () => {
   return (
-<div className="w-full h-screen grid place-items-center bg-white">
-        <div className="relative-z w-[50%] aspect-square">
-          <div className="absolute shadow-inner" />
-          <img
-            src={Logo2}
-            alt="그린로고"
-            className="relative reveal-ccw w-full h-full rounded-full object-cover block z-100"
-          />
-          <div className="pointer-events-none absolute inset-0 z-[50] overflow-visible">
-            <div className="absolute -left-[12vw] top-10 w-[140vw] h-[160px] rotate-[24deg] origin-left">
-              <img
-                src={Stripe}
-                alt=""
-                className="block w-full h-full select-none"
+    <div className="w-full overflow-hidden h-screen grid place-items-center bg-white">
+      <div className="relative w-[50%] aspect-square">
+        {/* 가운데 로고: 기존처럼 rotate */}
+        <img
+          src={Logo2}
+          alt="그린로고"
+          className="w-full h-full rounded-full object-cover block z-10 reveal-ccw"
+        />
+
+        {/* 로고 주변 반대 방향으로 도는 텍스트 링 */}
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+          <svg
+            viewBox="0 0 200 200"
+            className="w-[130%] h-[130%] spin-reverse"
+          >
+            <defs>
+              <path
+                id="logoCirclePath"
+                d="
+                  M 100,100
+                  m -80,0
+                  a 80,80 0 1,1 160,0
+                  a 80,80 0 1,1 -160,0
+                "
               />
-            </div>
-            <div className="absolute -left-[12vw] bottom-10 w-[140vw] h-[160px] -rotate-[-30deg] origin-right">
-              <img
-                src={Stripe}
-                alt=""
-                className="block w-full h-full select-none"
-              />
-            </div>
-            <div className="absolute -left-[12vw] bottom-10 w-[140vw] h-[160px] -rotate-[50deg] origin-left">
-              <img
-                src={Stripe}
-                alt=""
-                className="block w-full h-full select-none"
-              />
-            </div>
-          </div>
+            </defs>
+
+            <text fontSize="10" letterSpacing="4" className="uppercase">
+              <textPath href="#logoCirclePath" startOffset="0%">
+                GREEN UNIVERSITY · LMS · GREEN UNIVERSITY · LMS · DESIGN ·
+              </textPath>
+            </text>
+          </svg>
         </div>
       </div>
-  )
-}
+    </div>
+  );
+};
 
-export default LogoLayout
+export default LogoLayout;

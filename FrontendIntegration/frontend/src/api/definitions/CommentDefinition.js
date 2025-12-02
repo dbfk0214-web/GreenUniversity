@@ -27,7 +27,6 @@ export const CommentDef = {
         },
         updateColumns: {
             commentId: "댓글아이디",
-            title:"댓글제목",
             content: "댓글내용",
             createdAt: "일자",
             postId: "게시판글",

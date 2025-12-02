@@ -26,7 +26,6 @@ export const NoticeDef = {
             noticeId: "공지사항아이디",
             title: "제목",
             content: "내용",
-            createdAt: "작성일자",
         },
     },
 
