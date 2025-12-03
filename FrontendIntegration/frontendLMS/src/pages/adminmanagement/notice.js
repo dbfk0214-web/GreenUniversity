@@ -236,7 +236,7 @@ function DashboardModal({ activeModal, onClose }) {
 
   return (
     <div className="fixed inset-0 z-40 flex items-center justify-center bg-black/25 px-4">
-      <div className="w-full max-w-2xl rounded-2xl bg-white p-6 shadow-xl ring-1 ring-slate-200">
+      <div className="w-full max-w-[80%] rounded-2xl bg-white p-6 shadow-xl ring-1 ring-slate-200">
         <div className="mb-4 flex items-start justify-between gap-4">
           <div>
             <h3 className="text-lg font-semibold text-slate-900">{title}</h3>
