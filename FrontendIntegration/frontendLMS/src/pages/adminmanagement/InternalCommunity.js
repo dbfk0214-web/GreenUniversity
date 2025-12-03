@@ -195,7 +195,7 @@ function DashboardButton({ label, description, onClick }) {
 function DashboardModal({ activeModal, onClose }) {
   if (!activeModal) return null;
 
-  const { title, subtitle, hint } = getModalConfig(activeModal);
+  const { title, subtitle, hint, content } = renderModalContent(activeModal);
 
   return (
     <div className="fixed inset-0 z-40 flex items-center justify-center bg-black/25 px-4">
@@ -218,14 +218,23 @@ function DashboardModal({ activeModal, onClose }) {
 
         {/* placeholder 영역 */}
         <div className="rounded-xl border border-dashed border-slate-200 bg-slate-50 p-4 text-xs text-slate-500">
-          <p className="mb-2 font-medium text-slate-700">
-            🔧 개발자용 placeholder 영역
-          </p>
-          <p className="leading-relaxed">
-            이 영역에 실제 게시판 리스트, 에디터, 문서 뷰어, 태그 필터 등을 넣으면 됩니다.
-            <br />
-            예: 운영 공지 게시판, 릴리즈 노트 마크다운 에디터, Q&A 스레드, 회의록 문서 목록 등.
-          </p>
+          {content ? (
+            content
+          ) : (
+            <>
+              {/* 기본 placeholder */}
+              <p className="mb-2 font-medium text-slate-700">
+                🔧 개발자용 placeholder 영역
+              </p>
+              <p className="leading-relaxed">
+                이 영역에 실제 폼(Form), 테이블(Table), 검색 필터 등을 넣으면
+                됩니다.
+                <br />
+                예: 강의 검색 필터, 강의계획 입력 폼, 분반/정원 테이블, 시간표
+                매트릭스 등.
+              </p>
+            </>
+          )}
           {hint && (
             <p className="mt-3 text-[11px] leading-relaxed text-slate-500">
               <span className="font-semibold text-slate-600">UI 힌트: </span>
@@ -255,7 +264,7 @@ function DashboardModal({ activeModal, onClose }) {
   );
 }
 
-function getModalConfig(activeModal) {
+function renderModalContent(activeModal) {
   switch (activeModal) {
     case modalTypes.OPS_ANNOUNCEMENT:
       return {
