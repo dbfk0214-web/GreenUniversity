@@ -185,7 +185,7 @@ function DashboardButton({ label, description, onClick }) {
 function DashboardModal({ activeModal, onClose }) {
   if (!activeModal) return null;
 
-  const getModalConfig = () => {
+  const renderModalContent = () => {
     switch (activeModal) {
       case modalTypes.CREATE_NOTICE:
         return {
@@ -232,11 +232,11 @@ function DashboardModal({ activeModal, onClose }) {
     }
   };
 
-  const { title, subtitle, hint } = getModalConfig();
+  const { title, subtitle, hint, content } = renderModalContent();
 
   return (
     <div className="fixed inset-0 z-40 flex items-center justify-center bg-black/25 px-4">
-      <div className="w-full max-w-2xl rounded-2xl bg-white p-6 shadow-xl ring-1 ring-slate-200">
+      <div className="w-full max-w-[80%] rounded-2xl bg-white p-6 shadow-xl ring-1 ring-slate-200">
         <div className="mb-4 flex items-start justify-between gap-4">
           <div>
             <h3 className="text-lg font-semibold text-slate-900">{title}</h3>
@@ -255,15 +255,23 @@ function DashboardModal({ activeModal, onClose }) {
 
         {/* 여기부터 실제 폼/테이블을 붙이면 됨 */}
         <div className="rounded-xl border border-dashed border-slate-200 bg-slate-50 p-4 text-xs text-slate-500">
-          <p className="mb-2 font-medium text-slate-700">
-            🔧 개발자용 placeholder 영역
-          </p>
-          <p className="leading-relaxed">
-            이 영역에 실제 폼(Form), 테이블(Table), 검색 필터 등을 넣으면 됩니다.
-            <br />
-            백엔드 API와 연동해서 목록 조회 / 상세 / 저장 로직을 붙이도록
-            설계해주세요.
-          </p>
+          {content ? (
+            content
+          ) : (
+            <>
+              {/* 기본 placeholder */}
+              <p className="mb-2 font-medium text-slate-700">
+                🔧 개발자용 placeholder 영역
+              </p>
+              <p className="leading-relaxed">
+                이 영역에 실제 폼(Form), 테이블(Table), 검색 필터 등을 넣으면
+                됩니다.
+                <br />
+                예: 강의 검색 필터, 강의계획 입력 폼, 분반/정원 테이블, 시간표
+                매트릭스 등.
+              </p>
+            </>
+          )}
           {hint && (
             <p className="mt-3 text-[11px] leading-relaxed text-slate-500">
               <span className="font-semibold text-slate-600">UI 힌트: </span>

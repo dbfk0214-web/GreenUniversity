@@ -1,6 +1,8 @@
 // src/pages/adminmanagement/DeptScheduleEventDashboard.jsx
 import React, { useState } from "react";
 
+import Academicschedule from "./admin/Academicschedule";
+
 const modalTypes = {
   ACADEMIC_SCHEDULE: "ACADEMIC_SCHEDULE",
   RECURRING_SCHEDULE: "RECURRING_SCHEDULE",
@@ -108,8 +110,12 @@ export default function DeptScheduleEventDashboard() {
             <div className="mt-4 rounded-xl border border-dashed border-slate-200 p-3 text-xs text-slate-500">
               <p className="font-medium text-slate-600">운영 팁</p>
               <ul className="mt-1 list-disc space-y-1 pl-4">
-                <li>행사별 만족도 설문 링크를 함께 관리하면 추적에 도움이 됩니다.</li>
-                <li>행사 유형(설명회, 특강, 네트워킹 등)을 태그로 관리해보세요.</li>
+                <li>
+                  행사별 만족도 설문 링크를 함께 관리하면 추적에 도움이 됩니다.
+                </li>
+                <li>
+                  행사 유형(설명회, 특강, 네트워킹 등)을 태그로 관리해보세요.
+                </li>
               </ul>
             </div>
           </div>
@@ -126,7 +132,8 @@ export default function DeptScheduleEventDashboard() {
                 공간/자원 예약 & 공지 연동
               </h2>
               <p className="mt-1 text-xs text-slate-500">
-                행사에 필요한 강의실, 세미나실, 장비 예약과 공지/알림을 관리합니다.
+                행사에 필요한 강의실, 세미나실, 장비 예약과 공지/알림을
+                관리합니다.
               </p>
             </div>
             <span className="rounded-full bg-emerald-50 px-3 py-1 text-xs font-medium text-emerald-600">
@@ -154,8 +161,14 @@ export default function DeptScheduleEventDashboard() {
             <div className="mt-4 rounded-xl bg-slate-50 p-3 text-xs text-slate-500">
               <p className="font-medium text-slate-600">권장 정책</p>
               <ul className="mt-1 list-disc space-y-1 pl-4">
-                <li>공간 예약은 시간·수용 인원·장비 기준으로 충돌 검사를 꼭 두세요.</li>
-                <li>행사 전날, 행사 1시간 전 리마인더 알림을 기본 템플릿으로 두면 좋습니다.</li>
+                <li>
+                  공간 예약은 시간·수용 인원·장비 기준으로 충돌 검사를 꼭
+                  두세요.
+                </li>
+                <li>
+                  행사 전날, 행사 1시간 전 리마인더 알림을 기본 템플릿으로 두면
+                  좋습니다.
+                </li>
               </ul>
             </div>
           </div>
@@ -195,11 +208,11 @@ function DashboardButton({ label, description, onClick }) {
 function DashboardModal({ activeModal, onClose }) {
   if (!activeModal) return null;
 
-  const { title, subtitle, hint } = getModalConfig(activeModal);
+  const { title, subtitle, hint, content } = renderModalContent(activeModal);
 
   return (
     <div className="fixed inset-0 z-40 flex items-center justify-center bg-black/25 px-4">
-      <div className="w-full max-w-2xl rounded-2xl bg-white p-6 shadow-xl ring-1 ring-slate-200">
+      <div className="w-full max-w-[80%] rounded-2xl bg-white p-6 shadow-xl ring-1 ring-slate-200">
         <div className="mb-4 flex items-start justify-between gap-4">
           <div>
             <h3 className="text-lg font-semibold text-slate-900">{title}</h3>
@@ -217,15 +230,23 @@ function DashboardModal({ activeModal, onClose }) {
         </div>
 
         <div className="rounded-xl border border-dashed border-slate-200 bg-slate-50 p-4 text-xs text-slate-500">
-          <p className="mb-2 font-medium text-slate-700">
-            🔧 개발자용 placeholder 영역
-          </p>
-          <p className="leading-relaxed">
-            이 영역에 실제 폼(Form), 테이블(Table), 캘린더 UI, 검색 필터 등을
-            넣으면 됩니다.
-            <br />
-            예: 일정 캘린더, 행사 신청자 테이블, 공간 예약 그리드, 알림 설정 폼 등.
-          </p>
+          {content ? (
+            content
+          ) : (
+            <>
+              {/* 기본 placeholder */}
+              <p className="mb-2 font-medium text-slate-700">
+                🔧 개발자용 placeholder 영역
+              </p>
+              <p className="leading-relaxed">
+                이 영역에 실제 폼(Form), 테이블(Table), 검색 필터 등을 넣으면
+                됩니다.
+                <br />
+                예: 강의 검색 필터, 강의계획 입력 폼, 분반/정원 테이블, 시간표
+                매트릭스 등.
+              </p>
+            </>
+          )}
           {hint && (
             <p className="mt-3 text-[11px] leading-relaxed text-slate-500">
               <span className="font-semibold text-slate-600">UI 힌트: </span>
@@ -255,13 +276,14 @@ function DashboardModal({ activeModal, onClose }) {
   );
 }
 
-function getModalConfig(activeModal) {
+function renderModalContent(activeModal) {
   switch (activeModal) {
     case modalTypes.ACADEMIC_SCHEDULE:
       return {
         title: "학사 · 학과 일정 등록 / 관리",
         subtitle: "학사 및 학과 공통 일정을 등록·수정합니다.",
         hint: "일정 유형(학사/학과/행사), 대상, 표시 색상, 반복 여부 필드를 포함하세요.",
+        content: <Academicschedule />,
       };
     case modalTypes.RECURRING_SCHEDULE:
       return {
