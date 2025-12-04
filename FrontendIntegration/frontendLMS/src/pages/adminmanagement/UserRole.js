@@ -1,18 +1,17 @@
-// src/pages/admin/NoticeBoardDashboard.jsx
+// src/pages/adminmanagement/UserRoleDashboard.jsx
 import React, { useState } from "react";
 
 const modalTypes = {
-  CREATE_NOTICE: "CREATE_NOTICE",
-  EDIT_NOTICE: "EDIT_NOTICE",
-  SET_PERIOD: "SET_PERIOD",
-  DEPT_NEWS: "DEPT_NEWS",
-  RESOURCE_CATEGORY: "RESOURCE_CATEGORY",
-  RESOURCE_FILES: "RESOURCE_FILES",
+  USER_CREATE: "USER_CREATE",
+  USER_EDIT: "USER_EDIT",
+  USER_DEACTIVATE: "USER_DEACTIVATE",
+  ROLE_GROUP: "ROLE_GROUP",
+  ROLE_MENU_ACCESS: "ROLE_MENU_ACCESS",
+  ACTIVITY_LOG: "ACTIVITY_LOG",
 };
 
-export default function Notice() {
+export default function UserRoleDashboard() {
   const [activeModal, setActiveModal] = useState(null);
-
   const closeModal = () => setActiveModal(null);
 
   return (
@@ -20,128 +19,136 @@ export default function Notice() {
       {/* 상단 헤더 */}
       <header className="mb-8 flex flex-col gap-2">
         <h1 className="text-2xl font-semibold text-slate-900">
-          Notices & Board Management
+          User & Role Management
         </h1>
         <p className="text-sm text-slate-500">
-          공지사항, 학과 소식, 자료실을 한 곳에서 관리합니다.
+          사용자 계정, 권한 그룹, 활동 로그를 한 곳에서 관리합니다.
         </p>
       </header>
 
       {/* 메인 그리드 */}
       <div className="grid gap-6 lg:grid-cols-3">
-        {/* 공지사항 관리 */}
+        {/* 사용자 계정 관리 */}
         <section className="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-slate-100">
           <div className="mb-4 flex items-center justify-between">
             <div>
-              <p className="text-xs font-semibold uppercase tracking-wide text-emerald-500">
-                Notice Management
+              <p className="text-xs font-semibold uppercase tracking-wide text-sky-500">
+                User Accounts
               </p>
               <h2 className="mt-1 text-lg font-semibold text-slate-900">
-                공지사항 관리
+                사용자 계정 관리
               </h2>
               <p className="mt-1 text-xs text-slate-500">
-                학교/학과 공지, 시스템 공지를 등록하고 게시 기간을 설정합니다.
+                관리자, 교수, 학생 등 시스템 사용자의 계정을 관리합니다.
               </p>
             </div>
-            <span className="rounded-full bg-emerald-50 px-3 py-1 text-xs font-medium text-emerald-600">
-              Admin Only
+            <span className="rounded-full bg-sky-50 px-3 py-1 text-xs font-medium text-sky-600">
+              Identity
             </span>
           </div>
 
           <div className="space-y-3">
             <DashboardButton
-              label="공지 등록"
-              description="새 공지사항 작성 및 중요도, 대상 설정"
-              onClick={() => setActiveModal(modalTypes.CREATE_NOTICE)}
+              label="사용자 등록"
+              description="신규 사용자 계정을 생성하고 초기 비밀번호를 설정합니다."
+              onClick={() => setActiveModal(modalTypes.USER_CREATE)}
             />
-
             <DashboardButton
-              label="공지 수정 / 삭제"
-              description="기존 공지 목록 조회 및 내용 수정, 비활성화"
-              onClick={() => setActiveModal(modalTypes.EDIT_NOTICE)}
+              label="사용자 수정"
+              description="이름, 소속, 역할 등 사용자 정보를 수정합니다."
+              onClick={() => setActiveModal(modalTypes.USER_EDIT)}
             />
-
             <DashboardButton
-              label="게시 기간 설정"
-              description="공지 게시 시작/종료일, 상시 게시 여부 설정"
-              onClick={() => setActiveModal(modalTypes.SET_PERIOD)}
+              label="계정 비활성화"
+              description="퇴사자, 휴학자 등의 계정을 비활성화하거나 잠금 처리합니다."
+              onClick={() => setActiveModal(modalTypes.USER_DEACTIVATE)}
             />
           </div>
         </section>
 
-        {/* 학과 소식 / 뉴스 관리 */}
+        {/* 권한 관리 */}
         <section className="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-slate-100">
           <div className="mb-4 flex items-center justify-between">
             <div>
-              <p className="text-xs font-semibold uppercase tracking-wide text-indigo-500">
-                Department News
+              <p className="text-xs font-semibold uppercase tracking-wide text-violet-500">
+                Roles & Permissions
               </p>
               <h2 className="mt-1 text-lg font-semibold text-slate-900">
-                학과 소식 / 뉴스 관리
+                권한 관리
               </h2>
               <p className="mt-1 text-xs text-slate-500">
-                학과별 소식, 언론 보도, 행사 리뷰 등을 관리합니다.
+                권한 그룹을 생성하고 메뉴 접근 권한을 설정합니다.
               </p>
             </div>
-            <span className="rounded-full bg-indigo-50 px-3 py-1 text-xs font-medium text-indigo-600">
-              Department / Admin
+            <span className="rounded-full bg-violet-50 px-3 py-1 text-xs font-medium text-violet-600">
+              Access Control
             </span>
           </div>
 
           <div className="space-y-3">
             <DashboardButton
-              label="학과 소식 / 뉴스 관리"
-              description="학과별 카드 뉴스, 썸네일, 태그, 노출 여부 설정"
-              onClick={() => setActiveModal(modalTypes.DEPT_NEWS)}
+              label="권한 그룹 생성"
+              description="관리자, 조교, 교수 등 역할별 권한 그룹을 생성합니다."
+              onClick={() => setActiveModal(modalTypes.ROLE_GROUP)}
+            />
+            <DashboardButton
+              label="메뉴 접근 설정"
+              description="각 권한 그룹별로 접근 가능한 메뉴와 기능을 설정합니다."
+              onClick={() => setActiveModal(modalTypes.ROLE_MENU_ACCESS)}
             />
 
             <div className="mt-4 rounded-xl border border-dashed border-slate-200 p-3 text-xs text-slate-500">
               <p className="font-medium text-slate-600">운영 팁</p>
               <ul className="mt-1 list-disc space-y-1 pl-4">
-                <li>메인 화면 노출 여부를 태그로 구분하면 편합니다.</li>
-                <li>학과별 필터(전공, 학년)를 미리 정의해두면 좋아요.</li>
+                <li>
+                  권한은 사용자 개별이 아니라 &quot;그룹&quot; 기준으로 관리하면
+                  좋아요.
+                </li>
+                <li>
+                  중요 메뉴는 &quot;2인 이상 승인&quot; 정책을 고려해볼 수
+                  있습니다.
+                </li>
               </ul>
             </div>
           </div>
         </section>
 
-        {/* 자료실 관리 */}
+        {/* 사용자 활동 로그 */}
         <section className="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-slate-100">
           <div className="mb-4 flex items-center justify-between">
             <div>
-              <p className="text-xs font-semibold uppercase tracking-wide text-amber-500">
-                Resources
+              <p className="text-xs font-semibold uppercase tracking-wide text-rose-500">
+                Audit & Logs
               </p>
               <h2 className="mt-1 text-lg font-semibold text-slate-900">
-                자료실 관리
+                사용자 활동 로그
               </h2>
               <p className="mt-1 text-xs text-slate-500">
-                강의 자료, 양식 파일, 안내문 등의 카테고리와 파일을 관리합니다.
+                로그인, 주요 기능 사용, 설정 변경 등 활동 이력을 조회합니다.
               </p>
             </div>
-            <span className="rounded-full bg-amber-50 px-3 py-1 text-xs font-medium text-amber-600">
-              Files & Categories
+            <span className="rounded-full bg-rose-50 px-3 py-1 text-xs font-medium text-rose-600">
+              Monitoring
             </span>
           </div>
 
           <div className="space-y-3">
             <DashboardButton
-              label="카테고리 관리"
-              description="자료실 상위/하위 카테고리, 정렬 순서 설정"
-              onClick={() => setActiveModal(modalTypes.RESOURCE_CATEGORY)}
-            />
-
-            <DashboardButton
-              label="파일 업로드 / 다운로드 관리"
-              description="파일 등록, 버전 관리, 다운로드 로그 확인"
-              onClick={() => setActiveModal(modalTypes.RESOURCE_FILES)}
+              label="활동 로그 조회"
+              description="사용자별, 기간별, 기능별로 필터링하여 로그를 조회합니다."
+              onClick={() => setActiveModal(modalTypes.ACTIVITY_LOG)}
             />
 
             <div className="mt-4 rounded-xl bg-slate-50 p-3 text-xs text-slate-500">
               <p className="font-medium text-slate-600">권장 정책</p>
               <ul className="mt-1 list-disc space-y-1 pl-4">
-                <li>파일 이름 규칙(예: [학과]_[과목]_[주차].pdf)을 통일하세요.</li>
-                <li>중요 문서는 다운로드 로그를 활성화해두면 좋습니다.</li>
+                <li>
+                  중요 메뉴(권한 변경, 계정 비활성화 등)는 반드시 로그를
+                  남기세요.
+                </li>
+                <li>
+                  로그 보관 기간(예: 1년, 3년)을 정책으로 정해두면 좋습니다.
+                </li>
               </ul>
             </div>
           </div>
@@ -154,9 +161,7 @@ export default function Notice() {
   );
 }
 
-/**
- * 공통 버튼 컴포넌트
- */
+/** 공통 버튼 */
 function DashboardButton({ label, description, onClick }) {
   return (
     <button
@@ -179,60 +184,11 @@ function DashboardButton({ label, description, onClick }) {
   );
 }
 
-/**
- * 공통 모달 컴포넌트 (내용은 개발자가 붙여넣기 쉽게 placeholder로 구성)
- */
+/** 공통 모달 – 실제 폼/테이블은 여기 안에 붙이면 됨 */
 function DashboardModal({ activeModal, onClose }) {
   if (!activeModal) return null;
 
-  const renderModalContent = () => {
-    switch (activeModal) {
-      case modalTypes.CREATE_NOTICE:
-        return {
-          title: "공지 등록",
-          subtitle: "새 공지사항을 등록합니다.",
-          hint: "제목, 내용, 대상(전체/학생/교수), 중요도, 게시 기간 등을 설정하세요.",
-        };
-      case modalTypes.EDIT_NOTICE:
-        return {
-          title: "공지 수정 / 삭제",
-          subtitle: "기존 공지사항을 조회하고 수정 또는 비활성화합니다.",
-          hint: "좌측 리스트에서 공지를 선택 후 우측 패널에서 내용을 수정하도록 구성하면 좋습니다.",
-        };
-      case modalTypes.SET_PERIOD:
-        return {
-          title: "게시 기간 설정",
-          subtitle: "공지의 게시 시작일, 종료일 및 상시 게시 여부를 관리합니다.",
-          hint: "DatePicker + 토글 스위치 조합으로 UX를 구성하는 것을 추천합니다.",
-        };
-      case modalTypes.DEPT_NEWS:
-        return {
-          title: "학과 소식 / 뉴스 관리",
-          subtitle: "학과별 소식, 뉴스, 카드뉴스를 관리합니다.",
-          hint: "썸네일, 태그(전공, 학년, 유형), 메인 노출 여부 필드를 포함해보세요.",
-        };
-      case modalTypes.RESOURCE_CATEGORY:
-        return {
-          title: "자료실 카테고리 관리",
-          subtitle: "상위/하위 카테고리 구조와 정렬 순서를 설정합니다.",
-          hint: "드래그 앤 드롭 정렬 UX를 나중에 붙일 수 있도록 데이터 구조를 설계해두면 좋습니다.",
-        };
-      case modalTypes.RESOURCE_FILES:
-        return {
-          title: "파일 업로드 / 다운로드 관리",
-          subtitle: "자료실 파일 업로드, 버전 관리, 다운로드 권한을 설정합니다.",
-          hint: "파일명, 버전, 용량, 업로더, 마지막 수정일, 다운로드 수 컬럼을 추천합니다.",
-        };
-      default:
-        return {
-          title: "관리 기능",
-          subtitle: "",
-          hint: "",
-        };
-    }
-  };
-
-  const { title, subtitle, hint, content } = renderModalContent();
+  const { title, subtitle, hint, content } = renderModalContent(activeModal);
 
   return (
     <div className="fixed inset-0 z-40 flex items-center justify-center bg-black/25 px-4">
@@ -253,7 +209,7 @@ function DashboardModal({ activeModal, onClose }) {
           </button>
         </div>
 
-        {/* 여기부터 실제 폼/테이블을 붙이면 됨 */}
+        {/* 여기부터 실제 UI 붙이는 영역 */}
         <div className="rounded-xl border border-dashed border-slate-200 bg-slate-50 p-4 text-xs text-slate-500">
           {content ? (
             content
@@ -288,7 +244,6 @@ function DashboardModal({ activeModal, onClose }) {
           >
             닫기
           </button>
-          {/* 실제 저장/적용 버튼은 각 기능 구현 시 활성화 */}
           <button
             type="button"
             className="rounded-lg bg-slate-900 px-3 py-1.5 text-xs font-medium text-white opacity-60"
@@ -300,4 +255,51 @@ function DashboardModal({ activeModal, onClose }) {
       </div>
     </div>
   );
+}
+
+function renderModalContent(activeModal) {
+  switch (activeModal) {
+    case modalTypes.USER_CREATE:
+      return {
+        title: "사용자 등록",
+        subtitle: "신규 사용자 계정을 생성합니다.",
+        hint: "아이디, 이름, 이메일, 소속, 기본 역할, 초기 비밀번호 입력 필드를 포함하세요.",
+      };
+    case modalTypes.USER_EDIT:
+      return {
+        title: "사용자 수정",
+        subtitle: "기존 사용자 정보를 수정합니다.",
+        hint: "좌측 사용자 목록 + 우측 상세 패널 형태로 구성하면 관리자가 보기 편합니다.",
+      };
+    case modalTypes.USER_DEACTIVATE:
+      return {
+        title: "계정 비활성화",
+        subtitle: "더 이상 사용하지 않는 계정을 잠그거나 비활성화합니다.",
+        hint: "비활성화 사유, 처리자, 처리일자 기록 필드를 추가하는 것을 추천합니다.",
+      };
+    case modalTypes.ROLE_GROUP:
+      return {
+        title: "권한 그룹 생성",
+        subtitle: "역할 기반 권한 그룹을 생성합니다.",
+        hint: "그룹 이름, 설명, 기본 적용 대상(예: 전체 교수, 전체 관리자)을 설정하세요.",
+      };
+    case modalTypes.ROLE_MENU_ACCESS:
+      return {
+        title: "메뉴 접근 설정",
+        subtitle: "권한 그룹별로 접근 가능한 메뉴를 설정합니다.",
+        hint: "좌측: 메뉴 트리, 우측: 읽기/쓰기/삭제 체크박스를 두면 직관적인 UI가 됩니다.",
+      };
+    case modalTypes.ACTIVITY_LOG:
+      return {
+        title: "사용자 활동 로그",
+        subtitle: "로그인/로그아웃, 주요 작업 이력을 조회합니다.",
+        hint: "기간, 사용자, 기능(메뉴) 필터 + 테이블(시간, 사용자, 작업, IP)을 권장합니다.",
+      };
+    default:
+      return {
+        title: "관리 기능",
+        subtitle: "",
+        hint: "",
+      };
+  }
 }
