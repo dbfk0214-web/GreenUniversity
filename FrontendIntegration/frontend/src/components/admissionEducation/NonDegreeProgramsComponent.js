@@ -1,6 +1,6 @@
-import React from 'react';
-import { recursiveRender } from '../../util/makeComponentUtil';
-import SupportNonDegreeProgram from "../../json/academicSupport/support_nonDegreeProgram.json";
+import React from "react";
+import { recursiveRender } from "../../util/makeComponentUtil";
+import SupportNonDegreeProgram from "../../json/admissionEducation/support_nonDegreeProgram.json";
 
 const NonDegreeProgramsComponent = () => {
   return (
@@ -8,7 +8,7 @@ const NonDegreeProgramsComponent = () => {
       NonDegreeProgramsComponent
       {SupportNonDegreeProgram && recursiveRender(SupportNonDegreeProgram)}
     </div>
-  )
-}
+  );
+};
 
-export default NonDegreeProgramsComponent
+export default NonDegreeProgramsComponent;
