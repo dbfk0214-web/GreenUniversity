@@ -1,11 +1,14 @@
-import React from 'react'
+import React from "react";
+import Organ from "../../json/campusLife/organ.json";
+import { recursiveRender } from "../../util/makeComponentUtil";
 
 const AdministrativeOfficesInstitutesComponent = () => {
   return (
     <div>
-      AdministrativeOfficesInstitutesComponent
+      OrganComponent
+      {Organ && recursiveRender(Organ)}
     </div>
-  )
-}
+  );
+};
 
-export default AdministrativeOfficesInstitutesComponent
+export default AdministrativeOfficesInstitutesComponent;

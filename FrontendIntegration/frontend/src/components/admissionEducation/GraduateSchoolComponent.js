@@ -1,6 +1,6 @@
-import React from 'react'
-import { recursiveRender } from '../../util/makeComponentUtil';
-import SupportGraduate from "../../json/academicSupport/support_graduateSchool.json";
+import React from "react";
+import { recursiveRender } from "../../util/makeComponentUtil";
+import SupportGraduate from "../../json/admissionEducation/support_graduateSchool.json";
 
 const GraduateSchoolComponent = () => {
   return (
@@ -8,7 +8,7 @@ const GraduateSchoolComponent = () => {
       GraduateSchoolComponent
       {SupportGraduate && recursiveRender(SupportGraduate)}
     </div>
-  )
-}
+  );
+};
 
-export default GraduateSchoolComponent
+export default GraduateSchoolComponent;
