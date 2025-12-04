@@ -2,63 +2,59 @@
 import React from "react";
 
 export const jsonToDiv = (data, indent = 0) => {
-    const pad = { marginLeft: indent * 20 + "px" };
+  const pad = { marginLeft: indent * 20 + "px" };
 
-    // null, undefined, 기본값
-    if (data === null || data === undefined) {
-        return <div style={pad}>null</div>;
-    }
+  // null, undefined, 기본값
+  if (data === null || data === undefined) {
+    return <div style={pad}>null</div>;
+  }
 
-    // 원시값이면 단순 표시
-    if (typeof data !== "object") {
-        return <div style={pad}>{String(data)}</div>;
-    }
+  // 원시값이면 단순 표시
+  if (typeof data !== "object") {
+    return <div style={pad}>{String(data)}</div>;
+  }
 
-    // 배열이면 요소 반복
-    if (Array.isArray(data)) {
-        return (
-            <div style={pad}>
-                {data.map((item, idx) => (
-                    <div key={idx}>
-                        {jsonToDiv(item, indent + 1)}
-                    </div>
-                ))}
-            </div>
-        );
-    }
-
-    // 객체 처리
+  // 배열이면 요소 반복
+  if (Array.isArray(data)) {
     return (
-        <div style={pad}>
-            {Object.entries(data).map(([key, value], idx) => (
-                <div key={idx} style={{ marginBottom: "4px" }}>
-                    {/* Key 출력 */}
-                    <div style={{ fontWeight: "bold" }}>{key}</div>
-
-                    {/* Value 출력 */}
-                    <div>{jsonToDiv(value, indent + 1)}</div>
-                </div>
-            ))}
-        </div>
+      <div style={pad}>
+        {data.map((item, idx) => (
+          <div key={idx}>{jsonToDiv(item, indent + 1)}</div>
+        ))}
+      </div>
     );
-};
+  }
 
+  // 객체 처리
+  return (
+    <div style={pad}>
+      {Object.entries(data).map(([key, value], idx) => (
+        <div key={idx} style={{ marginBottom: "4px" }}>
+          {/* Key 출력 */}
+          <div style={{ fontWeight: "bold" }}>{key}</div>
+
+          {/* Value 출력 */}
+          <div>{jsonToDiv(value, indent + 1)}</div>
+        </div>
+      ))}
+    </div>
+  );
+};
 
 export const makeDiv = (data) => {
-    return (
-        <div className="p-4 bg-gray-50 rounded-lg shadow-sm">
-            {data?.map((da, idx) => (
-                <div
-                    key={idx}
-                    className="p-2 mb-2 bg-white rounded hover:bg-gray-100 shadow-sm"
-                >
-                    {da}
-                </div>
-            ))}
+  return (
+    <div className="p-4 bg-gray-50 rounded-lg shadow-sm">
+      {data?.map((da, idx) => (
+        <div
+          key={idx}
+          className="p-2 mb-2 bg-white rounded hover:bg-gray-100 shadow-sm"
+        >
+          {da}
         </div>
-    );
+      ))}
+    </div>
+  );
 };
-
 
 // 배경색 배열 (depth마다 순환)
 const bgColors = ["bg-gray-100", "bg-gray-200", "bg-gray-300", "bg-gray-400"];
@@ -72,9 +68,7 @@ const renderNode = (key, value, indent = 0) => {
 
   if (typeof value === "object" && value !== null) {
     return (
-      <div className={`${padClass} ${bgClass} font-semibold`}>
-        {key} =&gt;
-      </div>
+      <div className={`${padClass} ${bgClass} font-semibold`}>{key} =&gt;</div>
     );
   }
 
