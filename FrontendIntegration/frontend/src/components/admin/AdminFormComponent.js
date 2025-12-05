@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 const AdminFormComponent = ({
   formColumn,
@@ -16,7 +16,8 @@ const AdminFormComponent = ({
   title,
   showResetButton,
   readOnlyFirstField,
-  readOnlyList
+  readOnlyList,
+  fileList,
 }) => {
   return (
     <div>
@@ -24,39 +25,63 @@ const AdminFormComponent = ({
 
       <form onSubmit={onSubmit} className="space-y-4">
         {/* 기본 폼 필드 */}
-        {formColumn && formColumn.map((key, index) => {
-          const isFirstField = index === 0;
-          // const shouldBeReadOnly = readOnlyFirstField && isFirstField;
-          const shouldBeReadOnly = readOnlyList?.includes(key) || (readOnlyFirstField && isFirstField);
+        {formColumn &&
+          formColumn.map((key, index) => {
+            const isFirstField = index === 0;
+            // const shouldBeReadOnly = readOnlyFirstField && isFirstField;
+            const shouldBeReadOnly =
+              readOnlyList?.includes(key) ||
+              (readOnlyFirstField && isFirstField);
 
-          return (
-            <div key={key} className="flex flex-col">
-              <label className="font-semibold mb-1">
-                {key}: {formData[key]}
-              </label>
-              <input
-                type="text"
-                name={key}
-                value={form[key] || ''}
-                onChange={changeHandler}
-                readOnly={shouldBeReadOnly}
-                className={`p-2 border rounded ${
-                  shouldBeReadOnly ? 'bg-gray-100 cursor-not-allowed' : ''
-                }`}
-              />
-            </div>
-          );
-        })}
+            return (
+              <div key={key} className="flex flex-col">
+                <label className="font-semibold mb-1">
+                  {key}: {formData[key]}
+                </label>
+                {fileList.includes(key) ? (
+                  <input
+                    type="file"
+                    name={key}
+                    onChange={(e) =>
+                      setForm((prev) => ({
+                        ...prev,
+                        [key]: e.target.files[0] || null,
+                      }))
+                    }
+                    readOnly={shouldBeReadOnly}
+                    className={`p-2 border rounded ${
+                      shouldBeReadOnly ? "bg-gray-100 cursor-not-allowed" : ""
+                    }`}
+                  />
+                ) : (
+                  <input
+                    type="text"
+                    name={key}
+                    value={form[key] || ""}
+                    onChange={changeHandler}
+                    readOnly={shouldBeReadOnly}
+                    className={`p-2 border rounded ${
+                      shouldBeReadOnly ? "bg-gray-100 cursor-not-allowed" : ""
+                    }`}
+                  />
+                )}
+              </div>
+            );
+          })}
 
         {/* 모달 버튼들 */}
         {extrahButtonList && extrahButtonList.length > 0 && (
           <div className="space-y-2 pt-4 border-t">
-            <p className="text-sm text-gray-600 font-semibold">🔗 관련 데이터 선택</p>
+            <p className="text-sm text-gray-600 font-semibold">
+              🔗 관련 데이터 선택
+            </p>
             {extrahButtonList.map((btnData, index) => (
               <button
                 key={index}
                 type="button"
-                className={`w-full p-2 rounded ${btnData.style || 'bg-gray-500 hover:bg-gray-600'} text-white font-semibold`}
+                className={`w-full p-2 rounded ${
+                  btnData.style || "bg-gray-500 hover:bg-gray-600"
+                } text-white font-semibold`}
                 onClick={() => {
                   setModalOpen(true);
                   setTargetColumn(btnData.tableName);
@@ -83,30 +108,35 @@ const AdminFormComponent = ({
                 ✕ 선택 취소
               </button>
             </div>
-            
+
             <div className="space-y-3">
               {Object.entries(selectData).map(([key, value]) => {
                 // ✅ extrahButtonList에서 해당 테이블의 컬럼 정보 찾기
                 const relatedButton = extrahButtonList?.find(
-                  btn => btn.tableName && Object.keys(selectData).some(k => 
-                    btn.allColumns?.responseColumns?.[k]
-                  )
+                  (btn) =>
+                    btn.tableName &&
+                    Object.keys(selectData).some(
+                      (k) => btn.allColumns?.responseColumns?.[k]
+                    )
                 );
-                
+
                 const label = key;
 
                 return (
-                  <div key={key} className="bg-white p-3 rounded border border-blue-200">
+                  <div
+                    key={key}
+                    className="bg-white p-3 rounded border border-blue-200"
+                  >
                     <label className="block text-sm font-semibold text-gray-700 mb-1">
                       {label}
                     </label>
                     <input
                       type="text"
-                      name={key}  
-                      value={selectData[key] || ''}
-                      onChange={e=> {
+                      name={key}
+                      value={selectData[key] || ""}
+                      onChange={(e) => {
                         updateSelectForm(e);
-                        console.log(e.target.value)
+                        console.log(e.target.value);
                       }}
                       className="w-full p-2 border rounded focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                     />
@@ -133,7 +163,7 @@ const AdminFormComponent = ({
           <button
             type="button"
             onClick={() => {
-              if (window.confirm('입력한 내용을 모두 초기화하시겠습니까?')) {
+              if (window.confirm("입력한 내용을 모두 초기화하시겠습니까?")) {
                 setForm({});
                 setSelectData({});
               }
