@@ -140,7 +140,9 @@ export default function Notice() {
             <div className="mt-4 rounded-xl bg-slate-50 p-3 text-xs text-slate-500">
               <p className="font-medium text-slate-600">권장 정책</p>
               <ul className="mt-1 list-disc space-y-1 pl-4">
-                <li>파일 이름 규칙(예: [학과]_[과목]_[주차].pdf)을 통일하세요.</li>
+                <li>
+                  파일 이름 규칙(예: [학과]_[과목]_[주차].pdf)을 통일하세요.
+                </li>
                 <li>중요 문서는 다운로드 로그를 활성화해두면 좋습니다.</li>
               </ul>
             </div>
@@ -185,7 +187,7 @@ function DashboardButton({ label, description, onClick }) {
 function DashboardModal({ activeModal, onClose }) {
   if (!activeModal) return null;
 
-  const getModalConfig = () => {
+  const renderModalContent = () => {
     switch (activeModal) {
       case modalTypes.CREATE_NOTICE:
         return {
@@ -202,7 +204,8 @@ function DashboardModal({ activeModal, onClose }) {
       case modalTypes.SET_PERIOD:
         return {
           title: "게시 기간 설정",
-          subtitle: "공지의 게시 시작일, 종료일 및 상시 게시 여부를 관리합니다.",
+          subtitle:
+            "공지의 게시 시작일, 종료일 및 상시 게시 여부를 관리합니다.",
           hint: "DatePicker + 토글 스위치 조합으로 UX를 구성하는 것을 추천합니다.",
         };
       case modalTypes.DEPT_NEWS:
@@ -220,7 +223,8 @@ function DashboardModal({ activeModal, onClose }) {
       case modalTypes.RESOURCE_FILES:
         return {
           title: "파일 업로드 / 다운로드 관리",
-          subtitle: "자료실 파일 업로드, 버전 관리, 다운로드 권한을 설정합니다.",
+          subtitle:
+            "자료실 파일 업로드, 버전 관리, 다운로드 권한을 설정합니다.",
           hint: "파일명, 버전, 용량, 업로더, 마지막 수정일, 다운로드 수 컬럼을 추천합니다.",
         };
       default:
@@ -232,11 +236,11 @@ function DashboardModal({ activeModal, onClose }) {
     }
   };
 
-  const { title, subtitle, hint } = getModalConfig();
+  const { title, subtitle, hint, content } = renderModalContent();
 
   return (
     <div className="fixed inset-0 z-40 flex items-center justify-center bg-black/25 px-4">
-      <div className="w-full max-w-2xl rounded-2xl bg-white p-6 shadow-xl ring-1 ring-slate-200">
+      <div className="w-full max-w-[80%] rounded-2xl bg-white p-6 shadow-xl ring-1 ring-slate-200">
         <div className="mb-4 flex items-start justify-between gap-4">
           <div>
             <h3 className="text-lg font-semibold text-slate-900">{title}</h3>
@@ -255,15 +259,23 @@ function DashboardModal({ activeModal, onClose }) {
 
         {/* 여기부터 실제 폼/테이블을 붙이면 됨 */}
         <div className="rounded-xl border border-dashed border-slate-200 bg-slate-50 p-4 text-xs text-slate-500">
-          <p className="mb-2 font-medium text-slate-700">
-            🔧 개발자용 placeholder 영역
-          </p>
-          <p className="leading-relaxed">
-            이 영역에 실제 폼(Form), 테이블(Table), 검색 필터 등을 넣으면 됩니다.
-            <br />
-            백엔드 API와 연동해서 목록 조회 / 상세 / 저장 로직을 붙이도록
-            설계해주세요.
-          </p>
+          {content ? (
+            content
+          ) : (
+            <>
+              {/* 기본 placeholder */}
+              <p className="mb-2 font-medium text-slate-700">
+                🔧 개발자용 placeholder 영역
+              </p>
+              <p className="leading-relaxed">
+                이 영역에 실제 폼(Form), 테이블(Table), 검색 필터 등을 넣으면
+                됩니다.
+                <br />
+                예: 강의 검색 필터, 강의계획 입력 폼, 분반/정원 테이블, 시간표
+                매트릭스 등.
+              </p>
+            </>
+          )}
           {hint && (
             <p className="mt-3 text-[11px] leading-relaxed text-slate-500">
               <span className="font-semibold text-slate-600">UI 힌트: </span>

@@ -6,7 +6,7 @@ import { doLogin } from "../api/userApi";
 const initialState = {
   email: "",
   nickname: "",
-  role:"GUEST",
+  role: "ADMIN",
 };
 const loadAccounterCookie = () => {
   const userInfo = getCookie("user");
@@ -55,4 +55,3 @@ export const loginPostAsync = createAsyncThunk("loginPostAsync", (param) =>
 );
 export const { login, logout } = loginSlice.actions;
 export default loginSlice.reducer;
-

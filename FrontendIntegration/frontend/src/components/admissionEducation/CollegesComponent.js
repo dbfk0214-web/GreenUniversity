@@ -1,14 +1,14 @@
-import React from 'react';
-import { recursiveRender } from '../../util/makeComponentUtil';
-import SuppportColleges from "../../json/academicSupport/support_colleges.json";
+import React from "react";
+import { recursiveRender } from "../../util/makeComponentUtil";
+import SuppportColleges from "../../json/admissionEducation/support_colleges.json";
 
 const CollegesComponent = () => {
   return (
     <div>
       CollegesComponent
-       {SuppportColleges && recursiveRender(SuppportColleges)}
+      {SuppportColleges && recursiveRender(SuppportColleges)}
     </div>
-  )
-}
+  );
+};
 
-export default CollegesComponent
+export default CollegesComponent;

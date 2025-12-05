@@ -1,11 +1,13 @@
-import React from 'react'
+import Event from "../../json/campusLife/event.json";
+import { recursiveRender } from "../../util/makeComponentUtil";
 
 const EventsComponent = () => {
   return (
     <div>
-      EventsComponent
+      EventComponent
+      {Event && recursiveRender(Event)}
     </div>
-  )
-}
+  );
+};
 
-export default EventsComponent
+export default EventsComponent;

@@ -100,8 +100,14 @@ export default function UserRoleDashboard() {
             <div className="mt-4 rounded-xl border border-dashed border-slate-200 p-3 text-xs text-slate-500">
               <p className="font-medium text-slate-600">운영 팁</p>
               <ul className="mt-1 list-disc space-y-1 pl-4">
-                <li>권한은 사용자 개별이 아니라 &quot;그룹&quot; 기준으로 관리하면 좋아요.</li>
-                <li>중요 메뉴는 &quot;2인 이상 승인&quot; 정책을 고려해볼 수 있습니다.</li>
+                <li>
+                  권한은 사용자 개별이 아니라 &quot;그룹&quot; 기준으로 관리하면
+                  좋아요.
+                </li>
+                <li>
+                  중요 메뉴는 &quot;2인 이상 승인&quot; 정책을 고려해볼 수
+                  있습니다.
+                </li>
               </ul>
             </div>
           </div>
@@ -136,8 +142,13 @@ export default function UserRoleDashboard() {
             <div className="mt-4 rounded-xl bg-slate-50 p-3 text-xs text-slate-500">
               <p className="font-medium text-slate-600">권장 정책</p>
               <ul className="mt-1 list-disc space-y-1 pl-4">
-                <li>중요 메뉴(권한 변경, 계정 비활성화 등)는 반드시 로그를 남기세요.</li>
-                <li>로그 보관 기간(예: 1년, 3년)을 정책으로 정해두면 좋습니다.</li>
+                <li>
+                  중요 메뉴(권한 변경, 계정 비활성화 등)는 반드시 로그를
+                  남기세요.
+                </li>
+                <li>
+                  로그 보관 기간(예: 1년, 3년)을 정책으로 정해두면 좋습니다.
+                </li>
               </ul>
             </div>
           </div>
@@ -177,11 +188,11 @@ function DashboardButton({ label, description, onClick }) {
 function DashboardModal({ activeModal, onClose }) {
   if (!activeModal) return null;
 
-  const { title, subtitle, hint } = getModalConfig(activeModal);
+  const { title, subtitle, hint, content } = renderModalContent(activeModal);
 
   return (
     <div className="fixed inset-0 z-40 flex items-center justify-center bg-black/25 px-4">
-      <div className="w-full max-w-2xl rounded-2xl bg-white p-6 shadow-xl ring-1 ring-slate-200">
+      <div className="w-full max-w-[80%] rounded-2xl bg-white p-6 shadow-xl ring-1 ring-slate-200">
         <div className="mb-4 flex items-start justify-between gap-4">
           <div>
             <h3 className="text-lg font-semibold text-slate-900">{title}</h3>
@@ -200,15 +211,23 @@ function DashboardModal({ activeModal, onClose }) {
 
         {/* 여기부터 실제 UI 붙이는 영역 */}
         <div className="rounded-xl border border-dashed border-slate-200 bg-slate-50 p-4 text-xs text-slate-500">
-          <p className="mb-2 font-medium text-slate-700">
-            🔧 개발자용 placeholder 영역
-          </p>
-          <p className="leading-relaxed">
-            이 영역에 실제 폼(Form), 테이블(Table), 검색 필터 등을 넣으면 됩니다.
-            <br />
-            예: 사용자 검색 필터, 계정 정보 입력 폼, 권한 체크박스 트리, 로그
-            테이블 등.
-          </p>
+          {content ? (
+            content
+          ) : (
+            <>
+              {/* 기본 placeholder */}
+              <p className="mb-2 font-medium text-slate-700">
+                🔧 개발자용 placeholder 영역
+              </p>
+              <p className="leading-relaxed">
+                이 영역에 실제 폼(Form), 테이블(Table), 검색 필터 등을 넣으면
+                됩니다.
+                <br />
+                예: 강의 검색 필터, 강의계획 입력 폼, 분반/정원 테이블, 시간표
+                매트릭스 등.
+              </p>
+            </>
+          )}
           {hint && (
             <p className="mt-3 text-[11px] leading-relaxed text-slate-500">
               <span className="font-semibold text-slate-600">UI 힌트: </span>
@@ -238,7 +257,7 @@ function DashboardModal({ activeModal, onClose }) {
   );
 }
 
-function getModalConfig(activeModal) {
+function renderModalContent(activeModal) {
   switch (activeModal) {
     case modalTypes.USER_CREATE:
       return {

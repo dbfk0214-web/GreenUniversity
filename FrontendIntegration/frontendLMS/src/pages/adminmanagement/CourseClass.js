@@ -1,5 +1,6 @@
 // src/pages/adminmanagement/CourseClassDashboard.jsx
 import React, { useState } from "react";
+import CourseopenForm from "./admin/CourseopenForm";
 
 const modalTypes = {
   COURSE_OPEN: "COURSE_OPEN",
@@ -108,8 +109,12 @@ export default function CourseClassDashboard() {
             <div className="mt-4 rounded-xl border border-dashed border-slate-200 p-3 text-xs text-slate-500">
               <p className="font-medium text-slate-600">운영 팁</p>
               <ul className="mt-1 list-disc space-y-1 pl-4">
-                <li>수강 정원 변경은 로그를 남겨두면 나중에 분쟁 예방에 좋습니다.</li>
-                <li>마감 임박 강의에 대한 알림 기능을 연동하는 것도 고려해보세요.</li>
+                <li>
+                  수강 정원 변경은 로그를 남겨두면 나중에 분쟁 예방에 좋습니다.
+                </li>
+                <li>
+                  마감 임박 강의에 대한 알림 기능을 연동하는 것도 고려해보세요.
+                </li>
               </ul>
             </div>
           </div>
@@ -126,7 +131,8 @@ export default function CourseClassDashboard() {
                 시간표 및 강의실 배정 관리
               </h2>
               <p className="mt-1 text-xs text-slate-500">
-                요일/교시 기준 시간표와 강의실 배정을 관리하고 충돌을 검사합니다.
+                요일/교시 기준 시간표와 강의실 배정을 관리하고 충돌을
+                검사합니다.
               </p>
             </div>
             <span className="rounded-full bg-fuchsia-50 px-3 py-1 text-xs font-medium text-fuchsia-600">
@@ -154,8 +160,13 @@ export default function CourseClassDashboard() {
             <div className="mt-4 rounded-xl bg-slate-50 p-3 text-xs text-slate-500">
               <p className="font-medium text-slate-600">권장 정책</p>
               <ul className="mt-1 list-disc space-y-1 pl-4">
-                <li>강의실 별 최대 수용 인원과 장비 정보를 마스터로 관리하세요.</li>
-                <li>시간표 확정 전, 반드시 충돌 검사를 실행하는 프로세스를 두면 좋습니다.</li>
+                <li>
+                  강의실 별 최대 수용 인원과 장비 정보를 마스터로 관리하세요.
+                </li>
+                <li>
+                  시간표 확정 전, 반드시 충돌 검사를 실행하는 프로세스를 두면
+                  좋습니다.
+                </li>
               </ul>
             </div>
           </div>
@@ -195,11 +206,11 @@ function DashboardButton({ label, description, onClick }) {
 function DashboardModal({ activeModal, onClose }) {
   if (!activeModal) return null;
 
-  const { title, subtitle, hint } = getModalConfig(activeModal);
+  const { title, subtitle, hint, content } = renderModalContent(activeModal);
 
   return (
-    <div className="fixed inset-0 z-40 flex items-center justify-center bg-black/25 px-4">
-      <div className="w-full max-w-2xl rounded-2xl bg-white p-6 shadow-xl ring-1 ring-slate-200">
+    <div className="fixed inset-0 z-40 flex items-center justify-center bg-black/25">
+      <div className="w-full max-w-[80%] rounded-2xl bg-white p-6 shadow-xl ring-1 ring-slate-200">
         <div className="mb-4 flex items-start justify-between gap-4">
           <div>
             <h3 className="text-lg font-semibold text-slate-900">{title}</h3>
@@ -218,15 +229,23 @@ function DashboardModal({ activeModal, onClose }) {
 
         {/* 여기부터 실제 UI 붙이는 영역 */}
         <div className="rounded-xl border border-dashed border-slate-200 bg-slate-50 p-4 text-xs text-slate-500">
-          <p className="mb-2 font-medium text-slate-700">
-            🔧 개발자용 placeholder 영역
-          </p>
-          <p className="leading-relaxed">
-            이 영역에 실제 폼(Form), 테이블(Table), 검색 필터 등을 넣으면 됩니다.
-            <br />
-            예: 강의 검색 필터, 강의계획 입력 폼, 분반/정원 테이블, 시간표
-            매트릭스 등.
-          </p>
+          {content ? (
+            content
+          ) : (
+            <>
+              {/* 기본 placeholder */}
+              <p className="mb-2 font-medium text-slate-700">
+                🔧 개발자용 placeholder 영역
+              </p>
+              <p className="leading-relaxed">
+                이 영역에 실제 폼(Form), 테이블(Table), 검색 필터 등을 넣으면
+                됩니다.
+                <br />
+                예: 강의 검색 필터, 강의계획 입력 폼, 분반/정원 테이블, 시간표
+                매트릭스 등.
+              </p>
+            </>
+          )}
           {hint && (
             <p className="mt-3 text-[11px] leading-relaxed text-slate-500">
               <span className="font-semibold text-slate-600">UI 힌트: </span>
@@ -256,13 +275,14 @@ function DashboardModal({ activeModal, onClose }) {
   );
 }
 
-function getModalConfig(activeModal) {
+function renderModalContent(activeModal) {
   switch (activeModal) {
     case modalTypes.COURSE_OPEN:
       return {
         title: "강의 개설",
         subtitle: "학기별 강의를 개설합니다.",
         hint: "과목 코드, 학기, 학점, 이수구분, 개설 학과, 표기명 필드를 포함하세요.",
+        content: <CourseopenForm />,
       };
     case modalTypes.COURSE_SYLLABUS:
       return {
