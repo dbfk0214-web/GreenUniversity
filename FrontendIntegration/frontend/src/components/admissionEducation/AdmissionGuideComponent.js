@@ -6,7 +6,7 @@ import {
   makeGuideGrid,
   makeIntroSection,
   makeSimpleTableB,
-} from "../../util/makeDivUtils/admissionEducation/makeAdmissionEducation";
+} from "../../util/makeDivUtils/admissionEducation/makeAdmissionGuide";
 
 const AdmissionGuideComponent = () => {
   const cardKeys = ["sinchon", "miral"];
