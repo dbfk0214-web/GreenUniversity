@@ -15,6 +15,7 @@ const adminRouter = () => {
         path:"degreecertificates",
         element:<Suspense fallback={Loading}><Mainlayouts children={<DegreeCertificates />}/></Suspense>
     },
+    
   ]
 }
 
