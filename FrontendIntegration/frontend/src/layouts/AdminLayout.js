@@ -410,7 +410,7 @@ const AdminLayout = ({ config }) => {
                 onSubmit={(e) => onSubmit(e, writeOne)}
                 setModalOpen={setModalOpen}
                 setTargetColumn={setTargetColumn}
-                fileList={fileList}
+                fileList={fileList ?? []}
               />
             )}
 
@@ -430,7 +430,7 @@ const AdminLayout = ({ config }) => {
                 setModalOpen={setModalOpen}
                 setTargetColumn={setTargetColumn}
                 readOnlyList={readOnlyList}
-                fileList={fileList}
+                fileList={fileList ?? []}
               />
             )}
 
