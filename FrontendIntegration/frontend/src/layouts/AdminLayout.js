@@ -196,11 +196,25 @@ const AdminLayout = ({ config }) => {
       // FormData 생성
       const formData = new FormData();
 
-      Object.keys(form).forEach((key) => {
-        if (form[key] !== null && form[key] !== undefined) {
-          formData.append(key, form[key]);
+      const metaObj = {};
+      const formDataFromDom = new FormData(e.target);
+
+      for (let [key, value] of formDataFromDom.entries()) {
+        if (key !== "files") {
+          // 파일 필드는 meta에서 제외
+          metaObj[key] = value;
         }
-      });
+      }
+
+      // ★ meta라는 key로 JSON 텍스트 넣기
+      formData.append(
+        "meta",
+        new Blob([JSON.stringify(metaObj)], { type: "application/json" })
+      );
+
+      formData.append("files", form["files"]);
+
+      console.log(formData);
 
       action(formData)
         .then((result) => {
