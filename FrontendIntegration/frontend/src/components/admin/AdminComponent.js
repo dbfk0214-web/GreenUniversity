@@ -16,7 +16,8 @@ import PostApi from "../../api/PostApi";
 import ReviewApi from "../../api/ReviewApi";
 import TimeTableApi from "../../api/TimeTableApi";
 import userApi from "../../api/userApi";
-
+import FileAttachmentApi from "../../api/FileAttachmentApi";
+import SearchHistoryApi from "../../api/SearchHistoryApi"
 import AdminSelectedContext from "./AdminSelectContext";
 
 const AdminComponent = () => {
@@ -38,6 +39,8 @@ const AdminComponent = () => {
     review: "none",
     timeTable: "none",
     user: "none",
+    fileAttachment:"none",
+    searchHistory:"none",
   });
 
   const setSelectId = (tableKey, id) => {
@@ -58,6 +61,8 @@ const AdminComponent = () => {
     review: ReviewApi,
     timeTable: TimeTableApi,
     user: userApi,
+    file: FileAttachmentApi,
+    search:SearchHistoryApi
   };
 
   return (

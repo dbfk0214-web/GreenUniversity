@@ -110,5 +110,18 @@ li{
     transform: translateX(0%);
   }
 }
-    
+
+/* 임시 커스텀 마우스 커서 */
+.custom-cursor {
+  position: fixed;
+  width: 22px;
+  height: 22px;
+  border: 2px solid white;
+  border-radius: 50%;
+  pointer-events: none;        /* 클릭 영역 막지 않음 */
+  transform: translate(-50%, -50%);
+  mix-blend-mode: difference;  /* 이미지 위에서도 색 반전돼서 안 가려짐 */
+  z-index: 99999;              /* 무조건 제일 위 */
+}
+
       

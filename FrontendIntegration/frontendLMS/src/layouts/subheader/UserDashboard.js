@@ -1,12 +1,9 @@
-import React from "react";
-import college from "../../images/2.jpg";
+import React from 'react'
 
 const UserDashboard = () => {
   return (
-    <div>
-      <img src={college}/>
-    </div>
-  );
-};
+    <div>UserDashboard</div>
+  )
+}
 
-export default UserDashboard;
+export default UserDashboard

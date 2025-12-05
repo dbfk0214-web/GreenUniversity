@@ -11,6 +11,8 @@ import { PostDef } from "./definitions/PostDefinition";
 import { ReviewDef } from "./definitions/ReviewDefinition";
 import { TimeTableDef } from "./definitions/TimeTableDefinition";
 import { UserDef } from "./definitions/UserDefinition";
+import { FileAttachmentDef } from "./definitions/FileAttachmentDefinition";
+import { searchHistoryDef } from "./definitions/SearchHistoryDefinition";
 
 export const tableDefinitions = {
     attendance : AttendanceDef,
@@ -26,4 +28,7 @@ export const tableDefinitions = {
     review: ReviewDef,
     time: TimeTableDef,
     user: UserDef,
+    fileAttachment:FileAttachmentDef,
+    searchHistory:searchHistoryDef,
+
 }
