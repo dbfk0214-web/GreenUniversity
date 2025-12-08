@@ -19,6 +19,8 @@ import userApi from "../../api/userApi";
 import FileAttachmentApi from "../../api/FileAttachmentApi";
 import SearchHistoryApi from "../../api/SearchHistoryApi";
 import AdminSelectedContext from "./AdminSelectContext";
+import ClassSectionApi from "../../api/ClassSectionApi";
+import ClassroomApi from "../../api/ClassroomApi";
 
 const AdminComponent = () => {
   const loginState = useSelector((state) => state.loginSlice);
@@ -28,6 +30,8 @@ const AdminComponent = () => {
   const [selectedIds, setSelectedIds] = useState({
     attendance: "none",
     board: "none",
+    classroom: "none",
+    classSection: "none",
     comment: "none",
     course: "none",
     courseOffering: "none",
@@ -50,6 +54,8 @@ const AdminComponent = () => {
   const tableApis = {
     attendance: AttendanceApi,
     board: BoardApi,
+    classroom: ClassroomApi,
+    classSection: ClassSectionApi,
     comment: CommentApi,
     course: CourseApi,
     courseOffering: CourseOfferingApi,

@@ -13,22 +13,25 @@ import { TimeTableDef } from "./definitions/TimeTableDefinition";
 import { UserDef } from "./definitions/UserDefinition";
 import { FileAttachmentDef } from "./definitions/FileAttachmentDefinition";
 import { searchHistoryDef } from "./definitions/SearchHistoryDefinition";
+import { ClassroomDef } from "./definitions/ClassroomDefinition";
+import { ClassSectionDef } from "./definitions/ClassSectionDefinition";
 
 export const tableDefinitions = {
-    attendance : AttendanceDef,
-    board: BoardDef,
-    comment: CommentDef,
-    course: CourseDef,
-    courseOffering: OfferingDef,
-    department: DepartmentDef,
-    enrollment: EnrollmentDef,
-    grade: GradeDef,
-    notice: NoticeDef,
-    post: PostDef,
-    review: ReviewDef,
-    time: TimeTableDef,
-    user: UserDef,
-    file:FileAttachmentDef,
-    search:searchHistoryDef,
-
-}
+  attendance: AttendanceDef,
+  board: BoardDef,
+  classroom: ClassroomDef,
+  classSection: ClassSectionDef,
+  comment: CommentDef,
+  course: CourseDef,
+  courseOffering: OfferingDef,
+  department: DepartmentDef,
+  enrollment: EnrollmentDef,
+  grade: GradeDef,
+  notice: NoticeDef,
+  post: PostDef,
+  review: ReviewDef,
+  time: TimeTableDef,
+  user: UserDef,
+  fileAttachment: FileAttachmentDef,
+  searchHistory: searchHistoryDef,
+};
