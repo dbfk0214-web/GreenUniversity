@@ -28,7 +28,7 @@ export const tableDefinitions = {
     review: ReviewDef,
     time: TimeTableDef,
     user: UserDef,
-    fileAttachment:FileAttachmentDef,
-    searchHistory:searchHistoryDef,
+    file:FileAttachmentDef,
+    search:searchHistoryDef,
 
 }
