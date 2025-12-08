@@ -98,12 +98,12 @@ export const createCrudApi = (tableName) => ({
 const createExtraApi = (tableName) => ({
   findByKeyword: async (selectKeyword, searchText) => {
     console.log(`${tableName} keyword`);
-    // API_SERVER_HOST => 
+    // API_SERVER_HOST =>
     return axios
       .get(`${API_SERVER_HOST}/api/${tableName}/${selectKeyword}/${searchText}`)
       .then((r) => r.data);
   },
-})
+});
 
 // 함수 정의
 // export const excludeColumns = (columns, excludeArray) => {
@@ -149,6 +149,7 @@ export const createTableConfig = (tabelDef, extraButtons = []) => {
     excludeList,
     color,
     readOnlyList,
+    fileList,
   } = tabelDef;
 
   const funcs = {
@@ -171,5 +172,6 @@ export const createTableConfig = (tabelDef, extraButtons = []) => {
     }),
     extrahButtonDataList: extraButtons,
     readOnlyList,
+    fileList,
   };
 };

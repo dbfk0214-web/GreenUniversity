@@ -8,7 +8,7 @@ export const useNavigationTest = () => {
   const dispatch = useDispatch();
 
   const Home = () => {
-    alert(" ^ ^ ^ ^ ^ ^ 만 들 어 주 세 요 ^ ^ ^ ^ ^ ^ ^ ^ ^ ");
+    // alert(" ^ ^ ^ ^ ^ ^ 만 들 어 주 세 요 ^ ^ ^ ^ ^ ^ ^ ^ ^ ");
     navigate("/");
   };
 

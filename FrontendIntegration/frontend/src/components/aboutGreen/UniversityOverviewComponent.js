@@ -1,136 +1,166 @@
 import React, { useEffect, useState } from "react";
-import bob from "../../json/aboutGreen/green_status.json";
+import GreenStauts from "../../json/aboutGreen/green_status.json";
+import {
+  makeCampusTableA,
+  makeCampusTableB,
+} from "../../util/makeDivUtils/aboutGreen/makeGreenOverview";
+import {
+  makeDefaultTableA,
+  makeDefaultComment,
+  makeSectionTitle,
+  makeDefaultTableB,
+} from "../../util/makeDivUtils/aboutGreen/makeGreenCommon";
 
 const UniversityOverviewComponent = () => {
-  const [lunch, setLunch] = useState(bob);
-  useEffect(() => {
-    setLunch(bob);
-    console.log(bob);
-  }, []);
-
-  //   const test = (data, keys) => {
-  //   return (
-  //     <div>
-  //       {keys.map((key, index) => {
-  //         const value = data[key];
-  //         return (
-  //           <div key={index}>
-  //             {key} : {value}
-  //           </div>
-  //         );
-  //       })}
-  //     </div>
-  //   );
-  // };
-  const test = (x, vvv) => {
-    return (
-      <>
-        {vvv.map((i) => {
-          const value = x[i];
-
-          // 배열 처리
-          if (Array.isArray(value)) {
-            return (
-              <div key={i}>
-                {value.map((item, idx) =>
-                  typeof item === "object" && item !== null ? (
-                    <div key={`${i}-${idx}`}>
-                      {test(item, Object.keys(item))}
-                    </div>
-                  ) : (
-                    <div key={`${i}-${idx}`} className="p-4">
-                      {String(item)}
-                    </div>
-                  )
+  return (
+    <div>
+      <div>
+        {GreenStauts && (
+          <>
+            {/* 첫번째 표 생성 */}
+            <div>
+              <div>{makeSectionTitle("대학구성")}</div>
+              <div>
+                {makeCampusTableA(
+                  GreenStauts.대학구성.headers,
+                  GreenStauts.대학구성.data,
+                  GreenStauts.대학구성.columns
                 )}
               </div>
-            );
-          }
-
-          // 객체 처리 (중첩된 경우)
-          if (value && typeof value === "object") {
-            return <div key={i}>{test(value, Object.keys(value))}</div>;
-          }
-
-          // 기본 값 처리
-          return (
-            <div key={i} className="p-4">
-              {String(value)}
+              <div>{makeDefaultComment(GreenStauts.대학구성.comment)}</div>
             </div>
-          );
-        })}
-      </>
-    );
-  };
 
-  const rr = (data2) => {
-    return (
-      <div>
-        {data2.map((i, idx) => (
-          <div key={idx} className="p-2">
-            {i}
-          </div>
-        ))}
+            <br />
+            {/* 두번째 표 생성 */}
+            <div>
+              <div>{makeSectionTitle("재학생 수 (외국인 재학생수)")}</div>
+              <div>
+                {makeCampusTableB(
+                  GreenStauts.재학생수.data,
+                  GreenStauts.재학생수.columns,
+                  GreenStauts.재학생수.resultData,
+                  3
+                )}
+              </div>
+              <div>{makeDefaultComment(GreenStauts.재학생수.comment)}</div>
+            </div>
+
+            <br />
+            {/* 세번째 표 생성 */}
+            <div>
+              <div>{makeSectionTitle("국제교류현황")}</div>
+              <div>
+                {makeDefaultTableA(
+                  GreenStauts.국제교류현황.headers,
+                  GreenStauts.국제교류현황.data,
+                  GreenStauts.국제교류현황.columns
+                )}
+              </div>
+              <div>{makeDefaultComment(GreenStauts.국제교류현황.comment)}</div>
+            </div>
+
+            <br />
+            {/* 네번째 표 생성 */}
+            <div>
+              <div>{makeSectionTitle("교원현황 (외국인 교원수)")}</div>
+              <div>
+                {makeCampusTableB(
+                  GreenStauts.교원현황.data,
+                  GreenStauts.교원현황.columns,
+                  GreenStauts.교원현황.resultData,
+                  6
+                )}
+              </div>
+              <div>{makeDefaultComment(GreenStauts.교원현황.comment)}</div>
+            </div>
+
+            <br />
+            {/* 다섯번째 표 생성 */}
+            <div>
+              <div>{makeSectionTitle("직원현황")}</div>
+              <div>
+                {makeDefaultTableB(
+                  GreenStauts.직원현황.headers,
+                  GreenStauts.직원현황.data,
+                  GreenStauts.직원현황.columns
+                )}
+              </div>
+              <div>{makeDefaultComment(GreenStauts.직원현황.comment)}</div>
+            </div>
+
+            <br />
+            {/* 여섯번째 표 생성 */}
+            <div>
+              <div>{makeSectionTitle("부설연구기관 현황")}</div>
+              <div>
+                {makeCampusTableB(
+                  GreenStauts.부설연구기관현황.data,
+                  GreenStauts.부설연구기관현황.columns,
+                  GreenStauts.부설연구기관현황.resultData,
+                  4 - 1 // 칼럼과 합쳐져야 하므로 1을 뺌
+                )}
+              </div>
+            </div>
+
+            <br />
+            {/* 일곱번째 표 생성 */}
+            <div>
+              <div>{makeSectionTitle("장학금현황")}</div>
+              <div>
+                {makeDefaultTableA(
+                  [],
+                  GreenStauts.장학금현황.data,
+                  GreenStauts.장학금현황.columns
+                )}
+              </div>
+              <div>{makeDefaultComment(GreenStauts.장학금현황.comment)}</div>
+            </div>
+
+            <br />
+            {/* 여덟번째 표 생성 */}
+            <div>
+              <div>{makeSectionTitle("개설 강좌수(2025-1학기, 정규과목)")}</div>
+              <div>
+                {makeCampusTableB(
+                  GreenStauts.개설강좌수.data,
+                  GreenStauts.개설강좌수.columns,
+                  [],
+                  999 // 실행이 안되도록 큰 값을 부여
+                )}
+              </div>
+            </div>
+
+            <br />
+            {/* 아홉번째 표 생성 */}
+            <div>
+              <div>{makeSectionTitle("기숙사 현황")}</div>
+              <div>
+                {makeDefaultTableA(
+                  GreenStauts.기숙사현황.headers,
+                  GreenStauts.기숙사현황.data,
+                  GreenStauts.기숙사현황.columns
+                )}
+              </div>
+            </div>
+
+            <br />
+            {/* 열번째 표 생성 */}
+            <div>
+              <div>{makeSectionTitle("개설 강좌수(2025-1학기, 정규과목)")}</div>
+              <div>
+                {makeCampusTableB(
+                  GreenStauts.학위수여자수.data,
+                  GreenStauts.학위수여자수.columns,
+                  GreenStauts.학위수여자수.resultData,
+                  5 // 실행이 안되도록 큰 값을 부여
+                )}
+              </div>
+            </div>
+          </>
+        )}
       </div>
-    );
-  };
-  return (
-    <div className="p-4">
-      <div>{lunch.pageTitle}</div>
-      <div>{lunch.lastUpdated}</div>
-
-      {lunch &&
-        lunch.sections.map((i, idx) => (
-          <div key={idx} className="p-2">
-            {i.sectionTitle}
-
-            <div>
-              {i.headers &&
-                i.headers.map((t, tx) => (
-                  <div key={tx} className="p-3">
-                    {t}
-                  </div>
-                ))}
-            </div>
-
-            <div>
-              {i.data &&
-                i.data.map((x, xt) => {
-                  var vvv = Object.keys(x);
-
-                  return test(x, vvv);
-                  // <div>
-                  //   {vvv.map((key) =>
-                  //     !Array.isArray(x[key]) ? (
-                  //       <div key={xt} className="p-4">
-                  //         <div>{x[key]}</div>
-                  //       </div>
-                  //     ) : (
-                  //       <>{Array.isArray(x[key])}</>
-                  //     )
-                  //   )}
-                  // </div>
-                })}
-            </div>
-          </div>
-        ))}
     </div>
   );
 };
 
 export default UniversityOverviewComponent;
-
-// {a? (B) : ()<></>}
-{
-  /* <div>{x.campus}</div>
-                      <div>{x.subCampus}</div>
-                      <div>{x.details}</div>
-                      <div>{x.address}</div>
-                      <div>{x.master}</div>
-                      <div>{x.doctor}</div>
-                      <div>{x.total}</div>
-                      <div>{x.bachelor}</div>
-                      <div>{x.hosting}</div>
-                      <div>{x.dispatch}</div>
-                      <div>{x.category}</div> */
-}

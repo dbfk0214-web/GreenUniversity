@@ -14,13 +14,10 @@ import ProfessorHomeDashboard from "./subheader/ProfessorHomeDashboard";
 import StudentHomeDashboard from "./subheader/StudentHomeDashboard";
 import AdminHomeDashboard from "./subheader/AdminHomeDashboard";
 
-
 import { useSelector } from "react-redux";
 
 export default function Mainlayouts({ children }) {
-
   const location = useLocation();
-
 
   const user = useSelector((state) => state.loginSlice);
   const role = user?.role || "USER";
@@ -36,29 +33,10 @@ export default function Mainlayouts({ children }) {
   };
 
   // ROLE에 맞는 대시보드 선택
-  const DashboardComponent =
-    DASHBOARD_BY_ROLE[role] || UserDashboard;
+  const DashboardComponent = DASHBOARD_BY_ROLE[role] || UserDashboard;
 
   // ROLE에 맞는 메뉴 가져오기
   const menuList = menus[role] || [];
-
-  useEffect(() => {
-    // 마우스 커서 로직 (초기 실행)
-    const cursorEl = document.getElementById("cursor");
-    const trailEl = document.getElementById("cursorTrail");
-    if (!cursorEl) return;
-
-    const api = new MouseCursor({
-      root: document.documentElement,
-      cursorEl,
-      trailEl,
-      hideNative: true,
-      speed: 0.2,
-      ease: "expo.out",
-    }).attach();
-
-    return () => api.destroy();
-  }, []);
 
   return (
     <div className="h-screen flex flex-col">
@@ -67,26 +45,33 @@ export default function Mainlayouts({ children }) {
         <Header />
       </div>
 
-      {/* 메인 레이아웃 */}
-      <div className="flex flex-1 overflow-y-auto bg-white text-black cursor-none">
-        
-        {/* 왼쪽 메뉴바 (ROLE 기준) */}
-        <Navbar subHeader={menuList} />
+      {role === "USER" && (
+        <div>
+          휴 편안~~~
+        </div>
+      )}
+      {role !== "USER" && (
+        <div>
+          {/* 메인 레이아웃 */}
+          <div className="flex flex-1 overflow-y-auto bg-white text-black cursor-none">
+            {/* 왼쪽 메뉴바 (ROLE 기준) */}
+            <Navbar subHeader={menuList} />
 
-        {/* 오른쪽 컨텐츠 영역 */}
-        <div className="flex-1 flex flex-col items-center justify-start bg-white">
-          <div className="w-[80%] ml-[15%] rounded-xl border border-gray-200 bg-white my-4 h-[100%]">
-            <div className="p-4">
+            {/* 오른쪽 컨텐츠 영역 */}
+            <div className="flex-1 flex flex-col items-center justify-start bg-white">
+              <div className="w-[80%] ml-[15%] rounded-xl border border-gray-200 bg-white my-4 h-[100%]">
+                <div className="p-4">
+                  {/* 홈("/")에서만 ROLE 대시보드 표시 */}
+                  {location.pathname === "/" && <DashboardComponent />}
 
-              {/* 홈("/")에서만 ROLE 대시보드 표시 */}
-              {location.pathname === "/" && <DashboardComponent />}
-
-              {/* 그 외 다른 페이지 */}
-              {children}
+                  {/* 그 외 다른 페이지 */}
+                  {children}
+                </div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      )}
 
       {/* 푸터 */}
       <div className="h-10">

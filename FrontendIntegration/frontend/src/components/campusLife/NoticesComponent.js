@@ -1,6 +1,6 @@
 import React from "react";
 import Notice from "../../json/campusLife/notice.json";
-import { makeSimpleTableA } from "../../util/makeDivUtils/campusLife/makeCampusLife";
+import { makeSimpleTableA } from "../../util/makeDivUtils/campusLife/makeNotice";
 
 const NoticesComponent = () => {
   const noticeColumns = ["id", "title", "date", "team", "attachment"];
