@@ -22,6 +22,7 @@ const makeDefaultComment = (comments = []) => {
   );
 };
 
+// 제목을 강조하는 기능입니다.
 const makeSectionTitle = (title, subTitle = "") => {
   return (
     <div style={{ marginBottom: "12px" }}>
@@ -41,7 +42,7 @@ const makeSectionTitle = (title, subTitle = "") => {
   );
 };
 
-// 공통적으로 사용할 테이블 양식입니다.
+// 공통적으로 사용할 테이블A 양식입니다.
 const makeDefaultTableA = (headers = [], rows = [], columns = []) => {
   return (
     <>
@@ -61,7 +62,7 @@ const makeDefaultTableA = (headers = [], rows = [], columns = []) => {
   );
 };
 
-// 공통적으로 사용할 테이블 양식2 입니다.
+// 공통적으로 사용할 테이블B 양식 입니다.
 const makeDefaultTableB = (headers = [], rows = [], columns = []) => {
   return (
     <>
@@ -96,6 +97,7 @@ const makeDefaultTableB = (headers = [], rows = [], columns = []) => {
   );
 };
 
+// 기본적인 이미지 섹션입니다.
 const makeDefaultImageSection = (
   backgroundImage,
   title = "none",
@@ -138,6 +140,73 @@ const makeDefaultImageSection = (
   );
 };
 
+const makeDefaultSentence = (contents = [], title = "") => {
+  return (
+    <>
+      <div>
+        {/* 제목 */}
+        {title && (
+          <div
+            style={{ fontSize: "20px", fontWeight: "700", color: "#1d4ed8" }}
+          >
+            {title}
+          </div>
+        )}
+
+        {/* 내용들 */}
+        <div style={{ marginBottom: "24px" }}>
+          {contents.map((content) => (
+            <div style={{ marginBottom: "10px" }}>{content}</div>
+          ))}
+        </div>
+      </div>
+    </>
+  );
+};
+
+const makeSentenceImageSectionA = (imageUrl, title = "", contents = []) => {
+  return (
+    <>
+      <div style={{ display: "flex" }}>
+        <div>
+          <img src={imageUrl} alt="" style={{ width: "48%" }} />
+        </div>
+
+        <div>
+          {/* 제목 */}
+          {title && (
+            <div
+              style={{ fontSize: "20px", fontWeight: "700", color: "#1d4ed8" }}
+            >
+              {title}
+            </div>
+          )}
+
+          {/* 내용들 */}
+          <div style={{ marginBottom: "24px" }}>
+            {contents.map((content) => (
+              <div style={{ marginBottom: "10px" }}>{content}</div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </>
+  );
+};
+
+const makeSentenceImageSectionB = (imageUrl, title = "", contents = []) => {
+  return (
+    <>
+      <div>
+        <div>
+          <img src={imageUrl} alt="" style={{ width: "100%" }} />
+        </div>
+        <div>{makeDefaultSentence(contents, title)}</div>
+      </div>
+    </>
+  );
+};
+
 export {
   makeDefaultHeader,
   makeDefaultTableA,
@@ -145,4 +214,7 @@ export {
   makeDefaultComment,
   makeSectionTitle,
   makeDefaultImageSection,
+  makeDefaultSentence,
+  makeSentenceImageSectionA,
+  makeSentenceImageSectionB,
 };
