@@ -6,7 +6,7 @@
       "icons": ["share", "location", "heart"]
     },
     "mainContent": {
-      "backgroundImage": "날개 펼친 독수리상과 푸른 하늘",
+      "backgroundImage": "https://cdn.pixabay.com/photo/2023/12/06/14/39/snow-8433815_1280.jpg",
       "textOverlay": {
         "title": "독수리상",
         "paragraphs": [
