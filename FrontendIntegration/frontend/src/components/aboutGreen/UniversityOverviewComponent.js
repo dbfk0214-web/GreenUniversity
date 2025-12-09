@@ -7,9 +7,9 @@ import {
 import {
   makeDefaultTableA,
   makeDefaultComment,
-  makeSectionTitle,
   makeDefaultTableB,
 } from "../../util/makeDivUtils/aboutGreen/makeGreenCommon";
+import { makeSectionTitle } from "../../util/makeDivUtils/makeCommon";
 
 const UniversityOverviewComponent = () => {
   return (
