@@ -1,12 +1,16 @@
 import React from "react";
-import { recursiveRender } from "../../util/makeComponentUtil";
 import SupportNonDegreeProgram from "../../json/admissionEducation/support_nonDegreeProgram.json";
+import { makeSectionTitle } from "../../util/makeDivUtils/makeCommon";
+import { makeNonDegreeProgram } from "../../util/makeDivUtils/admissionEducation/makeAdmissionNonDegree";
 
 const NonDegreeProgramsComponent = () => {
   return (
     <div>
-      NonDegreeProgramsComponent
-      {SupportNonDegreeProgram && recursiveRender(SupportNonDegreeProgram)}
+      {/* 타이틀 */}
+      <div>{makeSectionTitle("비학위과정")}</div>
+
+      {/* 카드들 */}
+      <div>{makeNonDegreeProgram(SupportNonDegreeProgram.data)}</div>
     </div>
   );
 };
