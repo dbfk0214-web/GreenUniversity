@@ -16,7 +16,7 @@ const BasicLayout = ({ children }) => {
         </div>
       </div>
 
-      <div className="h-12 shrink-0">
+      <div className="h-10 shrink-0">
         <Footer />
       </div>
     </div>
