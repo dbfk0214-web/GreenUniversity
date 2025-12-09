@@ -1,4 +1,4 @@
-import { makeNonDegreeCard } from "../makeCommon";
+import { makeDefaultUlLI } from "../makeCommon";
 
 const makeNonDegreeProgram = (rows = []) => {
   return (
@@ -19,4 +19,26 @@ const makeNonDegreeProgram = (rows = []) => {
   );
 };
 
-export { makeNonDegreeProgram };
+const makeNonDegreeCard = (title, courses = []) => {
+  return (
+    <>
+      {/* 상단 */}
+      <div style={{ display: "flex" }}>
+        {/* 타이틀 */}
+        <ul style={{ listStyleType: "disc", paddingLeft: "20px" }}>
+          <li>{title}</li>
+        </ul>
+
+        {/* 버튼 */}
+        <div>
+          <button>버튼🏠</button>
+        </div>
+      </div>
+
+      {/* 하단 */}
+      <div>{makeDefaultUlLI(courses)}</div>
+    </>
+  );
+};
+
+export { makeNonDegreeProgram, makeNonDegreeCard };
