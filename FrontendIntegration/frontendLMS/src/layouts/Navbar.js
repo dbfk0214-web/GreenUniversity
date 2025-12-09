@@ -460,25 +460,6 @@ export const menus = {
     },
 
     {
-      label: "지원",
-      to: "/financesupport",
-      children: [
-        {
-          label: "멘토링*진로/취업",
-          to: "/financesupport/careersupportcounseling",
-        },
-        {
-          label: "교수와의 멘토링",
-          to: "/financesupport/mentoringwithprofessors",
-        },
-        {
-          label: "취업지원 * 상담",
-          to: "/financesupport/mentoringcareeremployment",
-        },
-      ],
-    },
-
-    {
       label: "성적·학사",
       to: "/gradesacademicrecords",
       children: [
@@ -486,8 +467,7 @@ export const menus = {
           label: "성적표",
           to: "/gradesacademicrecords/gradereport",
           children: [
-            { label: "조회", to: "/gradesacademicrecords/check" },
-            { label: "출력", to: "/gradesacademicrecords/print" },
+            { label: "조회 및 출력", to: "/gradesacademicrecords/check" },
             { label: "입력", to: "/gradesacademicrecords/gradeentry" },
           ],
         },
@@ -505,7 +485,7 @@ export const menus = {
             { label: "자유게시판", to: "/community/free" },
             { label: "동아리게시판", to: "/community/club" },
             { label: "학과게시판", to: "/community/department" },
-            { label: "데이터공유게시판", to: "/community/dataSharing" },
+            { label: "정보공유게시판", to: "/community/dataSharing" },
             { label: "Q&A", to: "/community/qanda" },
           ],
         },
@@ -516,7 +496,6 @@ export const menus = {
       label: "인증/계정보안",
       to: "/account",
       children: [
-        { label: "회원가입", to: "/account/sign" },
         { label: "계정관리", to: "/account/manage" },
         { label: "회원정보", to: "/account/member" },
         { label: "회원 비밀번호 재설정", to: "/account/reset" },
@@ -588,25 +567,6 @@ export const menus = {
     },
 
     {
-      label: "지원",
-      to: "/financesupport",
-      children: [
-        {
-          label: "멘토링*진로/취업",
-          to: "/financesupport/careersupportcounseling",
-        },
-        {
-          label: "교수와의 멘토링",
-          to: "/financesupport/mentoringwithprofessors",
-        },
-        {
-          label: "취업지원 * 상담",
-          to: "/financesupport/mentoringcareeremployment",
-        },
-      ],
-    },
-
-    {
       label: "커뮤니티",
       to: "/community",
       children: [
@@ -628,7 +588,6 @@ export const menus = {
       label: "인증/계정보안",
       to: "/account",
       children: [
-        { label: "회원가입", to: "/account/sign" },
         { label: "계정관리", to: "/account/manage" },
         { label: "회원정보", to: "/account/member" },
         { label: "회원 비밀번호 재설정", to: "/account/reset" },

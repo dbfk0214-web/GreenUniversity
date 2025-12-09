@@ -6,7 +6,7 @@ function App() {
   return (
     <>
       <RouterProvider router={router} />
-      <div id="cursor" class="custom-cursor"></div>
+      <div id="cursor" className="custom-cursor"></div>
     </>
   );
 }

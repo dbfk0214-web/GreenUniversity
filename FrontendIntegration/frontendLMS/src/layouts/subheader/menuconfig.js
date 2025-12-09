@@ -253,7 +253,7 @@ export const menus = {
             { label: "자유게시판", to: "/community/free" },
             { label: "동아리게시판", to: "/community/club" },
             { label: "학과게시판", to: "/community/department" },
-            { label: "데이터공유게시판", to: "/community/dataSharing" },
+            { label: "정보공유게시판", to: "/community/dataSharing" },
             { label: "Q&A", to: "/community/qanda" },
           ],
         },

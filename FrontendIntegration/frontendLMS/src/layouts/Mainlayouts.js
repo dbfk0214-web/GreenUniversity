@@ -1,5 +1,5 @@
 import styles from "../App.css";
-import React, { useEffect } from "react";
+import React from "react";
 import { useLocation } from "react-router-dom";
 import { MouseCursor } from "../api/MousecursorHandler";
 import Navbar from "./Navbar";
@@ -24,7 +24,6 @@ export default function Mainlayouts({ children }) {
 
   console.log("현재 사용자 ROLE:", role);
 
-  // ROLE → 대시보드 매핑
   const DASHBOARD_BY_ROLE = {
     ADMIN: AdminHomeDashboard,
     PROFESSOR: ProfessorHomeDashboard,
@@ -32,11 +31,11 @@ export default function Mainlayouts({ children }) {
     USER: UserDashboard,
   };
 
-  // ROLE에 맞는 대시보드 선택
   const DashboardComponent = DASHBOARD_BY_ROLE[role] || UserDashboard;
-
-  // ROLE에 맞는 메뉴 가져오기
   const menuList = menus[role] || [];
+
+  // USER + children 있을 때 = 로그인/회원가입 오버레이 상태
+  const hasUserOverlay = role === "USER" && !!children;
 
   return (
     <div className="h-screen flex flex-col">
@@ -45,38 +44,37 @@ export default function Mainlayouts({ children }) {
         <Header />
       </div>
 
+      {/* USER 화면 (메인 이미지 + 오버레이 폼) */}
       {role === "USER" && (
-        <div>
-          휴 편안~~~
-        </div>
+        <main className="relative flex-1 bg-white overflow-hidden">
+          <UserDashboard />
+
+          {children && (
+            <div className="absolute inset-0 flex items-center justify-center">
+              {children}
+            </div>
+          )}
+        </main>
       )}
+
+      {/* 관리자 / 교수 / 학생 레이아웃 */}
       {role !== "USER" && (
-        <div>
-          {/* 메인 레이아웃 */}
-          <div className="flex flex-1 overflow-y-auto bg-white text-black cursor-none">
-            {/* 왼쪽 메뉴바 (ROLE 기준) */}
-            <Navbar subHeader={menuList} />
+        <div className="flex flex-1 overflow-y-auto bg-white text-black">
+          {/* 왼쪽 메뉴바 */}
+          <Navbar subHeader={menuList} />
 
-            {/* 오른쪽 컨텐츠 영역 */}
-            <div className="flex-1 flex flex-col items-center justify-start bg-white">
-              <div className="w-[80%] ml-[15%] rounded-xl border border-gray-200 bg-white my-4 h-[100%]">
-                <div className="p-4">
-                  {/* 홈("/")에서만 ROLE 대시보드 표시 */}
-                  {location.pathname === "/" && <DashboardComponent />}
-
-                  {/* 그 외 다른 페이지 */}
-                  {children}
-                </div>
+          {/* 오른쪽 컨텐츠 영역 */}
+          <div className="flex-1 flex flex-col items-center justify-start bg-white">
+            <div className="w-[80%] ml-[15%] rounded-xl border border-gray-200 bg-white my-4 h-[100%]">
+              <div className="p-4">
+                {location.pathname === "/" && <DashboardComponent />}
+                {children}
               </div>
             </div>
           </div>
         </div>
       )}
-
-      {/* 푸터 */}
-      <div className="h-10">
-        <Footer />
-      </div>
+      <Footer/>
     </div>
   );
 }

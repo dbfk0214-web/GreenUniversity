@@ -18,40 +18,98 @@ const makeSectionTitle = (title, subTitle = "") => {
   );
 };
 
-const makeNonDegreeCard = (title, courses = []) => {
+// 적당히 볼드 텍스트 출력 기능입니다.
+const makeBoldText = (text, size = "16px") => {
+  return (
+    <span
+      style={{
+        fontWeight: "600",
+        fontSize: "16px",
+        color: "#222",
+      }}
+    >
+      {text}
+    </span>
+  );
+};
+
+// 텍스트에 태그를 입힙니다.
+const makeDefaultTag = (text) => {
+  return (
+    <span
+      style={{
+        display: "inline-block",
+        color: "#333",
+        fontSize: "14px",
+        backgroundColor: "green",
+      }}
+    >
+      {text}
+    </span>
+  );
+};
+
+// 추후 옮기기
+
+// Tab추가 기능입니다.
+// makeDefaultTab([{ value: "test" }, { value: "test2" }])
+const makeDefaultTab = (tabs = []) => {
+  return (
+    <div
+      style={{
+        border: "2px solid #1d4ed8",
+        borderRadius: "10px",
+        padding: "12px 20px",
+        display: "flex",
+        gap: "20px",
+        alignItems: "center",
+      }}
+    >
+      {tabs.map((tab) => (
+        <div>{tab.value}</div>
+      ))}
+    </div>
+  );
+};
+
+// 리스트 항목을 ul,li로 출력합니다.
+const makeDefaultUlLI = (lists = []) => {
   return (
     <>
-      {/* 상단 */}
-      <div style={{ display: "flex" }}>
-        {/* 타이틀 */}
-        <ul style={{ listStyleType: "disc", paddingLeft: "20px" }}>
-          <li>{title}</li>
-        </ul>
+      <ul
+        style={{
+          listStyleType: "disc",
+          paddingLeft: "20px",
+          display: "grid",
+          gridTemplateColumns: "repeat(2,1fr)",
+          backgroundColor: "green",
+        }}
+      >
+        {lists.map((list) => (
+          <li>{list}</li>
+        ))}
+      </ul>
+    </>
+  );
+};
 
-        {/* 버튼 */}
-        <div>
-          <button>버튼🏠</button>
-        </div>
-      </div>
-
-      {/* 하단 */}
+const makeDefaultInfoBox = (lists = []) => {
+  return (
+    <>
       <div>
-        <ul
-          style={{
-            listStyleType: "disc",
-            paddingLeft: "20px",
-            display: "grid",
-            gridTemplateColumns: "repeat(2,1fr)",
-            backgroundColor: "green",
-          }}
-        >
-          {courses.map((course) => (
-            <li>{course}</li>
-          ))}
-        </ul>
+        {lists.map((list) => (
+          <div>{list}</div>
+        ))}
       </div>
     </>
   );
 };
 
-export { makeSectionTitle, makeNonDegreeCard };
+export {
+  makeSectionTitle,
+  makeBoldText,
+  makeDefaultTag,
+  makeDefaultTab,
+  makeDefaultUlLI,
+  makeDefaultInfoBox,
+};

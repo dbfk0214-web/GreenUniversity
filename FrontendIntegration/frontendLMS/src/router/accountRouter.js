@@ -4,7 +4,7 @@ import BasicLayout from "../layouts/Basiclayout";
 import Mainlayouts from "../layouts/Mainlayouts";
 
 const Loading = <div>Loading......</div>;
-const account = lazy(() =>
+const Account = lazy(() =>
   import("../pages/authentication_Account_Security/accountPage")
 );
 const Login = lazy(() =>
@@ -35,7 +35,7 @@ const accountRouter = () => {
       path: "",
       element: (
         <Suspense fallback={Loading}>
-          <Mainlayouts children={<account />} />
+          <Mainlayouts children={<Account />} />
         </Suspense>
       ),
     },
