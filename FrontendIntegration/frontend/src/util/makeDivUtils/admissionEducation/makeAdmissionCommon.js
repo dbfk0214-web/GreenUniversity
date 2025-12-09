@@ -1,3 +1,4 @@
+// 학과섹션 입니다.
 const makeCollegeSection = (
   imageUrl,
   title,
