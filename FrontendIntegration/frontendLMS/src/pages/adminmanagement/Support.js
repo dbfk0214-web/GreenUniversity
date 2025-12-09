@@ -1,5 +1,6 @@
 // src/pages/adminmanagement/SystemResourceDashboard.jsx
 import React, { useState } from "react";
+import AcademicAffairsHomePage from "../academicAffairs/AcademicAffairsPage";
 
 const modalTypes = {
   SYSTEM_SETTINGS: "SYSTEM_SETTINGS",
@@ -270,6 +271,7 @@ function renderModalContent(activeModal) {
         title: "시스템 기본 설정",
         subtitle: "포털의 전역 기본 설정을 관리합니다.",
         hint: "포털명, 로고, 학사년도/학기, 기본 언어/시간대, 유지보수 모드 설정 등을 포함하세요.",
+        content:<AcademicAffairsHomePage/>
       };
     case modalTypes.MASTER_CODE:
       return {

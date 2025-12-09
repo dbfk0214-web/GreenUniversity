@@ -5,6 +5,7 @@ import SignedLoginComponent from "../components/auth/SignedLoginComponent";
 import UnSignedLoginComponent from "../components/auth/UnSignedLoginComponent";
 import logo from "../images/1.png";
 import Navbar from "./Navbar";
+import FileAttachmentApi from "../api/FileAttachmentApi";
 
 const Header = () => {
   const { Home } = useNavigationTest();
@@ -17,6 +18,7 @@ const Header = () => {
   const handleLogoClick = () => {
     setNavOpen((prev) => !prev);
   };
+
 
   return (
     // 헤더 전체를 sticky로
@@ -45,7 +47,7 @@ const Header = () => {
           </div>
         </div>
       </div>
-
+            
       {/* 🔹 2줄차 네비게이션(사이트맵 스타일) */}
       {user.role === "GUEST" ? (
         <div />
