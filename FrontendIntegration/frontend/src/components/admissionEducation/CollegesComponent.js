@@ -1,12 +1,30 @@
 import React from "react";
-import { recursiveRender } from "../../util/makeComponentUtil";
 import SuppportColleges from "../../json/admissionEducation/support_colleges.json";
+import { makeCollegeSection } from "../../util/makeDivUtils/admissionEducation/makeAdmissionCommon";
+import { makeSectionTitle } from "../../util/makeDivUtils/makeCommon";
 
 const CollegesComponent = () => {
+  const columns = ["name", "officeLocation", "phone"];
+
   return (
     <div>
-      CollegesComponent
-      {SuppportColleges && recursiveRender(SuppportColleges)}
+      {/* 타이틀 */}
+      <div>{makeSectionTitle("대학")}</div>
+      <div>
+        {SuppportColleges.colleges.map((college) => (
+          <div>
+            {makeCollegeSection(
+              college.image,
+              college.name,
+              college.description,
+              college.location,
+              college.phone,
+              college.departments,
+              columns
+            )}
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

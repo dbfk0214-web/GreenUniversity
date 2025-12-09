@@ -3,10 +3,10 @@ import GreenGuide from "../../json/aboutGreen/green_guide.json";
 import {
   makeDefaultImageSection,
   makeDefaultSentence,
-  makeSectionTitle,
   makeSentenceImageSectionA,
   makeSentenceImageSectionB,
 } from "../../util/makeDivUtils/aboutGreen/makeGreenCommon";
+import { makeSectionTitle } from "../../util/makeDivUtils/makeCommon";
 
 const CampusGuideComponent = () => {
   const [mainContent, setMainContent] = useState(GreenGuide.mainContent);

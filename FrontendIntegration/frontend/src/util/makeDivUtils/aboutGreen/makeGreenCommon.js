@@ -22,26 +22,6 @@ const makeDefaultComment = (comments = []) => {
   );
 };
 
-// 제목을 강조하는 기능입니다.
-const makeSectionTitle = (title, subTitle = "") => {
-  return (
-    <div style={{ marginBottom: "12px" }}>
-      <h2
-        style={{
-          fontSize: "20px",
-          fontWeight: "700",
-          paddingBottom: "8px",
-          borderBottom: "2px solid #1d4ed8", // 파란 줄
-          display: "inline-block",
-        }}
-      >
-        {title}
-        {subTitle && <span style={{ fontWeight: "500" }}> ({subTitle})</span>}
-      </h2>
-    </div>
-  );
-};
-
 // 공통적으로 사용할 테이블A 양식입니다.
 const makeDefaultTableA = (headers = [], rows = [], columns = []) => {
   return (
@@ -212,7 +192,6 @@ export {
   makeDefaultTableA,
   makeDefaultTableB,
   makeDefaultComment,
-  makeSectionTitle,
   makeDefaultImageSection,
   makeDefaultSentence,
   makeSentenceImageSectionA,
