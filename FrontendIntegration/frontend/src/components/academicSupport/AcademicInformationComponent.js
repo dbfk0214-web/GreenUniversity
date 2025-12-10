@@ -1,6 +1,5 @@
 import React from "react";
 import AcademicInformation from "../../json/academicSupport/academicInformation.json";
-import { recursiveRender } from "../../util/makeComponentUtil";
 import {
   makeEventMonthSection,
   makeLeftRightButton,

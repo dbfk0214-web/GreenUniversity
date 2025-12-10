@@ -1,4 +1,4 @@
-import { makeDefaultComment, makeDefaultHeader } from "./makeGreenCommon";
+import { makeDefaultHeader } from "../makeCommon";
 
 const makeCampusTableA = (headers = [], rows = [], columns = []) => {
   return (

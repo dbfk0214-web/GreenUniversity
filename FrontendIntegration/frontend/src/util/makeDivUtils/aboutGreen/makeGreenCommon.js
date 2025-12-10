@@ -1,77 +1,12 @@
-// 기본적인 헤더 양식입니다.
-const makeDefaultHeader = (headers) => {
-  return (
-    <tr>
-      {headers.map((h, i) => (
-        <th key={i} style={{ border: "1px solid #ccc" }}>
-          {h}
-        </th>
-      ))}
-    </tr>
-  );
-};
-
-// 코멘트를 생성하는 양식입니다.
-const makeDefaultComment = (comments = []) => {
-  return (
-    <>
-      {comments.map((comment) => (
-        <div>※ {comment} ※</div>
-      ))}
-    </>
-  );
-};
+import { makeDefaultHeader, makeDefaultTableBody } from "../makeCommon";
 
 // 공통적으로 사용할 테이블A 양식입니다.
-const makeDefaultTableA = (headers = [], rows = [], columns = []) => {
+const makeDefaultTable = (headers = [], rows = [], columns = []) => {
   return (
     <>
       <table style={{ border: "1px solid #ccc" }}>
         <thead>{makeDefaultHeader(headers)}</thead>
-        <tbody>
-          {rows.map((row) => (
-            <tr style={{ border: "1px solid #ccc" }}>
-              {columns.map((col) => (
-                <td style={{ border: "1px solid #ccc" }}>{row[col]}</td>
-              ))}
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </>
-  );
-};
-
-// 공통적으로 사용할 테이블B 양식 입니다.
-const makeDefaultTableB = (headers = [], rows = [], columns = []) => {
-  return (
-    <>
-      <table style={{ border: "1px solid #ccc" }}>
-        <thead>{makeDefaultHeader(headers)}</thead>
-        <tbody>
-          {rows.map((row, idx) => {
-            const isLast = idx === rows.length - 1;
-
-            return (
-              <tr
-                style={{
-                  border: "1px solid #ccc",
-                  background: isLast ? "#6eb7ffff" : "#fff",
-                }}
-              >
-                {columns.map((col) => (
-                  <td
-                    style={{
-                      border: "1px solid #ccc",
-                    }}
-                  >
-                    {row[col]}
-                  </td>
-                ))}
-              </tr>
-            );
-          })}
-        </tbody>
+        <tbody>{makeDefaultTableBody(rows, columns)}</tbody>
       </table>
     </>
   );
@@ -189,9 +124,7 @@ const makeSentenceImageSectionB = (imageUrl, title = "", contents = []) => {
 
 export {
   makeDefaultHeader,
-  makeDefaultTableA,
-  makeDefaultTableB,
-  makeDefaultComment,
+  makeDefaultTable,
   makeDefaultImageSection,
   makeDefaultSentence,
   makeSentenceImageSectionA,

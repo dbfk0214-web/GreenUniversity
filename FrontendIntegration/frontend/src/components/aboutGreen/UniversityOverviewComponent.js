@@ -1,16 +1,14 @@
 import React, { useEffect, useState } from "react";
 import GreenStauts from "../../json/aboutGreen/green_status.json";
 import {
+  makeDefaultComment,
+  makeSectionTitle,
+} from "../../util/makeDivUtils/makeCommon";
+import {
   makeCampusTableA,
   makeCampusTableB,
 } from "../../util/makeDivUtils/aboutGreen/makeGreenOverview";
-import {
-  makeDefaultTableA,
-  makeDefaultComment,
-  makeDefaultTableB,
-} from "../../util/makeDivUtils/aboutGreen/makeGreenCommon";
-import { makeSectionTitle } from "../../util/makeDivUtils/makeCommon";
-
+import { makeDefaultTable } from "../../util/makeDivUtils/aboutGreen/makeGreenCommon";
 const UniversityOverviewComponent = () => {
   return (
     <div>
@@ -21,11 +19,12 @@ const UniversityOverviewComponent = () => {
             <div>
               <div>{makeSectionTitle("대학구성")}</div>
               <div>
-                {makeCampusTableA(
-                  GreenStauts.대학구성.headers,
-                  GreenStauts.대학구성.data,
-                  GreenStauts.대학구성.columns
-                )}
+                {GreenStauts.대학구성 &&
+                  makeCampusTableA(
+                    GreenStauts.대학구성.headers,
+                    GreenStauts.대학구성.data,
+                    GreenStauts.대학구성.columns
+                  )}
               </div>
               <div>{makeDefaultComment(GreenStauts.대학구성.comment)}</div>
             </div>
@@ -50,7 +49,7 @@ const UniversityOverviewComponent = () => {
             <div>
               <div>{makeSectionTitle("국제교류현황")}</div>
               <div>
-                {makeDefaultTableA(
+                {makeCampusTableA(
                   GreenStauts.국제교류현황.headers,
                   GreenStauts.국제교류현황.data,
                   GreenStauts.국제교류현황.columns
@@ -79,7 +78,7 @@ const UniversityOverviewComponent = () => {
             <div>
               <div>{makeSectionTitle("직원현황")}</div>
               <div>
-                {makeDefaultTableB(
+                {makeCampusTableB(
                   GreenStauts.직원현황.headers,
                   GreenStauts.직원현황.data,
                   GreenStauts.직원현황.columns
@@ -107,7 +106,7 @@ const UniversityOverviewComponent = () => {
             <div>
               <div>{makeSectionTitle("장학금현황")}</div>
               <div>
-                {makeDefaultTableA(
+                {makeDefaultTable(
                   [],
                   GreenStauts.장학금현황.data,
                   GreenStauts.장학금현황.columns
@@ -135,7 +134,7 @@ const UniversityOverviewComponent = () => {
             <div>
               <div>{makeSectionTitle("기숙사 현황")}</div>
               <div>
-                {makeDefaultTableA(
+                {makeDefaultTable(
                   GreenStauts.기숙사현황.headers,
                   GreenStauts.기숙사현황.data,
                   GreenStauts.기숙사현황.columns
