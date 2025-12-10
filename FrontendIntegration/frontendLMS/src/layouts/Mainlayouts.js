@@ -47,8 +47,9 @@ export default function Mainlayouts({ children }) {
       {/* USER 화면 (메인 이미지 + 오버레이 폼) */}
       {role === "USER" && (
         <main className="relative flex-1 bg-white overflow-hidden">
-          <UserDashboard />
-
+          <div className="flex items-center justify-center bg-slate-50">
+            <UserDashboard/>
+          </div>
           {children && (
             <div className="absolute inset-0 flex items-center justify-center">
               {children}
@@ -74,7 +75,7 @@ export default function Mainlayouts({ children }) {
           </div>
         </div>
       )}
-      <Footer/>
+      <Footer />
     </div>
   );
 }
