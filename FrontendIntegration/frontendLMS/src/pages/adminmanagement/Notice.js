@@ -1,5 +1,7 @@
 // src/pages/admin/NoticeBoardDashboard.jsx
 import React, { useState } from "react";
+import AdminNotice from "./admin/AdminNotice";
+import AdminNoticeEdit from "./admin/AdminNoticeEdit";
 
 const modalTypes = {
   CREATE_NOTICE: "CREATE_NOTICE",
@@ -193,13 +195,14 @@ function DashboardModal({ activeModal, onClose }) {
         return {
           title: "공지 등록",
           subtitle: "새 공지사항을 등록합니다.",
-          hint: "제목, 내용, 대상(전체/학생/교수), 중요도, 게시 기간 등을 설정하세요.",
+          content:<AdminNotice/>
         };
       case modalTypes.EDIT_NOTICE:
         return {
           title: "공지 수정 / 삭제",
           subtitle: "기존 공지사항을 조회하고 수정 또는 비활성화합니다.",
           hint: "좌측 리스트에서 공지를 선택 후 우측 패널에서 내용을 수정하도록 구성하면 좋습니다.",
+          content:<AdminNoticeEdit/>
         };
       case modalTypes.SET_PERIOD:
         return {
@@ -236,7 +239,7 @@ function DashboardModal({ activeModal, onClose }) {
     }
   };
 
-  const { title, subtitle, hint, content } = renderModalContent();
+  const { title, subtitle, content } = renderModalContent();
 
   return (
     <div className="fixed inset-0 z-40 flex items-center justify-center bg-black/25 px-4">
@@ -276,12 +279,6 @@ function DashboardModal({ activeModal, onClose }) {
               </p>
             </>
           )}
-          {hint && (
-            <p className="mt-3 text-[11px] leading-relaxed text-slate-500">
-              <span className="font-semibold text-slate-600">UI 힌트: </span>
-              {hint}
-            </p>
-          )}
         </div>
 
         <div className="mt-5 flex justify-end gap-2">
@@ -295,10 +292,9 @@ function DashboardModal({ activeModal, onClose }) {
           {/* 실제 저장/적용 버튼은 각 기능 구현 시 활성화 */}
           <button
             type="button"
-            className="rounded-lg bg-slate-900 px-3 py-1.5 text-xs font-medium text-white opacity-60"
-            disabled
+            className="rounded-lg bg-blue-700 px-3 py-1.5 text-xs font-medium text-white opacity-60"
           >
-            저장 (폼 연결 후 활성화)
+            저장
           </button>
         </div>
       </div>

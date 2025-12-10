@@ -1,16 +1,12 @@
-import React from "react";
-import college from "./../../images/2.jpg";
-import Footer from "../Footer";
+import college  from "../../images/2.jpg";
+import PainterMouse from "./PainterMouse";
 
-const UserDashboard = () => {
+export default function SomePage() {
   return (
     <div>
-      <div className="w-full h-screen flex justify-center items-start">
-        <img src={college} alt="college" className="mx-auto" />
+      <div>
+        <PainterMouse/>
       </div>
-      <Footer />
     </div>
   );
-};
-
-export default UserDashboard;
+}
