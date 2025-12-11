@@ -352,6 +352,22 @@ const makeDefaultTotal = (total) => {
   );
 };
 
+const makePaginationUI = (pages = []) => {
+  return (
+    <div style={{ display: "flex" }}>
+      <div>처음으로</div>
+      <div>이전</div>
+
+      {pages.map((page) => (
+        <div>{page}</div>
+      ))}
+
+      <div>다음</div>
+      <div>마지막</div>
+    </div>
+  );
+};
+
 export {
   makeSectionTitle,
   makeBoldText,
@@ -374,4 +390,5 @@ export {
   makeDefaultButton,
   makeSearchWindow,
   makeDefaultTotal,
+  makePaginationUI,
 };

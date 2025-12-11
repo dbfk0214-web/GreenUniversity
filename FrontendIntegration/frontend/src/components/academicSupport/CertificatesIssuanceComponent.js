@@ -12,6 +12,7 @@ import {
   makeAcademicSectionKoreanList,
   makeAcademicStepBoxes,
   makeAcademicTab,
+  makeAcademicTitleLI,
 } from "../../util/makeDivUtils/academicSupport/makeAcademicCommon";
 
 const CertificatesIssuanceComponent = () => {
@@ -67,6 +68,14 @@ const CertificatesIssuanceComponent = () => {
         </div>
         <div>
           {makeDefaultLI(CertificatesIssuance.certificate_post_info.items)}
+        </div>
+      </div>
+      <div>
+        <div>
+          {makeAcademicTitleLI(
+            CertificatesIssuance.certificate_error_contact.title,
+            CertificatesIssuance.certificate_error_contact.phones
+          )}
         </div>
       </div>
     </div>

@@ -1,6 +1,7 @@
 import {
   makeDefaultButton,
   makeDefaultKoreaList,
+  makeDefaultLI,
   makeDefaultStepBox,
   makeDefaultTabA,
   makeH2Text,
@@ -38,17 +39,43 @@ const makeAcademicStepBoxes = (title, contents = []) => {
   return (
     <>
       <div>{makeH3Text(title)}</div>
-      <div>
-        {contents.map((content, idx) => (
-          <div>
-            {makeDefaultStepBox(
-              idx + 1,
-              content.mainDescription,
-              content.subDescription
-            )}
-          </div>
-        ))}
+      <div style={{ display: "flex", flexDirection: "row" }}>
+        {contents.map((content, idx) => {
+          const hasNext = idx < contents.length - 1;
+
+          return (
+            <>
+              <div>
+                {makeDefaultStepBox(
+                  idx + 1,
+                  content.mainDescription,
+                  content.subDescription
+                )}
+              </div>
+              {hasNext && (
+                <div
+                  style={{
+                    fontSize: "24px",
+                    fontWeight: "700",
+                    color: "#555",
+                  }}
+                >
+                  &gt;
+                </div>
+              )}
+            </>
+          );
+        })}
       </div>
+    </>
+  );
+};
+
+const makeAcademicTitleLI = (title, contents = []) => {
+  return (
+    <>
+      <div>{makeH3Text(title)}</div>
+      <div>{makeDefaultLI(contents)}</div>
     </>
   );
 };
@@ -58,4 +85,5 @@ export {
   makeAcademicSectionKoreanList,
   makeAcademicSectionButtonList,
   makeAcademicStepBoxes,
+  makeAcademicTitleLI,
 };
