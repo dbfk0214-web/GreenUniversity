@@ -18,18 +18,28 @@ const makeSectionTitle = (title, subTitle = "") => {
   );
 };
 
-// 적당히 볼드 텍스트 출력 기능입니다. H1
-const makeBoldText = (text, size = "16px") => {
+// h1 + bold를 만드는 함수
+const makeBoldText = (text, size = "24px") => {
   return (
-    <span
-      style={{
-        fontWeight: "600",
-        fontSize: "16px",
-        color: "#222",
-      }}
-    >
-      {text}
-    </span>
+    <>
+      <h1 style={{ fontWeight: "bold", fontSize: size }}>{text}</h1>
+    </>
+  );
+};
+
+// 라벨링, 여러개 묶어서 출력 (made by 김유라)
+const makePrivacyLabelItem = (image, label = "", contents = []) => {
+  return (
+    <>
+      {/* 이미지 */}
+      <div>{makeDefaultImageBox(image)}</div>
+
+      {/* 라벨 */}
+      <div>{makeDefaultLabelBox(label)}</div>
+
+      {/* 내용들 */}
+      <div>{makeDefaultLI(contents)}</div>
+    </>
   );
 };
 
@@ -214,6 +224,20 @@ const makeDefautSectionList = (title, contents = []) => {
   );
 };
 
+const makeDefaultNumberList = (contents = []) => {
+  return (
+    <>
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
+        {contents.map((content, idx) => (
+          <div>
+            {idx + 1}.{content}
+          </div>
+        ))}
+      </div>
+    </>
+  );
+};
+
 const makeDefaultInfoBox = (lists = []) => {
   return (
     <>
@@ -256,6 +280,21 @@ const makeDefaultComment = (comments = []) => {
     <>
       {comments.map((comment) => (
         <div>※ {comment} ※</div>
+      ))}
+    </>
+  );
+};
+
+// 숫자 코멘트를 특수문자 번호(① ② ③ ...)로 출력합니다.
+const makeDefaultNumberComment = (comments = [], startIdx = 0) => {
+  const numberIcons = ["①", "②", "③", "④", "⑤", "⑥", "⑦", "⑧", "⑨", "⑩"];
+
+  return (
+    <>
+      {comments.map((comment, idx) => (
+        <div>
+          {numberIcons[idx + startIdx]} {comment}
+        </div>
       ))}
     </>
   );
@@ -319,6 +358,27 @@ const makeDefaultTag = (text) => {
   );
 };
 
+const makeDefaultImageBox = (image) => {
+  return (
+    <>
+      <div style={{ backgroundColor: "#ddd", borderRadius: "4px" }}>
+        <img src={image} alt="이미지가 없읍니다" />
+      </div>
+    </>
+  );
+};
+
+// 텍스트에 배경을 입힙니다.
+const makeDefaultLabelBox = (text) => {
+  return (
+    <>
+      <div style={{ backgroundColor: "#005EB8", borderRadius: "4px" }}>
+        {text}
+      </div>
+    </>
+  );
+};
+
 const makeSearchWindow = (
   searchColumns = [],
   onSearch = (col, kw) => alert("search를 눌렀습니다." + col + "/" + kw)
@@ -368,6 +428,22 @@ const makePaginationUI = (pages = []) => {
   );
 };
 
+const makeAccordionUI = (row = {}, columns = [], details = []) => {
+  return (
+    <>
+      <details>
+        <summary>
+          {columns.map((col) => (
+            <span>{row[col]} </span>
+          ))}
+        </summary>
+
+        <div>{details && details.map((detail) => <div>{detail}</div>)}</div>
+      </details>
+    </>
+  );
+};
+
 export {
   makeSectionTitle,
   makeBoldText,
@@ -382,13 +458,19 @@ export {
   makeDefaultLI,
   makeDefaultUlLI,
   makeDefautSectionList,
+  makeDefaultNumberList,
   makeDefaultInfoBox,
   makeDefaultStepBox,
   makeDefaultHeader,
   makeDefaultComment,
+  makeDefaultNumberComment,
   makeDefaultTableBody,
   makeDefaultButton,
+  makeDefaultImageBox,
+  makeDefaultLabelBox,
   makeSearchWindow,
   makeDefaultTotal,
   makePaginationUI,
+  makeAccordionUI,
+  makePrivacyLabelItem,
 };
