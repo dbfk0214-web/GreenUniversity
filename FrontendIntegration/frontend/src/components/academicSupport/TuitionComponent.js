@@ -1,10 +1,10 @@
 import React from "react";
 import Tuition from "../../json/academicSupport/tuition.json";
-import { makeSectionTitle } from "../../util/makeDivUtils/makeCommon";
 import {
   makeEventMonthSection,
   makeLeftRightButton,
 } from "../../util/makeDivUtils/academicSupport/makeAcademicInformation";
+import { makeSectionTitle } from "../../util/makeDivUtils/makeCommonLayout";
 
 const TuitionComponent = () => {
   const columns = ["date", "title"];

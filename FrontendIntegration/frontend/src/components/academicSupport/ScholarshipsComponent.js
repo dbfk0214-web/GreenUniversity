@@ -1,15 +1,17 @@
 import React from "react";
 import Scholarship from "../../json/academicSupport/scholarship.json";
+import { makeCampusTableA } from "../../util/makeDivUtils/aboutGreen/makeGreenOverview";
+import { makeH2Text } from "../../util/makeDivUtils/makeCommonFont";
 import {
-  makeDefaultButton,
   makeDefaultComment,
   makeDefaultInfoBox,
+  makeSectionTitle,
+} from "../../util/makeDivUtils/makeCommonLayout";
+import { makeDefaultButton } from "../../util/makeDivUtils/makeCommonForm";
+import {
   makeDefaultKoreaList,
   makeDefaultLI,
-  makeH2Text,
-  makeSectionTitle,
-} from "../../util/makeDivUtils/makeCommon";
-import { makeCampusTableA } from "../../util/makeDivUtils/aboutGreen/makeGreenOverview";
+} from "../../util/makeDivUtils/makeCommonList";
 
 const ScholarshipsComponent = () => {
   return (

@@ -1,8 +1,6 @@
-import {
-  makeDefaultHeader,
-  makeDefaultNumberComment,
-  makeDefaultTableBody,
-} from "../makeCommon";
+import { makeDefaultHeader } from "../aboutGreen/makeGreenCommon";
+import { makeDefaultNumberComment } from "../makeCommonMedia";
+import { makeDefaultTableBody } from "../makeCommonTable";
 import { makeDefaultNumberCommentB } from "./makeInformationCommon";
 
 const makePrivacyTableA = (

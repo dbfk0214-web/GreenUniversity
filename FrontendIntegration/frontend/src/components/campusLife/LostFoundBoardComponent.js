@@ -1,7 +1,7 @@
 import React from "react";
 import LostFoundBoard from "../../json/campusLife/lost_found_board.json";
-import { makeDefaultTabA } from "../../util/makeDivUtils/makeCommon";
 import { makeLostFoundTable } from "../../util/makeDivUtils/campusLife/makeCampusLostFound";
+import { makeDefaultTabA } from "../../util/makeDivUtils/makeCommonLayout";
 
 const LostFoundBoardComponent = () => {
   const columns = ["id", "title", "date", "commentCount", "location"];

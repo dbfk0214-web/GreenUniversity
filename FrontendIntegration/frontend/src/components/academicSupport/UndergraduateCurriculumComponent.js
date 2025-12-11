@@ -1,14 +1,12 @@
 import React, { useState } from "react";
 import UndergraduateCurriculum from "../../json/academicSupport/undergraduateCurriculum.json";
 import {
-  makeDefaultLI,
-  makeSectionTitle,
-} from "../../util/makeDivUtils/makeCommon";
-import {
   makeAcademicTableA,
   makeAcademicTableB,
   makeGuideSection,
 } from "../../util/makeDivUtils/academicSupport/makeAcademicCurriculm";
+import { makeSectionTitle } from "../../util/makeDivUtils/makeCommonLayout";
+import { makeDefaultLI } from "../../util/makeDivUtils/makeCommonList";
 
 const UndergraduateCurriculumComponent = () => {
   // useState로 데이터 가져오기

@@ -1,4 +1,4 @@
-import { makeDefaultHeader } from "../makeCommon";
+import { makeDefaultHeader } from "../makeCommonTable";
 
 const makeCampusTableA = (headers = [], rows = [], columns = []) => {
   return (

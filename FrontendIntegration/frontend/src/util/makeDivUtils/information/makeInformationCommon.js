@@ -1,4 +1,4 @@
-import { makePrivacyLabelItem } from "../makeCommon";
+import { makePrivacyLabelItem } from "../makeCommonMedia";
 
 const makePrivacyLabelingSection = (items = []) => {
   return (

@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from "react";
 import GreenStauts from "../../json/aboutGreen/green_status.json";
 import {
-  makeDefaultComment,
-  makeSectionTitle,
-} from "../../util/makeDivUtils/makeCommon";
-import {
   makeCampusTableA,
   makeCampusTableB,
 } from "../../util/makeDivUtils/aboutGreen/makeGreenOverview";
 import { makeDefaultTable } from "../../util/makeDivUtils/aboutGreen/makeGreenCommon";
+import {
+  makeDefaultComment,
+  makeSectionTitle,
+} from "../../util/makeDivUtils/makeCommonLayout";
+
 const UniversityOverviewComponent = () => {
   return (
     <div>

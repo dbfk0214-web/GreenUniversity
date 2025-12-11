@@ -1,19 +1,18 @@
 import React from "react";
 import CertificatesIssuance from "../../json/academicSupport/certificatesIssuance.json";
 import {
-  makeDefaultLI,
-  makeDefaultList,
-  makeDefautSectionList,
-  makeH2Text,
-  makeSectionTitle,
-} from "../../util/makeDivUtils/makeCommon";
-import {
   makeAcademicSectionButtonList,
   makeAcademicSectionKoreanList,
   makeAcademicStepBoxes,
   makeAcademicTab,
   makeAcademicTitleLI,
 } from "../../util/makeDivUtils/academicSupport/makeAcademicCommon";
+import { makeH2Text } from "../../util/makeDivUtils/makeCommonFont";
+import { makeSectionTitle } from "../../util/makeDivUtils/makeCommonLayout";
+import {
+  makeDefaultLI,
+  makeDefautSectionList,
+} from "../../util/makeDivUtils/makeCommonList";
 
 const CertificatesIssuanceComponent = () => {
   return (

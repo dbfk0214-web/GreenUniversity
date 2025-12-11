@@ -1,11 +1,8 @@
 import { makeCampusTableA } from "../aboutGreen/makeGreenOverview";
-import {
-  makeDefaultButton,
-  makeDefaultHeader,
-  makeDefaultList,
-  makeDefaultTableBody,
-  makeH2Text,
-} from "../makeCommon";
+import { makeH2Text } from "../makeCommonFont";
+import { makeDefaultButton } from "../makeCommonForm";
+import { makeDefaultList } from "../makeCommonList";
+import { makeDefaultHeader, makeDefaultTableBody } from "../makeCommonTable";
 
 const makeGuideSection = (title, descriptions = [], label) => {
   return (

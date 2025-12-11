@@ -3,10 +3,10 @@ import Notice from "../../json/campusLife/notice.json";
 import { makeSimpleTableA } from "../../util/makeDivUtils/campusLife/makeNotice";
 import {
   makeDefaultTabA,
-  makeDefaultTotal,
-  makeSearchWindow,
   makeSectionTitle,
-} from "../../util/makeDivUtils/makeCommon";
+} from "../../util/makeDivUtils/makeCommonLayout";
+import { makeSearchWindow } from "../../util/makeDivUtils/makeCommonForm";
+import { makeDefaultTotal } from "../../util/makeDivUtils/makeCommonMedia";
 
 const NoticesComponent = () => {
   const noticeColumns = ["id", "title", "date", "team", "attachment"];

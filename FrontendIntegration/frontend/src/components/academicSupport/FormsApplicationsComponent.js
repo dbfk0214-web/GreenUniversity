@@ -1,13 +1,13 @@
 import React from "react";
 import FormApplications from "../../json/academicSupport/formApplications.json";
+import { makeLostFoundTable } from "../../util/makeDivUtils/campusLife/makeCampusLostFound";
+import { makeSearchWindow } from "../../util/makeDivUtils/makeCommonForm";
+import { makePaginationUI } from "../../util/makeDivUtils/makeCommonInteraction";
 import {
   makeDefaultTabA,
-  makeDefaultTotal,
-  makePaginationUI,
-  makeSearchWindow,
   makeSectionTitle,
-} from "../../util/makeDivUtils/makeCommon";
-import { makeLostFoundTable } from "../../util/makeDivUtils/campusLife/makeCampusLostFound";
+} from "../../util/makeDivUtils/makeCommonLayout";
+import { makeDefaultTotal } from "../../util/makeDivUtils/makeCommonMedia";
 
 const FormsApplicationsComponent = () => {
   const columns = [

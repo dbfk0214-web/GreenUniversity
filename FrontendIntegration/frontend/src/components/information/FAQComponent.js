@@ -1,12 +1,10 @@
 import React from "react";
 import FAQ from "../../json/information/faq.json";
-import {
-  makeDefaultTotal,
-  makePaginationUI,
-  makeSearchWindow,
-  makeSectionTitle,
-} from "../../util/makeDivUtils/makeCommon";
 import { makeAcodignTable } from "../../util/makeDivUtils/information/makeFAQ";
+import { makeSectionTitle } from "../../util/makeDivUtils/makeCommonLayout";
+import { makePaginationUI } from "../../util/makeDivUtils/makeCommonInteraction";
+import { makeSearchWindow } from "../../util/makeDivUtils/makeCommonForm";
+import { makeDefaultTotal } from "../../util/makeDivUtils/makeCommonMedia";
 
 const FAQComponent = () => {
   const columns = ["id", "title", "category", "commentCount"];

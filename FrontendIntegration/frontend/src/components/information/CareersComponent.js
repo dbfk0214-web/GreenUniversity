@@ -1,14 +1,13 @@
 import React from "react";
 import Careers from "../../json/information/careers.json";
-import { recursiveRender } from "../../util/makeComponentUtil";
 import {
   makeDefaultTabA,
-  makeDefaultTableBody,
-  makeDefaultTotal,
-  makePaginationUI,
-  makeSearchWindow,
   makeSectionTitle,
-} from "../../util/makeDivUtils/makeCommon";
+} from "../../util/makeDivUtils/makeCommonLayout";
+import { makeSearchWindow } from "../../util/makeDivUtils/makeCommonForm";
+import { makeDefaultTableBody } from "../../util/makeDivUtils/makeCommonTable";
+import { makePaginationUI } from "../../util/makeDivUtils/makeCommonInteraction";
+import { makeDefaultTotal } from "../../util/makeDivUtils/makeCommonMedia";
 
 const CareersComponent = () => {
   const columns = [

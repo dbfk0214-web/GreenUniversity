@@ -1,12 +1,7 @@
-import {
-  makeDefaultButton,
-  makeDefaultKoreaList,
-  makeDefaultLI,
-  makeDefaultStepBox,
-  makeDefaultTabA,
-  makeH2Text,
-  makeH3Text,
-} from "../makeCommon";
+import { makeH2Text, makeH3Text } from "../makeCommonFont";
+import { makeDefaultButton } from "../makeCommonForm";
+import { makeDefaultStepBox, makeDefaultTabA } from "../makeCommonLayout";
+import { makeDefaultKoreaList, makeDefaultLI } from "../makeCommonList";
 
 const makeAcademicTab = (title, tabs) => {
   return (

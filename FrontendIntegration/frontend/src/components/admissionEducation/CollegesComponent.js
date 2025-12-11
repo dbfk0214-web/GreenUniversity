@@ -1,7 +1,7 @@
 import React from "react";
 import SuppportColleges from "../../json/admissionEducation/support_colleges.json";
 import { makeCollegeSection } from "../../util/makeDivUtils/admissionEducation/makeAdmissionCommon";
-import { makeSectionTitle } from "../../util/makeDivUtils/makeCommon";
+import { makeSectionTitle } from "../../util/makeDivUtils/makeCommonLayout";
 
 const CollegesComponent = () => {
   const columns = ["name", "officeLocation", "phone"];

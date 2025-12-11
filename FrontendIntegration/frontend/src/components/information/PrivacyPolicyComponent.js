@@ -1,18 +1,19 @@
 import React from "react";
 import Private from "../../json/information/private.json";
-import {
-  makeDefaultInfoBox,
-  makeDefaultLI,
-  makeDefaultNumberList,
-  makeH2Text,
-  makeH3Text,
-  makeSectionTitle,
-} from "../../util/makeDivUtils/makeCommon";
 import { makePrivacyLabelingSection } from "../../util/makeDivUtils/information/makeInformationCommon";
 import {
   makePrivacyTable,
   makePrivacyTableA,
 } from "../../util/makeDivUtils/information/makePrivacy";
+import { makeH2Text, makeH3Text } from "../../util/makeDivUtils/makeCommonFont";
+import {
+  makeDefaultInfoBox,
+  makeSectionTitle,
+} from "../../util/makeDivUtils/makeCommonLayout";
+import {
+  makeDefaultLI,
+  makeDefaultNumberList,
+} from "../../util/makeDivUtils/makeCommonList";
 
 const PrivacyPolicyComponent = () => {
   return (

@@ -1,4 +1,4 @@
-import { makeDefaultTableBody } from "../makeCommon";
+import { makeDefaultTableBody } from "../makeCommonTable";
 
 const makeLostFoundTable = (rows = [], columns = []) => {
   return (

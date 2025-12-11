@@ -1,5 +1,5 @@
-import { makeLostFoundTable } from "../campusLife/makeCampusLostFound";
-import { makeAccordionUI, makeDefaultTabA } from "../makeCommon";
+import { makeAccordionUI } from "../makeCommonInteraction";
+import { makeDefaultTabA } from "../makeCommonLayout";
 
 const makeAcodignTable = (tabs = [], rows = [], columns = []) => {
   return (

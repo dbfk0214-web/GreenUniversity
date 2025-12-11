@@ -1,9 +1,7 @@
 import React from "react";
-import { recursiveRender } from "../../util/makeComponentUtil";
 import SupportGraduate from "../../json/admissionEducation/support_graduateSchool.json";
 import { makeCollegeSection } from "../../util/makeDivUtils/admissionEducation/makeAdmissionCommon";
-import { makeSectionTitle } from "../../util/makeDivUtils/makeCommon";
-
+import { makeSectionTitle } from "../../util/makeDivUtils/makeCommonLayout";
 const GraduateSchoolComponent = () => {
   const columns = ["name", "officeLocation", "phone"];
 

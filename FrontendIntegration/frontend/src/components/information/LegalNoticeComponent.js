@@ -1,7 +1,7 @@
 import React from "react";
 import LegalNotice from "../../json/information/legalNotice.json";
-import { makeSectionTitle } from "../../util/makeDivUtils/makeCommon";
 import { makeAcademicTitleLI } from "../../util/makeDivUtils/academicSupport/makeAcademicCommon";
+import { makeSectionTitle } from "../../util/makeDivUtils/makeCommonLayout";
 
 const LegalNoticeComponent = () => {
   return (

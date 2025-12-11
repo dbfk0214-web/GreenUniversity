@@ -1,7 +1,7 @@
 import React from "react";
 import StudentActivities from "../../json/campusLife/student_activities.json";
-import { makeSectionTitle } from "../../util/makeDivUtils/makeCommon";
 import { makeOrganCard } from "../../util/makeDivUtils/campusLife/makeCampusCommon";
+import { makeSectionTitle } from "../../util/makeDivUtils/makeCommonLayout";
 
 const StudentActivitiesComponent = () => {
   return (

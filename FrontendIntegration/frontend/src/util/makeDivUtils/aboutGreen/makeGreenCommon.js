@@ -1,4 +1,4 @@
-import { makeDefaultHeader, makeDefaultTableBody } from "../makeCommon";
+import { makeDefaultHeader, makeDefaultTableBody } from "../makeCommonTable";
 
 // 공통적으로 사용할 테이블A 양식입니다.
 const makeDefaultTable = (headers = [], rows = [], columns = []) => {
