@@ -6,7 +6,7 @@ import {
   makeSentenceImageSectionA,
   makeSentenceImageSectionB,
 } from "../../util/makeDivUtils/aboutGreen/makeGreenCommon";
-import { makeSectionTitle } from "../../util/makeDivUtils/makeCommon";
+import { makeSectionTitle } from "../../util/makeDivUtils/makeCommonLayout";
 
 const CampusGuideComponent = () => {
   const [mainContent, setMainContent] = useState(GreenGuide.mainContent);

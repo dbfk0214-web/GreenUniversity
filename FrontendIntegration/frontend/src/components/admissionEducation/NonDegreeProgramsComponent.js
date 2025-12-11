@@ -1,7 +1,7 @@
 import React from "react";
 import SupportNonDegreeProgram from "../../json/admissionEducation/support_nonDegreeProgram.json";
-import { makeSectionTitle } from "../../util/makeDivUtils/makeCommon";
 import { makeNonDegreeProgram } from "../../util/makeDivUtils/admissionEducation/makeAdmissionNonDegree";
+import { makeSectionTitle } from "../../util/makeDivUtils/makeCommonLayout";
 
 const NonDegreeProgramsComponent = () => {
   return (

@@ -1,7 +1,7 @@
 import React from "react";
 import Organ from "../../json/campusLife/organ.json";
-import { makeSectionTitle } from "../../util/makeDivUtils/makeCommon";
 import { makeOrganCard } from "../../util/makeDivUtils/campusLife/makeCampusCommon";
+import { makeSectionTitle } from "../../util/makeDivUtils/makeCommonLayout";
 
 const AdministrativeOfficesInstitutesComponent = () => {
   return (

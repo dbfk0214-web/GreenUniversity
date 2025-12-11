@@ -1,4 +1,4 @@
-import { makeDefaultUlLI } from "../makeCommon";
+import { makeDefaultUlLI } from "../makeCommonList";
 
 const makeNonDegreeProgram = (rows = []) => {
   return (

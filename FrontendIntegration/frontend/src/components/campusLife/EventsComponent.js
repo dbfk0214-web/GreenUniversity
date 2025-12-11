@@ -1,6 +1,6 @@
 import Event from "../../json/campusLife/event.json";
 import { makeEventCard } from "../../util/makeDivUtils/campusLife/makeEvent";
-import { makeSectionTitle } from "../../util/makeDivUtils/makeCommon";
+import { makeSectionTitle } from "../../util/makeDivUtils/makeCommonLayout";
 
 const EventsComponent = () => {
   var eventDataArray = [];
