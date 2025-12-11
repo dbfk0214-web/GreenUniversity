@@ -1,8 +1,6 @@
-import {
-  makeBoldText,
-  makeDefaultInfoBox,
-  makeDefaultUlLI,
-} from "../makeCommon";
+import { makeBoldText } from "../makeCommonFont";
+import { makeDefaultInfoBox } from "../makeCommonLayout";
+import { makeDefaultUlLI } from "../makeCommonList";
 
 const makeOrganCard = (title, location, phone = [], items = []) => {
   return (

@@ -1,4 +1,4 @@
-import { makeDefaultTag } from "../makeCommon";
+import { makeDefaultTag } from "../makeCommonLayout";
 
 // 이벤트 카드 기능입니다.
 const makeEventCard = (

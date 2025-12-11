@@ -1,12 +1,19 @@
 import React from "react";
 import LegalNotice from "../../json/information/legalNotice.json";
-import { recursiveRender } from "../../util/makeComponentUtil";
+import { makeAcademicTitleLI } from "../../util/makeDivUtils/academicSupport/makeAcademicCommon";
+import { makeSectionTitle } from "../../util/makeDivUtils/makeCommonLayout";
 
 const LegalNoticeComponent = () => {
   return (
     <div>
-      LegalNoticeComponent
-      {LegalNotice && recursiveRender(LegalNotice)}
+      <div>{makeSectionTitle("법적고지")}</div>
+      <div>
+        {LegalNotice.map((legalNotice) => (
+          <div>
+            {makeAcademicTitleLI(legalNotice.title, legalNotice.contents)}
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
