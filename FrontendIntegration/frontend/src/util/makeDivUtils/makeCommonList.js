@@ -1,117 +1,48 @@
-import { makeH3Text } from "./makeCommonFont";
-
-const makeDefaultList = (lists = []) => {
+// 내부용 코드입니다. 
+// 리스트를 렌더링합니다.
+const renderListItems = (items, renderItem, wrapperClass) => {
   return (
-    <div>
-      {lists.map((list, index) => (
-        <li key={index} style={{ marginBottom: "6px", lineHeight: "1.5" }}>
-          {list}
-        </li>
-      ))}
+    <div className={wrapperClass}>
+      {items.map((item, idx) => renderItem(item, idx))}
     </div>
   );
 };
 
-const makeDefaultNumberList = (contents = []) => {
-  return (
-    <>
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
-        {contents.map((content, idx) => (
-          <div>
-            {idx + 1}.{content}
-          </div>
-        ))}
-      </div>
-    </>
-  );
-};
+// 점이 있는 버전입니다.
+const makeCommonDiscList = (items, columns = 1) => {
+  const wrapperClass =
+    columns === 2 ? "grid grid-cols-2 gap-x-4" : "space-y-1";
 
-const makeDefaultKoreaList = (lists = []) => {
-  const koreaList = [
-    "가",
-    "나",
-    "다",
-    "라",
-    "마",
-    "바",
-    "사",
-    "아",
-    "자",
-    "차",
-    "카",
-    "타",
-    "파",
-    "하",
-  ];
   return (
-    <>
-      {lists.map((list, idx) => (
-        <div>
-          {koreaList[idx]} {list}
-        </div>
-      ))}
-    </>
-  );
-};
-
-// 기본적인 ul,li구조입니다.
-const makeDefaultLI = (lists = []) => {
-  return (
-    <ul
-      style={{
-        listStyleType: "disc",
-        paddingLeft: "20px",
-        margin: "10px 0",
-      }}
-    >
-      {lists.map((list, index) => (
-        <li key={index} style={{ marginBottom: "6px", lineHeight: "1.5" }}>
-          {list}
-        </li>
+    <ul className={`list-disc pl-5 ${wrapperClass}`}>
+      {items.map((item, idx) => (
+        <li key={idx}>{item}</li>
       ))}
     </ul>
   );
 };
 
-// 리스트 항목을 ul,li로 출력합니다.
-const makeDefaultUlLI = (lists = []) => {
-  return (
-    <>
-      <ul
-        style={{
-          listStyleType: "disc",
-          paddingLeft: "20px",
-          display: "grid",
-          gridTemplateColumns: "repeat(2,1fr)",
-          backgroundColor: "green",
-        }}
-      >
-        {lists.map((list) => (
-          <li>{list}</li>
-        ))}
-      </ul>
-    </>
+// 점이 없는 버전입니다.
+const makeCommonNumberList = (items, columns = 1) => {
+  const wrapperClass =
+    columns === 2 ? "grid grid-cols-2 gap-x-4" : "space-y-1";
+
+  return renderListItems(
+    items,
+    (item, idx) => <div key={idx}>{idx + 1}. {item}</div>,
+    wrapperClass
   );
 };
 
-const makeDefautSectionList = (title, contents = []) => {
-  return (
-    <>
-      <div>{makeH3Text(title)}</div>
-      <div>
-        {contents.map((content) => (
-          <div>{content}</div>
-        ))}
-      </div>
-    </>
+// 가~하로 변형된 버전입니다.
+const makeCommonKoreaList = (items) => {
+  const korea = ["가","나","다","라","마","바","사","아","자","차","카","타","파","하"];
+
+  return renderListItems(
+    items,
+    (item, idx) => <div key={idx}>{korea[idx]} {item}</div>,
+    "space-y-1"
   );
 };
 
-export {
-  makeDefaultList,
-  makeDefaultNumberList,
-  makeDefaultKoreaList,
-  makeDefaultLI,
-  makeDefaultUlLI,
-  makeDefautSectionList,
-};
+export {makeCommonDiscList,makeCommonNumberList, makeCommonKoreaList}

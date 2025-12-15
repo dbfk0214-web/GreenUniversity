@@ -60,10 +60,34 @@ const makePrivacyLabelItem = (image, label = "", contents = []) => {
   );
 };
 
-export {
-  makeDefaultImageBox,
-  makeDefaultLabelBox,
-  makeDefaultNumberComment,
-  makeDefaultTotal,
-  makePrivacyLabelItem,
+// 텍스트에 태그를 입힙니다.
+const makeCommonTag = (text) => {
+  return (
+    <span
+      style={{
+        display: "inline-block",
+        color: "#333",
+        fontSize: "14px",
+        backgroundColor: "green",
+      }}
+    >
+      {text}
+    </span>
+  );
 };
+
+const makeCommonBadge	= (text, options = {}) => {
+
+}
+const makeCommonImage	= (src, alt = "") => {
+
+}
+
+// export {
+//   makeDefaultImageBox,
+//   makeDefaultLabelBox,
+//   makeDefaultNumberComment,
+//   makeDefaultTotal,
+//   makePrivacyLabelItem,
+// };
+export {makeCommonTag, makeCommonBadge, makeCommonImage}
