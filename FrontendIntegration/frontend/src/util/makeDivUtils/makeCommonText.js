@@ -1,3 +1,14 @@
+// h1 ~ h3 전용 타이틀 (기본 스타일 유지 + size만 변경)
+const makeCommonHeading = (text, level = 1, sizeClass = "") => {
+  const baseClass = "font-bold text-gray-900";
+  const className = `${baseClass} ${sizeClass}`;
+
+  if (level === 1) return <h1 className={className}>{text}</h1>;
+  if (level === 2) return <h2 className={className}>{text}</h2>;
+  return <h3 className={className}>{text}</h3>;
+};
+
+
 // 타이틀을 만듭니다.
 const makeCommonTitle = (
   mainTitle, 
@@ -29,4 +40,4 @@ const makeCommonComment = (
 };
 
 
-export {makeCommonTitle,makeCommonComment}
+export {makeCommonHeading,makeCommonTitle,makeCommonComment}
