@@ -1,36 +1,43 @@
-import React from "react";
 import AcademicInformation from "../../json/academicSupport/academicInformation.json";
 import {
-  makeEventMonthSection,
-  makeLeftRightButton,
-} from "../../util/makeDivUtils/academicSupport/makeAcademicInformation";
+  makeCommonHeading,
+  makeCommonTitle,
+} from "../../util/makeDivUtils/makeCommonText";
 
 const AcademicInformationComponent = () => {
-  const columns = ["date", "title"];
-
   return (
-    <div>
-      {/* 학사 일정 */}
-      {/* 예시로 2025년 1학기를 넣었습니다. */}
-      <h1>학사 일정</h1>
-      <div>{makeLeftRightButton("2025년 1학기")}</div>
+    <div className="space-y-8">
+      <div>{makeCommonTitle("학사일정", "2025학년도")}</div>
 
-      {/* 학사일정표 */}
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(800px, 1fr))",
-        }}
-      >
+      <div className="border-t border-gray-300">
         {AcademicInformation &&
-          AcademicInformation.map((information) => (
-            <div style={{ border: "1px solid #ccc", display: "flex" }}>
-              {makeEventMonthSection(
-                information.month,
-                information.monthEng,
-                information.events,
-                columns
-              )}
+          AcademicInformation.map((info, idx) => (
+            <div
+              key={idx}
+              className="flex flex-col md:flex-row border-b border-gray-300"
+            >
+              <div className="w-full md:w-48 shrink-0 bg-gray-50 md:bg-transparent md:border-r border-gray-300 px-6 py-6 flex flex-row md:flex-col items-baseline md:items-start gap-2">
+                {makeCommonHeading(info.month, 2, "text-blue-700 font-bold")}
+                <span className="text-sm text-gray-500 font-medium tracking-wider">
+                  {info.monthEng}
+                </span>
+              </div>
+
+              <div className="flex-1 px-6 py-6">
+                <ul className="space-y-3">
+                  {info.events.map((event, eventIdx) => (
+                    <li
+                      key={eventIdx}
+                      className="flex flex-col sm:flex-row sm:gap-6"
+                    >
+                      <span className="text-gray-900 font-semibold w-36 shrink-0">
+                        {event.date}
+                      </span>
+                      <span className="text-gray-700">{event.title}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
           ))}
       </div>

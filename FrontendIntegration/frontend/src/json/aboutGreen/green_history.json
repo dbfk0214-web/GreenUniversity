@@ -1,9 +1,9 @@
 {
   "pageTitle": "연희·세브란스의 역사",
   "mainSection": {
-    "title": "연세-세브란스의 역사 (1885-1956)",
+    "title": ["연세-세브란스의 역사", "(1885-1956)"],
     "description": "연세대학교는 1885년 4월 10일, 한국 최초의 근대식 병원인 '광혜원'이 설립되면서 그 역사를 시작하였습니다. 광혜원은 곧 '제중원'으로 개칭되었고, 제중원은 의료와 교육을 함께 담당하는 기관이었습니다. 선교사 알렌(H. N. Allen)이 설립하고, 언더우드(H. G. Underwood), 아펜젤러(H. G. Appenzeller), 스크랜튼(W. B. Scranton) 등이 협력하여 제중원에서 의료와 교육 사업을 펼쳤습니다. 특히, 언더우드는 연희전문학교의 전신인 '조선기독교대학(Chosen Christian College)'을, 에비슨(O. R. Avison)은 세브란스의학교의 전신인 '제중원의학교'를 설립하는 데 결정적인 역할을 하였습니다.",
-    "imageUrl": "https://placehold.co/600x200/333/ccc?text=Yonsei-Severance+History"
+    "imageUrl": "https://search.pstatic.net/common/?src=http%3A%2F%2Fimgnews.naver.net%2Fimage%2F213%2F2017%2F07%2F12%2F0000975738_001_20170712114934862.jpg&type=a340"
   },
   "timeline": {
     "leftColumn": [

@@ -1,88 +1,50 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import GreenSpirit from "../../json/aboutGreen/green_spirit.json";
-import { makeSection } from "../../util/makeDivUtils/aboutGreen/makeGreenVision";
+import {
+  makeCommonHeading,
+  makeCommonTitle,
+} from "../../util/makeDivUtils/makeCommonText";
 
 const GreenVisionComponent = () => {
-  const columns = ["title", "description"];
-
   return (
-    <div>
+    <div className="space-y-8">
       {/* title */}
-      <div>
-        <h1>건학정신,연세이념</h1>
-      </div>
+      <div>{makeCommonTitle("건학정신, 연세이념")}</div>
 
       {/* section */}
-      <div>
+      <div className="border-t border-gray-300">
         {GreenSpirit &&
-          GreenSpirit.sections.map((section) => (
-            <div style={{ border: "1px solid #ccc", display: "flex" }}>
-              {makeSection(section.title, section.description)}
+          GreenSpirit.sections.map((section, idx) => (
+            <div key={idx} className="flex border-b border-gray-300">
+              {/* 좌측 타이틀 */}
+              <div className="w-48 shrink-0 border-r border-gray-300 px-6 py-6">
+                {makeCommonHeading(section.title, {
+                  level: 2,
+                  className: "text-blue-700 font-semibold",
+                })}
+              </div>
+
+              {/* 우측 내용 */}
+              <div className="flex-1 px-6 py-6 leading-relaxed text-gray-800">
+                {section.description}
+              </div>
             </div>
           ))}
       </div>
 
-      {/* 이미지  */}
-      <div>
-        <img src="test" alt="대체 이미지" />
+      {/* 이미지 */}
+      <div className="pt-6 w-full max-w-md">
+        <img
+          src="https://www.yonsei.ac.kr/sites/sc/images/sub/truth-icon.png"
+          alt="진리 아이콘"
+        />
+        <img
+          src="https://www.yonsei.ac.kr/sites/sc/images/sub/freedom-icon.png"
+          alt="자유 아이콘"
+        />
       </div>
     </div>
   );
 };
 
 export default GreenVisionComponent;
-
-// lagacy 코드
-// import dd from "../../json/aboutGreen/green_spirit.json";
-
-// const GreenVisionComponent = () => {
-//   const [data, setData] = useState(dd);
-//   // useEffect(() => {
-//   //   setData(dd);
-//   //   console.log(data);
-//   // }, []);
-//   // console.log(data);
-
-//   const mm = (data) => {
-//     return (
-//       <div className="p-4 bg-gray-50">
-//         {data &&
-//           data.map((i, idx) => (
-//             <div key={idx} className="p-2 mb-2 rounded-none">
-//               {i}
-//             </div>
-//           ))}
-//       </div>
-//     );
-//   };
-
-//   return (
-//     <div>
-//       <div>{data.pageTitle}</div>
-//       <div>
-//         {data &&
-//           data.sections.map((t, tt) => (
-//             <div key={tt} className="p-2">
-//               <div>
-//                 <div>{t.title}</div>
-//                 <div>{t.description}</div>
-//               </div>
-//             </div>
-//           ))}
-//       </div>
-//       <div>
-//         {data &&
-//           data.diagram.items.map((i, idx) => (
-//             <div key={idx} className="p-4">
-//               <div>
-//                 <div>{i.label}</div>
-//                 <div>{i.value}</div>
-//               </div>
-//             </div>
-//           ))}
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default GreenVisionComponent;

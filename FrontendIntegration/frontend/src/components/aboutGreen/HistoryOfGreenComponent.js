@@ -1,98 +1,38 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import GreenHistory from "../../json/aboutGreen/green_history.json";
+// 2. makeForced 유틸리티 임포트
 import {
   makeMainSection,
   makeTimeLine,
-} from "../../util/makeDivUtils/aboutGreen/makeGreenHistory";
+} from "../../util/makeDivUtils/makeForced";
+// 3. makeCommonText 유틸리티 임포트
+import { makeCommonTitle } from "../../util/makeDivUtils/makeCommonText";
 
 const HistoryOfGreenComponent = () => {
-  const [mainSection, setMainSection] = useState(GreenHistory.mainSection);
-
-  const columns = ["date", "description", "imageUrl"];
+  // JSON 데이터의 mainSection을 state로 관리 (필요에 따라 직접 사용 가능)
+  const [mainSection] = useState(GreenHistory.mainSection);
 
   return (
-    <div>
-      {/* 타이틀 */}
-      <div>{GreenHistory.pageTitle}</div>
+    <div className="space-y-16 font-sans">
+      {/* 1. 페이지 타이틀 */}
+      <div>{makeCommonTitle(GreenHistory.pageTitle)}</div>
 
-      {/* MainSection */}
-      <div>
-        {mainSection &&
-          makeMainSection(
-            mainSection.title,
-            mainSection.description,
-            mainSection.imageUrl
-          )}
-      </div>
+      {/* 2. 메인 섹션 (Hero 이미지 + 설명) */}
+      {mainSection &&
+        makeMainSection(
+          [mainSection.subTitle, mainSection.title], // makeMainSection의 title은 배열 형태를 기대함 (makeForced.js 참조)
+          mainSection.description,
+          mainSection.imageUrl
+        )}
 
-      {/* 도표 */}
-      <div>
-        {mainSection &&
-          makeTimeLine(
-            GreenHistory.timeline.leftColumn,
-            GreenHistory.timeline.rightColumn
-          )}
-      </div>
+      {/* 3. 타임라인 섹션 */}
+      {/* makeTimeLine은 좌측 열 데이터와 우측 열 데이터를 인자로 받음 */}
+      {makeTimeLine(
+        GreenHistory.timeline.leftColumn,
+        GreenHistory.timeline.rightColumn
+      )}
     </div>
   );
 };
 
 export default HistoryOfGreenComponent;
-
-// import his from "../../json/aboutGreen/green_history.json";
-// const HistoryOfGreenComponent = () => {
-//   const [data, setData] = useState(his);
-
-//   const star = (test) => {
-//     return (
-//       <div className="p-4 m-2 bg-slate-200">
-//         {test &&
-//           test.map((i, idx) => (
-//             <div key={idx} className="p-2">
-//               {i}
-//             </div>
-//           ))}
-//       </div>
-//     );
-//   };
-
-//   return (
-//     <div>
-//       <div>{data.pageTitle}</div>
-//       <div>{data.mainSection.title}</div>
-//       <div>{data.mainSection.description}</div>
-//       <div>{data.mainSection.imageUrl}</div>
-//       <div>
-//         {data &&
-//           data.timeline.leftColumn.map((i, idx) => (
-//             <div key={idx} className="p-2">
-//               <div>
-//                 <div>{i.date}</div>
-//                 <div>{i.description}</div>
-//                 <div>{i.imageUrl}</div>
-//               </div>
-//             </div>
-//           ))}
-//       </div>
-//       <div>
-//         {data &&
-//           data.timeline.rightColumn.map((i, idx) => (
-//             <div key={idx} className="p-2">
-//               <div>
-//                 <div>{i.date}</div>
-//                 <div>{i.description}</div>
-//                 <div>{i.imageUrl}</div>
-//               </div>
-//             </div>
-//           ))}
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default HistoryOfGreenComponent;
-
-// const rr = { timeline: [leftColumn, rightColumn] };
-// const bbb = (a, b) => {
-//   return data[a][b];
-// };
