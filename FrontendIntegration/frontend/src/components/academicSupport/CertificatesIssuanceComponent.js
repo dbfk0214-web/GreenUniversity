@@ -1,84 +1,88 @@
 import React from "react";
 import CertificatesIssuance from "../../json/academicSupport/certificatesIssuance.json";
-import {
-  makeAcademicSectionButtonList,
-  makeAcademicSectionKoreanList,
-  makeAcademicStepBoxes,
-  makeAcademicTab,
-  makeAcademicTitleLI,
-} from "../../util/makeDivUtils/academicSupport/makeAcademicCommon";
-import { makeH2Text } from "../../util/makeDivUtils/makeCommonFont";
-import { makeSectionTitle } from "../../util/makeDivUtils/makeCommonLayout";
-import {
-  makeDefaultLI,
-  makeDefautSectionList,
-} from "../../util/makeDivUtils/makeCommonList";
+// import {
+//   makeAcademicSectionButtonList,
+//   makeAcademicSectionKoreanList,
+//   makeAcademicStepBoxes,
+//   makeAcademicTab,
+//   makeAcademicTitleLI,
+// } from "../../util/makeDivUtils/academicSupport/makeAcademicCommon";
+// import { makeH2Text } from "../../util/makeDivUtils/makeCommonFont";
+// import { makeSectionTitle } from "../../util/makeDivUtils/makeCommonLayout";
+// import {
+//   makeDefaultLI,
+//   makeDefautSectionList,
+// } from "../../util/makeDivUtils/makeCommonList";
 
 const CertificatesIssuanceComponent = () => {
   return (
     <div>
-      <div>{makeSectionTitle("인터넷 증명 발급")}</div>
-      <div>
-        {makeAcademicTab(
-          CertificatesIssuance.certificate_overview.title,
-          CertificatesIssuance.tabs
-        )}
-      </div>
-      <div>
-        {CertificatesIssuance.certificate_overview.items
-          .slice(0, 2)
-          .map((item) => (
-            <div>{makeDefautSectionList(item.title, item.content)}</div>
-          ))}
-        {
-          <div>
-            {makeAcademicSectionKoreanList(
-              CertificatesIssuance.certificate_overview.items[2].title,
-              CertificatesIssuance.certificate_overview.items[2].content
-            )}
-          </div>
-        }
-      </div>
-      <div>{makeH2Text(CertificatesIssuance.certificate_methods.title)}</div>
-      <div>
-        <div>
-          {makeAcademicSectionButtonList(
-            CertificatesIssuance.certificate_methods.internet_issue.title,
-            CertificatesIssuance.certificate_methods.internet_issue.content
-          )}
-        </div>
-      </div>
-      <div>
-        <div>{makeH2Text(CertificatesIssuance.instant_issue_steps.title)}</div>
-        <div>
-          {makeAcademicStepBoxes(
-            CertificatesIssuance.instant_issue_steps.title,
-            CertificatesIssuance.instant_issue_steps.steps
-          )}
-        </div>
-      </div>
-      <div>
-        <div>{makeH2Text(CertificatesIssuance.post_issue_steps.title)}</div>
-        <div>
-          {makeAcademicStepBoxes(
-            CertificatesIssuance.post_issue_steps.title,
-            CertificatesIssuance.post_issue_steps.steps
-          )}
-        </div>
-        <div>
-          {makeDefaultLI(CertificatesIssuance.certificate_post_info.items)}
-        </div>
-      </div>
-      <div>
-        <div>
-          {makeAcademicTitleLI(
-            CertificatesIssuance.certificate_error_contact.title,
-            CertificatesIssuance.certificate_error_contact.phones
-          )}
-        </div>
-      </div>
+    
     </div>
   );
 };
 
 export default CertificatesIssuanceComponent;
+
+
+
+  // <div>{makeSectionTitle("인터넷 증명 발급")}</div>
+  //     <div>
+  //       {makeAcademicTab(
+  //         CertificatesIssuance.certificate_overview.title,
+  //         CertificatesIssuance.tabs
+  //       )}
+  //     </div>
+  //     <div>
+  //       {CertificatesIssuance.certificate_overview.items
+  //         .slice(0, 2)
+  //         .map((item) => (
+  //           <div>{makeDefautSectionList(item.title, item.content)}</div>
+  //         ))}
+  //       {
+  //         <div>
+  //           {makeAcademicSectionKoreanList(
+  //             CertificatesIssuance.certificate_overview.items[2].title,
+  //             CertificatesIssuance.certificate_overview.items[2].content
+  //           )}
+  //         </div>
+  //       }
+  //     </div>
+  //     <div>{makeH2Text(CertificatesIssuance.certificate_methods.title)}</div>
+  //     <div>
+  //       <div>
+  //         {makeAcademicSectionButtonList(
+  //           CertificatesIssuance.certificate_methods.internet_issue.title,
+  //           CertificatesIssuance.certificate_methods.internet_issue.content
+  //         )}
+  //       </div>
+  //     </div>
+  //     <div>
+  //       <div>{makeH2Text(CertificatesIssuance.instant_issue_steps.title)}</div>
+  //       <div>
+  //         {makeAcademicStepBoxes(
+  //           CertificatesIssuance.instant_issue_steps.title,
+  //           CertificatesIssuance.instant_issue_steps.steps
+  //         )}
+  //       </div>
+  //     </div>
+  //     <div>
+  //       <div>{makeH2Text(CertificatesIssuance.post_issue_steps.title)}</div>
+  //       <div>
+  //         {makeAcademicStepBoxes(
+  //           CertificatesIssuance.post_issue_steps.title,
+  //           CertificatesIssuance.post_issue_steps.steps
+  //         )}
+  //       </div>
+  //       <div>
+  //         {makeDefaultLI(CertificatesIssuance.certificate_post_info.items)}
+  //       </div>
+  //     </div>
+  //     <div>
+  //       <div>
+  //         {makeAcademicTitleLI(
+  //           CertificatesIssuance.certificate_error_contact.title,
+  //           CertificatesIssuance.certificate_error_contact.phones
+  //         )}
+  //       </div>
+  //     </div>

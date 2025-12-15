@@ -45,4 +45,23 @@ const makeCommonKoreaList = (items) => {
   );
 };
 
-export {makeCommonDiscList,makeCommonNumberList, makeCommonKoreaList}
+// 숫자 코멘트를 특수문자 번호(① ② ③ ...)로 출력합니다.
+const makeCommonCircledNumberList = (
+  items = [],
+  startIdx = 0
+) => {
+  const numberIcons = ["①","②","③","④","⑤","⑥","⑦","⑧","⑨","⑩"];
+
+  return renderListItems(
+    items,
+    (item, idx) => (
+      <div key={idx}>
+        {numberIcons[idx + startIdx]} {item}
+      </div>
+    ),
+    "space-y-1"
+  );
+};
+
+
+export {makeCommonDiscList,makeCommonNumberList, makeCommonKoreaList,makeCommonCircledNumberList}

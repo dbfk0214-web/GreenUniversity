@@ -1,13 +1,13 @@
-import { makeDefaultTableBody } from "../makeCommonTable";
+// import { makeDefaultTableBody } from "../makeCommonTable";
 
-const makeLostFoundTable = (rows = [], columns = []) => {
-  return (
-    <>
-      <table>
-        <tbody>{makeDefaultTableBody(rows, columns)}</tbody>
-      </table>
-    </>
-  );
-};
+// const makeLostFoundTable = (rows = [], columns = []) => {
+//   return (
+//     <>
+//       <table>
+//         <tbody>{makeDefaultTableBody(rows, columns)}</tbody>
+//       </table>
+//     </>
+//   );
+// };
 
-export { makeLostFoundTable };
+// export { makeLostFoundTable };

@@ -1,15 +1,33 @@
 const makeCommonButton = (label, onClick) => {
-
-}
-const makeCommonInput =	(placeholder, onChange) => {
-
-}
-const makeCommonSearchBox	= (searchColumns, onSearch, options = {}) => {
-
-}
-const makeCommonSelect = (options, onChange) => {
-
+    return (
+        <>
+            <button onClick={onClick}>{label}</button>
+        </>
+    )
 }
 
-// export { makeDefaultButton, makeSearchWindow };
-export {makeCommonButton, makeCommonInput, makeCommonSearchBox, makeCommonSelect}
+const makeCommonInput = (placeholder, onChange, type, name) => {
+  return (
+    <>
+        <input name={name} type={type} placeholder={placeholder} onChange={onChange} />
+    </>
+  );
+};
+
+const makeCommonSelectBox = (options, onChange, optionStyle = "") => {
+    return (
+        <>
+            <select onChange={onChange}>
+                {options.map((option, i) => (
+                    <option 
+                    className={optionStyle}
+                    key={i} value={option.value}>
+                    {option.label}
+                    </option>
+                ))}
+            </select>
+        </>
+    );
+}
+
+export {makeCommonButton, makeCommonInput, makeCommonSelectBox}

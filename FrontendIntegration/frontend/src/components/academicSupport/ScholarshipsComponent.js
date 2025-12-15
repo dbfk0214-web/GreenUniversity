@@ -1,22 +1,30 @@
 import React from "react";
 import Scholarship from "../../json/academicSupport/scholarship.json";
-import { makeCampusTableA } from "../../util/makeDivUtils/aboutGreen/makeGreenOverview";
-import { makeH2Text } from "../../util/makeDivUtils/makeCommonFont";
-import {
-  makeDefaultComment,
-  makeDefaultInfoBox,
-  makeSectionTitle,
-} from "../../util/makeDivUtils/makeCommonLayout";
-import { makeDefaultButton } from "../../util/makeDivUtils/makeCommonForm";
-import {
-  makeDefaultKoreaList,
-  makeDefaultLI,
-} from "../../util/makeDivUtils/makeCommonList";
+// import { makeCampusTableA } from "../../util/makeDivUtils/aboutGreen/makeGreenOverview";
+// import { makeH2Text } from "../../util/makeDivUtils/makeCommonFont";
+// import {
+//   makeDefaultComment,
+//   makeDefaultInfoBox,
+//   makeSectionTitle,
+// } from "../../util/makeDivUtils/makeCommonLayout";
+// import { makeDefaultButton } from "../../util/makeDivUtils/makeCommonForm";
+// import {
+//   makeDefaultKoreaList,
+//   makeDefaultLI,
+// } from "../../util/makeDivUtils/makeCommonList";
 
 const ScholarshipsComponent = () => {
   return (
     <div>
-      <div>{makeSectionTitle("장학금 안내")}</div>
+      
+    </div>
+  );
+};
+
+export default ScholarshipsComponent;
+
+
+{/* <div>{makeSectionTitle("장학금 안내")}</div>
       <div>
         <div>
           {makeDefaultInfoBox([Scholarship.scholarship_intro.information])}
@@ -56,9 +64,4 @@ const ScholarshipsComponent = () => {
       <div>
         <div>{makeH2Text(Scholarship.double_support.title)}</div>
         <div>{makeDefaultLI(Scholarship.double_support.rules)}</div>
-      </div>
-    </div>
-  );
-};
-
-export default ScholarshipsComponent;
+      </div> */}
