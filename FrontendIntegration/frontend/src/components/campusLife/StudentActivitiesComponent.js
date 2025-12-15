@@ -1,30 +1,43 @@
 import React from "react";
 import StudentActivities from "../../json/campusLife/student_activities.json";
-// import { makeOrganCard } from "../../util/makeDivUtils/campusLife/makeCampusCommon";
-// import { makeSectionTitle } from "../../util/makeDivUtils/makeCommonLayout";
+import { makeCommonTitle } from "../../util/makeDivUtils/makeCommonText";
+import { makeCommonCard } from "../../util/makeDivUtils/makeCommonCard";
+import { makeCommonLabel } from "../../util/makeDivUtils/makeCommonMedia";
 
 const StudentActivitiesComponent = () => {
+  if (!StudentActivities) return null;
+
   return (
-    <div>
-    
+    <div className="max-w-6xl mx-auto space-y-12">
+      {/* 자치활동 */}
+      <section className="space-y-6">
+        {makeCommonTitle("자치활동")}
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {StudentActivities.map((activity, idx) =>
+            makeCommonCard(
+              activity.title,
+              [
+                makeCommonLabel(activity.location, "text-sm text-gray-600"),
+                ...(activity.phone || []).map((p, i) =>
+                  makeCommonLabel(p, "text-sm text-gray-600", i)
+                ),
+                <ul
+                  key="items"
+                  className="list-disc pl-5 text-sm text-gray-700"
+                >
+                  {activity.items.map((item, i) => (
+                    <li key={i}>{item}</li>
+                  ))}
+                </ul>,
+              ],
+              {}
+            )
+          )}
+        </div>
+      </section>
     </div>
   );
 };
 
 export default StudentActivitiesComponent;
-
-
-
-  // <div>{makeSectionTitle("자치활동")}</div>
-  //     <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr" }}>
-  //       {StudentActivities.map((studentActivities) => (
-  //         <div>
-  //           {makeOrganCard(
-  //             studentActivities.title,
-  //             studentActivities.location,
-  //             studentActivities.phone,
-  //             studentActivities.items
-  //           )}
-  //         </div>
-  //       ))}
-  //     </div>

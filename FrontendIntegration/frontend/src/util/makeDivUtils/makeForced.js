@@ -96,4 +96,112 @@ const makeTimeLine = (leftRow = [], rightRow = []) => {
   );
 };
 
-export { makeMainSection, makeTimeLine };
+const makeCampusTableA = (headers = [], rows = [], columns = []) => {
+  return (
+    <table className="w-full border border-gray-300">
+      <thead>
+        <tr>
+          {headers.map((h, i) => (
+            <th key={i} className="border border-gray-300 p-2 bg-gray-100">
+              {h}
+            </th>
+          ))}
+        </tr>
+      </thead>
+
+      <tbody>
+        {rows.map((row, rIdx) => (
+          <tr key={rIdx}>
+            {columns.map((col, cIdx) => {
+              const cell = row[col];
+
+              if (typeof cell === "object") {
+                if (cell.rowspan === 0 || cell.colspan === 0) return null;
+
+                return (
+                  <td
+                    key={cIdx}
+                    rowSpan={cell.rowspan}
+                    colSpan={cell.colspan}
+                    className="border border-gray-300 p-2"
+                  >
+                    {cell.value}
+                  </td>
+                );
+              }
+
+              return (
+                <td key={cIdx} className="border border-gray-300 p-2">
+                  {cell}
+                </td>
+              );
+            })}
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  );
+};
+
+const makeCampusTableB = (
+  rows = [],
+  columns = [],
+  resultRows = [],
+  count = 3
+) => {
+  const tableRows = [];
+
+  rows.forEach((row, idx) => {
+    // 일반 row
+    tableRows.push(
+      <tr key={`row-${idx}`}>
+        {columns.map((col, cIdx) => {
+          const cell = row[col];
+
+          if (typeof cell === "object") {
+            if (cell.rowspan === 0) return null;
+
+            return (
+              <td
+                key={cIdx}
+                rowSpan={cell.rowspan}
+                className="border border-gray-300 p-2"
+              >
+                {cell.value}
+              </td>
+            );
+          }
+
+          return (
+            <td key={cIdx} className="border border-gray-300 p-2">
+              {cell}
+            </td>
+          );
+        })}
+      </tr>
+    );
+
+    // 결과 row
+    if (idx % count === count - 1 && resultRows.length > 0) {
+      const result = resultRows[Math.floor(idx / count)];
+      tableRows.push(
+        <tr key={`result-${idx}`}>
+          <td
+            colSpan={columns.length}
+            className="border border-gray-300 p-2 bg-gray-50"
+          >
+            {result?.keyword} / {result?.count}
+          </td>
+        </tr>
+      );
+    }
+  });
+
+  return (
+    <table className="w-full border border-gray-300">
+      <tbody>{tableRows}</tbody>
+    </table>
+  );
+};
+
+export { makeMainSection, makeTimeLine, makeCampusTableA, makeCampusTableB };

@@ -18,27 +18,14 @@ import { makeDefaultLI } from "./makeCommonList";
 
 // 텍스트에 태그를 입힙니다.
 const makeCommonTag = (text, style) => {
-  return (
-    <span className={style}
-    >
-      {text}
-    </span>
-  );
+  return <span className={style}>{text}</span>;
 };
 
-const makeCommonLabel = (
-  text,
-  style
-) => {
-  return (
-    <span className={style}>
-      {text}
-    </span>
-  );
+const makeCommonLabel = (text, style) => {
+  return <span className={style}>{text}</span>;
 };
 
-
-const makeCommonImage	= (src, alt = "", style) => {
+const makeCommonImage = (src, alt = "", style) => {
   return (
     <>
       <div className={style}>
@@ -46,6 +33,6 @@ const makeCommonImage	= (src, alt = "", style) => {
       </div>
     </>
   );
-}
+};
 
-export {makeCommonTag, makeCommonLabel, makeCommonImage}
+export { makeCommonTag, makeCommonLabel, makeCommonImage };
