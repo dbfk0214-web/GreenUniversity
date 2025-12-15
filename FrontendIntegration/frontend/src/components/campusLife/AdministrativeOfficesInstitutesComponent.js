@@ -1,24 +1,36 @@
 import React from "react";
 import Organ from "../../json/campusLife/organ.json";
-import { makeOrganCard } from "../../util/makeDivUtils/campusLife/makeCampusCommon";
-import { makeSectionTitle } from "../../util/makeDivUtils/makeCommonLayout";
+import { makeCommonTitle } from "../../util/makeDivUtils/makeCommonText";
+import { makeCommonCard } from "../../util/makeDivUtils/makeCommonCard";
+import { makeCommonLabel } from "../../util/makeDivUtils/makeCommonMedia";
 
 const AdministrativeOfficesInstitutesComponent = () => {
   return (
-    <div>
-      <div>{makeSectionTitle("신촌캠퍼스")}</div>
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr" }}>
-        {Organ.신촌캠퍼스.map((organ) => (
-          <div>
-            {makeOrganCard(
+    <div className="max-w-6xl mx-auto space-y-12">
+      {/* 신촌캠퍼스 */}
+      <section className="space-y-6">
+        {makeCommonTitle("신촌캠퍼스")}
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {Organ.신촌캠퍼스.map((organ, idx) =>
+            makeCommonCard(
               organ.title,
-              organ.location,
-              organ.phone,
-              organ.items
-            )}
-          </div>
-        ))}
-      </div>
+              [
+                makeCommonLabel(organ.location, "text-sm text-gray-600"),
+                ...organ.phone.map((p, i) =>
+                  makeCommonLabel(p, "text-sm text-gray-600", i)
+                ),
+                <ul className="list-disc pl-5 text-sm text-gray-700">
+                  {organ.items.map((item, i) => (
+                    <li key={i}>{item}</li>
+                  ))}
+                </ul>,
+              ],
+              {}
+            )
+          )}
+        </div>
+      </section>
     </div>
   );
 };

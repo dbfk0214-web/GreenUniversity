@@ -1,24 +1,41 @@
 import React from "react";
 import Welfare from "../../json/campusLife/welfare.json";
-import { makeOrganCard } from "../../util/makeDivUtils/campusLife/makeCampusCommon";
-import { makeSectionTitle } from "../../util/makeDivUtils/makeCommonLayout";
+import { makeCommonTitle } from "../../util/makeDivUtils/makeCommonText";
+import { makeCommonCard } from "../../util/makeDivUtils/makeCommonCard";
+import { makeCommonLabel } from "../../util/makeDivUtils/makeCommonMedia";
 
 const ServiceGuideComponent = () => {
+  if (!Welfare) return null;
+
   return (
-    <div>
-      <div>{makeSectionTitle("신촌 복지/체육시설")}</div>
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr" }}>
-        {Welfare.map((welfare) => (
-          <div>
-            {makeOrganCard(
+    <div className="max-w-6xl mx-auto space-y-12">
+      {/* 신촌 복지/체육시설 */}
+      <section className="space-y-6">
+        {makeCommonTitle("신촌 복지·체육시설")}
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {Welfare.map((welfare, idx) =>
+            makeCommonCard(
               welfare.title,
-              welfare.location,
-              welfare.phone,
-              welfare.items
-            )}
-          </div>
-        ))}
-      </div>
+              [
+                makeCommonLabel(welfare.location, "text-sm text-gray-600"),
+                ...(welfare.phone || []).map((p, i) =>
+                  makeCommonLabel(p, "text-sm text-gray-600", i)
+                ),
+                <ul
+                  key="items"
+                  className="list-disc pl-5 text-sm text-gray-700"
+                >
+                  {welfare.items.map((item, i) => (
+                    <li key={i}>{item}</li>
+                  ))}
+                </ul>,
+              ],
+              {}
+            )
+          )}
+        </div>
+      </section>
     </div>
   );
 };

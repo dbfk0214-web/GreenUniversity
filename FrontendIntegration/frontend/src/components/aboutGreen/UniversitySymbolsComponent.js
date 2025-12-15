@@ -1,97 +1,40 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import GreenIcon from "../../json/aboutGreen/green_icon.json";
-import { makeImageSection } from "../../util/makeDivUtils/aboutGreen/makeGreenSymbols";
+import { makeCommonHeading } from "../../util/makeDivUtils/makeCommonText";
+import { makeCommonLabel } from "../../util/makeDivUtils/makeCommonMedia";
 
 const UniversitySymbolsComponent = () => {
-  const [mainContent, setMainContent] = useState(GreenIcon.page.mainContent);
+  const [mainContent] = useState(GreenIcon.page.mainContent);
 
   return (
-    <div>
-      <div>
-        {makeImageSection(
-          mainContent.backgroundImage,
-          mainContent.textOverlay.title,
-          mainContent.textOverlay.paragraphs
-        )}
+    <div className="w-full">
+      <div className="relative w-full min-h-[420px] overflow-hidden rounded-2xl">
+        {/* background image */}
+        <div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: `url(${mainContent.backgroundImage})` }}
+        />
+
+        {/* overlay */}
+        <div className="absolute inset-0 bg-gradient-to-r from-black/60 to-black/10" />
+
+        {/* text content */}
+        <div className="relative z-10 max-w-6xl px-12 py-20 text-white space-y-10">
+          {makeCommonHeading(
+            mainContent.textOverlay.title,
+            2,
+            "inline-block text-white text-2xl font-bold pb-2 border-b-2 border-white"
+          )}
+
+          <div className="space-y-6 max-w-2xl leading-relaxed">
+            {mainContent.textOverlay.paragraphs.map((p, idx) => (
+              <div key={idx}>{makeCommonLabel(p, "text-white/90")}</div>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );
 };
 
 export default UniversitySymbolsComponent;
-
-// import React, { useState } from "react";
-// import ic from "../../json/aboutGreen/green_icon.json";
-
-// const ItemList = ({ items, className }) => {
-//   if (!Array.isArray(items) || items.length === 0) {
-//     return null;
-//   }
-
-//   return (
-//     <>
-//       {items.map((item, idx) => (
-//         <div key={idx} className={className}>
-//           {item}
-//         </div>
-//       ))}
-//     </>
-//   );
-// };
-
-// const UniversitySymbolsComponent = () => {
-//   const [icon, setIcon] = useState(ic);
-//   if (!icon || !icon.page) {
-//     return <div>데이터를 불러오는 중...</div>;
-//   }
-
-//   const { page } = icon;
-
-//   const {
-//     title: pageTitle,
-//     header = {},
-//     mainContent = {},
-//     floatingUI = {},
-//   } = page;
-//   // 2단계: 각 섹션에서 하위 데이터 추출
-//   const { title: headerTitle, icons } = header;
-//   const { backgroundImage, textOverlay = {} } = mainContent;
-//   const { title: textTitle, paragraphs } = textOverlay;
-//   const { quickMenu = {}, scrollToTop = {} } = floatingUI;
-//   // 3단계: 가장 깊은 데이터 추출
-//   const { label: quickMenuLabel } = quickMenu;
-//   const { label: scrollTopLabel, icon: scrollTopIcon } = scrollToTop;
-
-//   return (
-//     <div>
-//       <div>{pageTitle}</div>
-
-//       <div>
-//         <div>{headerTitle}</div>
-//       </div>
-
-//       <ItemList items={icons} className="p-3" />
-
-//       <div>
-//         <div>{backgroundImage}</div>
-//       </div>
-
-//       <div>
-//         <div>{textTitle}</div>
-
-//         <ItemList items={paragraphs} className="p-3" />
-//       </div>
-
-//       <div>
-//         <div>{quickMenuLabel}</div>
-//       </div>
-
-//       <div>
-//         <div>{scrollTopLabel}</div>
-//         <div>{scrollTopIcon}</div>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default UniversitySymbolsComponent;

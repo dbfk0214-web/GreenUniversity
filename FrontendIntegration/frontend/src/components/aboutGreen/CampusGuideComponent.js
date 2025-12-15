@@ -1,143 +1,101 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import GreenGuide from "../../json/aboutGreen/green_guide.json";
 import {
-  makeDefaultImageSection,
-  makeDefaultSentence,
-  makeSentenceImageSectionA,
-  makeSentenceImageSectionB,
-} from "../../util/makeDivUtils/aboutGreen/makeGreenCommon";
-import { makeSectionTitle } from "../../util/makeDivUtils/makeCommonLayout";
+  makeCommonHeading,
+  makeCommonTitle,
+} from "../../util/makeDivUtils/makeCommonText";
+import { makeCommonLabel } from "../../util/makeDivUtils/makeCommonMedia";
 
 const CampusGuideComponent = () => {
-  const [mainContent, setMainContent] = useState(GreenGuide.mainContent);
+  const [mainContent] = useState(GreenGuide.mainContent);
 
   return (
-    <div>
-      {/* section 1 */}
-      <div>
-        {/* heroImage */}
-        <div>
-          {makeDefaultImageSection(
-            mainContent.heroImage,
-            "Yonsei University :",
-            ["Sinchon Campus"]
-          )}
-        </div>
-        {/* 소개 */}
-        <div>{makeDefaultSentence(mainContent.introduction)}</div>
-      </div>
+    <div className="flex flex-col gap-24">
+      {/* =========================
+          Section 1 : Hero
+      ========================= */}
+      <section className="relative w-full min-h-[420px] rounded-2xl overflow-hidden">
+        {/* background */}
+        <div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: `url(${mainContent.heroImage})` }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/70 to-black/20" />
 
-      {/* section 2 */}
-      <div>
-        <div>{makeSectionTitle("지리적 배경")}</div>
-        <div>
-          {makeSentenceImageSectionA(
-            mainContent.sections[0].image,
-            mainContent.sections[0].locationInfo.title,
-            mainContent.sections[0].locationInfo.paragraphs
+        {/* text */}
+        <div className="relative z-10 max-w-6xl px-12 py-24 text-white space-y-6">
+          {makeCommonHeading(
+            "Yonsei University :",
+            2,
+            "text-white text-3xl font-bold"
           )}
+          {makeCommonHeading("Sinchon Campus", 3, "text-yellow-300 text-xl")}
         </div>
-      </div>
-      {/* section 3 */}
-      <div>
-        <div>{makeSectionTitle("지리적 배경")}</div>
-        <div style={{ display: "flex", flexWrap: "wrap", gap: "16px" }}>
+      </section>
+
+      {/* introduction */}
+      <section className="max-w-5xl mx-auto text-gray-700 leading-relaxed space-y-4">
+        {mainContent.introduction.map((p, idx) => (
+          <div key={idx}>{makeCommonLabel(p)}</div>
+        ))}
+      </section>
+
+      {/* =========================
+          Section 2 : Location
+      ========================= */}
+      <section className="max-w-6xl mx-auto space-y-8">
+        {makeCommonTitle("지리적 배경")}
+
+        <div className="flex flex-col md:flex-row gap-10 items-start">
+          <img
+            src={mainContent.sections[0].image}
+            alt=""
+            className="w-full md:w-1/2 rounded-xl object-cover"
+          />
+
+          <div className="space-y-4">
+            {makeCommonHeading(
+              mainContent.sections[0].locationInfo.title,
+              3,
+              "text-blue-700"
+            )}
+            {mainContent.sections[0].locationInfo.paragraphs.map((p, idx) => (
+              <div key={idx}>{makeCommonLabel(p)}</div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* =========================
+          Section 3 : Historical Sites
+      ========================= */}
+      <section className="max-w-6xl mx-auto space-y-8">
+        {makeCommonTitle("역사적 배경")}
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
           {mainContent.sections[1].historicalSites.map((history, idx) => (
-            <div key={idx} style={{ width: "48%", marginBottom: "12px" }}>
-              {makeSentenceImageSectionB(
-                history.image,
-                history.name,
-                history.description
-              )}
+            <div
+              key={idx}
+              className="flex flex-col gap-4 bg-white rounded-xl shadow-sm overflow-hidden"
+            >
+              <img
+                src={history.image}
+                alt={history.name}
+                className="w-full h-[220px] object-cover"
+              />
+
+              <div className="p-6 space-y-3">
+                {makeCommonHeading(history.name, 3, "text-blue-700")}
+                {history.description.map((d, i) => (
+                  <div key={i}>{makeCommonLabel(d)}</div>
+                ))}
+              </div>
             </div>
           ))}
         </div>
-      </div>
+      </section>
     </div>
   );
 };
 
 export default CampusGuideComponent;
-
-// import React, { useState } from "react";
-// import guide from "../../json/aboutGreen/green_guide.json";
-
-// const StarList = ({ i, className }) => {
-//   if (!Array.isArray(i) || i.length === 0) {
-//     return null;
-//   }
-
-//   return (
-//     <>
-//       {i.map((iv, idx) => (
-//         <div key={idx} className={className}>
-//           {iv}
-//         </div>
-//       ))}
-//     </>
-//   );
-// };
-
-// const CampusGuideComponent = () => {
-//   const [gid, setGid] = useState(guide);
-
-//   const { header = {}, mainContent = {} } = gid; // page -> gid 로 변경
-
-//   const { title, icons = [], navigationTabs = {} } = header;
-//   const { name, active } = navigationTabs;
-//   const { introduction = [], sections = [] } = mainContent;
-
-//   return (
-//     <div>
-//       <div>{title}</div>
-
-//       <StarList i={icons} className="p-3" />
-
-//       <div>
-//         <div>{name}</div>
-//       </div>
-
-//       <div>
-//         <div>{active}</div>
-//       </div>
-
-//       <hr />
-//       <h3>소개</h3>
-
-//       <StarList i={introduction} className="introduction-paragraph" />
-
-//       <div>
-//         {sections.map((section, idx) => (
-//           <div key={idx}>
-//             <h4>{section.title}</h4>
-
-//             {section.locationInfo && (
-//               <div>
-//                 <h5>{section.locationInfo.title}</h5>
-//                 <p>
-//                   <i>{section.locationInfo.quote}</i>
-//                 </p>
-//                 <StarList
-//                   i={section.locationInfo.paragraphs}
-//                   className="paragraph-item"
-//                 />
-//               </div>
-//             )}
-//             {section.historicalSites && (
-//               <div>
-//                 {section.historicalSites.map((site) => (
-//                   <div key={site.name}>
-//                     <h5>{site.name}</h5>
-//                     <img src={site.image} alt={site.name} width="100" />
-//                     <p>{site.description}</p>
-//                   </div>
-//                 ))}
-//               </div>
-//             )}
-//           </div>
-//         ))}
-//       </div>
-//     </div>
-//   );
-// };
-// export default CampusGuideComponent;

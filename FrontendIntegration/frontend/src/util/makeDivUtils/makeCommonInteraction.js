@@ -1,20 +1,4 @@
-const makePaginationUI = (pages = []) => {
-  return (
-    <div style={{ display: "flex" }}>
-      <div>처음으로</div>
-      <div>이전</div>
-
-      {pages.map((page) => (
-        <div>{page}</div>
-      ))}
-
-      <div>다음</div>
-      <div>마지막</div>
-    </div>
-  );
-};
-
-const makeAccordionUI = (row = {}, columns = [], details = []) => {
+const makeCommonAccordion  = (row = {}, columns = [], details = []) => {
   return (
     <>
       <details>
@@ -30,4 +14,21 @@ const makeAccordionUI = (row = {}, columns = [], details = []) => {
   );
 };
 
-export { makePaginationUI, makeAccordionUI };
+const makeCommonPagination  = (pages = []) => {
+  return (
+    <div style={{ display: "flex" }}>
+      <div>처음으로</div>
+      <div>이전</div>
+
+      {pages.map((page) => (
+        <div>{page}</div>
+      ))}
+
+      <div>다음</div>
+      <div>마지막</div>
+    </div>
+  );
+};
+
+
+export { makeCommonAccordion , makeCommonPagination  };
