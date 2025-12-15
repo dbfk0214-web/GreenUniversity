@@ -1,64 +1,38 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import GreenHistory from "../../json/aboutGreen/green_history.json";
+// 2. makeForced 유틸리티 임포트
 import {
   makeMainSection,
   makeTimeLine,
-} from "../../util/makeDivUtils/aboutGreen/makeGreenHistory";
-import { makeCommonLabel } from "../../util/makeDivUtils/makeCommonMedia";
-import { makeCommonCard } from "../../util/makeDivUtils/makeCommonCard";
-import {
-  makeCommonHeading,
-  makeCommonTitle,
-} from "../../util/makeDivUtils/makeCommonText";
+} from "../../util/makeDivUtils/makeForced";
+// 3. makeCommonText 유틸리티 임포트
+import { makeCommonTitle } from "../../util/makeDivUtils/makeCommonText";
 
 const HistoryOfGreenComponent = () => {
-  const [mainSection, setMainSection] = useState(GreenHistory.mainSection);
-
-  const columns = ["date", "description", "imageUrl"];
+  // JSON 데이터의 mainSection을 state로 관리 (필요에 따라 직접 사용 가능)
+  const [mainSection] = useState(GreenHistory.mainSection);
 
   return (
-    <div>
-      {/* 타이틀 */}
+    <div className="space-y-16 font-sans">
+      {/* 1. 페이지 타이틀 */}
       <div>{makeCommonTitle(GreenHistory.pageTitle)}</div>
-      {/* MainSection */}
-      <div className="relative rounded-2xl overflow-hidden bg-[#0b2a3d]">
-        <img
-          src={mainSection.imageUrl}
-          alt=""
-          className="w-full h-[260px] object-contain"
-        />
 
-        {/* 텍스트 */}
-        <div className="absolute top-0 left-0 p-8 text-white">
-          {makeCommonHeading(mainSection.title[0], 2, "bg-blue-600 px-3 py-1")}
-          {makeCommonHeading(mainSection.title[1], 3, "text-yellow-300 mt-2")}
-        </div>
-      </div>
-      {/* 설명 */}
-      <div>{makeCommonLabel(mainSection.description)}</div>
+      {/* 2. 메인 섹션 (Hero 이미지 + 설명) */}
+      {mainSection &&
+        makeMainSection(
+          [mainSection.subTitle, mainSection.title], // makeMainSection의 title은 배열 형태를 기대함 (makeForced.js 참조)
+          mainSection.description,
+          mainSection.imageUrl
+        )}
 
-      {/* 도표 */}
-      <div></div>
+      {/* 3. 타임라인 섹션 */}
+      {/* makeTimeLine은 좌측 열 데이터와 우측 열 데이터를 인자로 받음 */}
+      {makeTimeLine(
+        GreenHistory.timeline.leftColumn,
+        GreenHistory.timeline.rightColumn
+      )}
     </div>
   );
 };
 
 export default HistoryOfGreenComponent;
-
-// <div>
-//       {mainSection &&
-//         makeMainSection(
-//           mainSection.title,
-//           mainSection.description,
-//           mainSection.imageUrl
-//         )}
-//     </div>
-
-//     {/* 도표 */}
-//     <div>
-//       {mainSection &&
-//         makeTimeLine(
-//           GreenHistory.timeline.leftColumn,
-//           GreenHistory.timeline.rightColumn
-//         )}
-//     </div>
