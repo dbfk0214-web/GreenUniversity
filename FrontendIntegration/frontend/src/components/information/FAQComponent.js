@@ -1,41 +1,31 @@
 import React, { useState } from "react";
-// 1. JSON 데이터 임포트
 import FAQ from "../../json/information/faq.json";
-// 2. 유틸리티 임포트
 import { makeCommonTitle } from "../../util/makeDivUtils/makeCommonText";
 
 const FAQComponent = () => {
-  // 상태 관리
-  const [activeTab, setActiveTab] = useState("전체보기"); // 현재 선택된 탭
-  const [openId, setOpenId] = useState(null); // 현재 열려있는 질문 ID (아코디언)
-  const [searchType, setSearchType] = useState("sj"); // 검색 조건 (제목/내용)
-  const [searchText, setSearchText] = useState(""); // 검색어
+  const [activeTab, setActiveTab] = useState("전체보기");
+  const [openId, setOpenId] = useState(null);
+  const [searchType, setSearchType] = useState("sj");
+  const [searchText, setSearchText] = useState("");
 
-  // 아코디언 토글 함수
   const toggleAccordion = (id) => {
     setOpenId(openId === id ? null : id);
   };
 
-  // 탭 변경 함수
   const handleTabClick = (tab) => {
     setActiveTab(tab);
-    setOpenId(null); // 탭 변경 시 아코디언 닫기
-    setSearchText(""); // 탭 변경 시 검색어 초기화 (선택사항)
+    setOpenId(null);
+    setSearchText("");
   };
 
-  // 데이터 필터링 로직
   const filteredData = FAQ.datas.filter((item) => {
-    // 1. 탭 필터
     const isTabMatch = activeTab === "전체보기" || item.category === activeTab;
 
-    // 2. 검색어 필터
     let isSearchMatch = true;
     if (searchText) {
       if (searchType === "sj") {
-        // 제목 검색
         isSearchMatch = item.title.includes(searchText);
       } else {
-        // 내용(작성자) 검색 - JSON 구조상 내용은 comments 배열임
         isSearchMatch = item.comments.some((c) => c.includes(searchText));
       }
     }
@@ -45,10 +35,8 @@ const FAQComponent = () => {
 
   return (
     <div className="font-sans text-[#444]">
-      {/* 1. 페이지 타이틀 */}
       <div className="mb-8">{makeCommonTitle("학사 FAQ", "학사안내")}</div>
 
-      {/* 2. 상단 안내 박스 (온라인도우미) */}
       <div className="border border-[#dcdcdc] bg-[#f9f9f9] p-6 mb-8 flex flex-col md:flex-row justify-between items-center gap-4 rounded-sm">
         <div className="flex-1">
           <strong className="block text-[#222] text-lg mb-2 font-bold">
@@ -67,9 +55,7 @@ const FAQComponent = () => {
         </a>
       </div>
 
-      {/* 3. 검색 및 카테고리 탭 영역 */}
       <div className="mb-4">
-        {/* 3-1. 카테고리 탭 (모바일 대응 wrap) */}
         <ul className="flex flex-wrap gap-1 mb-6 border-b border-[#ccc] px-2">
           {FAQ.tabs.map((tab, idx) => {
             const isActive = activeTab === tab;
@@ -90,7 +76,6 @@ const FAQComponent = () => {
           })}
         </ul>
 
-        {/* 3-2. 검색창 (우측 정렬 느낌) */}
         <div className="bg-[#f8f9fa] border border-[#e5e5e5] p-4 flex justify-end items-center mb-8 rounded-sm">
           <div className="flex gap-1">
             <select
@@ -113,7 +98,7 @@ const FAQComponent = () => {
             />
             <button
               className="bg-[#444] text-white h-9 px-4 text-sm font-medium hover:bg-[#222] transition-colors"
-              onClick={() => {}} // 검색 로직은 이미 상태 기반으로 작동
+              onClick={() => {}}
             >
               검색
             </button>
@@ -121,7 +106,6 @@ const FAQComponent = () => {
         </div>
       </div>
 
-      {/* 4. FAQ 리스트 (아코디언) */}
       <div className="border-t-2 border-[#333] mb-10">
         <ul className="divide-y divide-[#e5e5e5]">
           {filteredData.length > 0 ? (
@@ -130,7 +114,6 @@ const FAQComponent = () => {
 
               return (
                 <li key={item.id}>
-                  {/* 질문 영역 */}
                   <button
                     onClick={() => toggleAccordion(item.id)}
                     className={`w-full text-left p-5 flex items-start gap-3 hover:bg-[#f9f9f9] transition-colors focus:outline-none group ${
@@ -146,12 +129,9 @@ const FAQComponent = () => {
                     </strong>
                   </button>
 
-                  {/* 답변 영역 */}
                   {isOpen && (
                     <div className="bg-[#f7f7f7] px-6 py-6 border-t border-[#f0f0f0] border-b border-[#e5e5e5]">
                       <div className="text-[15px] leading-7 text-[#555]">
-                        {/* HTML 태그가 포함될 수 있는 경우 dangerouslySetInnerHTML을 쓰거나, 
-                            현재 JSON 처럼 문자열 배열인 경우 map으로 처리 */}
                         {item.comments.map((comment, cIdx) => (
                           <p key={cIdx} className="mb-2 last:mb-0 break-keep">
                             {comment}
