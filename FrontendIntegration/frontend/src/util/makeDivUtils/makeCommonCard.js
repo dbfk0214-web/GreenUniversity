@@ -1,52 +1,67 @@
-// 내부 함수입니다.
-// 카드의 헤더부분 입니다.
-const renderCardHeader = (title,action, actionBtn = "버튼") => {
-    return (
-        <>
-            <div>{title}</div>
-            {action && <div onClick={action}>{actionBtn}</div>}
-        </>
-    )
-}
+// util/makeDivUtils/makeCommonCard.js
 
-// 카드의 내용 부분입니다.
-const renderCardContents = (contents = [], layout = "column", columns) => {
-  const layoutClassMap = {
-    column: "flex flex-col gap-3",
-    row: "flex flex-row gap-4",
-    grid: `grid grid-cols-${columns} gap-4`,
-  };
-
-  const layoutClass = layoutClassMap[layout] || layoutClassMap["column"];
-
+const renderCardHeader = (
+  title,
+  action,
+  actionBtn = "더보기",
+  headerStyle = ""
+) => {
   return (
-    <>
-        <div className={layoutClass}>
-            {contents.map((content, contentIdx) => (
-                <div key={contentIdx}>
-                    {content}
-                </div>
-            ))}
-        </div>
-    </>
-  )
-}
+    <div className={`flex justify-between items-start ${headerStyle}`}>
+      <strong className="text-[17px] font-bold break-keep leading-tight">
+        {title}
+      </strong>
 
-const makeCommonCard = (title, contents = [], options = {}) => {
-  const {
-    action = null,
-    layout = "column",
-    columns = 2,
-  } = options;
-
-  return (
-    <div className="border rounded-lg p-4 bg-white">
-      <div>{renderCardHeader(title, action)}</div>
-      <div>{renderCardContents(contents, layout, columns)}</div>
+      {action && (
+        <button
+          onClick={action}
+          className="text-[11px] text-[#888] border px-2 py-1 rounded-sm hover:text-[#002c62]"
+        >
+          {actionBtn}
+        </button>
+      )}
     </div>
   );
 };
 
+const renderCardContents = (contents = [], layout = "column", columns) => {
+  const layoutClassMap = {
+    column: "flex flex-col gap-1 text-sm text-[#666]",
+    row: "flex flex-row gap-4",
+    grid: `grid grid-cols-${columns} gap-4`,
+  };
+
+  return (
+    <div className={layoutClassMap[layout] || layoutClassMap.column}>
+      {contents.map((content, idx) => (
+        <div key={idx}>{content}</div>
+      ))}
+    </div>
+  );
+};
+
+const makeCommonCard = (title, contents = [], options = {}) => {
+  const {
+    action = null,
+    actionBtn,
+    layout = "column",
+    columns = 2,
+    variant = "default", // ⭐ 추가
+  } = options;
+
+  const variantStyleMap = {
+    default: "border rounded-lg p-4 bg-white",
+    program:
+      "bg-white border border-[#dcdcdc] rounded-sm p-6 hover:shadow-md transition-shadow",
+  };
+
+  return (
+    <div className={variantStyleMap[variant] || variantStyleMap.default}>
+      {renderCardHeader(title, action, actionBtn, "mb-3 pb-3 border-b")}
+      {renderCardContents(contents, layout, columns)}
+    </div>
+  );
+};
 
 const makeCommonStepBox = (step = 1, mainDescription, subDescriptions = []) => {
   return (
@@ -62,6 +77,4 @@ const makeCommonStepBox = (step = 1, mainDescription, subDescriptions = []) => {
   );
 };
 
-
-
-export {makeCommonCard, makeCommonStepBox}
+export { makeCommonCard, makeCommonStepBox };

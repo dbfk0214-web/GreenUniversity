@@ -8,8 +8,8 @@ const ServiceGuideComponent = () => {
   if (!Welfare) return null;
 
   return (
-    <div className="max-w-6xl mx-auto space-y-12">
-      {/* 신촌 복지/체육시설 */}
+    <div className="max-w-6xl w-full mx-auto space-y-12">
+      {/* 신촌 복지·체육시설 */}
       <section className="space-y-6">
         {makeCommonTitle("신촌 복지·체육시설")}
 
@@ -31,7 +31,13 @@ const ServiceGuideComponent = () => {
                   ))}
                 </ul>,
               ],
-              {}
+              {
+                action: () => {
+                  // 필요 시 링크 연결
+                  // window.open(welfare.link, "_blank");
+                },
+                actionBtn: "더보기",
+              }
             )
           )}
         </div>

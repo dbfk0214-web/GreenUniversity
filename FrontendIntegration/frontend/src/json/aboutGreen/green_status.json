@@ -12,19 +12,19 @@
       {
         "division": { "value": "본교", "rowspan": 5 },
         "campus": { "value": "신촌캠퍼스", "colspan": 2 },
-        "subCampus": "",
+        "subCampus": { "value": "", "colspan": 0 },
         "details": "14대학 17대학원",
         "address": "서울 서대문구 연세로 50"
       },
       {
         "division": { "value": "", "rowspan": 0 },
         "campus": { "value": "국제캠퍼스", "colspan": 2 },
-        "subCampus": "",
+        "subCampus": { "value": "", "colspan": 0 },
         "details": "5대학",
         "address": "인천 연수구 송도과학로 85"
       },
       {
-        "division": { "value": "본교", "rowspan": 0 },
+        "division": { "value": "", "rowspan": 0 },
         "campus": { "value": "의료원", "rowspan": 3 },
         "subCampus": "신촌세브란스",
         "details": { "value": "3대학 3대학원", "rowspan": 3 },
@@ -34,27 +34,27 @@
         "division": { "value": "", "rowspan": 0 },
         "campus": { "value": "", "rowspan": 0 },
         "subCampus": "강남세브란스",
-        "details": "",
+        "details": { "value": "", "rowspan": 0 },
         "address": "서울 강남구 언주로 211"
       },
       {
         "division": { "value": "", "rowspan": 0 },
         "campus": { "value": "", "rowspan": 0 },
         "subCampus": "용인세브란스",
-        "details": "",
+        "details": { "value": "", "rowspan": 0 },
         "address": "경기 용인시 처인구 금학로 225"
       },
       {
         "division": { "value": "분교", "rowspan": 2 },
         "campus": { "value": "미래캠퍼스", "colspan": 2 },
-        "subCampus": "",
+        "subCampus": { "value": "", "colspan": 0 },
         "details": "4대학 3학부 3대학원",
         "address": "강원 원주시 연세대길 1"
       },
       {
         "division": { "value": "", "rowspan": 0 },
         "campus": { "value": "원주연세의료원", "colspan": 2 },
-        "subCampus": "",
+        "subCampus": { "value": "", "colspan": 0 },
         "details": "2대학",
         "address": "강원 원주시 일산로 20"
       }
