@@ -1,11 +1,14 @@
-// 기본적인 헤더 렌더
-const renderTableHeader = (headers = []) => {
+// util/makeDivUtils/makeCommonTable.js
+
+const renderTableHeader = (headers = [], colStyles = []) => {
   return (
-    <tr>
+    <tr className="bg-[#f8f9fa]">
       {headers.map((header, idx) => (
         <th
           key={idx}
-          className="border border-gray-300 bg-gray-100 px-3 py-2 text-sm font-semibold text-center"
+          className={`px-4 py-3 text-sm font-semibold text-[#333] border-b border-[#e5e5e5] ${
+            colStyles[idx] || "text-center"
+          }`}
         >
           {header}
         </th>
@@ -14,40 +17,63 @@ const renderTableHeader = (headers = []) => {
   );
 };
 
-// 테이블 body 렌더
-const renderTableBody = (rows = [], columns = []) => {
+const renderCell = (row, col, renderMap) => {
+  if (renderMap && typeof renderMap[col] === "function") {
+    return renderMap[col](row);
+  }
+  return row[col];
+};
+
+const renderTableBody = (
+  rows = [],
+  columns = [],
+  colStyles = [],
+  renderMap
+) => {
   return rows.map((row, rowIdx) => (
-    <tr key={rowIdx} className="hover:bg-gray-50">
+    <tr key={rowIdx} className="hover:bg-[#f9f9f9]">
       {columns.map((col, colIdx) => (
         <td
           key={colIdx}
-          className={`border border-gray-300 px-3 py-2 text-sm text-gray-700
-            ${col === "title" ? "text-left" : "text-center"}
-          `}
+          className={`px-4 py-4 text-sm text-[#444] border-b border-[#e5e5e5] ${
+            colStyles[colIdx] || "text-center"
+          }`}
         >
-          {row[col]}
+          {renderCell(row, col, renderMap)}
         </td>
       ))}
     </tr>
   ));
 };
 
-// 테이블 생성
-const makeCommonTable = (headers = [], rows = [], columns = []) => {
+const makeCommonTable = (
+  headers = [],
+  rows = [],
+  columns = [],
+  options = {}
+) => {
+  const {
+    colStyles = [],
+    renderMap = null,
+    emptyText = "데이터가 없습니다.",
+  } = options;
+
   return (
     <div className="w-full overflow-x-auto">
       <table className="w-full border-collapse">
-        {headers.length > 0 && <thead>{renderTableHeader(headers)}</thead>}
+        {headers.length > 0 && (
+          <thead>{renderTableHeader(headers, colStyles)}</thead>
+        )}
         <tbody>
           {rows && rows.length > 0 ? (
-            renderTableBody(rows, columns)
+            renderTableBody(rows, columns, colStyles, renderMap)
           ) : (
             <tr>
               <td
                 colSpan={columns.length}
-                className="border border-gray-300 py-6 text-center text-gray-500"
+                className="py-10 text-center text-[#666] border-b border-[#e5e5e5]"
               >
-                데이터가 없습니다.
+                {emptyText}
               </td>
             </tr>
           )}
