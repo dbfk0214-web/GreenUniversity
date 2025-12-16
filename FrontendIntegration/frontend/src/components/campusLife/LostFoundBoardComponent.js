@@ -1,22 +1,34 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import LostFoundBoard from "../../json/campusLife/lost_found_board.json";
 import { makeCommonTitle } from "../../util/makeDivUtils/makeCommonText";
-import { makeCommonTabItems } from "../../util/makeDivUtils/makeCommonLayout";
 import { makeCommonTable } from "../../util/makeDivUtils/makeCommonTable";
+import { makeCommonSearchBar } from "../../util/makeDivUtils/makeCommonForm";
 
 const LostFoundBoardComponent = () => {
+  const headers = ["번호", "제목", "날짜", "댓글", "장소"];
   const columns = ["id", "title", "date", "commentCount", "location"];
   const tabs = ["전체보기", "분실", "습득"];
-  const [activeTab, setActiveTab] = useState("전체보기");
 
-  const filteredRows =
-    activeTab === "전체보기"
-      ? LostFoundBoard
-      : LostFoundBoard.filter((item) => item.category === activeTab);
+  const [activeTab, setActiveTab] = useState("전체보기");
+  const [keyword, setKeyword] = useState("");
+  const [searchType, setSearchType] = useState("title");
+
+  const filteredRows = LostFoundBoard.filter((item) => {
+    const matchTab = activeTab === "전체보기" || item.category === activeTab;
+    const matchKeyword = keyword === "" || item[searchType]?.includes(keyword);
+    return matchTab && matchKeyword;
+  });
+
+  const colStyles = [
+    "w-20 text-center",
+    "text-left",
+    "w-32 text-center",
+    "w-20 text-center",
+    "w-40 text-center",
+  ];
 
   return (
-    <div className="max-w-6xl mx-auto space-y-6">
-      {/* 제목 */}
+    <div className="w-full mx-auto space-y-6 font-sans text-[#444]">
       {makeCommonTitle("분실물 게시판")}
 
       {/* 탭 */}
@@ -36,9 +48,22 @@ const LostFoundBoardComponent = () => {
         ))}
       </div>
 
+      {/* 검색 (FAQ 스타일 공통) */}
+      {makeCommonSearchBar({
+        options: [
+          { label: "제목", value: "title" },
+          { label: "장소", value: "location" },
+        ],
+        onSelectChange: (e) => setSearchType(e.target.value),
+        onInputChange: (e) => setKeyword(e.target.value),
+        onSearch: () => {},
+      })}
+
       {/* 테이블 */}
-      <div className="bg-white rounded-lg shadow-sm">
-        {makeCommonTable([], filteredRows, columns)}
+      <div className="w-full bg-white">
+        {makeCommonTable(headers, filteredRows, columns, {
+          colStyles,
+        })}
       </div>
     </div>
   );

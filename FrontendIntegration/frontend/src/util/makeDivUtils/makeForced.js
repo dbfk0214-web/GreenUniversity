@@ -98,48 +98,75 @@ const makeTimeLine = (leftRow = [], rightRow = []) => {
 
 const makeCampusTableA = (headers = [], rows = [], columns = []) => {
   return (
-    <table className="w-full border border-gray-300">
-      <thead>
-        <tr>
-          {headers.map((h, i) => (
-            <th key={i} className="border border-gray-300 p-2 bg-gray-100">
-              {h}
-            </th>
-          ))}
-        </tr>
-      </thead>
+    <div className="overflow-x-auto">
+      <div className="border-t-2 border-blue-600 mb-2" />
 
-      <tbody>
-        {rows.map((row, rIdx) => (
-          <tr key={rIdx}>
-            {columns.map((col, cIdx) => {
-              const cell = row[col];
+      <table className="w-full border-collapse text-sm text-center">
+        <thead className="bg-gray-100 text-gray-800">
+          <tr>
+            {headers.map((h, i) => (
+              <th
+                key={i}
+                className="py-3 px-4 font-semibold
+                           border border-gray-300"
+              >
+                {h}
+              </th>
+            ))}
+          </tr>
+        </thead>
 
-              if (typeof cell === "object") {
-                if (cell.rowspan === 0 || cell.colspan === 0) return null;
+        <tbody className="text-gray-800">
+          {rows.map((row, rIdx) => (
+            <tr key={rIdx}>
+              {columns.map((col, cIdx) => {
+                const cell = row[col];
 
+                // 병합으로 사라지는 셀
+                if (
+                  typeof cell === "object" &&
+                  (cell.rowspan === 0 || cell.colspan === 0)
+                ) {
+                  return null;
+                }
+
+                // 병합 셀
+                if (typeof cell === "object") {
+                  return (
+                    <td
+                      key={cIdx}
+                      rowSpan={cell.rowspan}
+                      colSpan={cell.colspan}
+                      className={`
+                        py-3 px-4 align-middle
+                        border border-gray-300
+                        ${cIdx === 0 ? "bg-gray-50 font-medium" : ""}
+                      `}
+                    >
+                      {cell.value}
+                    </td>
+                  );
+                }
+
+                // 일반 셀
                 return (
                   <td
                     key={cIdx}
-                    rowSpan={cell.rowspan}
-                    colSpan={cell.colspan}
-                    className="border border-gray-300 p-2"
+                    className={`
+                      py-3 px-4 align-middle
+                      border border-gray-300
+                      ${cIdx === 0 ? "bg-gray-50 font-medium" : ""}
+                    `}
                   >
-                    {cell.value}
+                    {cell}
                   </td>
                 );
-              }
-
-              return (
-                <td key={cIdx} className="border border-gray-300 p-2">
-                  {cell}
-                </td>
-              );
-            })}
-          </tr>
-        ))}
-      </tbody>
-    </table>
+              })}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 };
 
@@ -152,28 +179,41 @@ const makeCampusTableB = (
   const tableRows = [];
 
   rows.forEach((row, idx) => {
-    // 일반 row
     tableRows.push(
       <tr key={`row-${idx}`}>
         {columns.map((col, cIdx) => {
           const cell = row[col];
 
-          if (typeof cell === "object") {
-            if (cell.rowspan === 0) return null;
+          // 병합으로 사라지는 셀
+          if (typeof cell === "object" && cell.rowspan === 0) return null;
 
+          // 병합 셀
+          if (typeof cell === "object") {
             return (
               <td
                 key={cIdx}
                 rowSpan={cell.rowspan}
-                className="border border-gray-300 p-2"
+                className={`
+                  py-3 px-4 align-middle
+                  border border-gray-300
+                  ${cIdx === 0 ? "bg-gray-50 font-medium" : ""}
+                `}
               >
                 {cell.value}
               </td>
             );
           }
 
+          // 일반 셀
           return (
-            <td key={cIdx} className="border border-gray-300 p-2">
+            <td
+              key={cIdx}
+              className={`
+                py-3 px-4 align-middle
+                border border-gray-300
+                ${cIdx === 0 ? "bg-gray-50 font-medium" : ""}
+              `}
+            >
               {cell}
             </td>
           );
@@ -181,14 +221,18 @@ const makeCampusTableB = (
       </tr>
     );
 
-    // 결과 row
+    // 결과 row (총계)
     if (idx % count === count - 1 && resultRows.length > 0) {
       const result = resultRows[Math.floor(idx / count)];
       tableRows.push(
         <tr key={`result-${idx}`}>
           <td
             colSpan={columns.length}
-            className="border border-gray-300 p-2 bg-gray-50"
+            className="
+              py-3 px-4
+              border border-gray-300
+              bg-gray-50 text-sm text-gray-600 text-center
+            "
           >
             {result?.keyword} / {result?.count}
           </td>
@@ -198,9 +242,12 @@ const makeCampusTableB = (
   });
 
   return (
-    <table className="w-full border border-gray-300">
-      <tbody>{tableRows}</tbody>
-    </table>
+    <div className="overflow-x-auto">
+      <div className="border-t-2 border-blue-700 mb-2" />
+      <table className="w-full border-collapse text-sm text-center">
+        <tbody>{tableRows}</tbody>
+      </table>
+    </div>
   );
 };
 
