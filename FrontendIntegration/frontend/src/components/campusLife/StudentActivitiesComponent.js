@@ -8,7 +8,7 @@ const StudentActivitiesComponent = () => {
   if (!StudentActivities) return null;
 
   return (
-    <div className="max-w-6xl mx-auto space-y-12">
+    <div className="max-w-6xl w-full mx-auto space-y-12">
       {/* 자치활동 */}
       <section className="space-y-6">
         {makeCommonTitle("자치활동")}
@@ -31,7 +31,13 @@ const StudentActivitiesComponent = () => {
                   ))}
                 </ul>,
               ],
-              {}
+              {
+                action: () => {
+                  // 필요 시 링크 연결
+                  // window.open(activity.link, "_blank");
+                },
+                actionBtn: "더보기",
+              }
             )
           )}
         </div>

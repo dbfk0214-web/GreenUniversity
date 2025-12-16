@@ -6,7 +6,7 @@ import { makeCommonLabel } from "../../util/makeDivUtils/makeCommonMedia";
 
 const AdministrativeOfficesInstitutesComponent = () => {
   return (
-    <div className="max-w-6xl mx-auto space-y-12">
+    <div className="max-w-6xl w-full mx-auto space-y-12">
       {/* 신촌캠퍼스 */}
       <section className="space-y-6">
         {makeCommonTitle("신촌캠퍼스")}
@@ -20,13 +20,22 @@ const AdministrativeOfficesInstitutesComponent = () => {
                 ...organ.phone.map((p, i) =>
                   makeCommonLabel(p, "text-sm text-gray-600", i)
                 ),
-                <ul className="list-disc pl-5 text-sm text-gray-700">
+                <ul
+                  key="items"
+                  className="list-disc pl-5 text-sm text-gray-700"
+                >
                   {organ.items.map((item, i) => (
                     <li key={i}>{item}</li>
                   ))}
                 </ul>,
               ],
-              {}
+              {
+                action: () => {
+                  // 필요 시 링크 연결
+                  // window.open(organ.link, "_blank");
+                },
+                actionBtn: "더보기",
+              }
             )
           )}
         </div>
