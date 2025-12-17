@@ -1,20 +1,19 @@
-// src/pages/adminmanagement/CourseClassDashboard.jsx
+// src/pages/academicaffairs/AcademicAffairsDashboard.jsx
 import React, { useState } from "react";
-import CourseopenForm from "./admin/CourseopenForm";
 
 const modalTypes = {
-  COURSE_OPEN: "COURSE_OPEN",
-  COURSE_SYLLABUS: "COURSE_SYLLABUS",
-  COURSE_INSTRUCTOR: "COURSE_INSTRUCTOR",
-  SECTION_MANAGE: "SECTION_MANAGE",
-  ENROLLMENT_QUOTA: "ENROLLMENT_QUOTA",
-  ENROLLMENT_STATUS: "ENROLLMENT_STATUS",
-  TIMETABLE_MANAGE: "TIMETABLE_MANAGE",
-  ROOM_ASSIGN: "ROOM_ASSIGN",
-  CONFLICT_CHECK: "CONFLICT_CHECK",
+  CREDIT_MANAGE: "CREDIT_MANAGE",
+  DEGREE_CERT: "DEGREE_CERT",
+  STUDENT_STATUS: "STUDENT_STATUS",
+  TUITION_MANAGE: "TUITION_MANAGE",
+  SCHOLARSHIP: "SCHOLARSHIP",
+  FINANCE_STATUS: "FINANCE_STATUS",
+  ACADEMIC_CALENDAR: "ACADEMIC_CALENDAR",
+  GRADUATION_CHECK: "GRADUATION_CHECK",
+  RECORD_CORRECTION: "RECORD_CORRECTION",
 };
 
-export default function CourseClassDashboard() {
+export default function AcademicAffairsDashboard() {
   const [activeModal, setActiveModal] = useState(null);
   const closeModal = () => setActiveModal(null);
 
@@ -23,163 +22,137 @@ export default function CourseClassDashboard() {
       {/* 상단 헤더 */}
       <header className="mb-8 flex flex-col gap-2">
         <h1 className="text-2xl font-semibold text-slate-900">
-          Course & Class Management
+          Academic Affairs Management
         </h1>
         <p className="text-sm text-slate-500">
-          강의 개설, 수강/분반, 시간표 및 강의실 배정을 한 곳에서 관리합니다.
+          학사 행정, 학적, 증명서, 재정 업무를 통합 관리합니다.
         </p>
       </header>
 
       {/* 메인 그리드 */}
       <div className="grid gap-6 lg:grid-cols-3">
-        {/* 강의 개설 및 강의계획 관리 */}
+        {/* 학점 / 학적 관리 */}
         <section className="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-slate-100">
           <div className="mb-4 flex items-center justify-between">
             <div>
               <p className="text-xs font-semibold uppercase tracking-wide text-teal-500">
-                Course Setup
+                Academic Records
               </p>
               <h2 className="mt-1 text-lg font-semibold text-slate-900">
-                강의 개설 및 강의계획 관리
+                학점 · 학적 관리
               </h2>
               <p className="mt-1 text-xs text-slate-500">
-                학기별 강의 개설, 강의계획서, 담당 교원 배정을 관리합니다.
+                학생의 학점 이수 및 학적 상태를 관리합니다.
               </p>
             </div>
             <span className="rounded-full bg-teal-50 px-3 py-1 text-xs font-medium text-teal-600">
-              Curriculum
+              Records
             </span>
           </div>
 
           <div className="space-y-3">
             <DashboardButton
-              label="강의 개설"
-              description="학기, 과목, 이수구분, 학점, 개설 학과 등을 설정합니다."
-              onClick={() => setActiveModal(modalTypes.COURSE_OPEN)}
+              label="학점 관리"
+              description="이수 학점, 인정 학점, 졸업 요건을 관리합니다."
+              onClick={() => setActiveModal(modalTypes.CREDIT_MANAGE)}
             />
             <DashboardButton
-              label="강의 계획서 관리"
-              description="강의 개요, 주차별 계획, 평가 비율, 교재 정보를 등록·수정합니다."
-              onClick={() => setActiveModal(modalTypes.COURSE_SYLLABUS)}
+              label="학적 상태 관리"
+              description="재학, 휴학, 복학, 제적 상태를 관리합니다."
+              onClick={() => setActiveModal(modalTypes.STUDENT_STATUS)}
             />
             <DashboardButton
-              label="담당 교원 배정"
-              description="개설 강의에 담당 교수/조교를 배정하거나 변경합니다."
-              onClick={() => setActiveModal(modalTypes.COURSE_INSTRUCTOR)}
+              label="졸업 요건 점검"
+              description="졸업 가능 여부를 자동으로 점검합니다."
+              onClick={() => setActiveModal(modalTypes.GRADUATION_CHECK)}
             />
           </div>
         </section>
 
-        {/* 수강/분반 및 정원 관리 */}
+        {/* 증명서 관리 */}
         <section className="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-slate-100">
           <div className="mb-4 flex items-center justify-between">
             <div>
               <p className="text-xs font-semibold uppercase tracking-wide text-lime-500">
-                Enrollment & Sections
+                Certificates
               </p>
               <h2 className="mt-1 text-lg font-semibold text-slate-900">
-                수강/분반 및 정원 관리
+                증명서 관리
               </h2>
               <p className="mt-1 text-xs text-slate-500">
-                분반, 정원, 수강 신청 현황을 실시간으로 관리합니다.
+                학사 관련 증명서 발급 및 이력을 관리합니다.
               </p>
             </div>
             <span className="rounded-full bg-lime-50 px-3 py-1 text-xs font-medium text-lime-600">
-              Capacity
+              Certification
             </span>
           </div>
 
           <div className="space-y-3">
             <DashboardButton
-              label="분반 / 반 관리"
-              description="강의별 분반 생성, 병합, 반 편성을 관리합니다."
-              onClick={() => setActiveModal(modalTypes.SECTION_MANAGE)}
+              label="증명서 발급"
+              description="재학·성적·졸업 증명서를 발급합니다."
+              onClick={() => setActiveModal(modalTypes.DEGREE_CERT)}
             />
             <DashboardButton
-              label="수강 인원 · 정원 관리"
-              description="최대 정원, 대기 인원, 우선 수강 대상자를 설정합니다."
-              onClick={() => setActiveModal(modalTypes.ENROLLMENT_QUOTA)}
+              label="학적 기록 정정"
+              description="학적 및 성적 기록 정정을 처리합니다."
+              onClick={() => setActiveModal(modalTypes.RECORD_CORRECTION)}
             />
             <DashboardButton
-              label="수강 신청 현황"
-              description="학년/학과별 수강 신청 인원 및 여석 현황을 조회합니다."
-              onClick={() => setActiveModal(modalTypes.ENROLLMENT_STATUS)}
+              label="학사 일정 관리"
+              description="학기별 학사 일정을 관리합니다."
+              onClick={() => setActiveModal(modalTypes.ACADEMIC_CALENDAR)}
             />
-
-            <div className="mt-4 rounded-xl border border-dashed border-slate-200 p-3 text-xs text-slate-500">
-              <p className="font-medium text-slate-600">운영 팁</p>
-              <ul className="mt-1 list-disc space-y-1 pl-4">
-                <li>
-                  수강 정원 변경은 로그를 남겨두면 나중에 분쟁 예방에 좋습니다.
-                </li>
-                <li>
-                  마감 임박 강의에 대한 알림 기능을 연동하는 것도 고려해보세요.
-                </li>
-              </ul>
-            </div>
           </div>
         </section>
 
-        {/* 시간표 및 강의실 배정 관리 */}
+        {/* 등록금 / 재정 관리 */}
         <section className="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-slate-100">
           <div className="mb-4 flex items-center justify-between">
             <div>
               <p className="text-xs font-semibold uppercase tracking-wide text-fuchsia-500">
-                Timetable & Rooms
+                Finance
               </p>
               <h2 className="mt-1 text-lg font-semibold text-slate-900">
-                시간표 및 강의실 배정 관리
+                등록금 · 재정 관리
               </h2>
               <p className="mt-1 text-xs text-slate-500">
-                요일/교시 기준 시간표와 강의실 배정을 관리하고 충돌을
-                검사합니다.
+                등록금, 장학금 및 재정 현황을 관리합니다.
               </p>
             </div>
             <span className="rounded-full bg-fuchsia-50 px-3 py-1 text-xs font-medium text-fuchsia-600">
-              Scheduling
+              Finance
             </span>
           </div>
 
           <div className="space-y-3">
             <DashboardButton
-              label="시간표 관리"
-              description="요일, 교시, 분반 기준으로 강의 시간표를 설정합니다."
-              onClick={() => setActiveModal(modalTypes.TIMETABLE_MANAGE)}
+              label="등록금 관리"
+              description="등록금 고지 및 납부 상태를 관리합니다."
+              onClick={() => setActiveModal(modalTypes.TUITION_MANAGE)}
             />
             <DashboardButton
-              label="강의실 배정"
-              description="강의실 용량, 장비(빔, PC) 등을 고려해 강의실을 배정합니다."
-              onClick={() => setActiveModal(modalTypes.ROOM_ASSIGN)}
+              label="장학금 관리"
+              description="장학금 지급 내역을 관리합니다."
+              onClick={() => setActiveModal(modalTypes.SCHOLARSHIP)}
             />
             <DashboardButton
-              label="시간/강의실 충돌 검사"
-              description="교수·강의실·분반 간 중복 배정 및 시간 충돌을 자동 검사합니다."
-              onClick={() => setActiveModal(modalTypes.CONFLICT_CHECK)}
+              label="재정 현황 조회"
+              description="학생별 재정 상태를 조회합니다."
+              onClick={() => setActiveModal(modalTypes.FINANCE_STATUS)}
             />
-
-            <div className="mt-4 rounded-xl bg-slate-50 p-3 text-xs text-slate-500">
-              <p className="font-medium text-slate-600">권장 정책</p>
-              <ul className="mt-1 list-disc space-y-1 pl-4">
-                <li>
-                  강의실 별 최대 수용 인원과 장비 정보를 마스터로 관리하세요.
-                </li>
-                <li>
-                  시간표 확정 전, 반드시 충돌 검사를 실행하는 프로세스를 두면
-                  좋습니다.
-                </li>
-              </ul>
-            </div>
           </div>
         </section>
       </div>
 
-      {/* 모달 */}
       <DashboardModal activeModal={activeModal} onClose={closeModal} />
     </div>
   );
 }
 
-/** 공통 버튼 */
+/* ================= 공통 컴포넌트 ================= */
+
 function DashboardButton({ label, description, onClick }) {
   return (
     <button
@@ -202,11 +175,10 @@ function DashboardButton({ label, description, onClick }) {
   );
 }
 
-/** 공통 모달 – 실제 폼/테이블은 여기 안에 붙이면 됨 */
 function DashboardModal({ activeModal, onClose }) {
   if (!activeModal) return null;
 
-  const { title, subtitle, hint, content } = renderModalContent(activeModal);
+  const { title, subtitle, hint } = renderModalContent(activeModal);
 
   return (
     <div className="fixed inset-0 z-40 flex items-center justify-center bg-black/25">
@@ -214,60 +186,29 @@ function DashboardModal({ activeModal, onClose }) {
         <div className="mb-4 flex items-start justify-between gap-4">
           <div>
             <h3 className="text-lg font-semibold text-slate-900">{title}</h3>
-            {subtitle && (
-              <p className="mt-1 text-xs text-slate-500">{subtitle}</p>
-            )}
+            <p className="mt-1 text-xs text-slate-500">{subtitle}</p>
           </div>
           <button
             type="button"
             onClick={onClose}
-            className="rounded-full p-1 text-slate-400 transition hover:bg-slate-100 hover:text-slate-600"
+            className="rounded-full p-1 text-slate-400 hover:bg-slate-100"
           >
-            <span className="sr-only">Close</span>✕
+            ✕
           </button>
         </div>
 
-        {/* 여기부터 실제 UI 붙이는 영역 */}
         <div className="rounded-xl border border-dashed border-slate-200 bg-slate-50 p-4 text-xs text-slate-500">
-          {content ? (
-            content
-          ) : (
-            <>
-              {/* 기본 placeholder */}
-              <p className="mb-2 font-medium text-slate-700">
-                🔧 개발자용 placeholder 영역
-              </p>
-              <p className="leading-relaxed">
-                이 영역에 실제 폼(Form), 테이블(Table), 검색 필터 등을 넣으면
-                됩니다.
-                <br />
-                예: 강의 검색 필터, 강의계획 입력 폼, 분반/정원 테이블, 시간표
-                매트릭스 등.
-              </p>
-            </>
-          )}
-          {hint && (
-            <p className="mt-3 text-[11px] leading-relaxed text-slate-500">
-              <span className="font-semibold text-slate-600">UI 힌트: </span>
-              {hint}
-            </p>
-          )}
+          <p className="font-medium text-slate-700">🔧 개발자용 placeholder</p>
+          <p className="mt-1">{hint}</p>
         </div>
 
-        <div className="mt-5 flex justify-end gap-2">
+        <div className="mt-5 flex justify-end">
           <button
             type="button"
             onClick={onClose}
-            className="rounded-lg border border-slate-200 px-3 py-1.5 text-xs font-medium text-slate-600 hover:bg-slate-50"
+            className="rounded-lg border border-slate-200 px-3 py-1.5 text-xs text-slate-600"
           >
             닫기
-          </button>
-          <button
-            type="button"
-            className="rounded-lg bg-slate-900 px-3 py-1.5 text-xs font-medium text-white opacity-60"
-            disabled
-          >
-            저장 (폼 연결 후 활성화)
           </button>
         </div>
       </div>
@@ -276,67 +217,10 @@ function DashboardModal({ activeModal, onClose }) {
 }
 
 function renderModalContent(activeModal) {
-  switch (activeModal) {
-    case modalTypes.COURSE_OPEN:
-      return {
-        title: "강의 개설",
-        subtitle: "학기별 강의를 개설합니다.",
-        hint: "과목 코드, 학기, 학점, 이수구분, 개설 학과, 표기명 필드를 포함하세요.",
-        content: <CourseopenForm />,
-      };
-    case modalTypes.COURSE_SYLLABUS:
-      return {
-        title: "강의 계획서 관리",
-        subtitle: "강의계획서를 등록 및 수정합니다.",
-        hint: "주차별 계획, 평가 비율, 학습 목표, 교재 정보를 입력하는 폼을 추천합니다.",
-      };
-    case modalTypes.COURSE_INSTRUCTOR:
-      return {
-        title: "담당 교원 배정",
-        subtitle: "강의에 담당 교수 및 조교를 배정합니다.",
-        hint: "교원 검색 + 드롭다운/체크박스로 여러 명 배정 가능하게 구성해보세요.",
-      };
-    case modalTypes.SECTION_MANAGE:
-      return {
-        title: "분반 / 반 관리",
-        subtitle: "강의 분반 및 반 편성을 관리합니다.",
-        hint: "분반 코드, 수강 정원, 담당 교원, 강의실 등을 한 테이블에서 관리하면 좋습니다.",
-      };
-    case modalTypes.ENROLLMENT_QUOTA:
-      return {
-        title: "수강 인원 · 정원 관리",
-        subtitle: "강의별 수강 정원과 대기 인원을 관리합니다.",
-        hint: "정원 변경 시 변경 이력(변경자, 일시, 사유)을 기록하도록 설계하세요.",
-      };
-    case modalTypes.ENROLLMENT_STATUS:
-      return {
-        title: "수강 신청 현황",
-        subtitle: "수강 신청 인원 및 여석을 조회합니다.",
-        hint: "학과, 학년, 이수구분, 시간대 필터 + 통계 요약(총 수강생, 여석 수)을 추천합니다.",
-      };
-    case modalTypes.TIMETABLE_MANAGE:
-      return {
-        title: "시간표 관리",
-        subtitle: "학기 시간표를 요일/교시 기준으로 관리합니다.",
-        hint: "요일-교시 매트릭스 UI + 드래그 앤 드롭으로 강의를 배치하는 구조를 고려할 수 있습니다.",
-      };
-    case modalTypes.ROOM_ASSIGN:
-      return {
-        title: "강의실 배정",
-        subtitle: "강의실을 배정 및 변경합니다.",
-        hint: "강의실 용량, 장비, 건물 정보 등을 함께 표시해 배정 실수를 줄이세요.",
-      };
-    case modalTypes.CONFLICT_CHECK:
-      return {
-        title: "시간/강의실 충돌 검사",
-        subtitle: "시간표와 강의실 배정의 충돌을 검사합니다.",
-        hint: "교원·강의실·분반 기준으로 중복 배정 여부를 리스트업하는 리포트 형태를 추천합니다.",
-      };
-    default:
-      return {
-        title: "관리 기능",
-        subtitle: "",
-        hint: "",
-      };
-  }
+  return {
+    title: "학사 행정 관리",
+    subtitle: "선택한 학사 행정 기능을 관리합니다.",
+    hint:
+      "이 영역에 실제 폼(Form), 테이블(Table), 검색 필터 등을 연결하면 됩니다.",
+  };
 }
