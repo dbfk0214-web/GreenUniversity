@@ -21,7 +21,6 @@ export const EnrollmentDef = {
     responseColumns: {
       enrollmentId: "수강 내역 아이디",
       enrollDate: "강의 개설 날짜",
-      offeringId: "강의 개설 아이디",
       userId: "유저 아이디",
       sectionId: "분반id",
     },

@@ -15,23 +15,29 @@ export const TimeTableDef = {
     },
     createColumns: {
       sectionId: "분반Id",
+      classroomId: "강의실 ID",
       dayOfWeek: "요일",
       startTime: "시작시간",
       endTime: "종료시간",
     },
     responseColumns: {
-      timetableId: "시간표 아이디",
+      timetableId: "시간표 ID",
       dayOfWeek: "요일",
-      startTime: "시간시간",
-      endTime: "종료시간",
-      offeringId: "개설강의고유Id",
-      courseName: "강의명",
-      professorNickname: "학생이름",
-      sectionName: "분반명",
-      sectionId: "분반id",
+      startTime: "시작 시간",
+      endTime: "종료 시간",
+
+      // 강의실 정보
+      classroomId: "강의실 ID",
+      classroomName: "강의실 위치", // 예: "공학관 301호"
+
+      // 분반 및 강의 정보
+      sectionId: "분반 ID",
+      sectionName: "분반명", // 예: "A반"
+      courseName: "강의명", // 예: "자바 프로그래밍"
     },
     updateColumns: {
-      timetableId: "시간표아이디",
+      timetableId: "시간표 Id",
+      classroomId: "강의실 ID", // 수정 시 강의실 변경 가능
       dayOfWeek: "요일",
       startTime: "시간시간",
       endTime: "종료시간",
