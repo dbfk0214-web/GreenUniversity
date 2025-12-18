@@ -128,7 +128,7 @@ export default function ProfessorAssignmentMaterialDashboard() {
 function DashboardModal({ activeModal, onClose }) {
   if (!activeModal) return null;
 
-  const { title, subtitle, hint } = renderModalContent(activeModal);
+  const { title, subtitle, hint, content } = renderModalContent(activeModal);
 
   return (
     <div className="fixed inset-0 z-40 flex items-center justify-center bg-black/25">
@@ -154,17 +154,25 @@ function DashboardModal({ activeModal, onClose }) {
           </button>
         </div>
 
-        <div className="rounded-xl border border-dashed border-slate-200 bg-slate-50 p-4 text-xs text-slate-500">
-          <p className="mb-2 font-medium text-slate-700">
-            📌 개발자용 콘텐츠 영역
-          </p>
-          <p>실제 기능 UI가 이 영역에 들어갑니다.</p>
+        <div className="rounded-xl border border-dashed border-slate-200 bg-slate-50 p-4">
+          {content ? (
+            content
+          ) : (
+            <>
+              <p className="mb-2 text-xs font-medium text-slate-700">
+                💬 학생 커뮤니티 영역
+              </p>
+              <p className="text-xs leading-relaxed text-slate-500">
+                게시글 작성, 조회, 댓글 기능을 사용할 수 있습니다.
+              </p>
 
-          {hint && (
-            <p className="mt-3 text-[11px]">
-              <span className="font-semibold">UI 힌트: </span>
-              {hint}
-            </p>
+              {hint && (
+                <p className="mt-3 text-[11px] text-slate-500">
+                  <span className="font-semibold">UI 힌트: </span>
+                  {hint}
+                </p>
+              )}
+            </>
           )}
         </div>
 

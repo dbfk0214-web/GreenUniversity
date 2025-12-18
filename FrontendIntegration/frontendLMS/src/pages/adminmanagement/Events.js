@@ -290,54 +290,63 @@ function renderModalContent(activeModal) {
         title: "정기 일정(회의 · 세미나) 관리",
         subtitle: "반복되는 회의/세미나 일정을 관리합니다.",
         hint: "반복 주기(매주/격주/매월), 요일, 시간, 참석 대상을 설정하는 폼을 추천합니다.",
+        content: "",
       };
     case modalTypes.CALENDAR_SYNC:
       return {
         title: "캘린더 연동 설정",
         subtitle: "외부 캘린더와 일정 연동을 설정합니다.",
         hint: "구독용 URL, 공개 범위, 동기화 주기 설정 등 옵션을 둘 수 있습니다.",
+        content: "",
       };
     case modalTypes.EVENT_CREATE:
       return {
         title: "행사 등록 / 수정",
         subtitle: "학과 행사를 등록·수정합니다.",
         hint: "행사 제목, 유형, 일정, 장소, 대상, 신청 기간, 모집 인원 필드를 포함하세요.",
+        content: "",
       };
     case modalTypes.EVENT_ATTENDEE:
       return {
         title: "참가자 · 신청자 관리",
         subtitle: "행사 신청자와 참석자를 관리합니다.",
         hint: "상태(신청/대기/확정/취소), 출석 체크, 일괄 알림 발송 기능을 고려해보세요.",
+        content: "",
       };
     case modalTypes.EVENT_REPORT:
       return {
         title: "행사 결과 · 리포트 관리",
         subtitle: "행사 종료 후 결과 리포트를 관리합니다.",
         hint: "참가 인원, 출석률, 만족도, 주요 피드백을 요약하는 리포트 레이아웃을 추천합니다.",
+        content: "",
       };
     case modalTypes.ROOM_RESERVATION:
       return {
         title: "장소 / 공간 예약 관리",
         subtitle: "행사에 필요한 공간을 예약합니다.",
         hint: "공간(건물/호수), 시간, 수용 인원, 장비, 담당자 정보를 함께 관리하세요.",
+        content: "",
       };
     case modalTypes.NOTICE_BANNER_LINK:
       return {
         title: "공지 · 배너 연동 설정",
         subtitle: "행사 정보를 공지/배너와 연동합니다.",
         hint: "메인 배너, 팝업 공지, 학과 페이지 섹션과의 연결 여부를 설정할 수 있습니다.",
+        content: "",
       };
     case modalTypes.REMINDER_ALARM:
       return {
         title: "알림 · 리마인더 설정",
         subtitle: "행사 관련 알림 발송을 예약합니다.",
         hint: "알림 채널(메일/SMS/푸시), 발송 시점(전날, 1시간 전 등), 대상 그룹을 설정하세요.",
+        content: "",
       };
     default:
       return {
         title: "관리 기능",
         subtitle: "",
         hint: "",
+        content: "",
       };
   }
 }
