@@ -337,8 +337,8 @@ const AdminLayout = ({ config }) => {
     setLoading(true);
     readOne(selectId)
       .then((item) => {
-        setFindReadOne(item[0]);
-        setForm(item[0]);
+        setFindReadOne(Array.isArray(item) ? item[0] : item);
+        setForm(Array.isArray(item) ? item[0] : item);
       })
       .finally(() => {
         setLoading(false);
