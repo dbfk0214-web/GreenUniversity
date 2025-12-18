@@ -1,6 +1,6 @@
 // src/pages/studentmanagement/StudentCommunityDashboard.jsx
 import React, { useState } from "react";
-import FreePageComponent from "../../components/community/FreePageComponent";
+import FreePageComponent from "./student/FreePageComponent";
 
 /* =========================
    Modal Types (학생용)
@@ -283,7 +283,7 @@ function renderModalContent(activeModal) {
         title: "자유 게시판",
         subtitle: "학생 자유 게시판입니다.",
         hint: "좋아요 · 댓글 · 검색 기능을 추천합니다.",
-        content: <FreePageComponent />,
+        content: <FreePageComponent mode="modal" />,
       };
     case modalTypes.QNA_BOARD:
       return {
