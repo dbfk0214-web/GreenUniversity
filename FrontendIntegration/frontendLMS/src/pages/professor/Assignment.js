@@ -2,6 +2,10 @@
 import React, { useState } from "react";
 import { DashboardButton, SectionHeader } from "../../components/what";
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> feature/layoutpages
 /* =========================
    Modal Types (교수용)
 ========================= */
@@ -23,6 +27,7 @@ export default function ProfessorAssignmentMaterialDashboard() {
   const [activeModal, setActiveModal] = useState(null);
   const closeModal = () => setActiveModal(null);
   return (
+<<<<<<< HEAD
     <>
       <div className="min-h-screen bg-slate-50 px-6 py-8">
         {/* ===== Header ===== */}
@@ -118,6 +123,113 @@ export default function ProfessorAssignmentMaterialDashboard() {
         {/* ===== 공통 모달 ===== */}
         <DashboardModal activeModal={activeModal} onClose={closeModal} />
       </div>
+=======
+   <> 
+   <div className="min-h-screen bg-slate-50 px-6 py-8">
+      {/* ===== Header ===== */}
+      <header className="mb-8 flex flex-col gap-2">
+        <h1 className="text-2xl font-semibold text-slate-900">
+          과제 · 학습 자료 관리
+        </h1>
+        <p className="text-sm text-slate-500">
+          담당 강의의 과제와 학습 자료를 관리합니다.
+        </p>
+      </header>
+
+      <div className="grid gap-6 lg:grid-cols-3">
+        {/* ===============================
+            1. 강의 선택
+        =============================== */}
+        <section className="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-slate-100">
+          <SectionHeader
+            tag="Course"
+            tagColor="teal"
+            title="강의 선택"
+            description="관리할 강의를 선택합니다."
+            badge="Step 1"
+            badgeColor="teal"
+          />
+          <DashboardButton
+            label="강의 선택"
+            description="담당 강의를 선택합니다."
+            onClick={() => setActiveModal(modalTypes.COURSE_SELECT)}
+          />
+        </section>
+
+        {/* ===============================
+            2. 과제 관리
+        =============================== */}
+        <section className="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-slate-100">
+          <SectionHeader
+            tag="Assignment"
+            tagColor="lime"
+            title="과제 관리"
+            description="과제를 등록하고 관리합니다."
+            badge="Assignment"
+            badgeColor="lime"
+          />
+
+          <div className="space-y-3">
+            <DashboardButton
+              label="과제 등록"
+              description="새 과제를 등록합니다."
+              onClick={() =>
+                setActiveModal(modalTypes.ASSIGNMENT_CREATE)
+              }
+            />
+            <DashboardButton
+              label="제출 현황"
+              description="과제 제출 현황을 확인합니다."
+              onClick={() =>
+                setActiveModal(modalTypes.ASSIGNMENT_STATUS)
+              }
+            />
+            <DashboardButton
+              label="과제 피드백"
+              description="학생 과제에 피드백을 남깁니다."
+              onClick={() =>
+                setActiveModal(modalTypes.ASSIGNMENT_FEEDBACK)
+              }
+            />
+          </div>
+        </section>
+
+        {/* ===============================
+            3. 학습 자료 관리
+        =============================== */}
+        <section className="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-slate-100">
+          <SectionHeader
+            tag="Materials"
+            tagColor="fuchsia"
+            title="학습 자료 관리"
+            description="강의 자료를 관리합니다."
+            badge="Materials"
+            badgeColor="fuchsia"
+          />
+
+          <div className="space-y-3">
+            <DashboardButton
+              label="자료 업로드"
+              description="강의 자료를 업로드합니다."
+              onClick={() =>
+                setActiveModal(modalTypes.MATERIAL_UPLOAD)
+              }
+            />
+            <DashboardButton
+              label="자료 관리"
+              description="업로드된 자료를 관리합니다."
+              onClick={() =>
+                setActiveModal(modalTypes.MATERIAL_MANAGE)
+              }
+            />
+          </div>
+        </section>
+      </div>
+
+      {/* ===== 공통 모달 ===== */}
+      <DashboardModal activeModal={activeModal} onClose={closeModal} />
+    </div>
+>>>>>>> feature/layoutpages
     </>
   );
 }
@@ -135,9 +247,19 @@ function DashboardModal({ activeModal, onClose }) {
       <div className="w-full max-w-[80%] rounded-2xl bg-white p-6 shadow-xl ring-1 ring-slate-200">
         <div className="mb-4 flex items-start justify-between">
           <div>
+<<<<<<< HEAD
             <h3 className="text-lg font-semibold text-slate-900">{title}</h3>
             {subtitle && (
               <p className="mt-1 text-xs text-slate-500">{subtitle}</p>
+=======
+            <h3 className="text-lg font-semibold text-slate-900">
+              {title}
+            </h3>
+            {subtitle && (
+              <p className="mt-1 text-xs text-slate-500">
+                {subtitle}
+              </p>
+>>>>>>> feature/layoutpages
             )}
           </div>
           <button
@@ -171,6 +293,7 @@ function DashboardModal({ activeModal, onClose }) {
           >
             닫기
           </button>
+<<<<<<< HEAD
           <button
             type="button"
             className="rounded-lg bg-slate-900 px-3 py-1.5 text-xs font-medium text-white opacity-60"
@@ -178,6 +301,8 @@ function DashboardModal({ activeModal, onClose }) {
           >
             저장 (폼 연결 후 활성화)
           </button>
+=======
+>>>>>>> feature/layoutpages
         </div>
       </div>
     </div>
