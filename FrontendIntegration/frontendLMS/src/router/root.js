@@ -1,9 +1,7 @@
 import { lazy, Suspense } from "react";
 import { createBrowserRouter } from "react-router-dom";
-import academicAffairsRouter from "./academicAffairsRouter";
 import financeSupportRouter from "./financeSupportRouter";
 import gradesAcademicRecordsRouter from "./gradesAcademicRecordsRouter";
-import notificationCenterRouter from "./notificationCenterRouter";
 import communityRouter from "./communityRouter";
 import extracurricularprogramsRouter from "./extracurricularprogramsRouter";
 import accountRouter from "./accountRouter";
@@ -11,8 +9,9 @@ import accountRouter from "./accountRouter";
 // 통합된 단일 Router
 import courseEnrollmentManagementRouter from "./courseEnrollmentManagementRouter";
 
-import { adminmanagementRouter } from "./adminmanagementRouter";
-import AdminComponent from "../components/admin/AdminComponent";
+import { adminmanagementRouter, adminRouter } from "./adminmanagementRouter";
+import { studentRouter } from "./studentRouter";
+import { professorRouter } from "./professorRouter";
 
 const Mainlayouts = lazy(() => import("../layouts/Mainlayouts"));
 
@@ -22,20 +21,12 @@ const root = createBrowserRouter([
     element: <Mainlayouts></Mainlayouts>,
   },
   {
-    path: "academicaffairs",
-    children: academicAffairsRouter(),
-  },
-  {
     path: "financesupport",
     children: financeSupportRouter(),
   },
   {
     path: "gradesacademicrecords",
     children: gradesAcademicRecordsRouter(),
-  },
-  {
-    path: "notificationcenter",
-    children: notificationCenterRouter(),
   },
   {
     path: "community",
@@ -54,16 +45,17 @@ const root = createBrowserRouter([
     children: courseEnrollmentManagementRouter(), // ← 수정된 부분
   },
   {
-    path: "adminmanagement",
+    path: "admin",
     children: adminmanagementRouter,
   },
   {
-    path: "adminnotice",
+    path: "student",
+    children: studentRouter,
   },
   {
-    path: "admin/one",
-    element: <AdminComponent />
-  }
+    path: "professor",
+    children: professorRouter,
+  },
 ]);
 
 export default root;

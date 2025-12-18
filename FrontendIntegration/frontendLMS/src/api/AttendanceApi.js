@@ -19,13 +19,6 @@ const extraButtons =
 
 const config = createTableConfig(tableDefinitions[tableName], extraButtons);
 
-export const Attendance = async () => {
-  console.log("attendance가 가동되었다.");
-  const res = await config.funcs.readAll();
-  return res.data;
-};
-
-
 export default { config };  
 
 
