@@ -185,7 +185,7 @@ export default function FreePageComponent() {
   );
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-sky-50 via-sky-50 to-white">
+    <div className="w-full max-w-[80%] max-h-[80vh] overflow-y-auto rounded-2xl bg-white p-6 shadow-xl ring-1 ring-slate-200">
       {/* 헤더 */}
       <div className="sticky top-0 z-10 backdrop-blur supports-[backdrop-filter]:bg-white/50 border-b border-sky-100">
         <div className="mx-auto max-w-6xl px-4 py-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">

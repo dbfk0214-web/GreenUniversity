@@ -1,5 +1,6 @@
 // src/pages/studentmanagement/CourseEnrollmentManagementDashboard.jsx
 import React, { useState } from "react";
+import FreePageComponent from "./student/FreePageComponent";
 
 /* =========================
    Modal Types (소분류)
@@ -258,39 +259,52 @@ function DashboardModal({ activeModal, onClose }) {
 ========================= */
 function renderModalContent(activeModal) {
   switch (activeModal) {
-    case modalTypes.COURSE_LIST:
+    case modalTypes.NOTICE_LIST:
       return {
-        title: "수강 강의 목록",
-        subtitle: "현재 수강 중인 강의를 조회합니다.",
-        hint: "강의명, 교수명, 학점, 수강 상태 컬럼 구성을 추천합니다.",
+        title: "공지사항 목록",
+        subtitle: "학교 공지사항을 확인합니다.",
+        hint: "중요 공지 상단 고정 표시를 추천합니다.",
       };
-    case modalTypes.COURSE_NOTICE:
+
+    case modalTypes.NOTICE_DETAIL:
       return {
-        title: "강의 공지",
-        subtitle: "강의별 공지 사항을 확인합니다.",
-        hint: "공지 목록 + 중요 공지 강조 UI를 추천합니다.",
+        title: "공지 상세 보기",
+        subtitle: "공지 내용을 확인합니다.",
+        hint: "첨부파일 다운로드 UI를 추천합니다.",
       };
-    case modalTypes.TIMETABLE:
+
+    case modalTypes.FREE_BOARD:
       return {
-        title: "시간표 조회",
-        subtitle: "학기별 시간표를 확인합니다.",
-        hint: "요일/교시 기준 시간표 매트릭스를 추천합니다.",
+        title: "자유 게시판",
+        subtitle: "학생 자유 게시판입니다.",
+        hint: "좋아요 · 댓글 · 검색 기능을 추천합니다.",
+        content: <FreePageComponent mode="modal" />,
       };
-    case modalTypes.ATTENDANCE:
+
+    case modalTypes.QNA_BOARD:
       return {
-        title: "출결 조회",
-        subtitle: "강의별 출결 상태를 확인합니다.",
-        hint: "출석/지각/결석 누적 현황 표시를 추천합니다.",
+        title: "질문 · 답변(Q&A)",
+        subtitle: "질문과 답변을 확인합니다.",
+        hint: "답변 채택 기능을 고려하세요.",
       };
-    case modalTypes.COURSE_EVALUATION:
+
+    case modalTypes.DATA_BOARD:
       return {
-        title: "강의 평가",
-        subtitle: "강의 평가를 진행합니다.",
-        hint: "별점 + 서술형 평가 UI 구성을 추천합니다.",
+        title: "자료실",
+        subtitle: "공유 자료를 확인합니다.",
+        hint: "파일 유형별 필터를 추천합니다.",
       };
+
+    case modalTypes.MY_POSTS:
+      return {
+        title: "내가 쓴 글",
+        subtitle: "내가 작성한 게시글입니다.",
+        hint: "작성일 및 상태 필터를 추천합니다.",
+      };
+
     default:
       return {
-        title: "강의 · 수업 관리",
+        title: "커뮤니티",
         subtitle: "",
         hint: "",
       };
