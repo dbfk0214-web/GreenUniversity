@@ -1,6 +1,6 @@
 // src/pages/studentmanagement/StudentCommunityDashboard.jsx
 import React, { useState } from "react";
-import FreePageComponent from "./student/FreePageComponent";
+import FreePageComponent from "../../components/student/FreePageComponent";
 
 /* =========================
    Modal Types (학생용)
