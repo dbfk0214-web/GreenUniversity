@@ -120,7 +120,7 @@ export default function ProfessorSupportDashboard() {
 function DashboardModal({ activeModal, onClose }) {
   if (!activeModal) return null;
 
-  const { title, subtitle, hint } = renderModalContent(activeModal);
+  const { title, subtitle, hint, content } = renderModalContent(activeModal);
 
   return (
     <div className="fixed inset-0 z-40 flex items-center justify-center bg-black/25">
@@ -141,17 +141,25 @@ function DashboardModal({ activeModal, onClose }) {
           </button>
         </div>
 
-        <div className="rounded-xl border border-dashed border-slate-200 bg-slate-50 p-4 text-xs text-slate-500">
-          <p className="mb-2 font-medium text-slate-700">
-            🛠 교수 지원 처리 영역
-          </p>
-          <p>요청 입력 또는 조회 UI가 이 영역에 표시됩니다.</p>
+        <div className="rounded-xl border border-dashed border-slate-200 bg-slate-50 p-4">
+          {content ? (
+            content
+          ) : (
+            <>
+              <p className="mb-2 text-xs font-medium text-slate-700">
+                💬 학생 커뮤니티 영역
+              </p>
+              <p className="text-xs leading-relaxed text-slate-500">
+                게시글 작성, 조회, 댓글 기능을 사용할 수 있습니다.
+              </p>
 
-          {hint && (
-            <p className="mt-3 text-[11px]">
-              <span className="font-semibold">UI 힌트: </span>
-              {hint}
-            </p>
+              {hint && (
+                <p className="mt-3 text-[11px] text-slate-500">
+                  <span className="font-semibold">UI 힌트: </span>
+                  {hint}
+                </p>
+              )}
+            </>
           )}
         </div>
 
@@ -186,36 +194,42 @@ function renderModalContent(activeModal) {
         title: "일반 지원 요청",
         subtitle: "학사 및 행정 관련 지원 요청입니다.",
         hint: "요청 유형 선택 + 상세 사유 입력 폼 권장",
+        content: "",
       };
     case modalTypes.IT_SUPPORT:
       return {
         title: "IT 지원 요청",
         subtitle: "시스템 및 계정 관련 문의입니다.",
         hint: "오류 유형 선택 + 스크린샷 첨부 UI 권장",
+        content: "",
       };
     case modalTypes.FACILITY_SUPPORT:
       return {
         title: "시설 지원 요청",
         subtitle: "강의 환경 관련 요청입니다.",
         hint: "강의실 선택 + 장비 항목 체크 UI 권장",
+        content: "",
       };
     case modalTypes.REQUEST_STATUS:
       return {
         title: "요청 처리 현황",
         subtitle: "지원 요청 처리 상태입니다.",
         hint: "대기 / 처리중 / 완료 상태 뱃지 테이블 권장",
+        content: "",
       };
     case modalTypes.SUPPORT_NOTICE:
       return {
         title: "지원 공지",
         subtitle: "지원 관련 공지사항입니다.",
         hint: "중요 공지 상단 고정 + 카테고리 필터 권장",
+        content: "",
       };
     default:
       return {
         title: "교수 지원",
         subtitle: "",
         hint: "",
+        content: "",
       };
   }
 }
