@@ -1,14 +1,9 @@
-import axios from "axios";
-import { createTableConfig, excludeColumns } from "./commonApi";
-import DepartmentApi from "./DepartmentApi";
+import { createTableConfig } from "./commonApi";
 import { tableDefinitions } from "./tablesConfig";
 
-const tableName = "time";
+const tableName = "classSection";
 
-const extraButtons =
-  [
-    
-  ];
+const extraButtons = [];
 
 var tableDefinition = tableDefinitions[tableName];
 tableDefinition = {
@@ -16,10 +11,11 @@ tableDefinition = {
   allColumns: {
     ...tableDefinition.allColumns,
     searchColumns: {
-      "one": tableDefinition.allColumns.responseColumns
-    }
-  }
-}
+      one: tableDefinition.allColumns.responseColumns,
+    },
+  },
+};
+
 const config = createTableConfig(tableDefinition, extraButtons);
 
 export default { config };

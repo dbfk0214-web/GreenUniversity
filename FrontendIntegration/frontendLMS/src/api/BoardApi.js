@@ -7,16 +7,20 @@ const tableName = "board";
 
 const extraButtons =
   [
-    {
-      label: "Post 정보 읽기",
-      action: PostApi.config.funcs.readAll,
-      style: "bg-red-300 hover:bg-red-700",
-      columns: { ...excludeColumns(PostApi.config.columns, PostApi.config.excludeList) },
-      tableName: "post"
-    },
+
   ];
 
-const config = createTableConfig(tableDefinitions[tableName], extraButtons);
+var tableDefinition = tableDefinitions[tableName];
+tableDefinition = {
+  ...tableDefinition,
+  allColumns: {
+    ...tableDefinition.allColumns,
+    searchColumns: {
+      "one": tableDefinition.allColumns.responseColumns
+    }
+  }
+}
+const config = createTableConfig(tableDefinition, extraButtons);
 
 
 export default { config };  
