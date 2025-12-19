@@ -1,13 +1,12 @@
 import axios from "axios";
 import { createTableConfig, excludeColumns } from "./commonApi";
-import DepartmentApi from "./DepartmentApi";
 import { tableDefinitions } from "./tablesConfig";
 
-const tableName = "review";
+const tableName = "search";
 
 const extraButtons =
   [
-   
+
   ];
 
 var tableDefinition = tableDefinitions[tableName];
