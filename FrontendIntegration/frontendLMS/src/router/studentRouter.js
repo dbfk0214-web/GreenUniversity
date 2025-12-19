@@ -2,7 +2,7 @@ import { lazy, Suspense } from "react";
 import Mainlayouts from "../layouts/Mainlayouts";
 
 const StudentHomeDashboard = lazy(() =>
-  import("../pages/student/StudentHomeDashboard")
+  import("../components/student/StudentHomeDashboard")
 );
 
 const Academic = lazy(() => import("../pages/student/Academic"));

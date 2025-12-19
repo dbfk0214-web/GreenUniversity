@@ -245,10 +245,9 @@ function DashboardModal({ activeModal, onClose }) {
           </button>
           <button
             type="button"
-            className="rounded-lg bg-slate-900 px-3 py-1.5 text-xs font-medium text-white opacity-60"
-            disabled
+            className="rounded-lg bg-blue-700 px-3 py-1.5 text-xs font-medium text-white opacity-60 hover:bg-blue-300"
           >
-            저장 (폼 연결 후 활성화)
+            저장
           </button>
         </div>
       </div>
