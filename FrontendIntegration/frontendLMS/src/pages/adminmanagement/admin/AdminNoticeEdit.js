@@ -126,7 +126,8 @@ function NoticeEditModalBody({ form, setForm, onClose, onSuccess }) {
           공지사항 관리 (수정 / 삭제)
         </h2>
         <p className="mt-1 text-xs text-slate-400">
-          좌측에서 공지를 수정/삭제하고, 우측에서 최근 공지를 선택해 불러올 수 있습니다.
+          좌측에서 공지를 수정/삭제하고, 우측에서 최근 공지를 선택해 불러올 수
+          있습니다.
         </p>
       </div>
 
@@ -247,9 +248,7 @@ function NoticeEditModalBody({ form, setForm, onClose, onSuccess }) {
               </button>
               <button
                 type="button"
-                onClick={() =>
-                  handleUpdateNotice(safeForm, onSuccess, onClose)
-                }
+                onClick={() => handleUpdateNotice(safeForm, onSuccess, onClose)}
                 className="
                   px-4 py-2
                   rounded-lg
@@ -312,7 +311,10 @@ function NoticeEditModalBody({ form, setForm, onClose, onSuccess }) {
                         {notice.title}
                       </span>
                       <span className="text-[10px] text-slate-400">
-                        {(notice.createdAt || notice.regDate || "").slice(0, 10)}
+                        {(notice.createdAt || notice.regDate || "").slice(
+                          0,
+                          10
+                        )}
                       </span>
                     </div>
                     <p className="mt-1 text-[11px] text-slate-500 line-clamp-2">
