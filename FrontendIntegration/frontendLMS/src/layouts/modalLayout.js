@@ -17,7 +17,7 @@ const MODE_STYLE = {
 };
 
 export default function ModalLayout({
-  mode = "modal",   // ⭐ 핵심
+  mode = "modal",   
   title,
   subtitle,
   onClose,
