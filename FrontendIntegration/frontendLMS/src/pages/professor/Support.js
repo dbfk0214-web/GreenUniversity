@@ -1,6 +1,10 @@
 // src/pages/professormanagement/ProfessorSupportDashboard.jsx
 import React, { useState } from "react";
 import { DashboardButton, SectionHeader } from "../../components/what";
+import ProfessorGeneralSupportRequestComponent from "../../components/professor/ProfessorGeneralSupportRequestComponent";
+import ProfessorITSupportRequestComponent from "../../components/professor/ProfessorITSupportRequestComponent.JS";
+import ProfessorFacilitySupportRequestComponent from "../../components/professor/ProfessorFacilitySupportRequestComponent";
+import ProfessorSupportRequestStatusComponent from "../../components/professor/ProfessorSupportRequestStatusComponent.JS";
 
 /* =========================
    Modal Types (교수용)
@@ -194,28 +198,28 @@ function renderModalContent(activeModal) {
         title: "일반 지원 요청",
         subtitle: "학사 및 행정 관련 지원 요청입니다.",
         hint: "요청 유형 선택 + 상세 사유 입력 폼 권장",
-        content: "",
+        content:<ProfessorGeneralSupportRequestComponent/>
       };
     case modalTypes.IT_SUPPORT:
       return {
         title: "IT 지원 요청",
         subtitle: "시스템 및 계정 관련 문의입니다.",
         hint: "오류 유형 선택 + 스크린샷 첨부 UI 권장",
-        content: "",
+        content:<ProfessorITSupportRequestComponent/>
       };
     case modalTypes.FACILITY_SUPPORT:
       return {
         title: "시설 지원 요청",
         subtitle: "강의 환경 관련 요청입니다.",
         hint: "강의실 선택 + 장비 항목 체크 UI 권장",
-        content: "",
+        content: <ProfessorFacilitySupportRequestComponent/>
       };
     case modalTypes.REQUEST_STATUS:
       return {
         title: "요청 처리 현황",
         subtitle: "지원 요청 처리 상태입니다.",
         hint: "대기 / 처리중 / 완료 상태 뱃지 테이블 권장",
-        content: "",
+        content: <ProfessorSupportRequestStatusComponent/>
       };
     case modalTypes.SUPPORT_NOTICE:
       return {
