@@ -7,16 +7,19 @@ const tableName = "course";
 
 const extraButtons =
   [
-    {
-      label: "department 정보 읽기",
-      action: DepartmentApi.config.funcs.readAll,
-      style: "bg-red-300 hover:bg-red-700",
-      columns: { ...excludeColumns(DepartmentApi.config.columns, DepartmentApi.config.excludeList) },
-      tableName: "department"
-    },
   ];
 
-const config = createTableConfig(tableDefinitions[tableName], extraButtons);
+var tableDefinition = tableDefinitions[tableName];
+tableDefinition = {
+  ...tableDefinition,
+  allColumns: {
+    ...tableDefinition.allColumns,
+    searchColumns: {
+      "one": tableDefinition.allColumns.responseColumns
+    }
+  }
+}
+const config = createTableConfig(tableDefinition, extraButtons);
 
 
 export default { config };  

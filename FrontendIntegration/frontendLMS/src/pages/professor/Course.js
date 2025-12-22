@@ -1,5 +1,7 @@
 // src/pages/professormanagement/ProfessorCourseManagementDashboard.jsx
 import React, { useState } from "react";
+import CourseNoticeManagementComponent from "../../components/professor/CourseNoticeManagementComponent";
+import ProfessorCourseMaterialManagementComponent from "../../components/professor/ProfessorCourseMaterialManagementComponent";
 
 /* =========================
    Modal Types (교수용)
@@ -275,12 +277,14 @@ function renderModalContent(activeModal) {
         title: "강의 자료 관리",
         subtitle: "강의 자료를 관리합니다.",
         hint: "자료 업로드 + 주차별 정렬 UI 추천",
+        content:<ProfessorCourseMaterialManagementComponent/>
       };
     case modalTypes.COURSE_NOTICE:
       return {
         title: "강의 공지",
         subtitle: "강의별 공지를 작성합니다.",
         hint: "공지 예약 발행 기능 고려",
+        content:<CourseNoticeManagementComponent/>
       };
     default:
       return { title: "강의 관리", subtitle: "", hint: "" };
