@@ -41,18 +41,7 @@ const extraButtons =
 
   ];
 
-var tableDefinition = tableDefinitions[tableName];
-tableDefinition = {
-  ...tableDefinition,
-  allColumns: {
-    ...tableDefinition.allColumns,
-    searchColumns: {
-      "one": tableDefinition.allColumns.responseColumns,
-      "role" : tableDefinition.allColumns.responseColumns
-    }
-  }
-}
-const config = createTableConfig(tableDefinition, extraButtons);
+const config = createTableConfig(tableDefinitions[tableName], extraButtons);
 
 
 

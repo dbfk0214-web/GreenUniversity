@@ -1,16 +1,31 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { useResponsiveSidebar } from "../hook/useResponsiveSiderbar";
 
 export default function Navbar({ subHeader }) {
   const sections = Array.isArray(subHeader) ? subHeader : [];
-  const {isOpen,toggle} = useResponsiveSidebar();
+  const [isOpen, setIsOpen] = useState(true);
+
+  // 화면 크기에 따라 자동 열림/닫힘
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 1024) {
+        setIsOpen(false);
+      } else {
+        setIsOpen(true);
+      }
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   return (
     <>
       {/* 토글 버튼 */}
       <button
         type="button"
-        onClick={() => toggle((prev) => !prev)}
+        onClick={() => setIsOpen((prev) => !prev)}
         className="
           fixed left-4 top-1/2 -translate-y-1/2 z-50
           h-10 w-10 flex items-center justify-center
@@ -20,7 +35,6 @@ export default function Navbar({ subHeader }) {
       >
         ✕
       </button>
-      
 
       {/* 사이드바 */}
       <aside

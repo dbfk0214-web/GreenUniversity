@@ -5,10 +5,6 @@ import CheckPage from "../pages/gradesAcademicRecords/CheckPage";
 
 const Loading = <div>Loading......</div>;
 
-
-const GradeReportPage = lazy(() =>
-  import("../pages/gradesAcademicRecords/GradeReportPage")
-);
 const Grade = lazy(() =>
   import("../pages/gradesAcademicRecords/GradeReportPage")
 );
@@ -25,7 +21,7 @@ const gradesAcademicRecordsRouter = () => {
       ),
     },
     {
-      path: "grade",
+      path: "gradereport",
       element: (
         <Suspense fallback={Loading}>
           <Mainlayouts children={<Grade />} />
@@ -41,10 +37,18 @@ const gradesAcademicRecordsRouter = () => {
       ),
     },
     {
+      path: "print",
+      element: (
+        <Suspense fallback={Loading}>
+          <Mainlayouts children={<print />} />
+        </Suspense>
+      ),
+    },
+    {
       path: "report",
       element: (
         <Suspense fallback={Loading}>
-          <Mainlayouts children={<GradeReportPage />} />
+          <Mainlayouts children={<gradepage />} />
         </Suspense>
       ),
     },

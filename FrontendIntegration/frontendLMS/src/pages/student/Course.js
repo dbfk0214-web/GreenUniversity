@@ -1,23 +1,22 @@
-// src/pages/studentmanagement/StudentCourseDashboard.jsx
+// src/pages/studentmanagement/CourseEnrollmentManagementDashboard.jsx
 import React, { useState } from "react";
+import FreePageComponent from "../../components/student/FreePageComponent";
 
 /* =========================
-   Modal Types (학생용)
+   Modal Types (소분류)
 ========================= */
 const modalTypes = {
   COURSE_LIST: "COURSE_LIST",
   TIMETABLE: "TIMETABLE",
-
   ATTENDANCE: "ATTENDANCE",
-  COURSE_NOTICE: "COURSE_NOTICE",
-
   COURSE_EVALUATION: "COURSE_EVALUATION",
+  COURSE_NOTICE: "COURSE_NOTICE",
 };
 
 /* =========================
    Main Dashboard
 ========================= */
-export default function StudentCourseDashboard() {
+export default function CourseEnrollmentManagementDashboard() {
   const [activeModal, setActiveModal] = useState(null);
   const closeModal = () => setActiveModal(null);
 
@@ -26,89 +25,87 @@ export default function StudentCourseDashboard() {
       {/* ===== 대분류 헤더 ===== */}
       <header className="mb-8 flex flex-col gap-2">
         <h1 className="text-2xl font-semibold text-slate-900">
-          수강 · 강의 관리
+          강의 · 수업 관리
         </h1>
         <p className="text-sm text-slate-500">
-          수강 중인 강의와 학습 활동을 관리합니다.
+          수강 중인 강의, 시간표, 출결 및 강의 평가를 관리합니다.
         </p>
       </header>
 
       {/* ===== 중분류 카드 영역 ===== */}
       <div className="grid gap-6 lg:grid-cols-3">
         {/* ===============================
-            중분류 1: 수강 정보
+            중분류 1: 수강 강의
         =============================== */}
         <section className="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-slate-100">
           <SectionHeader
-            tag="Enrollment"
+            tag="My Courses"
             tagColor="teal"
-            title="수강 정보"
-            description="수강 중인 강의를 확인합니다."
-            badge="Current"
+            title="수강 강의 관리"
+            description="현재 수강 중인 강의를 관리합니다."
+            badge="Courses"
             badgeColor="teal"
           />
 
           <div className="space-y-3">
             <DashboardButton
               label="수강 강의 목록"
-              description="현재 수강 중인 강의를 확인합니다."
+              description="현재 수강 중인 강의를 조회합니다."
               onClick={() => setActiveModal(modalTypes.COURSE_LIST)}
             />
             <DashboardButton
-              label="시간표 조회"
-              description="주간 시간표를 확인합니다."
-              onClick={() => setActiveModal(modalTypes.TIMETABLE)}
-            />
-          </div>
-        </section>
-
-        {/* ===============================
-            중분류 2: 출결 · 공지
-        =============================== */}
-        <section className="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-slate-100">
-          <SectionHeader
-            tag="Class"
-            tagColor="lime"
-            title="출결 · 공지"
-            description="강의 운영 정보를 확인합니다."
-            badge="Lecture"
-            badgeColor="lime"
-          />
-
-          <div className="space-y-3">
-            <DashboardButton
-              label="출결 현황"
-              description="강의별 출결 상태를 확인합니다."
-              onClick={() => setActiveModal(modalTypes.ATTENDANCE)}
-            />
-            <DashboardButton
-              label="강의 공지"
-              description="강의별 공지사항을 확인합니다."
+              label="강의 공지 확인"
+              description="강의별 공지 사항을 확인합니다."
               onClick={() => setActiveModal(modalTypes.COURSE_NOTICE)}
             />
           </div>
         </section>
 
         {/* ===============================
-            중분류 3: 평가
+            중분류 2: 시간표 · 출결
+        =============================== */}
+        <section className="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-slate-100">
+          <SectionHeader
+            tag="Schedule"
+            tagColor="lime"
+            title="시간표 · 출결"
+            description="시간표와 출결 상태를 확인합니다."
+            badge="Attendance"
+            badgeColor="lime"
+          />
+
+          <div className="space-y-3">
+            <DashboardButton
+              label="시간표 조회"
+              description="학기별 시간표를 확인합니다."
+              onClick={() => setActiveModal(modalTypes.TIMETABLE)}
+            />
+            <DashboardButton
+              label="출결 조회"
+              description="강의별 출결 상태를 확인합니다."
+              onClick={() => setActiveModal(modalTypes.ATTENDANCE)}
+            />
+          </div>
+        </section>
+
+        {/* ===============================
+            중분류 3: 강의 평가
         =============================== */}
         <section className="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-slate-100">
           <SectionHeader
             tag="Evaluation"
             tagColor="fuchsia"
-            title="평가"
-            description="강의 평가를 진행합니다."
+            title="강의 평가"
+            description="강의 평가 및 만족도를 관리합니다."
             badge="Feedback"
             badgeColor="fuchsia"
           />
 
           <div className="space-y-3">
             <DashboardButton
-              label="강의 평가"
-              description="수강한 강의를 평가합니다."
-              onClick={() =>
-                setActiveModal(modalTypes.COURSE_EVALUATION)
-              }
+              label="강의 평가 참여"
+              description="수강한 강의에 대한 평가를 진행합니다."
+              onClick={() => setActiveModal(modalTypes.COURSE_EVALUATION)}
             />
           </div>
         </section>
@@ -151,12 +148,8 @@ function SectionHeader({
         >
           {tag}
         </p>
-        <h2 className="mt-1 text-lg font-semibold text-slate-900">
-          {title}
-        </h2>
-        <p className="mt-1 text-xs text-slate-500">
-          {description}
-        </p>
+        <h2 className="mt-1 text-lg font-semibold text-slate-900">{title}</h2>
+        <p className="mt-1 text-xs text-slate-500">{description}</p>
       </div>
       <span
         className={`rounded-full px-3 py-1 text-xs font-medium ${badgeColorMap[badgeColor]}`}
@@ -175,15 +168,12 @@ function DashboardButton({ label, description, onClick }) {
     <button
       type="button"
       onClick={onClick}
-      className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-left text-sm transition
-                 hover:border-slate-300 hover:bg-white hover:shadow-sm"
+      className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-left text-sm transition hover:border-slate-300 hover:bg-white hover:shadow-sm"
     >
       <div className="flex items-center justify-between">
-        <span className="font-medium text-slate-800">
-          {label}
-        </span>
+        <span className="font-medium text-slate-800">{label}</span>
         <span className="text-[10px] uppercase tracking-wide text-slate-400">
-          View
+          Open
         </span>
       </div>
       {description && (
@@ -201,21 +191,16 @@ function DashboardButton({ label, description, onClick }) {
 function DashboardModal({ activeModal, onClose }) {
   if (!activeModal) return null;
 
-  const { title, subtitle, hint, content } =
-    renderModalContent(activeModal);
+  const { title, subtitle, hint, content } = renderModalContent(activeModal);
 
   return (
     <div className="fixed inset-0 z-40 flex items-center justify-center bg-black/25">
       <div className="w-full max-w-[80%] rounded-2xl bg-white p-6 shadow-xl ring-1 ring-slate-200">
         <div className="mb-4 flex items-start justify-between">
           <div>
-            <h3 className="text-lg font-semibold text-slate-900">
-              {title}
-            </h3>
+            <h3 className="text-lg font-semibold text-slate-900">{title}</h3>
             {subtitle && (
-              <p className="mt-1 text-xs text-slate-500">
-                {subtitle}
-              </p>
+              <p className="mt-1 text-xs text-slate-500">{subtitle}</p>
             )}
           </div>
           <button
@@ -233,24 +218,22 @@ function DashboardModal({ activeModal, onClose }) {
           ) : (
             <>
               <p className="mb-2 text-xs font-medium text-slate-700">
-                📘 수강 · 강의 관리
+                💬 학생 커뮤니티 영역
               </p>
               <p className="text-xs leading-relaxed text-slate-500">
-                강의 정보 및 학습 관련 기능을 제공합니다.
+                게시글 작성, 조회, 댓글 기능을 사용할 수 있습니다.
               </p>
+
               {hint && (
                 <p className="mt-3 text-[11px] text-slate-500">
-                  <span className="font-semibold">
-                    UI 힌트:{" "}
-                  </span>
+                  <span className="font-semibold">UI 힌트: </span>
                   {hint}
                 </p>
               )}
             </>
           )}
         </div>
-
-        <div className="mt-5 flex justify-end gap-2">
+        <div className="mt-5 flex justify-end">
           <button
             type="button"
             onClick={onClose}
@@ -276,39 +259,52 @@ function DashboardModal({ activeModal, onClose }) {
 ========================= */
 function renderModalContent(activeModal) {
   switch (activeModal) {
-    case modalTypes.COURSE_LIST:
+    case modalTypes.NOTICE_LIST:
       return {
-        title: "수강 강의 목록",
-        subtitle: "현재 수강 중인 강의입니다.",
-        hint: "강의별 바로가기 버튼을 추천합니다.",
+        title: "공지사항 목록",
+        subtitle: "학교 공지사항을 확인합니다.",
+        hint: "중요 공지 상단 고정 표시를 추천합니다.",
       };
-    case modalTypes.TIMETABLE:
+
+    case modalTypes.NOTICE_DETAIL:
       return {
-        title: "시간표",
-        subtitle: "주간 시간표를 확인합니다.",
-        hint: "요일별 색상 구분을 추천합니다.",
+        title: "공지 상세 보기",
+        subtitle: "공지 내용을 확인합니다.",
+        hint: "첨부파일 다운로드 UI를 추천합니다.",
       };
-    case modalTypes.ATTENDANCE:
+
+    case modalTypes.FREE_BOARD:
       return {
-        title: "출결 현황",
-        subtitle: "강의별 출결 상태입니다.",
-        hint: "결석/지각 색상 강조를 추천합니다.",
+        title: "자유 게시판",
+        subtitle: "학생 자유 게시판입니다.",
+        hint: "좋아요 · 댓글 · 검색 기능을 추천합니다.",
+        content: <FreePageComponent mode="modal" />,
       };
-    case modalTypes.COURSE_NOTICE:
+
+    case modalTypes.QNA_BOARD:
       return {
-        title: "강의 공지",
-        subtitle: "강의별 공지사항입니다.",
-        hint: "최근 공지 상단 고정을 추천합니다.",
+        title: "질문 · 답변(Q&A)",
+        subtitle: "질문과 답변을 확인합니다.",
+        hint: "답변 채택 기능을 고려하세요.",
       };
-    case modalTypes.COURSE_EVALUATION:
+
+    case modalTypes.DATA_BOARD:
       return {
-        title: "강의 평가",
-        subtitle: "강의 만족도 평가를 진행합니다.",
-        hint: "익명 평가 안내 문구를 추천합니다.",
+        title: "자료실",
+        subtitle: "공유 자료를 확인합니다.",
+        hint: "파일 유형별 필터를 추천합니다.",
       };
+
+    case modalTypes.MY_POSTS:
+      return {
+        title: "내가 쓴 글",
+        subtitle: "내가 작성한 게시글입니다.",
+        hint: "작성일 및 상태 필터를 추천합니다.",
+      };
+
     default:
       return {
-        title: "수강 · 강의 관리",
+        title: "커뮤니티",
         subtitle: "",
         hint: "",
       };

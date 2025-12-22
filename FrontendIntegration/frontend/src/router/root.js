@@ -5,6 +5,7 @@ import aboutGreenRouter from "./aboutGreenRouter";
 import academicSupportRouter from "./academicSupportRouter";
 import admissionEducationRouter from "./admissionEducationRouter";
 import campusLifeRouter from "./campusLifeRouter";
+import extraServicesRouter from "./extraServicesRouter";
 import informationRouter from "./informationRouter";
 import accountRouter from "./accountRouter";
 import adminRouter from "./adminRouter";
@@ -43,6 +44,11 @@ const root = createBrowserRouter([
     path: "campuslife",
     // element: <Suspense fallback={Loading}><Basiclayout children={<Main />}></Basiclayout></Suspense>,
     children: campusLifeRouter(),
+  },
+  {
+    path: "extraservices",
+    // element: <Suspense fallback={Loading}><Basiclayout children={<Main />}></Basiclayout></Suspense>,
+    children: extraServicesRouter(),
   },
   {
     path: "information",

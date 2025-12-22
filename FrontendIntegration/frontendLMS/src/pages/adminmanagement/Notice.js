@@ -2,10 +2,6 @@
 import React, { useState } from "react";
 import AdminNotice from "./admin/AdminNotice";
 import AdminNoticeEdit from "./admin/AdminNoticeEdit";
-import AdminNoticePeriodSettingComponent from "./admin/AdminNoticePeriodSettingComponent";
-import AdminDepartmentNewsManagementComponent from "./admin/AdminDepartmentNewsManagementComponent";
-import AdminMaterialCategoryManagementComponent from "./admin/AdminMaterialCategoryManagementComponent";
-import AdminFileManagementComponent from "./admin/AdminFileManagementComponent";
 
 const modalTypes = {
   CREATE_NOTICE: "CREATE_NOTICE",
@@ -214,21 +210,18 @@ function DashboardModal({ activeModal, onClose }) {
           subtitle:
             "공지의 게시 시작일, 종료일 및 상시 게시 여부를 관리합니다.",
           hint: "DatePicker + 토글 스위치 조합으로 UX를 구성하는 것을 추천합니다.",
-          content:<AdminNoticePeriodSettingComponent/>
         };
       case modalTypes.DEPT_NEWS:
         return {
           title: "학과 소식 / 뉴스 관리",
           subtitle: "학과별 소식, 뉴스, 카드뉴스를 관리합니다.",
           hint: "썸네일, 태그(전공, 학년, 유형), 메인 노출 여부 필드를 포함해보세요.",
-          content:<AdminDepartmentNewsManagementComponent/>
         };
       case modalTypes.RESOURCE_CATEGORY:
         return {
           title: "자료실 카테고리 관리",
           subtitle: "상위/하위 카테고리 구조와 정렬 순서를 설정합니다.",
           hint: "드래그 앤 드롭 정렬 UX를 나중에 붙일 수 있도록 데이터 구조를 설계해두면 좋습니다.",
-          content:<AdminMaterialCategoryManagementComponent/>
         };
       case modalTypes.RESOURCE_FILES:
         return {
@@ -236,7 +229,6 @@ function DashboardModal({ activeModal, onClose }) {
           subtitle:
             "자료실 파일 업로드, 버전 관리, 다운로드 권한을 설정합니다.",
           hint: "파일명, 버전, 용량, 업로더, 마지막 수정일, 다운로드 수 컬럼을 추천합니다.",
-          content:<AdminFileManagementComponent/>
         };
       default:
         return {

@@ -1,11 +1,5 @@
 // src/pages/studentmanagement/StudentSupportDashboard.jsx
 import React, { useState } from "react";
-import TuitionComponent from "../../components/student/TuitionComponent";
-import TuitionPaymentStatusComponent from "../../components/student/TuitionPaymentStatusComponent";
-import ScholarshipGuideComponent from "../../components/student/ScholarshipGuideComponent";
-import ScholarshipApplyComponent from "../../components/student/ScholarshipApplyComponent";
-import TuitionReductionComponent from "../../components/student/TuitionReductionComponent";
-import SupportHistoryComponent from "../../components/student/SupportHistoryComponent";
 
 /* =========================
    Modal Types (학생용)
@@ -277,42 +271,36 @@ function renderModalContent(activeModal) {
         title: "등록금 고지서",
         subtitle: "학기별 등록금 고지를 확인합니다.",
         hint: "PDF 고지서 다운로드 기능을 추천합니다.",
-        content:<TuitionComponent />
       };
     case modalTypes.TUITION_PAYMENT:
       return {
         title: "등록금 납부 현황",
         subtitle: "납부 내역을 확인합니다.",
         hint: "납부 완료/미납 상태 표시를 추천합니다.",
-        content:<TuitionPaymentStatusComponent/>
       };
     case modalTypes.SCHOLARSHIP_LIST:
       return {
         title: "장학금 안내",
         subtitle: "신청 가능한 장학금 목록입니다.",
         hint: "신청 가능 여부 필터를 추천합니다.",
-        content:<ScholarshipGuideComponent/>
       };
     case modalTypes.SCHOLARSHIP_APPLY:
       return {
         title: "장학금 신청",
         subtitle: "장학금을 신청합니다.",
         hint: "신청서 + 증빙 서류 첨부 UI를 추천합니다.",
-        content:<ScholarshipApplyComponent/>
       };
     case modalTypes.FINANCIAL_AID:
       return {
         title: "학비 지원 · 감면",
         subtitle: "학비 지원 제도를 확인합니다.",
         hint: "지원 조건 요약 카드 UI를 추천합니다.",
-        content:<TuitionReductionComponent/>
       };
     case modalTypes.SUPPORT_HISTORY:
       return {
         title: "지원 내역 조회",
         subtitle: "신청한 지원 내역을 확인합니다.",
         hint: "처리 상태 타임라인 UI를 추천합니다.",
-        content:<SupportHistoryComponent/>
       };
     default:
       return {

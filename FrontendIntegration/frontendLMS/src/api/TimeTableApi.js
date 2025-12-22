@@ -3,23 +3,14 @@ import { createTableConfig, excludeColumns } from "./commonApi";
 import DepartmentApi from "./DepartmentApi";
 import { tableDefinitions } from "./tablesConfig";
 
-const tableName = "time";
+const tableName = "timetable";
 
 const extraButtons =
   [
-    
+   
   ];
 
-var tableDefinition = tableDefinitions[tableName];
-tableDefinition = {
-  ...tableDefinition,
-  allColumns: {
-    ...tableDefinition.allColumns,
-    searchColumns: {
-      "one": tableDefinition.allColumns.responseColumns
-    }
-  }
-}
-const config = createTableConfig(tableDefinition, extraButtons);
+const config = createTableConfig(tableDefinitions[tableName], extraButtons);
 
-export default { config };
+
+export default { config };  
