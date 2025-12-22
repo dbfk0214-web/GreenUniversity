@@ -10,6 +10,9 @@ const Department = lazy(() => import("../pages/community/DepartmentPage"));
 const Free = lazy(() => import("../pages/community/FreePage"));
 const QaA = lazy(() => import("../pages/community/QaAPage"));
 const Chatbot = lazy(() => import("../pages/community/ChatbotPage"));
+const CommunityList = lazy(() =>
+  import("../pages/community/CommunityListPage")
+);
 const DataSharing = lazy(() => import("../components/community/DataSharingPageComponent"));
 
 const Entrie = lazy(() => import("../pages/community/EntriePage"))

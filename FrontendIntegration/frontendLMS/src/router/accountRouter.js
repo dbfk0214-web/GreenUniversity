@@ -1,4 +1,6 @@
 import React, { lazy, Suspense } from "react";
+import { Navigate } from "react-router-dom";
+import BasicLayout from "../layouts/Basiclayout";
 import Mainlayouts from "../layouts/Mainlayouts";
 
 const Loading = <div>Loading......</div>;

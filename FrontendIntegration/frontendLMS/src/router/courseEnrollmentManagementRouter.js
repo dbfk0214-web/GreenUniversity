@@ -63,21 +63,21 @@ const CoursesProfessor = lazy(() =>
 );
 
 /* ------------------ Admin ------------------ */
-// const AdminCourses = lazy(() =>
-//   import("../pages/courseenrollmentmanagement/admin/CoursesPage")
-// );
-// const Lectures = lazy(() =>
-//   import("../pages/courseenrollmentmanagement/admin/LecturesPage")
-// );
-// const Curriculum = lazy(() =>
-//   import("../pages/courseenrollmentmanagement/admin/CurriculumPage")
-// );
-// const Enrollment = lazy(() =>
-//   import("../pages/courseenrollmentmanagement/admin/EnrollmentPage")
-// );
-// const Schedules = lazy(() =>
-//   import("../pages/courseenrollmentmanagement/admin/SchedulesPage")
-// );
+const AdminCourses = lazy(() =>
+  import("../pages/courseenrollmentmanagement/admin/CoursesPage")
+);
+const Lectures = lazy(() =>
+  import("../pages/courseenrollmentmanagement/admin/LecturesPage")
+);
+const Curriculum = lazy(() =>
+  import("../pages/courseenrollmentmanagement/admin/CurriculumPage")
+);
+const Enrollment = lazy(() =>
+  import("../pages/courseenrollmentmanagement/admin/EnrollmentPage")
+);
+const Schedules = lazy(() =>
+  import("../pages/courseenrollmentmanagement/admin/SchedulesPage")
+);
 
 const courseEnrollmentManagementRouter = () => [
   /* ---------- Student ---------- */
@@ -251,6 +251,58 @@ const courseEnrollmentManagementRouter = () => [
       <Suspense fallback={Loading}>
         <Mainlayouts>
           <CoursesProfessor />
+        </Mainlayouts>
+      </Suspense>
+    ),
+  },
+
+  /* ---------- Admin ---------- */
+  {
+    path: "admin/courses",
+    element: (
+      <Suspense fallback={Loading}>
+        <Mainlayouts>
+          <AdminCourses />
+        </Mainlayouts>
+      </Suspense>
+    ),
+  },
+  {
+    path: "admin/lecture",
+    element: (
+      <Suspense fallback={Loading}>
+        <Mainlayouts>
+          <Lectures />
+        </Mainlayouts>
+      </Suspense>
+    ),
+  },
+  {
+    path: "admin/curriculum",
+    element: (
+      <Suspense fallback={Loading}>
+        <Mainlayouts>
+          <Curriculum />
+        </Mainlayouts>
+      </Suspense>
+    ),
+  },
+  {
+    path: "admin/enrollment",
+    element: (
+      <Suspense fallback={Loading}>
+        <Mainlayouts>
+          <Enrollment />
+        </Mainlayouts>
+      </Suspense>
+    ),
+  },
+  {
+    path: "admin/schedules",
+    element: (
+      <Suspense fallback={Loading}>
+        <Mainlayouts>
+          <Schedules />
         </Mainlayouts>
       </Suspense>
     ),

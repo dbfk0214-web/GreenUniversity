@@ -1,6 +1,6 @@
 // src/pages/studentmanagement/CourseEnrollmentManagementDashboard.jsx
 import React, { useState } from "react";
-import FreePageComponent from "../../components/student/FreePageComponent";
+import FreePageComponent from "./student/FreePageComponent";
 
 /* =========================
    Modal Types (소분류)

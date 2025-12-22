@@ -1,7 +1,7 @@
 import { lazy } from "react";
 
 import Mainlayouts from "../layouts/Mainlayouts";
-import AdminHomeDashboard from "../components/admin/AdminHomeDashboard";
+import AdminHomeDashboard from "../pages/adminmanagement/AdminHomeDashboard";
 
 // 파일명이 Notice.jsx 라고 가정
 const Notice = lazy(() => import("../pages/adminmanagement/Notice"));
