@@ -1,5 +1,7 @@
 // src/pages/professormanagement/ProfessorAttendanceExamDashboard.jsx
 import React, { useState } from "react";
+import ProfessorExamNoticeManagementComponent from "../../components/professor/ProfessorExamNoticeManagementComponent";
+import ProfessorExamScheduleRegisterComponent from "../../components/professor/ProfessorExamScheduleRegisterComponent";
 
 /* =========================
    Modal Types (교수용)
@@ -278,12 +280,14 @@ function renderModalContent(activeModal) {
         title: "시험 일정 등록",
         subtitle: "시험 일정을 등록합니다.",
         hint: "날짜 · 시간 · 장소 입력 UI를 추천합니다.",
+        content:<ProfessorExamScheduleRegisterComponent/>
       };
     case modalTypes.EXAM_NOTICE:
       return {
         title: "시험 공지",
         subtitle: "시험 관련 공지를 전달합니다.",
         hint: "공지 예약 발행 기능을 고려하세요.",
+        content:<ProfessorExamNoticeManagementComponent/>
       };
     default:
       return {

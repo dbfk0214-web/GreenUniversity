@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 
 import Academicschedule from "./admin/Academicschedule";
+import AdminNoticeBannerLinkComponent from "./admin/AdminNoticeBannerLinkComponent";
 
 const modalTypes = {
   ACADEMIC_SCHEDULE: "ACADEMIC_SCHEDULE",
@@ -332,7 +333,7 @@ function renderModalContent(activeModal) {
         title: "공지 · 배너 연동 설정",
         subtitle: "행사 정보를 공지/배너와 연동합니다.",
         hint: "메인 배너, 팝업 공지, 학과 페이지 섹션과의 연결 여부를 설정할 수 있습니다.",
-        content: "",
+        content: <AdminNoticeBannerLinkComponent/>
       };
     case modalTypes.REMINDER_ALARM:
       return {
