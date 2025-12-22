@@ -1,6 +1,8 @@
 // src/pages/studentmanagement/StudentCommunityDashboard.jsx
 import React, { useState } from "react";
 import FreePageComponent from "../../components/student/FreePageComponent";
+import NoticeInventoryComponent from "../../components/student/NoticeInventoryComponent";
+import QaAPageComponent from "../../components/community/QaAPageComponent";
 
 /* =========================
    Modal Types (학생용)
@@ -271,6 +273,7 @@ function renderModalContent(activeModal) {
         title: "공지사항 목록",
         subtitle: "학교 공지사항을 확인합니다.",
         hint: "중요 공지 상단 고정 표시를 추천합니다.",
+        content:<NoticeInventoryComponent/>
       };
     case modalTypes.NOTICE_DETAIL:
       return {
@@ -290,6 +293,7 @@ function renderModalContent(activeModal) {
         title: "질문 · 답변(Q&A)",
         subtitle: "질문과 답변을 확인합니다.",
         hint: "답변 채택 기능을 고려하세요.",
+        content:<QaAPageComponent/>
       };
     case modalTypes.DATA_BOARD:
       return {

@@ -76,10 +76,8 @@ function NoticeEditModalBody({ form, setForm, onClose, onSuccess }) {
       setLoadingList(false);
       return;
     }
-
-    Promise.resolve(fetchAll())
-      .then((res) => {
-        // res가 배열이거나, { data: [...] } 또는 { content: [...] } 형태일 가능성 고려
+  fetchAll().then(res => {
+         // res가 배열이거나, { data: [...] } 또는 { content: [...] } 형태일 가능성 고려
         let data;
         if (Array.isArray(res)) {
           data = res;
@@ -92,13 +90,35 @@ function NoticeEditModalBody({ form, setForm, onClose, onSuccess }) {
         }
 
         setRecentNotices(data);
-      })
-      .catch((err) => {
+      }).catch((err) => {
         console.error("최근 공지 불러오기 실패:", err);
         setRecentNotices([]);
       })
       .finally(() => setLoadingList(false));
-  }, []);
+    },[])
+
+  //   Promise.resolve(fetchAll())
+  //     .then((res) => {
+  //       // res가 배열이거나, { data: [...] } 또는 { content: [...] } 형태일 가능성 고려
+  //       let data;
+  //       if (Array.isArray(res)) {
+  //         data = res;
+  //       } else if (Array.isArray(res?.data)) {
+  //         data = res.data;
+  //       } else if (Array.isArray(res?.content)) {
+  //         data = res.content;
+  //       } else {
+  //         data = [];
+  //       }
+
+  //       setRecentNotices(data);
+  //     })
+  //     .catch((err) => {
+  //       console.error("최근 공지 불러오기 실패:", err);
+  //       setRecentNotices([]);
+  //     })
+  //     .finally(() => setLoadingList(false));
+  // }, []);
 
   // 좌측 입력 변경
   const handleChange = (e) => {

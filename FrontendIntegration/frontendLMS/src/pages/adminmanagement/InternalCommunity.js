@@ -1,5 +1,13 @@
 // src/pages/adminmanagement/InternalAdminCommunityDashboard.jsx
 import React, { useState } from "react";
+import AdminOperatorQnABoardComponent from "./admin/AdminOperatorQnABoardComponent";
+import AdminOperationNoticeManagementComponent from "./admin/AdminOperationNoticeManagementComponent";
+import AdminReleaseNoteManagementComponent from "./admin/AdminReleaseNoteManagementComponent";
+import AdminIncidentIssueBoardComponent from "./admin/AdminIncidentIssueBoardComponent";
+import AdminKnowHowCaseBoardComponent from "./admin/AdminKnowHowCaseBoardComponent";
+import AdminOperationGuideManualManagementComponent from "./admin/AdminOperationGuideManualManagementComponent";
+import AdminOperationChecklistPlaybookComponent from "./admin/AdminOperationChecklistPlaybookComponent";
+import AdminOperationMeetingDecisionComponent from "./admin/AdminOperationMeetingDecisionComponent";
 
 const modalTypes = {
   OPS_ANNOUNCEMENT: "OPS_ANNOUNCEMENT",
@@ -271,12 +279,14 @@ function renderModalContent(activeModal) {
         title: "운영 공지 관리",
         subtitle: "관리자용 운영 공지를 등록·관리합니다.",
         hint: "중요도, 노출 기간, 관련 메뉴/기능 태그 등을 함께 설정하면 좋습니다.",
+        content:<AdminOperationNoticeManagementComponent/>
       };
     case modalTypes.RELEASE_NOTES:
       return {
         title: "릴리즈 노트 관리",
         subtitle: "버전별 릴리즈 노트를 관리합니다.",
         hint: "버전, 배포 일자, 변경 요약, 상세 내용(마크다운)을 입력하는 구조를 추천합니다.",
+        content:<AdminReleaseNoteManagementComponent/>
       };
     case modalTypes.CHANGE_LOG:
       return {
@@ -289,36 +299,42 @@ function renderModalContent(activeModal) {
         title: "운영자 Q&A 게시판",
         subtitle: "관리자 간 질문/답변을 공유합니다.",
         hint: "질문 유형, 상태(답변 대기/완료), 태그(도메인별)를 두면 검색이 편해집니다.",
+        content:<AdminOperatorQnABoardComponent/>
       };
     case modalTypes.BEST_PRACTICES:
       return {
         title: "노하우 / 사례 공유",
         subtitle: "운영 노하우와 사례를 공유합니다.",
         hint: "좋은 글에는 &quot;베스트&quot; 플래그를 주고 상단 고정 기능을 제공해보세요.",
+        content:<AdminKnowHowCaseBoardComponent/>
       };
     case modalTypes.ISSUE_BOARD:
       return {
         title: "장애 · 이슈 공유 게시판",
         subtitle: "장애 및 이슈를 기록하고 공유합니다.",
         hint: "심각도, 영향 범위, 원인, 조치, 재발 방지 대책 필드를 포함한 템플릿을 추천합니다.",
+        content:<AdminIncidentIssueBoardComponent/>
       };
     case modalTypes.GUIDES:
       return {
         title: "운영 가이드 · 매뉴얼 관리",
         subtitle: "운영 관련 문서를 관리합니다.",
         hint: "카테고리(도메인, 업무 단계)와 버전, 마지막 수정자 정보를 함께 관리하세요.",
+        content:<AdminOperationGuideManualManagementComponent/>
       };
     case modalTypes.CHECKLISTS:
       return {
         title: "체크리스트 / 운영 플레이버(Playbook)",
         subtitle: "정기 작업과 프로세스 체크리스트를 관리합니다.",
         hint: "항목별 담당자, 주기, 완료 여부, 마지막 수행 일자를 기록할 수 있으면 좋습니다.",
+        content:<AdminOperationChecklistPlaybookComponent/>
       };
     case modalTypes.MEETING_MINUTES:
       return {
         title: "운영 회의록 · 결정 사항 관리",
         subtitle: "운영 회의와 결정 사항을 정리합니다.",
         hint: "회의 일자, 참석자, 안건, 결정 사항, 액션 아이템, 담당자 필드를 포함하세요.",
+        content:<AdminOperationMeetingDecisionComponent/>
       };
     default:
       return {
