@@ -24,7 +24,9 @@ export const GradeDef = {
       updateAt: "수정시간",
       enrollmentId: "수강신청Id",
       studentName: "학생이름",
+      professorName: "교수이름",
       courseName: "과목명",
+      credit: "학점",
     },
     updateColumns: {
       gradeId: "성적아이디",

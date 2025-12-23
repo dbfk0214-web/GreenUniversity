@@ -1,5 +1,6 @@
 // src/pages/professormanagement/ProfessorGradeManagementDashboard.jsx
 import React, { useState } from "react";
+import ProfessorGradeInputComponent from "../../components/professor/ProfessorGradeInputComponent";
 
 /* =========================
    Modal Types (교수용)
@@ -277,6 +278,7 @@ function renderModalContent(activeModal) {
         title: "성적 입력",
         subtitle: "학생 성적을 입력합니다.",
         hint: "학생 리스트 + 점수 입력 테이블을 추천합니다.",
+        content: <ProfessorGradeInputComponent mode="modal" />,
       };
     case modalTypes.GRADE_EDIT:
       return {
