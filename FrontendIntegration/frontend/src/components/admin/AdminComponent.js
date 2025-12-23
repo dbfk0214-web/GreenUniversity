@@ -3,8 +3,11 @@ import { useSelector } from "react-redux";
 
 import AdminLayout from "../../layouts/AdminLayout";
 
+import AssignmentApi from "../../api/AssignmentApi";
 import AttendanceApi from "../../api/AttendanceApi";
 import BoardApi from "../../api/BoardApi";
+import ClassroomApi from "../../api/ClassroomApi";
+import ClassSectionApi from "../../api/ClassSectionApi";
 import CommentApi from "../../api/CommentApi";
 import CourseApi from "../../api/CourseApi";
 import CourseOfferingApi from "../../api/CourseOfferingApi";
@@ -14,13 +17,12 @@ import GradeApi from "../../api/GradeApi";
 import NoticeApi from "../../api/NoticeApi";
 import PostApi from "../../api/PostApi";
 import ReviewApi from "../../api/ReviewApi";
+import SubmissionApi from "../../api/SubmissionApi";
 import TimeTableApi from "../../api/TimeTableApi";
 import userApi from "../../api/userApi";
 import FileAttachmentApi from "../../api/FileAttachmentApi";
 import SearchHistoryApi from "../../api/SearchHistoryApi";
 import AdminSelectedContext from "./AdminSelectContext";
-import ClassSectionApi from "../../api/ClassSectionApi";
-import ClassroomApi from "../../api/ClassroomApi";
 
 const AdminComponent = () => {
   const loginState = useSelector((state) => state.loginSlice);
@@ -28,6 +30,7 @@ const AdminComponent = () => {
 
   // 상태 통합
   const [selectedIds, setSelectedIds] = useState({
+    assignment: "none",
     attendance: "none",
     board: "none",
     classroom: "none",
@@ -41,6 +44,7 @@ const AdminComponent = () => {
     notice: "none",
     post: "none",
     review: "none",
+    submission: "none",
     timeTable: "none",
     user: "none",
     fileAttachment: "none",
@@ -52,6 +56,7 @@ const AdminComponent = () => {
   };
 
   const tableApis = {
+    Assignment: AssignmentApi,
     attendance: AttendanceApi,
     board: BoardApi,
     classroom: ClassroomApi,
@@ -66,6 +71,7 @@ const AdminComponent = () => {
     post: PostApi,
     review: ReviewApi,
     timeTable: TimeTableApi,
+    submission: SubmissionApi,
     user: userApi,
     file: FileAttachmentApi,
     search: SearchHistoryApi,
