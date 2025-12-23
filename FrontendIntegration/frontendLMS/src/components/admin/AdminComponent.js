@@ -18,7 +18,6 @@ import userApi from "../../api/UserApi";
 import AdminSelectedContext from "./AdminSelectContext";
 import { excludeColumns } from "../../api/commonApi";
 
-
 const AdminComponent = () => {
   // 상태 통합
   const [selectedIds, setSelectedIds] = useState({
@@ -38,7 +37,7 @@ const AdminComponent = () => {
   });
 
   const setSelectId = (tableKey, id) => {
-    setSelectedIds(prev => ({ ...prev, [tableKey]: id }));
+    setSelectedIds((prev) => ({ ...prev, [tableKey]: id }));
   };
 
   // ← 여기! AdminComponent 안에 선언
@@ -65,24 +64,26 @@ const AdminComponent = () => {
         개발 편의를 위한 자동화 페이지
       </h1>
       <h2>
-        프론트엔드와 백엔드 통신을 해야할 때, 실제로 해보는 장소입니다.
-        양식에 맞게, 데이터를 세팅하면, 연동이 됩니다.
+        프론트엔드와 백엔드 통신을 해야할 때, 실제로 해보는 장소입니다. 양식에
+        맞게, 데이터를 세팅하면, 연동이 됩니다.
       </h2>
 
       <AdminSelectedContext.Provider value={{ selectedIds, setSelectId }}>
-        {Object.keys(tableApis).map(key => (
+        {Object.keys(tableApis).map((key) => (
           <AdminLayout
             key={key}
             config={{
               ...tableApis[key].config,
               formData: tableApis[key].config.columns,
-              columns: excludeColumns(tableApis[key].config.columns, tableApis[key].config.excludeList),
+              columns: excludeColumns(
+                tableApis[key].config.columns,
+                tableApis[key].config.excludeList
+              ),
             }}
           />
         ))}
       </AdminSelectedContext.Provider>
     </div>
-
   );
 };
 
