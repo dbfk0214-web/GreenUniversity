@@ -15,6 +15,8 @@ import { FileAttachmentDef } from "./definitions/FileAttachmentDefinition";
 import { searchHistoryDef } from "./definitions/SearchHistoryDefinition";
 import { ClassroomDef } from "./definitions/ClassroomDefinition";
 import { ClassSectionDef } from "./definitions/ClassSectionDefinition";
+import { SSHDef } from "./definitions/SSHistoryDefinition";
+import { TermDef } from "./definitions/TermDefinition";
 
 export const tableDefinitions = {
   attendance: AttendanceDef,
@@ -34,4 +36,6 @@ export const tableDefinitions = {
   user: UserDef,
   file: FileAttachmentDef,
   search: searchHistoryDef,
+  term: TermDef,
+  sshistory: SSHDef,
 };
