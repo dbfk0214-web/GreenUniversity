@@ -1,5 +1,6 @@
 // src/pages/studentmanagement/StudentGradesAcademicDashboard.jsx
 import React, { useState } from "react";
+import StudentGradeComponet from "../../components/student/StudentGradeComponet";
 
 /* =========================
    Modal Types (학생용)
@@ -278,6 +279,7 @@ function renderModalContent(activeModal) {
         title: "전체 성적 조회",
         subtitle: "학기별 성적을 확인합니다.",
         hint: "학기 선택 + 성적 테이블 구성을 추천합니다.",
+        content: <StudentGradeComponet mode="modal" />,
       };
     case modalTypes.COURSE_GRADES:
       return {
