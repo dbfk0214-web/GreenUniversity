@@ -22,13 +22,17 @@ import TimeTableApi from "../../api/TimeTableApi";
 import userApi from "../../api/userApi";
 import FileAttachmentApi from "../../api/FileAttachmentApi";
 import SearchHistoryApi from "../../api/SearchHistoryApi";
+
 import AdminSelectedContext from "./AdminSelectContext";
 import SSHistoryApi from "../../api/SSHistoryApi";
 import TermApi from "../../api/TermApi";
+import { typeEnum } from "../../api/commonApi";
 
 const AdminComponent = () => {
   const loginState = useSelector((state) => state.loginSlice);
   const userEmail = loginState.email;
+
+  console.log("현재 로그인된 사용자 이메일:", userEmail);
 
   // 상태 통합
   const [selectedIds, setSelectedIds] = useState({
@@ -95,23 +99,42 @@ const AdminComponent = () => {
       </h2>
 
       <AdminSelectedContext.Provider value={{ selectedIds, setSelectId }}>
-        {Object.keys(tableApis).map((key) => (
-          <AdminLayout
-            key={key}
-            config={{
-              ...tableApis[key].config,
-              funcs: {
-                ...tableApis[key].config.funcs,
-                writeOne: (dto) =>
-                  tableApis[key].config.funcs.writeOne(dto, userEmail),
-                deleteOne: (dto) =>
-                  tableApis[key].config.funcs.deleteOne(dto, userEmail),
-                updateOne: (dto) =>
-                  tableApis[key].config.funcs.updateOne(dto, userEmail),
-              },
-            }}
-          />
-        ))}
+        {Object.keys(tableApis).map((key) => {
+          // 1. 원본 설정 가져오기
+          const originalConfig = tableApis[key].config;
+          const originalFuncs = originalConfig.funcs;
+
+          // 2. 이메일을 주입한 '새로운 함수'들을 미리 정의
+          const wrappedReadAll = () => originalFuncs.readAll(userEmail);
+
+          // 3. funcs 객체 재구성
+          const newFuncs = {
+            ...originalFuncs,
+            readAll: wrappedReadAll, // 여기서 정의한 함수 사용
+            readOne: (id) => originalFuncs.readOne(id, userEmail),
+            writeOne: (dto) => originalFuncs.writeOne(dto, userEmail),
+            deleteOne: (dto) => originalFuncs.deleteOne(dto, userEmail),
+            updateOne: (dto) => originalFuncs.updateOne(dto, userEmail),
+          };
+
+          const newButtonDataList = originalConfig.buttonDataList.map((btn) => {
+            if (btn.enumType === typeEnum.read || btn.label === "모두읽기") {
+              return { ...btn, action: wrappedReadAll };
+            }
+            return btn;
+          });
+
+          return (
+            <AdminLayout
+              key={key}
+              config={{
+                ...originalConfig,
+                funcs: newFuncs,
+                buttonDataList: newButtonDataList,
+              }}
+            />
+          );
+        })}
       </AdminSelectedContext.Provider>
     </div>
   );
