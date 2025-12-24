@@ -1,6 +1,6 @@
 export const SSHDef = {
   key: "sshistory",
-  primaryKey: "historyId",
+  primaryKey: "statusHistoryId",
   tableEng: "SSHistory",
   tableName: "학적변동내역",
   allColumns: {
