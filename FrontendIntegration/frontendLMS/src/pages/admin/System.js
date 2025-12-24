@@ -1,21 +1,22 @@
-// src/pages/studentmanagement/StudentCommunityDashboard.jsx
+// src/pages/adminmanagement/AdminSystemCommunityDashboard.jsx
 import React, { useState } from "react";
 
 /* =========================
-   Modal Types (학생용)
+   Modal Types (관리자용)
 ========================= */
-const modalTypes = {
-  NOTICE_LIST: "NOTICE_LIST",
-  DEPARTMENT_NOTICE: "DEPARTMENT_NOTICE",
+export const modalTypes = {
+  NOTICE_MANAGE: "NOTICE_MANAGE",
 
-  FREE_BOARD: "FREE_BOARD",
-  POST_WRITE: "POST_WRITE",
+  POST_MODERATION: "POST_MODERATION",
+  COMMENT_MODERATION: "COMMENT_MODERATION",
+
+  SEARCH_HISTORY: "SEARCH_HISTORY",
 };
 
 /* =========================
    Main Dashboard
 ========================= */
-export default function StudentCommunityDashboard() {
+export default function AdminSystemCommunityDashboard() {
   const [activeModal, setActiveModal] = useState(null);
   const closeModal = () => setActiveModal(null);
 
@@ -24,67 +25,80 @@ export default function StudentCommunityDashboard() {
       {/* ===== 대분류 헤더 ===== */}
       <header className="mb-8 flex flex-col gap-2">
         <h1 className="text-2xl font-semibold text-slate-900">
-          커뮤니티 · 소통
+          시스템 및 커뮤니티 관리
         </h1>
         <p className="text-sm text-slate-500">
-          학교 공지사항과 자유 게시판을 통해 소통합니다.
+          공지, 게시판 운영 및 검색 기록을 관리합니다.
         </p>
       </header>
 
       {/* ===== 중분류 카드 ===== */}
-      <div className="grid gap-6 lg:grid-cols-2">
+      <div className="grid gap-6 lg:grid-cols-3">
         {/* ===============================
-            중분류 1: 공지사항
+            중분류 1: 전체 공지 관리
         =============================== */}
         <section className="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-slate-100">
           <SectionHeader
             tag="Notice"
             tagColor="teal"
-            title="공지사항"
-            description="학교 및 학과 공지사항을 확인합니다."
-            badge="Official"
+            title="전체 공지 관리"
+            description="학교 전체 중요 공지를 관리합니다."
+            badge="System"
             badgeColor="teal"
           />
 
-          <div className="space-y-3">
-            <DashboardButton
-              label="학교 전체 공지"
-              description="학교 전체 공지사항을 확인합니다."
-              onClick={() => setActiveModal(modalTypes.NOTICE_LIST)}
-            />
-            <DashboardButton
-              label="학과 공지사항"
-              description="소속 학과 공지사항을 확인합니다."
-              onClick={() => setActiveModal(modalTypes.DEPARTMENT_NOTICE)}
-            />
-          </div>
+          <DashboardButton
+            label="전체 공지 관리"
+            description="중요 공지 작성 및 게시 기간을 설정합니다."
+            onClick={() => setActiveModal(modalTypes.NOTICE_MANAGE)}
+          />
         </section>
 
         {/* ===============================
-            중분류 2: 자유 게시판
+            중분류 2: 게시판 관리
         =============================== */}
         <section className="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-slate-100">
           <SectionHeader
-            tag="Community"
+            tag="Moderation"
             tagColor="fuchsia"
-            title="자유 게시판"
-            description="학생 간 자유롭게 소통합니다."
-            badge="Board"
+            title="게시판 관리"
+            description="부적절한 게시글과 댓글을 관리합니다."
+            badge="Control"
             badgeColor="fuchsia"
           />
 
           <div className="space-y-3">
             <DashboardButton
-              label="자유 게시판 보기"
-              description="게시글을 조회하고 댓글을 작성합니다."
-              onClick={() => setActiveModal(modalTypes.FREE_BOARD)}
+              label="게시글 관리"
+              description="부적절한 게시글을 삭제 처리합니다."
+              onClick={() => setActiveModal(modalTypes.POST_MODERATION)}
             />
             <DashboardButton
-              label="게시글 작성"
-              description="자유 게시판에 글을 작성합니다."
-              onClick={() => setActiveModal(modalTypes.POST_WRITE)}
+              label="댓글 관리"
+              description="부적절한 댓글을 삭제 처리합니다."
+              onClick={() => setActiveModal(modalTypes.COMMENT_MODERATION)}
             />
           </div>
+        </section>
+
+        {/* ===============================
+            중분류 3: 검색 기록 조회
+        =============================== */}
+        <section className="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-slate-100">
+          <SectionHeader
+            tag="Analytics"
+            tagColor="amber"
+            title="검색 기록 조회"
+            description="사용자 검색 키워드 통계를 확인합니다."
+            badge="Log"
+            badgeColor="amber"
+          />
+
+          <DashboardButton
+            label="검색 기록 통계"
+            description="검색 키워드 및 빈도를 분석합니다."
+            onClick={() => setActiveModal(modalTypes.SEARCH_HISTORY)}
+          />
         </section>
       </div>
 
@@ -101,11 +115,13 @@ function SectionHeader({ tag, tagColor, title, description, badge, badgeColor })
   const tagColorMap = {
     teal: "text-teal-500",
     fuchsia: "text-fuchsia-500",
+    amber: "text-amber-500",
   };
 
   const badgeColorMap = {
     teal: "text-teal-500 bg-teal-50",
     fuchsia: "text-fuchsia-500 bg-fuchsia-50",
+    amber: "text-amber-500 bg-amber-50",
   };
 
   return (
@@ -177,41 +193,41 @@ function DashboardModal({ activeModal, onClose }) {
 ========================= */
 function renderModalContent(activeModal) {
   switch (activeModal) {
-    case modalTypes.NOTICE_LIST:
+    case modalTypes.NOTICE_MANAGE:
       return {
-        title: "학교 전체 공지",
+        title: "전체 공지 관리",
         subtitle: "Notice",
         hint:
-          "공지 유형(일반/중요), 게시 기간, 조회수 표시를 추천합니다.",
+          "중요 공지 여부, 게시 기간 설정 및 상단 고정 처리 UI를 추천합니다.",
       };
 
-    case modalTypes.DEPARTMENT_NOTICE:
+    case modalTypes.POST_MODERATION:
       return {
-        title: "학과 공지사항",
-        subtitle: "Notice · Department",
-        hint:
-          "소속 학과 기준 필터링된 공지 리스트 구성을 추천합니다.",
-      };
-
-    case modalTypes.FREE_BOARD:
-      return {
-        title: "자유 게시판",
-        subtitle: "Board · Post · Comment",
-        hint:
-          "게시글 목록 + 댓글 수 + 최신순 정렬 UI를 추천합니다.",
-      };
-
-    case modalTypes.POST_WRITE:
-      return {
-        title: "게시글 작성",
+        title: "게시글 관리",
         subtitle: "Post",
         hint:
-          "제목, 내용 입력 + 수정/삭제 권한 체크 UI를 추천합니다.",
+          "신고 횟수 표시 + 삭제 사유 기록 UI를 추천합니다.",
+      };
+
+    case modalTypes.COMMENT_MODERATION:
+      return {
+        title: "댓글 관리",
+        subtitle: "Comment",
+        hint:
+          "부적절 댓글 필터링 및 삭제 로그 관리 UI를 추천합니다.",
+      };
+
+    case modalTypes.SEARCH_HISTORY:
+      return {
+        title: "검색 기록 조회",
+        subtitle: "SearchHistory",
+        hint:
+          "기간별 인기 검색어 차트 및 검색 빈도 테이블을 추천합니다.",
       };
 
     default:
       return {
-        title: "커뮤니티",
+        title: "시스템 및 커뮤니티",
         subtitle: "",
         hint: "",
       };

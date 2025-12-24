@@ -1,39 +1,58 @@
-// src/components/professor/ProfessorSupportNoticeComponent.jsx
-import React from "react";
+import React, { useEffect, useState } from "react";
+import SupportNoticeApi from "../../api/SupportNoticeApi";
 
 export default function ProfessorSupportNoticeComponent() {
+  const [notices, setNotices] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchNotices();
+  }, []);
+
+  const fetchNotices = async () => {
+    try {
+      const res = await SupportNoticeApi.getProfessorNotices();
+      setNotices(res.data);
+    } catch (err) {
+      console.error("지원 공지 조회 실패", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (loading) {
+    return (
+      <div className="text-sm text-slate-500">
+        지원 공지를 불러오는 중입니다...
+      </div>
+    );
+  }
+
   return (
     <div className="space-y-6">
       {/* ===== 공지 리스트 ===== */}
       <div className="space-y-3">
-        <SupportNoticeItem
-          type="IT"
-          title="📌 LMS 시스템 점검 안내"
-          date="2025-04-15"
-          department="정보전산팀"
-          important
-        />
-
-        <SupportNoticeItem
-          type="시설"
-          title="공학관 냉·난방 공사 일정 안내"
-          date="2025-04-12"
-          department="시설관리팀"
-        />
-
-        <SupportNoticeItem
-          type="행정"
-          title="지원 요청 처리 절차 변경 안내"
-          date="2025-04-05"
-          department="학사팀"
-        />
+        {notices.length === 0 ? (
+          <p className="text-sm text-slate-400">
+            등록된 지원 공지가 없습니다.
+          </p>
+        ) : (
+          notices.map((notice) => (
+            <SupportNoticeItem
+              key={notice.id}
+              type={notice.type}
+              title={notice.title}
+              date={notice.createdAt}
+              department={notice.department}
+              important={notice.important}
+            />
+          ))
+        )}
       </div>
 
       {/* ===== 안내 ===== */}
       <div className="rounded-lg bg-slate-50 p-4 text-xs text-slate-500">
-        <p className="font-medium text-slate-600">
-          💡 지원 공지 안내
-        </p>
+        <p className="font-medium text-slate-600">💡 지원 공지 안내</p>
         <ul className="mt-1 list-disc space-y-1 pl-4">
           <li>중요 공지는 상단에 고정되어 표시됩니다.</li>
           <li>지원 관련 변경 사항은 반드시 확인 바랍니다.</li>
@@ -45,7 +64,7 @@ export default function ProfessorSupportNoticeComponent() {
 }
 
 /* =========================
-   지원 공지 아이템
+   공지 아이템 컴포넌트
 ========================= */
 function SupportNoticeItem({
   type,

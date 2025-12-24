@@ -1,21 +1,23 @@
-// src/pages/studentmanagement/StudentCommunityDashboard.jsx
+// src/pages/adminmanagement/AdminUserBaseDashboard.jsx
 import React, { useState } from "react";
 
 /* =========================
-   Modal Types (학생용)
+   Modal Types (관리자용)
 ========================= */
 const modalTypes = {
-  NOTICE_LIST: "NOTICE_LIST",
-  DEPARTMENT_NOTICE: "DEPARTMENT_NOTICE",
+  DEPARTMENT_MANAGE: "DEPARTMENT_MANAGE",
 
-  FREE_BOARD: "FREE_BOARD",
-  POST_WRITE: "POST_WRITE",
+  USER_CREATE: "USER_CREATE",
+  USER_MANAGE: "USER_MANAGE",
+  PASSWORD_RESET: "PASSWORD_RESET",
+
+  STATUS_APPROVAL: "STATUS_APPROVAL",
 };
 
 /* =========================
    Main Dashboard
 ========================= */
-export default function StudentCommunityDashboard() {
+export default function AdminUserBaseDashboard() {
   const [activeModal, setActiveModal] = useState(null);
   const closeModal = () => setActiveModal(null);
 
@@ -24,67 +26,85 @@ export default function StudentCommunityDashboard() {
       {/* ===== 대분류 헤더 ===== */}
       <header className="mb-8 flex flex-col gap-2">
         <h1 className="text-2xl font-semibold text-slate-900">
-          커뮤니티 · 소통
+          기초 정보 및 사용자 관리
         </h1>
         <p className="text-sm text-slate-500">
-          학교 공지사항과 자유 게시판을 통해 소통합니다.
+          학과, 사용자 계정 및 학적 변동을 관리합니다.
         </p>
       </header>
 
       {/* ===== 중분류 카드 ===== */}
-      <div className="grid gap-6 lg:grid-cols-2">
+      <div className="grid gap-6 lg:grid-cols-3">
         {/* ===============================
-            중분류 1: 공지사항
+            중분류 1: 학과 관리
         =============================== */}
         <section className="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-slate-100">
           <SectionHeader
-            tag="Notice"
+            tag="Department"
             tagColor="teal"
-            title="공지사항"
-            description="학교 및 학과 공지사항을 확인합니다."
-            badge="Official"
+            title="학과 관리"
+            description="학과 정보를 생성 및 수정합니다."
+            badge="Base"
             badgeColor="teal"
           />
 
-          <div className="space-y-3">
-            <DashboardButton
-              label="학교 전체 공지"
-              description="학교 전체 공지사항을 확인합니다."
-              onClick={() => setActiveModal(modalTypes.NOTICE_LIST)}
-            />
-            <DashboardButton
-              label="학과 공지사항"
-              description="소속 학과 공지사항을 확인합니다."
-              onClick={() => setActiveModal(modalTypes.DEPARTMENT_NOTICE)}
-            />
-          </div>
+          <DashboardButton
+            label="학과 관리"
+            description="학과 생성 및 정보 수정을 진행합니다."
+            onClick={() => setActiveModal(modalTypes.DEPARTMENT_MANAGE)}
+          />
         </section>
 
         {/* ===============================
-            중분류 2: 자유 게시판
+            중분류 2: 사용자 관리
         =============================== */}
         <section className="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-slate-100">
           <SectionHeader
-            tag="Community"
+            tag="User"
             tagColor="fuchsia"
-            title="자유 게시판"
-            description="학생 간 자유롭게 소통합니다."
-            badge="Board"
+            title="사용자 관리"
+            description="교수 및 학생 계정을 관리합니다."
+            badge="Account"
             badgeColor="fuchsia"
           />
 
           <div className="space-y-3">
             <DashboardButton
-              label="자유 게시판 보기"
-              description="게시글을 조회하고 댓글을 작성합니다."
-              onClick={() => setActiveModal(modalTypes.FREE_BOARD)}
+              label="계정 생성"
+              description="교수/학생 계정을 생성합니다."
+              onClick={() => setActiveModal(modalTypes.USER_CREATE)}
             />
             <DashboardButton
-              label="게시글 작성"
-              description="자유 게시판에 글을 작성합니다."
-              onClick={() => setActiveModal(modalTypes.POST_WRITE)}
+              label="계정 정보 관리"
+              description="사용자 정보를 수정합니다."
+              onClick={() => setActiveModal(modalTypes.USER_MANAGE)}
+            />
+            <DashboardButton
+              label="비밀번호 초기화"
+              description="사용자 비밀번호를 초기화합니다."
+              onClick={() => setActiveModal(modalTypes.PASSWORD_RESET)}
             />
           </div>
+        </section>
+
+        {/* ===============================
+            중분류 3: 학적 변동 승인
+        =============================== */}
+        <section className="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-slate-100">
+          <SectionHeader
+            tag="Academic Status"
+            tagColor="amber"
+            title="학적 변동 승인"
+            description="휴학 및 복학 신청을 승인 처리합니다."
+            badge="Approve"
+            badgeColor="amber"
+          />
+
+          <DashboardButton
+            label="학적 변동 승인"
+            description="학생 휴학/복학 신청을 승인 또는 반려합니다."
+            onClick={() => setActiveModal(modalTypes.STATUS_APPROVAL)}
+          />
         </section>
       </div>
 
@@ -101,11 +121,13 @@ function SectionHeader({ tag, tagColor, title, description, badge, badgeColor })
   const tagColorMap = {
     teal: "text-teal-500",
     fuchsia: "text-fuchsia-500",
+    amber: "text-amber-500",
   };
 
   const badgeColorMap = {
     teal: "text-teal-500 bg-teal-50",
     fuchsia: "text-fuchsia-500 bg-fuchsia-50",
+    amber: "text-amber-500 bg-amber-50",
   };
 
   return (
@@ -177,41 +199,44 @@ function DashboardModal({ activeModal, onClose }) {
 ========================= */
 function renderModalContent(activeModal) {
   switch (activeModal) {
-    case modalTypes.NOTICE_LIST:
+    case modalTypes.DEPARTMENT_MANAGE:
       return {
-        title: "학교 전체 공지",
-        subtitle: "Notice",
-        hint:
-          "공지 유형(일반/중요), 게시 기간, 조회수 표시를 추천합니다.",
+        title: "학과 관리",
+        subtitle: "Department",
+        hint: "학과 코드, 학과명, 소속 단과대 입력 UI를 추천합니다.",
       };
 
-    case modalTypes.DEPARTMENT_NOTICE:
+    case modalTypes.USER_CREATE:
       return {
-        title: "학과 공지사항",
-        subtitle: "Notice · Department",
-        hint:
-          "소속 학과 기준 필터링된 공지 리스트 구성을 추천합니다.",
+        title: "계정 생성",
+        subtitle: "User",
+        hint: "역할(교수/학생) 선택 + 기본 정보 입력 UI를 추천합니다.",
       };
 
-    case modalTypes.FREE_BOARD:
+    case modalTypes.USER_MANAGE:
       return {
-        title: "자유 게시판",
-        subtitle: "Board · Post · Comment",
-        hint:
-          "게시글 목록 + 댓글 수 + 최신순 정렬 UI를 추천합니다.",
+        title: "계정 정보 관리",
+        subtitle: "User",
+        hint: "계정 활성/비활성 및 정보 수정 UI를 추천합니다.",
       };
 
-    case modalTypes.POST_WRITE:
+    case modalTypes.PASSWORD_RESET:
       return {
-        title: "게시글 작성",
-        subtitle: "Post",
-        hint:
-          "제목, 내용 입력 + 수정/삭제 권한 체크 UI를 추천합니다.",
+        title: "비밀번호 초기화",
+        subtitle: "User",
+        hint: "임시 비밀번호 발급 및 안내 처리 UI를 추천합니다.",
+      };
+
+    case modalTypes.STATUS_APPROVAL:
+      return {
+        title: "학적 변동 승인",
+        subtitle: "StudentStatusHistory",
+        hint: "휴학/복학 신청 승인·반려 및 처리 상태 관리 UI를 추천합니다.",
       };
 
     default:
       return {
-        title: "커뮤니티",
+        title: "기초 정보 및 사용자 관리",
         subtitle: "",
         hint: "",
       };

@@ -1,21 +1,24 @@
-// src/pages/studentmanagement/StudentCommunityDashboard.jsx
+// src/pages/adminmanagement/AdminAcademicDashboard.jsx
 import React, { useState } from "react";
 
 /* =========================
-   Modal Types (학생용)
+   Modal Types (관리자용)
 ========================= */
 const modalTypes = {
-  NOTICE_LIST: "NOTICE_LIST",
-  DEPARTMENT_NOTICE: "DEPARTMENT_NOTICE",
+  TERM_MANAGE: "TERM_MANAGE",
 
-  FREE_BOARD: "FREE_BOARD",
-  POST_WRITE: "POST_WRITE",
+  COURSE_MANAGE: "COURSE_MANAGE",
+
+  COURSE_OFFERING: "COURSE_OFFERING",
+
+  CLASS_SECTION: "CLASS_SECTION",
+  TIMETABLE_MANAGE: "TIMETABLE_MANAGE",
 };
 
 /* =========================
    Main Dashboard
 ========================= */
-export default function StudentCommunityDashboard() {
+export default function AdminAcademicDashboard() {
   const [activeModal, setActiveModal] = useState(null);
   const closeModal = () => setActiveModal(null);
 
@@ -24,65 +27,98 @@ export default function StudentCommunityDashboard() {
       {/* ===== 대분류 헤더 ===== */}
       <header className="mb-8 flex flex-col gap-2">
         <h1 className="text-2xl font-semibold text-slate-900">
-          커뮤니티 · 소통
+          교과 과정 및 개설 관리
         </h1>
         <p className="text-sm text-slate-500">
-          학교 공지사항과 자유 게시판을 통해 소통합니다.
+          학기, 과목, 강의 개설 및 시간표를 관리합니다.
         </p>
       </header>
 
       {/* ===== 중분류 카드 ===== */}
       <div className="grid gap-6 lg:grid-cols-2">
         {/* ===============================
-            중분류 1: 공지사항
+            중분류 1: 학기 관리
         =============================== */}
         <section className="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-slate-100">
           <SectionHeader
-            tag="Notice"
+            tag="Academic Term"
             tagColor="teal"
-            title="공지사항"
-            description="학교 및 학과 공지사항을 확인합니다."
-            badge="Official"
+            title="학기 관리"
+            description="학기 생성 및 수강신청 기간을 설정합니다."
+            badge="Base"
             badgeColor="teal"
           />
 
-          <div className="space-y-3">
-            <DashboardButton
-              label="학교 전체 공지"
-              description="학교 전체 공지사항을 확인합니다."
-              onClick={() => setActiveModal(modalTypes.NOTICE_LIST)}
-            />
-            <DashboardButton
-              label="학과 공지사항"
-              description="소속 학과 공지사항을 확인합니다."
-              onClick={() => setActiveModal(modalTypes.DEPARTMENT_NOTICE)}
-            />
-          </div>
+          <DashboardButton
+            label="학기 관리"
+            description="학기 생성, 현재 학기 설정 및 수강신청 기간 관리"
+            onClick={() => setActiveModal(modalTypes.TERM_MANAGE)}
+          />
         </section>
 
         {/* ===============================
-            중분류 2: 자유 게시판
+            중분류 2: 과목 관리
         =============================== */}
         <section className="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-slate-100">
           <SectionHeader
-            tag="Community"
+            tag="Course"
             tagColor="fuchsia"
-            title="자유 게시판"
-            description="학생 간 자유롭게 소통합니다."
-            badge="Board"
+            title="과목 관리"
+            description="교과목 정보를 등록 및 수정합니다."
+            badge="Curriculum"
             badgeColor="fuchsia"
+          />
+
+          <DashboardButton
+            label="과목 관리"
+            description="과목명, 학점 등 교과목 기본 정보를 관리합니다."
+            onClick={() => setActiveModal(modalTypes.COURSE_MANAGE)}
+          />
+        </section>
+
+        {/* ===============================
+            중분류 3: 강의 개설
+        =============================== */}
+        <section className="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-slate-100">
+          <SectionHeader
+            tag="Course Offering"
+            tagColor="lime"
+            title="강의 개설"
+            description="학기별 강의를 개설하고 교수를 배정합니다."
+            badge="Open"
+            badgeColor="lime"
+          />
+
+          <DashboardButton
+            label="강의 개설 관리"
+            description="담당 교수 및 정원을 설정합니다."
+            onClick={() => setActiveModal(modalTypes.COURSE_OFFERING)}
+          />
+        </section>
+
+        {/* ===============================
+            중분류 4: 분반 및 시간표
+        =============================== */}
+        <section className="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-slate-100">
+          <SectionHeader
+            tag="Schedule"
+            tagColor="amber"
+            title="분반 및 시간표"
+            description="분반 생성 및 강의실/시간표를 관리합니다."
+            badge="Timetable"
+            badgeColor="amber"
           />
 
           <div className="space-y-3">
             <DashboardButton
-              label="자유 게시판 보기"
-              description="게시글을 조회하고 댓글을 작성합니다."
-              onClick={() => setActiveModal(modalTypes.FREE_BOARD)}
+              label="분반 관리"
+              description="분반(ClassSection)을 생성합니다."
+              onClick={() => setActiveModal(modalTypes.CLASS_SECTION)}
             />
             <DashboardButton
-              label="게시글 작성"
-              description="자유 게시판에 글을 작성합니다."
-              onClick={() => setActiveModal(modalTypes.POST_WRITE)}
+              label="시간표 관리"
+              description="강의실 배정 및 시간표를 입력합니다."
+              onClick={() => setActiveModal(modalTypes.TIMETABLE_MANAGE)}
             />
           </div>
         </section>
@@ -101,11 +137,15 @@ function SectionHeader({ tag, tagColor, title, description, badge, badgeColor })
   const tagColorMap = {
     teal: "text-teal-500",
     fuchsia: "text-fuchsia-500",
+    lime: "text-lime-500",
+    amber: "text-amber-500",
   };
 
   const badgeColorMap = {
     teal: "text-teal-500 bg-teal-50",
     fuchsia: "text-fuchsia-500 bg-fuchsia-50",
+    lime: "text-lime-500 bg-lime-50",
+    amber: "text-amber-500 bg-amber-50",
   };
 
   return (
@@ -177,41 +217,49 @@ function DashboardModal({ activeModal, onClose }) {
 ========================= */
 function renderModalContent(activeModal) {
   switch (activeModal) {
-    case modalTypes.NOTICE_LIST:
+    case modalTypes.TERM_MANAGE:
       return {
-        title: "학교 전체 공지",
-        subtitle: "Notice",
+        title: "학기 관리",
+        subtitle: "AcademicTerm",
         hint:
-          "공지 유형(일반/중요), 게시 기간, 조회수 표시를 추천합니다.",
+          "학기 시작/종료일, 현재 학기 설정 및 수강신청 기간 설정 UI를 추천합니다.",
       };
 
-    case modalTypes.DEPARTMENT_NOTICE:
+    case modalTypes.COURSE_MANAGE:
       return {
-        title: "학과 공지사항",
-        subtitle: "Notice · Department",
+        title: "과목 관리",
+        subtitle: "Course",
         hint:
-          "소속 학과 기준 필터링된 공지 리스트 구성을 추천합니다.",
+          "과목 코드, 과목명, 학점 입력 및 활성/비활성 관리 UI를 추천합니다.",
       };
 
-    case modalTypes.FREE_BOARD:
+    case modalTypes.COURSE_OFFERING:
       return {
-        title: "자유 게시판",
-        subtitle: "Board · Post · Comment",
+        title: "강의 개설",
+        subtitle: "CourseOffering",
         hint:
-          "게시글 목록 + 댓글 수 + 최신순 정렬 UI를 추천합니다.",
+          "학기 선택 → 과목 선택 → 담당 교수 배정 → 정원 설정 플로우를 추천합니다.",
       };
 
-    case modalTypes.POST_WRITE:
+    case modalTypes.CLASS_SECTION:
       return {
-        title: "게시글 작성",
-        subtitle: "Post",
+        title: "분반 관리",
+        subtitle: "ClassSection",
         hint:
-          "제목, 내용 입력 + 수정/삭제 권한 체크 UI를 추천합니다.",
+          "분반 번호, 정원, 연결된 강의 정보 설정 UI를 추천합니다.",
+      };
+
+    case modalTypes.TIMETABLE_MANAGE:
+      return {
+        title: "시간표 관리",
+        subtitle: "TimeTable · Classroom",
+        hint:
+          "요일/교시 기반 시간표 + 강의실 중복 체크 로직을 추천합니다.",
       };
 
     default:
       return {
-        title: "커뮤니티",
+        title: "교과 과정 및 개설",
         subtitle: "",
         hint: "",
       };

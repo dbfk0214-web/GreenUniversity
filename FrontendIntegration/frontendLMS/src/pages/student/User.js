@@ -1,24 +1,22 @@
-// src/pages/studentmanagement/AcademicLmsDashboard.jsx
+// src/pages/studentmanagement/StudentUserDashboard.jsx
 import React, { useState } from "react";
 
 /* =========================
-   Modal Types (소분류)
+   Modal Types (학생용)
 ========================= */
 const modalTypes = {
-  COURSE_ENROLL: "COURSE_ENROLL",
-  TIMETABLE: "TIMETABLE",
-  ATTENDANCE: "ATTENDANCE",
+  MY_INFO: "MY_INFO",
+  PASSWORD_CHANGE: "PASSWORD_CHANGE",
 
-  ASSIGNMENT_LIST: "ASSIGNMENT_LIST",
-  ASSIGNMENT_SUBMIT: "ASSIGNMENT_SUBMIT",
-
-  COURSE_REVIEW: "COURSE_REVIEW",
+  LEAVE_REQUEST: "LEAVE_REQUEST",
+  RETURN_REQUEST: "RETURN_REQUEST",
+  STATUS_HISTORY: "STATUS_HISTORY",
 };
 
 /* =========================
    Main Dashboard
 ========================= */
-export default function AcademicLmsDashboard() {
+export default function StudentUserDashboard() {
   const [activeModal, setActiveModal] = useState(null);
   const closeModal = () => setActiveModal(null);
 
@@ -27,55 +25,70 @@ export default function AcademicLmsDashboard() {
       {/* ===== 대분류 헤더 ===== */}
       <header className="mb-8 flex flex-col gap-2">
         <h1 className="text-2xl font-semibold text-slate-900">
-          수업 및 학사 관리
+          개인 · 행정 관리
         </h1>
         <p className="text-sm text-slate-500">
-          수강 신청, 출결, 과제, 강의 평가 등 학습 활동을 관리합니다.
+          내 정보 관리 및 학적 변동 신청을 진행합니다.
         </p>
       </header>
 
       {/* ===== 중분류 카드 ===== */}
-      <div className="grid gap-6 lg:grid-cols-1">
+      <div className="grid gap-6 lg:grid-cols-2">
+        {/* ===============================
+            중분류 1: 내 정보
+        =============================== */}
         <section className="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-slate-100">
           <SectionHeader
-            tag="Academic & LMS"
+            tag="User"
             tagColor="teal"
-            title="수강 · 학습 관리"
-            description="수업 참여와 학습 전반을 관리합니다."
-            badge="Student"
+            title="내 정보 관리"
+            description="개인정보 및 계정 정보를 관리합니다."
+            badge="Profile"
             badgeColor="teal"
           />
 
           <div className="space-y-3">
             <DashboardButton
-              label="수강 신청 / 취소"
-              description="개설된 강의를 조회하고 수강 신청 또는 취소합니다."
-              onClick={() => setActiveModal(modalTypes.COURSE_ENROLL)}
+              label="내 정보 조회"
+              description="개인정보를 확인합니다."
+              onClick={() => setActiveModal(modalTypes.MY_INFO)}
             />
             <DashboardButton
-              label="시간표 조회"
-              description="나의 수강 내역을 바탕으로 주간 시간표를 확인합니다."
-              onClick={() => setActiveModal(modalTypes.TIMETABLE)}
+              label="비밀번호 변경"
+              description="계정 비밀번호를 변경합니다."
+              onClick={() => setActiveModal(modalTypes.PASSWORD_CHANGE)}
+            />
+          </div>
+        </section>
+
+        {/* ===============================
+            중분류 2: 학적 변동
+        =============================== */}
+        <section className="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-slate-100">
+          <SectionHeader
+            tag="Academic Status"
+            tagColor="fuchsia"
+            title="학적 변동 신청"
+            description="휴학 및 복학 신청을 관리합니다."
+            badge="Request"
+            badgeColor="fuchsia"
+          />
+
+          <div className="space-y-3">
+            <DashboardButton
+              label="휴학 신청"
+              description="휴학 신청을 진행합니다."
+              onClick={() => setActiveModal(modalTypes.LEAVE_REQUEST)}
             />
             <DashboardButton
-              label="출석 현황 확인"
-              description="과목별 출석, 지각, 결석 현황을 조회합니다."
-              onClick={() => setActiveModal(modalTypes.ATTENDANCE)}
+              label="복학 신청"
+              description="복학 신청을 진행합니다."
+              onClick={() => setActiveModal(modalTypes.RETURN_REQUEST)}
             />
             <DashboardButton
-              label="과제 목록 확인"
-              description="과제 목록과 상세 내용을 확인합니다."
-              onClick={() => setActiveModal(modalTypes.ASSIGNMENT_LIST)}
-            />
-            <DashboardButton
-              label="과제 제출"
-              description="파일 업로드를 통해 과제를 제출합니다."
-              onClick={() => setActiveModal(modalTypes.ASSIGNMENT_SUBMIT)}
-            />
-            <DashboardButton
-              label="강의 평가"
-              description="종강 후 수강 과목에 대한 평가와 평점을 등록합니다."
-              onClick={() => setActiveModal(modalTypes.COURSE_REVIEW)}
+              label="학적 변동 처리 내역"
+              description="신청 결과 및 처리 상태를 확인합니다."
+              onClick={() => setActiveModal(modalTypes.STATUS_HISTORY)}
             />
           </div>
         </section>
@@ -93,10 +106,12 @@ export default function AcademicLmsDashboard() {
 function SectionHeader({ tag, tagColor, title, description, badge, badgeColor }) {
   const tagColorMap = {
     teal: "text-teal-500",
+    fuchsia: "text-fuchsia-500",
   };
 
   const badgeColorMap = {
     teal: "text-teal-500 bg-teal-50",
+    fuchsia: "text-fuchsia-500 bg-fuchsia-50",
   };
 
   return (
@@ -108,7 +123,9 @@ function SectionHeader({ tag, tagColor, title, description, badge, badgeColor })
         <h2 className="mt-1 text-lg font-semibold text-slate-900">{title}</h2>
         <p className="mt-1 text-xs text-slate-500">{description}</p>
       </div>
-      <span className={`rounded-full px-3 py-1 text-xs ${badgeColorMap[badgeColor]}`}>
+      <span
+        className={`rounded-full px-3 py-1 text-xs ${badgeColorMap[badgeColor]}`}
+      >
         {badge}
       </span>
     </div>
@@ -166,43 +183,46 @@ function DashboardModal({ activeModal, onClose }) {
 ========================= */
 function renderModalContent(activeModal) {
   switch (activeModal) {
-    case modalTypes.COURSE_ENROLL:
+    case modalTypes.MY_INFO:
       return {
-        title: "수강 신청 / 취소",
-        subtitle: "CourseOffering · Enrollment",
-        hint: "개설 강의 목록 + 신청/취소 버튼 구조를 추천합니다.",
+        title: "내 정보 조회",
+        subtitle: "User",
+        hint: "이메일, 이름, 학번 등 기본 정보 표시를 추천합니다.",
       };
-    case modalTypes.TIMETABLE:
+
+    case modalTypes.PASSWORD_CHANGE:
       return {
-        title: "시간표 조회",
-        subtitle: "TimeTable",
-        hint: "요일 × 교시 기반 주간 시간표 UI를 추천합니다.",
+        title: "비밀번호 변경",
+        subtitle: "User",
+        hint: "현재 비밀번호 검증 + 새 비밀번호 규칙 안내를 추천합니다.",
       };
-    case modalTypes.ATTENDANCE:
+
+    case modalTypes.LEAVE_REQUEST:
       return {
-        title: "출석 현황",
-        subtitle: "Attendance",
-        hint: "출석/지각/결석 상태 뱃지 표시를 추천합니다.",
+        title: "휴학 신청",
+        subtitle: "StudentStatusHistory",
+        hint: "휴학 사유, 기간 선택 UI를 추천합니다.",
       };
-    case modalTypes.ASSIGNMENT_LIST:
+
+    case modalTypes.RETURN_REQUEST:
       return {
-        title: "과제 목록",
-        subtitle: "Assignment",
-        hint: "마감일 기준 정렬 및 상태 표시를 추천합니다.",
+        title: "복학 신청",
+        subtitle: "StudentStatusHistory",
+        hint: "복학 희망 학기 선택 UI를 추천합니다.",
       };
-    case modalTypes.ASSIGNMENT_SUBMIT:
+
+    case modalTypes.STATUS_HISTORY:
       return {
-        title: "과제 제출",
-        subtitle: "Submission · FileAttachment",
-        hint: "파일 업로드 + 제출 이력 테이블 구조가 적합합니다.",
+        title: "학적 변동 처리 내역",
+        subtitle: "StudentStatusHistory",
+        hint: "신청 유형, 처리 상태, 승인 일자 테이블 구성을 추천합니다.",
       };
-    case modalTypes.COURSE_REVIEW:
-      return {
-        title: "강의 평가",
-        subtitle: "Review",
-        hint: "별점 + 텍스트 리뷰 입력 UI를 추천합니다.",
-      };
+
     default:
-      return {};
+      return {
+        title: "개인 · 행정",
+        subtitle: "",
+        hint: "",
+      };
   }
 }

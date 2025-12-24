@@ -1,24 +1,18 @@
-// src/pages/studentmanagement/AcademicLmsDashboard.jsx
+// src/pages/studentmanagement/StudentFinanceScholarshipDashboard.jsx
 import React, { useState } from "react";
 
 /* =========================
-   Modal Types (소분류)
+   Modal Types (학생용)
 ========================= */
 const modalTypes = {
-  COURSE_ENROLL: "COURSE_ENROLL",
-  TIMETABLE: "TIMETABLE",
-  ATTENDANCE: "ATTENDANCE",
-
-  ASSIGNMENT_LIST: "ASSIGNMENT_LIST",
-  ASSIGNMENT_SUBMIT: "ASSIGNMENT_SUBMIT",
-
-  COURSE_REVIEW: "COURSE_REVIEW",
+  TUITION_BILL: "TUITION_BILL",
+  SCHOLARSHIP_HISTORY: "SCHOLARSHIP_HISTORY",
 };
 
 /* =========================
    Main Dashboard
 ========================= */
-export default function AcademicLmsDashboard() {
+export default function StudentFinanceScholarshipDashboard() {
   const [activeModal, setActiveModal] = useState(null);
   const closeModal = () => setActiveModal(null);
 
@@ -27,55 +21,55 @@ export default function AcademicLmsDashboard() {
       {/* ===== 대분류 헤더 ===== */}
       <header className="mb-8 flex flex-col gap-2">
         <h1 className="text-2xl font-semibold text-slate-900">
-          수업 및 학사 관리
+          재무 · 장학 조회
         </h1>
         <p className="text-sm text-slate-500">
-          수강 신청, 출결, 과제, 강의 평가 등 학습 활동을 관리합니다.
+          등록금 납부 현황과 장학금 수혜 내역을 확인합니다.
         </p>
       </header>
 
       {/* ===== 중분류 카드 ===== */}
-      <div className="grid gap-6 lg:grid-cols-1">
+      <div className="grid gap-6 lg:grid-cols-2">
+        {/* ===============================
+            중분류 1: 등록금
+        =============================== */}
         <section className="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-slate-100">
           <SectionHeader
-            tag="Academic & LMS"
+            tag="Tuition"
             tagColor="teal"
-            title="수강 · 학습 관리"
-            description="수업 참여와 학습 전반을 관리합니다."
-            badge="Student"
+            title="등록금 고지"
+            description="등록금 고지서 및 납부 상태를 확인합니다."
+            badge="Payment"
             badgeColor="teal"
           />
 
           <div className="space-y-3">
             <DashboardButton
-              label="수강 신청 / 취소"
-              description="개설된 강의를 조회하고 수강 신청 또는 취소합니다."
-              onClick={() => setActiveModal(modalTypes.COURSE_ENROLL)}
+              label="등록금 고지서 확인"
+              description="납부 금액 및 납부 상태를 확인합니다."
+              onClick={() => setActiveModal(modalTypes.TUITION_BILL)}
             />
+          </div>
+        </section>
+
+        {/* ===============================
+            중분류 2: 장학금
+        =============================== */}
+        <section className="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-slate-100">
+          <SectionHeader
+            tag="Scholarship"
+            tagColor="fuchsia"
+            title="장학 내역"
+            description="수혜한 장학금 내역을 확인합니다."
+            badge="Support"
+            badgeColor="fuchsia"
+          />
+
+          <div className="space-y-3">
             <DashboardButton
-              label="시간표 조회"
-              description="나의 수강 내역을 바탕으로 주간 시간표를 확인합니다."
-              onClick={() => setActiveModal(modalTypes.TIMETABLE)}
-            />
-            <DashboardButton
-              label="출석 현황 확인"
-              description="과목별 출석, 지각, 결석 현황을 조회합니다."
-              onClick={() => setActiveModal(modalTypes.ATTENDANCE)}
-            />
-            <DashboardButton
-              label="과제 목록 확인"
-              description="과제 목록과 상세 내용을 확인합니다."
-              onClick={() => setActiveModal(modalTypes.ASSIGNMENT_LIST)}
-            />
-            <DashboardButton
-              label="과제 제출"
-              description="파일 업로드를 통해 과제를 제출합니다."
-              onClick={() => setActiveModal(modalTypes.ASSIGNMENT_SUBMIT)}
-            />
-            <DashboardButton
-              label="강의 평가"
-              description="종강 후 수강 과목에 대한 평가와 평점을 등록합니다."
-              onClick={() => setActiveModal(modalTypes.COURSE_REVIEW)}
+              label="장학 내역 조회"
+              description="장학금 유형 및 수혜 금액을 확인합니다."
+              onClick={() => setActiveModal(modalTypes.SCHOLARSHIP_HISTORY)}
             />
           </div>
         </section>
@@ -93,10 +87,12 @@ export default function AcademicLmsDashboard() {
 function SectionHeader({ tag, tagColor, title, description, badge, badgeColor }) {
   const tagColorMap = {
     teal: "text-teal-500",
+    fuchsia: "text-fuchsia-500",
   };
 
   const badgeColorMap = {
     teal: "text-teal-500 bg-teal-50",
+    fuchsia: "text-fuchsia-500 bg-fuchsia-50",
   };
 
   return (
@@ -127,7 +123,7 @@ function DashboardButton({ label, description, onClick }) {
     >
       <div className="flex justify-between">
         <span className="font-medium text-slate-800">{label}</span>
-        <span className="text-[10px] text-slate-400">Open</span>
+        <span className="text-[10px] text-slate-400">View</span>
       </div>
       <p className="mt-1 text-xs text-slate-500">{description}</p>
     </button>
@@ -166,43 +162,27 @@ function DashboardModal({ activeModal, onClose }) {
 ========================= */
 function renderModalContent(activeModal) {
   switch (activeModal) {
-    case modalTypes.COURSE_ENROLL:
+    case modalTypes.TUITION_BILL:
       return {
-        title: "수강 신청 / 취소",
-        subtitle: "CourseOffering · Enrollment",
-        hint: "개설 강의 목록 + 신청/취소 버튼 구조를 추천합니다.",
+        title: "등록금 고지서 확인",
+        subtitle: "TuitionPayment",
+        hint:
+          "학기별 고지 금액, 납부 상태(PAID / UNPAID), 납부 일자 표시를 추천합니다.",
       };
-    case modalTypes.TIMETABLE:
+
+    case modalTypes.SCHOLARSHIP_HISTORY:
       return {
-        title: "시간표 조회",
-        subtitle: "TimeTable",
-        hint: "요일 × 교시 기반 주간 시간표 UI를 추천합니다.",
+        title: "장학 내역 조회",
+        subtitle: "ScholarshipHistory",
+        hint:
+          "장학금 유형, 수혜 학기, 지급 금액 테이블 구성을 추천합니다.",
       };
-    case modalTypes.ATTENDANCE:
-      return {
-        title: "출석 현황",
-        subtitle: "Attendance",
-        hint: "출석/지각/결석 상태 뱃지 표시를 추천합니다.",
-      };
-    case modalTypes.ASSIGNMENT_LIST:
-      return {
-        title: "과제 목록",
-        subtitle: "Assignment",
-        hint: "마감일 기준 정렬 및 상태 표시를 추천합니다.",
-      };
-    case modalTypes.ASSIGNMENT_SUBMIT:
-      return {
-        title: "과제 제출",
-        subtitle: "Submission · FileAttachment",
-        hint: "파일 업로드 + 제출 이력 테이블 구조가 적합합니다.",
-      };
-    case modalTypes.COURSE_REVIEW:
-      return {
-        title: "강의 평가",
-        subtitle: "Review",
-        hint: "별점 + 텍스트 리뷰 입력 UI를 추천합니다.",
-      };
+
     default:
-      return {};
+      return {
+        title: "재무 · 장학",
+        subtitle: "",
+        hint: "",
+      };
   }
 }

@@ -1,26 +1,26 @@
-// src/pages/professormanagement/ProfessorGradeManagementDashboard.jsx
+// src/pages/professormanagement/ProfessorGradeLmsDashboard.jsx
 import React, { useState } from "react";
-import ProfessorGradeInputComponent from "../../components/professor/ProfessorGradeInputComponent";
 
 /* =========================
    Modal Types (교수용)
 ========================= */
 const modalTypes = {
-  COURSE_SELECT: "COURSE_SELECT",
+  GRADE_ITEM: "GRADE_ITEM",
 
-  GRADE_INPUT: "GRADE_INPUT",
-  GRADE_EDIT: "GRADE_EDIT",
+  ATTENDANCE_MANAGE: "ATTENDANCE_MANAGE",
+  ABSENCE_APPROVAL: "ABSENCE_APPROVAL",
 
-  EVALUATION_POLICY: "EVALUATION_POLICY",
-  GRADE_CONFIRM: "GRADE_CONFIRM",
+  ASSIGNMENT_CREATE: "ASSIGNMENT_CREATE",
+  SUBMISSION_REVIEW: "SUBMISSION_REVIEW",
 
-  GRADE_APPEAL: "GRADE_APPEAL",
+  SCORE_INPUT: "SCORE_INPUT",
+  FINAL_GRADE_CONFIRM: "FINAL_GRADE_CONFIRM",
 };
 
 /* =========================
    Main Dashboard
 ========================= */
-export default function ProfessorGradeManagementDashboard() {
+export default function ProfessorGradeLmsDashboard() {
   const [activeModal, setActiveModal] = useState(null);
   const closeModal = () => setActiveModal(null);
 
@@ -29,92 +29,112 @@ export default function ProfessorGradeManagementDashboard() {
       {/* ===== 대분류 헤더 ===== */}
       <header className="mb-8 flex flex-col gap-2">
         <h1 className="text-2xl font-semibold text-slate-900">
-          성적 · 평가 관리
+          평가 및 성적 관리
         </h1>
         <p className="text-sm text-slate-500">
-          담당 강의의 성적을 입력하고 평가를 관리합니다.
+          평가 기준 설정부터 출석, 과제, 성적 산출까지 관리합니다.
         </p>
       </header>
 
-      {/* ===== 중분류 카드 영역 ===== */}
-      <div className="grid gap-6 lg:grid-cols-3">
+      {/* ===== 중분류 카드 ===== */}
+      <div className="grid gap-6 lg:grid-cols-2">
         {/* ===============================
-            중분류 1: 강의 선택
+            중분류 1: 평가 기준
         =============================== */}
         <section className="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-slate-100">
           <SectionHeader
-            tag="Course"
+            tag="Grade Policy"
             tagColor="teal"
-            title="강의 선택"
-            description="성적을 관리할 강의를 선택합니다."
-            badge="Step 1"
+            title="평가 기준 설정"
+            description="과목별 평가 항목 및 반영 비율을 설정합니다."
+            badge="Required"
             badgeColor="teal"
           />
 
-          <div className="space-y-3">
-            <DashboardButton
-              label="강의 선택"
-              description="담당 강의를 선택합니다."
-              onClick={() => setActiveModal(modalTypes.COURSE_SELECT)}
-            />
-          </div>
+          <DashboardButton
+            label="평가 기준 설정"
+            description="중간·기말·과제·출석 반영 비율을 설정합니다."
+            onClick={() => setActiveModal(modalTypes.GRADE_ITEM)}
+          />
         </section>
 
         {/* ===============================
-            중분류 2: 성적 입력 · 수정
+            중분류 2: 출석 관리
         =============================== */}
         <section className="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-slate-100">
           <SectionHeader
-            tag="Grades"
+            tag="Attendance"
             tagColor="lime"
-            title="성적 입력 · 수정"
-            description="학생 성적을 입력하고 수정합니다."
-            badge="Input"
+            title="출석 관리"
+            description="출석 내역 확인 및 인정 처리를 진행합니다."
+            badge="Manage"
             badgeColor="lime"
           />
 
           <div className="space-y-3">
             <DashboardButton
-              label="성적 입력"
-              description="학생별 성적을 입력합니다."
-              onClick={() => setActiveModal(modalTypes.GRADE_INPUT)}
+              label="출석 체크 / 수정"
+              description="전자출결 및 수동 출석을 관리합니다."
+              onClick={() => setActiveModal(modalTypes.ATTENDANCE_MANAGE)}
             />
             <DashboardButton
-              label="성적 수정"
-              description="기존 입력 성적을 수정합니다."
-              onClick={() => setActiveModal(modalTypes.GRADE_EDIT)}
+              label="병가 증빙 승인"
+              description="병가 증빙 서류를 확인하고 출석 인정 처리합니다."
+              onClick={() => setActiveModal(modalTypes.ABSENCE_APPROVAL)}
             />
           </div>
         </section>
 
         {/* ===============================
-            중분류 3: 평가 · 확정
+            중분류 3: 과제 관리
         =============================== */}
         <section className="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-slate-100">
           <SectionHeader
-            tag="Evaluation"
+            tag="Assignment"
             tagColor="fuchsia"
-            title="평가 · 확정"
-            description="평가 기준 확인 및 성적 확정을 진행합니다."
-            badge="Finalize"
+            title="과제 관리"
+            description="과제 생성 및 제출물을 관리합니다."
+            badge="LMS"
             badgeColor="fuchsia"
           />
 
           <div className="space-y-3">
             <DashboardButton
-              label="평가 기준"
-              description="평가 항목 비율을 확인합니다."
-              onClick={() => setActiveModal(modalTypes.EVALUATION_POLICY)}
+              label="과제 생성"
+              description="마감일 및 만점을 설정하여 과제를 생성합니다."
+              onClick={() => setActiveModal(modalTypes.ASSIGNMENT_CREATE)}
             />
             <DashboardButton
-              label="성적 확정"
-              description="입력된 성적을 확정합니다."
-              onClick={() => setActiveModal(modalTypes.GRADE_CONFIRM)}
+              label="제출물 확인 및 채점"
+              description="학생 제출물을 확인하고 점수를 부여합니다."
+              onClick={() => setActiveModal(modalTypes.SUBMISSION_REVIEW)}
+            />
+          </div>
+        </section>
+
+        {/* ===============================
+            중분류 4: 성적 처리
+        =============================== */}
+        <section className="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-slate-100">
+          <SectionHeader
+            tag="Grade"
+            tagColor="amber"
+            title="성적 처리"
+            description="점수 입력 및 최종 성적을 확정합니다."
+            badge="Final"
+            badgeColor="amber"
+          />
+
+          <div className="space-y-3">
+            <DashboardButton
+              label="점수 입력"
+              description="학생별 평가 항목 점수를 입력합니다."
+              onClick={() => setActiveModal(modalTypes.SCORE_INPUT)}
             />
             <DashboardButton
-              label="성적 이의 확인"
-              description="학생 성적 이의 신청을 확인합니다."
-              onClick={() => setActiveModal(modalTypes.GRADE_APPEAL)}
+              label="최종 성적 확정"
+              description="성적을 산출하고 최종 확정합니다."
+              onClick={() => setActiveModal(modalTypes.FINAL_GRADE_CONFIRM)}
             />
           </div>
         </section>
@@ -127,67 +147,54 @@ export default function ProfessorGradeManagementDashboard() {
 }
 
 /* =========================
-   공통 컴포넌트
+   Section Header
 ========================= */
-
-function SectionHeader({
-  tag,
-  tagColor,
-  title,
-  description,
-  badge,
-  badgeColor,
-}) {
+function SectionHeader({ tag, tagColor, title, description, badge, badgeColor }) {
   const tagColorMap = {
     teal: "text-teal-500",
     lime: "text-lime-500",
     fuchsia: "text-fuchsia-500",
+    amber: "text-amber-500",
   };
 
   const badgeColorMap = {
     teal: "text-teal-500 bg-teal-50",
     lime: "text-lime-500 bg-lime-50",
     fuchsia: "text-fuchsia-500 bg-fuchsia-50",
+    amber: "text-amber-500 bg-amber-50",
   };
 
   return (
     <div className="mb-4 flex items-center justify-between">
       <div>
-        <p
-          className={`text-xs font-semibold uppercase tracking-wide ${tagColorMap[tagColor]}`}
-        >
+        <p className={`text-xs font-semibold uppercase ${tagColorMap[tagColor]}`}>
           {tag}
         </p>
         <h2 className="mt-1 text-lg font-semibold text-slate-900">{title}</h2>
         <p className="mt-1 text-xs text-slate-500">{description}</p>
       </div>
-      <span
-        className={`rounded-full px-3 py-1 text-xs font-medium ${badgeColorMap[badgeColor]}`}
-      >
+      <span className={`rounded-full px-3 py-1 text-xs ${badgeColorMap[badgeColor]}`}>
         {badge}
       </span>
     </div>
   );
 }
 
+/* =========================
+   Dashboard Button
+========================= */
 function DashboardButton({ label, description, onClick }) {
   return (
     <button
       type="button"
       onClick={onClick}
-      className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-left text-sm transition hover:border-slate-300 hover:bg-white hover:shadow-sm"
+      className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-left text-sm hover:bg-white hover:shadow-sm"
     >
-      <div className="flex items-center justify-between">
+      <div className="flex justify-between">
         <span className="font-medium text-slate-800">{label}</span>
-        <span className="text-[10px] uppercase tracking-wide text-slate-400">
-          Open
-        </span>
+        <span className="text-[10px] text-slate-400">Open</span>
       </div>
-      {description && (
-        <p className="mt-1 text-xs leading-relaxed text-slate-500">
-          {description}
-        </p>
-      )}
+      <p className="mt-1 text-xs text-slate-500">{description}</p>
     </button>
   );
 }
@@ -198,64 +205,21 @@ function DashboardButton({ label, description, onClick }) {
 function DashboardModal({ activeModal, onClose }) {
   if (!activeModal) return null;
 
-  const { title, subtitle, hint, content } = renderModalContent(activeModal);
+  const { title, subtitle, hint } = renderModalContent(activeModal);
 
   return (
     <div className="fixed inset-0 z-40 flex items-center justify-center bg-black/25">
-      <div className="w-full max-w-[80%] rounded-2xl bg-white p-6 shadow-xl ring-1 ring-slate-200">
-        <div className="mb-4 flex items-start justify-between">
+      <div className="w-full max-w-3xl rounded-2xl bg-white p-6 shadow-xl">
+        <div className="mb-4 flex justify-between">
           <div>
-            <h3 className="text-lg font-semibold text-slate-900">{title}</h3>
-            {subtitle && (
-              <p className="mt-1 text-xs text-slate-500">{subtitle}</p>
-            )}
+            <h3 className="text-lg font-semibold">{title}</h3>
+            <p className="text-xs text-slate-500">{subtitle}</p>
           </div>
-          <button
-            type="button"
-            onClick={onClose}
-            className="rounded-full p-1 text-slate-400 hover:bg-slate-100"
-          >
-            ✕
-          </button>
+          <button onClick={onClose}>✕</button>
         </div>
 
-        <div className="rounded-xl border border-dashed border-slate-200 bg-slate-50 p-4">
-          {content ? (
-            content
-          ) : (
-            <>
-              <p className="mb-2 text-xs font-medium text-slate-700">
-                💬 학생 커뮤니티 영역
-              </p>
-              <p className="text-xs leading-relaxed text-slate-500">
-                게시글 작성, 조회, 댓글 기능을 사용할 수 있습니다.
-              </p>
-
-              {hint && (
-                <p className="mt-3 text-[11px] text-slate-500">
-                  <span className="font-semibold">UI 힌트: </span>
-                  {hint}
-                </p>
-              )}
-            </>
-          )}
-        </div>
-
-        <div className="mt-5 flex justify-end">
-          <button
-            type="button"
-            onClick={onClose}
-            className="rounded-lg border border-slate-200 px-3 py-1.5 text-xs"
-          >
-            닫기
-          </button>
-          <button
-            type="button"
-            className="rounded-lg bg-slate-900 px-3 py-1.5 text-xs font-medium text-white opacity-60"
-            disabled
-          >
-            저장 (폼 연결 후 활성화)
-          </button>
+        <div className="rounded-xl border border-dashed p-4 text-xs text-slate-500">
+          {hint}
         </div>
       </div>
     </div>
@@ -267,46 +231,58 @@ function DashboardModal({ activeModal, onClose }) {
 ========================= */
 function renderModalContent(activeModal) {
   switch (activeModal) {
-    case modalTypes.COURSE_SELECT:
+    case modalTypes.GRADE_ITEM:
       return {
-        title: "강의 선택",
-        subtitle: "성적을 관리할 강의를 선택합니다.",
-        hint: "학기별 강의 리스트 UI를 추천합니다.",
+        title: "평가 기준 설정",
+        subtitle: "GradeItem",
+        hint: "평가 항목별 반영 비율 합계 100% 검증 로직을 추천합니다.",
       };
-    case modalTypes.GRADE_INPUT:
+
+    case modalTypes.ATTENDANCE_MANAGE:
       return {
-        title: "성적 입력",
-        subtitle: "학생 성적을 입력합니다.",
-        hint: "학생 리스트 + 점수 입력 테이블을 추천합니다.",
-        content: <ProfessorGradeInputComponent mode="modal" />,
+        title: "출석 관리",
+        subtitle: "Attendance",
+        hint: "전자출결 + 수동 수정 이력 관리 UI를 추천합니다.",
       };
-    case modalTypes.GRADE_EDIT:
+
+    case modalTypes.ABSENCE_APPROVAL:
       return {
-        title: "성적 수정",
-        subtitle: "입력된 성적을 수정합니다.",
-        hint: "변경 이력 표시를 고려하세요.",
+        title: "병가 증빙 승인",
+        subtitle: "Attendance · absenceDoc",
+        hint: "증빙 파일 미리보기 + 승인/반려 처리를 추천합니다.",
       };
-    case modalTypes.EVALUATION_POLICY:
+
+    case modalTypes.ASSIGNMENT_CREATE:
       return {
-        title: "평가 기준",
-        subtitle: "평가 항목 비율을 확인합니다.",
-        hint: "중간/기말/과제 비율 표시를 추천합니다.",
+        title: "과제 생성",
+        subtitle: "Assignment",
+        hint: "마감일, 만점, 첨부 자료 업로드 UI를 추천합니다.",
       };
-    case modalTypes.GRADE_CONFIRM:
+
+    case modalTypes.SUBMISSION_REVIEW:
       return {
-        title: "성적 확정",
-        subtitle: "성적을 확정 처리합니다.",
-        hint: "확정 전 검토 단계 UI를 추천합니다.",
+        title: "제출물 확인 및 채점",
+        subtitle: "Submission",
+        hint: "학생별 제출 상태 + 점수 입력 테이블을 추천합니다.",
       };
-    case modalTypes.GRADE_APPEAL:
+
+    case modalTypes.SCORE_INPUT:
       return {
-        title: "성적 이의 확인",
-        subtitle: "학생 이의 신청을 확인합니다.",
-        hint: "읽기 전용 + 코멘트 응답 UI를 추천합니다.",
+        title: "점수 입력",
+        subtitle: "StudentScore",
+        hint: "평가 항목별 점수 입력 및 자동 합산을 추천합니다.",
       };
+
+    case modalTypes.FINAL_GRADE_CONFIRM:
+      return {
+        title: "최종 성적 확정",
+        subtitle: "Grade",
+        hint: "성적 확정 후 수정 불가 처리 경고를 추천합니다.",
+      };
+
     default:
       return {
-        title: "성적 관리",
+        title: "평가 및 성적 관리",
         subtitle: "",
         hint: "",
       };
