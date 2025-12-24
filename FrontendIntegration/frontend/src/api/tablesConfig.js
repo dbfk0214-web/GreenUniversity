@@ -15,8 +15,11 @@ import { FileAttachmentDef } from "./definitions/FileAttachmentDefinition";
 import { searchHistoryDef } from "./definitions/SearchHistoryDefinition";
 import { ClassroomDef } from "./definitions/ClassroomDefinition";
 import { ClassSectionDef } from "./definitions/ClassSectionDefinition";
+import { AssignmentDef } from "./definitions/AssignmentDefinition";
+import { SubmissionDef } from "./definitions/SubmissionDefinition";
 
 export const tableDefinitions = {
+  assignment: AssignmentDef,
   attendance: AttendanceDef,
   board: BoardDef,
   classroom: ClassroomDef,
@@ -30,6 +33,7 @@ export const tableDefinitions = {
   notice: NoticeDef,
   post: PostDef,
   review: ReviewDef,
+  submission: SubmissionDef,
   time: TimeTableDef,
   user: UserDef,
   file: FileAttachmentDef,

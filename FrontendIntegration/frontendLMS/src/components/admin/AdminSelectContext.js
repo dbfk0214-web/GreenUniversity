@@ -2,8 +2,11 @@ import { createContext } from "react";
 
 const AdminSelectedContext = createContext({
   selectedIds: {
+    assignment: "none",
     attendance: "none",
     board: "none",
+    classroom: "none",
+    classSection: "none",
     comment: "none",
     course: "none",
     courseOffering: "none",

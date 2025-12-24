@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import AdminLayout from "../../layouts/AdminLayout";
 
+import AssignmentApi from "../../api/AssignmentApi";
 import AttendanceApi from "../../api/AttendanceApi";
 import BoardApi from "../../api/BoardApi";
 import CommentApi from "../../api/CommentApi";
@@ -21,6 +22,7 @@ import { excludeColumns } from "../../api/commonApi";
 const AdminComponent = () => {
   // 상태 통합
   const [selectedIds, setSelectedIds] = useState({
+    assignment: "none",
     attendance: "none",
     board: "none",
     comment: "none",
@@ -42,6 +44,7 @@ const AdminComponent = () => {
 
   // ← 여기! AdminComponent 안에 선언
   const tableApis = {
+    Assignment: AssignmentApi,
     attendance: AttendanceApi,
     board: BoardApi,
     comment: CommentApi,
