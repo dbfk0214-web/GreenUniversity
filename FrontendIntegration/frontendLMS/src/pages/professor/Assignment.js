@@ -1,6 +1,11 @@
 // src/pages/professormanagement/ProfessorAssignmentMaterialDashboard.jsx
 import React, { useState } from "react";
 import { DashboardButton, SectionHeader } from "../../components/what";
+import ProfessorMaterialManagementComponent from "../../components/professor/ProfessorMaterialManagementComponent";
+import ProfessorMaterialUploadComponent from "../../components/professor/ProfessorMaterialUploadComponent";
+import ProfessorAssignmentFeedbackComponent from "../../components/professor/ProfessorAssignmentFeedbackComponent";
+import ProfessorAssignmentSubmissionStatusComponent from "../../components/professor/ProfessorAssignmentSubmissionStatusComponent";
+import ProfessorAssignmentRegisterComponent from "../../components/professor/ProfessorAssignmentRegisterComponent";
 
 /* =========================
    Modal Types (교수용)
@@ -213,30 +218,35 @@ function renderModalContent(activeModal) {
         title: "과제 등록",
         subtitle: "새 과제를 등록합니다.",
         hint: "마감일, 제출 방식, 재제출 허용 여부 입력 UI 권장",
+        content:<ProfessorAssignmentRegisterComponent/>
       };
     case modalTypes.ASSIGNMENT_STATUS:
       return {
         title: "제출 현황",
         subtitle: "학생 과제 제출 현황입니다.",
         hint: "제출/미제출 상태 필터 + 제출 시간 컬럼 권장",
+        content:<ProfessorAssignmentSubmissionStatusComponent/>
       };
     case modalTypes.ASSIGNMENT_FEEDBACK:
       return {
         title: "과제 피드백",
         subtitle: "학생 과제에 피드백을 제공합니다.",
         hint: "텍스트 코멘트 + 파일 첨부 UI 권장",
+        content:<ProfessorAssignmentFeedbackComponent/>
       };
     case modalTypes.MATERIAL_UPLOAD:
       return {
         title: "자료 업로드",
         subtitle: "강의 자료를 업로드합니다.",
         hint: "드래그앤드롭 + 파일 유형 제한 UI 권장",
+        content:<ProfessorMaterialUploadComponent/>
       };
     case modalTypes.MATERIAL_MANAGE:
       return {
         title: "자료 관리",
         subtitle: "업로드된 자료를 관리합니다.",
         hint: "주차별 정렬 + 공개/비공개 토글 권장",
+        content:<ProfessorMaterialManagementComponent/>
       };
     default:
       return { title: "", subtitle: "", hint: "" };

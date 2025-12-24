@@ -1,6 +1,7 @@
 // src/pages/studentmanagement/CourseEnrollmentManagementDashboard.jsx
 import React, { useState } from "react";
 import FreePageComponent from "../../components/student/FreePageComponent";
+import StudentTimeTableComponent from "../../components/student/StudentTimeTableComponent";
 
 /* =========================
    Modal Types (소분류)
@@ -257,54 +258,48 @@ function DashboardModal({ activeModal, onClose }) {
 /* =========================
    Modal Resolver
 ========================= */
-function renderModalContent(activeModal) {
+
+function renderModalContent(activeModal, closeModal) {
   switch (activeModal) {
-    case modalTypes.NOTICE_LIST:
+    case modalTypes.COURSE_LIST:
       return {
-        title: "공지사항 목록",
-        subtitle: "학교 공지사항을 확인합니다.",
-        hint: "중요 공지 상단 고정 표시를 추천합니다.",
+        title: "수강 강의 목록",
+        subtitle: "현재 수강 중인 강의 목록입니다.",
+        hint: "강의 계획서 조회 기능을 추천합니다.",
       };
 
-    case modalTypes.NOTICE_DETAIL:
+    case modalTypes.TIMETABLE:
       return {
-        title: "공지 상세 보기",
-        subtitle: "공지 내용을 확인합니다.",
-        hint: "첨부파일 다운로드 UI를 추천합니다.",
+        title: "내 시간표 조회",
+        subtitle: "이번 학기 시간표를 확인합니다.",
+        hint: "강의실 위치 및 시간 확인에 유용합니다.",
+        content: <StudentTimeTableComponent mode="modal" />,
       };
 
-    case modalTypes.FREE_BOARD:
+    case modalTypes.ATTENDANCE:
       return {
-        title: "자유 게시판",
-        subtitle: "학생 자유 게시판입니다.",
-        hint: "좋아요 · 댓글 · 검색 기능을 추천합니다.",
-        content: <FreePageComponent mode="modal" />,
+        title: "출결 조회",
+        subtitle: "과목별 출결 현황입니다.",
+        hint: "지각/결석 횟수를 강조 표시하세요.",
       };
 
-    case modalTypes.QNA_BOARD:
+    case modalTypes.COURSE_EVALUATION:
       return {
-        title: "질문 · 답변(Q&A)",
-        subtitle: "질문과 답변을 확인합니다.",
-        hint: "답변 채택 기능을 고려하세요.",
+        title: "강의 평가",
+        subtitle: "수강 강의에 대한 평가를 진행합니다.",
+        hint: "익명성이 보장됨을 안내하세요.",
       };
 
-    case modalTypes.DATA_BOARD:
+    case modalTypes.COURSE_NOTICE:
       return {
-        title: "자료실",
-        subtitle: "공유 자료를 확인합니다.",
-        hint: "파일 유형별 필터를 추천합니다.",
-      };
-
-    case modalTypes.MY_POSTS:
-      return {
-        title: "내가 쓴 글",
-        subtitle: "내가 작성한 게시글입니다.",
-        hint: "작성일 및 상태 필터를 추천합니다.",
+        title: "강의 공지",
+        subtitle: "강의별 공지사항을 확인합니다.",
+        hint: "새로운 공지 알림 배지를 추천합니다.",
       };
 
     default:
       return {
-        title: "커뮤니티",
+        title: "강의 관리",
         subtitle: "",
         hint: "",
       };

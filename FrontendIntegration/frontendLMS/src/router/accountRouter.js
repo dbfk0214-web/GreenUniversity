@@ -8,9 +8,9 @@ const Account = lazy(() =>
 const Login = lazy(() =>
   import("../pages/authentication_Account_Security/LoginPage")
 );
-const Logout = lazy(() =>
-  import("../pages/authentication_Account_Security/LogoutPage")
-);
+// const Logout = lazy(() =>
+//   import("../pages/authentication_Account_Security/LogoutPage")
+// );
 const Manage = lazy(() =>
   import("../pages/authentication_Account_Security/AccountManagementPage")
 );
@@ -42,14 +42,6 @@ const accountRouter = () => {
       element: (
         <Suspense fallback={Loading}>
           <Mainlayouts children={<Login />} />
-        </Suspense>
-      ),
-    },
-    {
-      path: "logout",
-      element: (
-        <Suspense fallback={Loading}>
-          <Mainlayouts children={<Logout />} />
         </Suspense>
       ),
     },
