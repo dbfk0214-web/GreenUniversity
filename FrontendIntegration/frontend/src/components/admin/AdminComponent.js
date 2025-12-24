@@ -23,6 +23,8 @@ import userApi from "../../api/userApi";
 import FileAttachmentApi from "../../api/FileAttachmentApi";
 import SearchHistoryApi from "../../api/SearchHistoryApi";
 import AdminSelectedContext from "./AdminSelectContext";
+import SSHistoryApi from "../../api/SSHistoryApi";
+import TermApi from "../../api/TermApi";
 
 const AdminComponent = () => {
   const loginState = useSelector((state) => state.loginSlice);
@@ -49,6 +51,8 @@ const AdminComponent = () => {
     user: "none",
     fileAttachment: "none",
     searchHistory: "none",
+    term: "none",
+    sshistory: "none",
   });
 
   const setSelectId = (tableKey, id) => {
@@ -75,6 +79,8 @@ const AdminComponent = () => {
     user: userApi,
     file: FileAttachmentApi,
     search: SearchHistoryApi,
+    sshistory: SSHistoryApi,
+    term: TermApi,
   };
 
   return (

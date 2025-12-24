@@ -17,6 +17,8 @@ import { ClassroomDef } from "./definitions/ClassroomDefinition";
 import { ClassSectionDef } from "./definitions/ClassSectionDefinition";
 import { AssignmentDef } from "./definitions/AssignmentDefinition";
 import { SubmissionDef } from "./definitions/SubmissionDefinition";
+import { SSHDef } from "./definitions/SSHistoryDefinition";
+import { TermDef } from "./definitions/TermDefinition";
 
 export const tableDefinitions = {
   assignment: AssignmentDef,
@@ -38,4 +40,6 @@ export const tableDefinitions = {
   user: UserDef,
   file: FileAttachmentDef,
   search: searchHistoryDef,
+  term: TermDef,
+  sshistory: SSHDef,
 };
