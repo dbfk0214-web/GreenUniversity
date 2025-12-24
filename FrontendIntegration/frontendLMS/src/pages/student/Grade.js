@@ -1,12 +1,28 @@
+const modalTypes = {
+  // 성적 조회
+  MY_GRADES: "MY_GRADES",
+  COURSE_GRADES: "COURSE_GRADES",
+  STUDENT_SCORE_DETAIL: "STUDENT_SCORE_DETAIL",
+  FINAL_GRADE: "FINAL_GRADE",
+  GPA_OVERVIEW: "GPA_OVERVIEW",
+
+  // 출결 · 시험
+  ATTENDANCE_STATUS: "ATTENDANCE_STATUS",
+  EXAM_SCHEDULE: "EXAM_SCHEDULE",
+
+  // 학사 관리
+  ACADEMIC_WARNING: "ACADEMIC_WARNING",
+  GRADE_APPEAL: "GRADE_APPEAL",
+};
+
 function renderModalContent(activeModal) {
   switch (activeModal) {
-
     case modalTypes.MY_GRADES:
       return {
         title: "전체 성적 조회",
         subtitle: "학기별 성적을 확인합니다.",
         hint: "학기 선택 + 성적 테이블 구성을 추천합니다.",
-        content: <StudentGradeComponet mode="modal" />,
+        // content: <StudentGradeComponet mode="modal" />,
       };
 
     case modalTypes.COURSE_GRADES:
@@ -21,8 +37,7 @@ function renderModalContent(activeModal) {
       return {
         title: "상세 점수 확인",
         subtitle: "중간 · 기말 · 과제 점수",
-        hint:
-          "과목 선택 → 평가 항목별 점수 테이블(StudentScore)을 추천합니다.",
+        hint: "과목 선택 → 평가 항목별 점수 테이블(StudentScore)을 추천합니다.",
       };
 
     // ✅ 신규 2: 최종 성적
@@ -30,8 +45,7 @@ function renderModalContent(activeModal) {
       return {
         title: "최종 성적 조회",
         subtitle: "학기별 최종 등급 및 평점",
-        hint:
-          "학기 기준 최종 등급(A+, B 등) + 평점(Grade) 요약 UI를 추천합니다.",
+        hint: "학기 기준 최종 등급(A+, B 등) + 평점(Grade) 요약 UI를 추천합니다.",
       };
 
     case modalTypes.GPA_OVERVIEW:
