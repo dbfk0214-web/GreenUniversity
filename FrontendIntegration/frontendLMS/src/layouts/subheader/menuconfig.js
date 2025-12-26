@@ -1,125 +1,82 @@
 export const menus = {
+  // ───────────────────────── ADMIN ─────────────────────────
   ADMIN: [
-    // ───────── 공지 및 게시 관리 ─────────
+    // ───────── 학사 관리 ─────────
     {
-      label: "공지 및 게시 관리",
-      to: "/admin/notice",
+      label: "학사 관리",
+      to: "/admin/academic",
     },
 
-    // ───────── 사용자 및 권한 관리 ─────────
+    // ───────── 재정 관리 ─────────
     {
-      label: "사용자 및 권한 관리",
-      to: "/admin/userrole",
+      label: "재정 관리",
+      to: "/admin/finance",
     },
 
-    // ───────── 강의/수업 관리 ─────────
+    // ───────── 시스템 관리 ─────────
     {
-      label: "강의/수업 관리",
-      to: "/admin/courseclass",
+      label: "시스템 관리",
+      to: "/admin/system",
     },
 
-    // ───────── 학과 일정 및 행사 관리 ─────────
+    // ───────── 사용자 · 권한 관리 ─────────
     {
-      label: "학과 일정 및 행사 관리",
-      to: "/admin/events",
-    },
-
-    // ───────── 문의 / 민원 관리 ─────────
-    {
-      label: "문의 / 민원 관리",
-      to: "/admin/inquiry",
-    },
-
-    // ───────── 자원 관리 ─────────
-    {
-      label: "자원 / 시스템 관리",
-      to: "/admin/support",
-    },
-
-    // ───────── 내부 관리자 커뮤니티 ─────────
-    {
-      label: "내부 관리자 커뮤니티",
-      to: "/admin/internalcommunity",
+      label: "사용자 관리",
+      to: "/admin/user",
     },
   ],
 
-PROFESSOR: [
-  // ───────── 강의 / 수업 관리 ─────────
-  {
-    label: "강의 / 수업 관리",
-    to: "/professor/course",
-  },
+  // ─────────────────────── PROFESSOR ───────────────────────
+  PROFESSOR: [
+    // ───────── 강의 · 수업 관리 ─────────
     {
-    label: "출결 관리",
-    to: "/professor/attendance",
-  },
+      label: "강의 관리",
+      to: "/professor/academic",
+    },
+
+    // ───────── 성적 관리 ─────────
     {
-    label: "과제 / 정보 관리",
-    to: "/professor/assignment",
-  },
-  // ───────── 비교과 프로그램 관리 ─────────
-  {
-    label: "비교과 프로그램 관리",
-    to: "/professor/extra",
-  },
-  // ───────── 성적 · 학사 관리 ─────────
-  {
-    label: "성적 / 학사 관리",
-    to: "/professor/grade",
-  },
-  // ───────── 인증 / 계정 보안 ─────────
-  {
-    label: "지원 관리",
-    to: "/professor/support",
-  },
+      label: "성적 관리",
+      to: "/professor/grade",
+    },
+
+    // ───────── 강의 평가 · 리뷰 ─────────
     {
-    label: "인증 / 계정 보안",
-    to: "/professor/account",
-  },
-],
+      label: "강의 평가",
+      to: "/professor/review",
+    },
+  ],
 
-STUDENT: [
-  // ───────── 강의 / 수업 관리 ─────────
-  {
-    label: "강의 / 수업 관리",
-    to: "/student/course",
-  },
+  // ──────────────────────── STUDENT ────────────────────────
+  STUDENT: [
+    // ───────── 수업 · 수강 관리 ─────────
+    {
+      label: "수강 관리",
+      to: "/student/academic",
+    },
 
-  // ───────── 학사 행정 · 학적 · 증명 · 재정 ─────────
-  {
-    label: "학사 / 행정 관리",
-    to: "/student/academic",
-  },
+    // ───────── 커뮤니티 · 게시판 ─────────
+    {
+      label: "커뮤니티",
+      to: "/student/community",
+    },
 
-  // ───────── 비교과 프로그램 ─────────
-  {
-    label: "비교과 프로그램",
-    to: "/student/extra",
-  },
+    // ───────── 등록금 · 재정 ─────────
+    {
+      label: "재정 정보",
+      to: "/student/finance",
+    },
 
-  // ───────── 성적 · 학사 ─────────
-  {
-    label: "성적 · 학사",
-    to: "/student/grade",
-  },
+    // ───────── 성적 조회 ─────────
+    {
+      label: "성적 조회",
+      to: "/student/grade",
+    },
 
-  // ───────── 지원 ─────────
-  {
-    label: "지원",
-    to: "/student/support",
-  },
-
-  // ───────── 커뮤니티 ─────────
-  {
-    label: "커뮤니티",
-    to: "/student/community",
-  },
-
-  // ───────── 인증 / 계정 보안 ─────────
-  {
-    label: "인증 / 계정 보안",
-    to: "/student/account",
-  },
-],
-
+    // ───────── 마이페이지 · 사용자 ─────────
+    {
+      label: "내 정보",
+      to: "/student/user",
+    },
+  ],
 };

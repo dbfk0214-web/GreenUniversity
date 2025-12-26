@@ -1,5 +1,9 @@
 // src/pages/adminmanagement/AdminSystemCommunityDashboard.jsx
 import React, { useState } from "react";
+import NoticeManage from "../../components/features/notice/NoticeManage";
+import PostModeration from "../../components/features/board/PostModeration";
+import CommentModeration from "../../components/features/board/CommentModeration";
+import SearchHistory from "../../components/features/search/SearchHistory";
 
 /* =========================
    Modal Types (관리자용)
@@ -111,7 +115,14 @@ export default function AdminSystemCommunityDashboard() {
 /* =========================
    Section Header
 ========================= */
-function SectionHeader({ tag, tagColor, title, description, badge, badgeColor }) {
+function SectionHeader({
+  tag,
+  tagColor,
+  title,
+  description,
+  badge,
+  badgeColor,
+}) {
   const tagColorMap = {
     teal: "text-teal-500",
     fuchsia: "text-fuchsia-500",
@@ -127,7 +138,9 @@ function SectionHeader({ tag, tagColor, title, description, badge, badgeColor })
   return (
     <div className="mb-4 flex items-center justify-between">
       <div>
-        <p className={`text-xs font-semibold uppercase ${tagColorMap[tagColor]}`}>
+        <p
+          className={`text-xs font-semibold uppercase ${tagColorMap[tagColor]}`}
+        >
           {tag}
         </p>
         <h2 className="mt-1 text-lg font-semibold text-slate-900">{title}</h2>
@@ -197,32 +210,32 @@ function renderModalContent(activeModal) {
       return {
         title: "전체 공지 관리",
         subtitle: "Notice",
-        hint:
-          "중요 공지 여부, 게시 기간 설정 및 상단 고정 처리 UI를 추천합니다.",
+        // hint: "중요 공지 여부, 게시 기간 설정 및 상단 고정 처리 UI를 추천합니다.",
+        hint: <NoticeManage />,
       };
 
     case modalTypes.POST_MODERATION:
       return {
         title: "게시글 관리",
         subtitle: "Post",
-        hint:
-          "신고 횟수 표시 + 삭제 사유 기록 UI를 추천합니다.",
+        // hint: "신고 횟수 표시 + 삭제 사유 기록 UI를 추천합니다.",
+        hint: <PostModeration />,
       };
 
     case modalTypes.COMMENT_MODERATION:
       return {
         title: "댓글 관리",
         subtitle: "Comment",
-        hint:
-          "부적절 댓글 필터링 및 삭제 로그 관리 UI를 추천합니다.",
+        // hint: "부적절 댓글 필터링 및 삭제 로그 관리 UI를 추천합니다.",
+        hint: <CommentModeration />,
       };
 
     case modalTypes.SEARCH_HISTORY:
       return {
         title: "검색 기록 조회",
         subtitle: "SearchHistory",
-        hint:
-          "기간별 인기 검색어 차트 및 검색 빈도 테이블을 추천합니다.",
+        // hint: "기간별 인기 검색어 차트 및 검색 빈도 테이블을 추천합니다.",
+        hint: <SearchHistory />,
       };
 
     default:

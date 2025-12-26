@@ -5,18 +5,36 @@ const StudentHomeDashboard = lazy(() =>
   import("../components/student/StudentHomeDashboard")
 );
 
-// const Academic = lazy(() => import("../pages/student/Academic"));
-// const Course = lazy(() => import("../pages/student/Course"));
-// const Extra = lazy(() => import("../pages/student/Extra"));
-// const Grade = lazy(() => import("../pages/student/Grade"));
-// const Support = lazy(() => import("../pages/student/Support"));
-// const Community = lazy(() => import("../pages/student/Community"));
-// const Account = lazy(() => import("../pages/student/Account"));
+const Academic = lazy(() => import("../pages/student/Academic"));
+const Community = lazy(() => import("../pages/student/Community"));
+const Finance = lazy(() => import("../pages/student/Finance"));
+const Grade = lazy(() => import("../pages/student/Grade"));
+const User = lazy(() => import("../pages/student/User"));
 
 export const studentRouter = [
   {
     path: "",
     element: <Mainlayouts children={<StudentHomeDashboard />} />,
+  },
+  {
+    path: "academic",
+    element: <Mainlayouts children={<Academic />} />,
+  },
+  {
+    path: "community",
+    element: <Mainlayouts children={<Community />} />,
+  },
+  {
+    path: "finance",
+    element: <Mainlayouts children={<Finance />} />,
+  },
+  {
+    path: "grade",
+    element: <Mainlayouts children={<Grade />} />,
+  },
+  {
+    path: "user",
+    element: <Mainlayouts children={<User />} />,
   },
   // {
   //   path: "academic",

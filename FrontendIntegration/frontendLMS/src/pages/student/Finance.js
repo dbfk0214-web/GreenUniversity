@@ -1,5 +1,7 @@
 // src/pages/studentmanagement/StudentFinanceScholarshipDashboard.jsx
 import React, { useState } from "react";
+import TuitionBillView from "../../components/features/finance/TuitionBillView";
+import ScholarshipHistory from "../../components/features/finance/ScholarshipHistory";
 
 /* =========================
    Modal Types (학생용)
@@ -84,7 +86,14 @@ export default function StudentFinanceScholarshipDashboard() {
 /* =========================
    Section Header
 ========================= */
-function SectionHeader({ tag, tagColor, title, description, badge, badgeColor }) {
+function SectionHeader({
+  tag,
+  tagColor,
+  title,
+  description,
+  badge,
+  badgeColor,
+}) {
   const tagColorMap = {
     teal: "text-teal-500",
     fuchsia: "text-fuchsia-500",
@@ -98,13 +107,17 @@ function SectionHeader({ tag, tagColor, title, description, badge, badgeColor })
   return (
     <div className="mb-4 flex items-center justify-between">
       <div>
-        <p className={`text-xs font-semibold uppercase ${tagColorMap[tagColor]}`}>
+        <p
+          className={`text-xs font-semibold uppercase ${tagColorMap[tagColor]}`}
+        >
           {tag}
         </p>
         <h2 className="mt-1 text-lg font-semibold text-slate-900">{title}</h2>
         <p className="mt-1 text-xs text-slate-500">{description}</p>
       </div>
-      <span className={`rounded-full px-3 py-1 text-xs ${badgeColorMap[badgeColor]}`}>
+      <span
+        className={`rounded-full px-3 py-1 text-xs ${badgeColorMap[badgeColor]}`}
+      >
         {badge}
       </span>
     </div>
@@ -166,16 +179,16 @@ function renderModalContent(activeModal) {
       return {
         title: "등록금 고지서 확인",
         subtitle: "TuitionPayment",
-        hint:
-          "학기별 고지 금액, 납부 상태(PAID / UNPAID), 납부 일자 표시를 추천합니다.",
+        // hint: "학기별 고지 금액, 납부 상태(PAID / UNPAID), 납부 일자 표시를 추천합니다.",
+        hint: <TuitionBillView />,
       };
 
     case modalTypes.SCHOLARSHIP_HISTORY:
       return {
         title: "장학 내역 조회",
         subtitle: "ScholarshipHistory",
-        hint:
-          "장학금 유형, 수혜 학기, 지급 금액 테이블 구성을 추천합니다.",
+        // hint: "장학금 유형, 수혜 학기, 지급 금액 테이블 구성을 추천합니다.",
+        hint: <ScholarshipHistory />,
       };
 
     default:

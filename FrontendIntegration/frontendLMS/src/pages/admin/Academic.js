@@ -1,5 +1,11 @@
 // src/pages/adminmanagement/AdminAcademicDashboard.jsx
 import React, { useState } from "react";
+import CourseEnroll from "../../components/features/academic/CourseEnroll";
+import TermManage from "../../components/features/academic/TermManage";
+import CourseOfferingManage from "../../components/features/academic/CourseOfferingManage";
+import CourseManage from "../../components/features/academic/CourseManage";
+import ClassSectionManage from "../../components/features/academic/ClassSectionManage";
+import TimetableManage from "../../components/features/academic/TimetableManage";
 
 /* =========================
    Modal Types (관리자용)
@@ -133,7 +139,14 @@ export default function AdminAcademicDashboard() {
 /* =========================
    Section Header
 ========================= */
-function SectionHeader({ tag, tagColor, title, description, badge, badgeColor }) {
+function SectionHeader({
+  tag,
+  tagColor,
+  title,
+  description,
+  badge,
+  badgeColor,
+}) {
   const tagColorMap = {
     teal: "text-teal-500",
     fuchsia: "text-fuchsia-500",
@@ -151,7 +164,9 @@ function SectionHeader({ tag, tagColor, title, description, badge, badgeColor })
   return (
     <div className="mb-4 flex items-center justify-between">
       <div>
-        <p className={`text-xs font-semibold uppercase ${tagColorMap[tagColor]}`}>
+        <p
+          className={`text-xs font-semibold uppercase ${tagColorMap[tagColor]}`}
+        >
           {tag}
         </p>
         <h2 className="mt-1 text-lg font-semibold text-slate-900">{title}</h2>
@@ -221,40 +236,40 @@ function renderModalContent(activeModal) {
       return {
         title: "학기 관리",
         subtitle: "AcademicTerm",
-        hint:
-          "학기 시작/종료일, 현재 학기 설정 및 수강신청 기간 설정 UI를 추천합니다.",
+        // hint: "학기 시작/종료일, 현재 학기 설정 및 수강신청 기간 설정 UI를 추천합니다.",
+        hint: <TermManage />,
       };
 
     case modalTypes.COURSE_MANAGE:
       return {
         title: "과목 관리",
         subtitle: "Course",
-        hint:
-          "과목 코드, 과목명, 학점 입력 및 활성/비활성 관리 UI를 추천합니다.",
+        // hint: "과목 코드, 과목명, 학점 입력 및 활성/비활성 관리 UI를 추천합니다.",
+        hint: <CourseManage />,
       };
 
     case modalTypes.COURSE_OFFERING:
       return {
         title: "강의 개설",
         subtitle: "CourseOffering",
-        hint:
-          "학기 선택 → 과목 선택 → 담당 교수 배정 → 정원 설정 플로우를 추천합니다.",
+        // hint: "학기 선택 → 과목 선택 → 담당 교수 배정 → 정원 설정 플로우를 추천합니다.",
+        hint: <CourseOfferingManage />,
       };
 
     case modalTypes.CLASS_SECTION:
       return {
         title: "분반 관리",
         subtitle: "ClassSection",
-        hint:
-          "분반 번호, 정원, 연결된 강의 정보 설정 UI를 추천합니다.",
+        // hint: "분반 번호, 정원, 연결된 강의 정보 설정 UI를 추천합니다.",
+        hint: <ClassSectionManage />,
       };
 
     case modalTypes.TIMETABLE_MANAGE:
       return {
         title: "시간표 관리",
         subtitle: "TimeTable · Classroom",
-        hint:
-          "요일/교시 기반 시간표 + 강의실 중복 체크 로직을 추천합니다.",
+        // hint: "요일/교시 기반 시간표 + 강의실 중복 체크 로직을 추천합니다.",
+        hint: <TimetableManage />,
       };
 
     default:

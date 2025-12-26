@@ -1,5 +1,9 @@
 // src/pages/studentmanagement/StudentCommunityDashboard.jsx
 import React, { useState } from "react";
+import NoticeList from "../../components/features/notice/NoticeList";
+import DepartmentNotice from "../../components/features/notice/DepartmentNotice";
+import FreeBoard from "../../components/features/board/FreeBoard";
+import PostWrite from "../../components/features/board/PostWrite";
 
 /* =========================
    Modal Types (학생용)
@@ -97,7 +101,14 @@ export default function StudentCommunityDashboard() {
 /* =========================
    Section Header
 ========================= */
-function SectionHeader({ tag, tagColor, title, description, badge, badgeColor }) {
+function SectionHeader({
+  tag,
+  tagColor,
+  title,
+  description,
+  badge,
+  badgeColor,
+}) {
   const tagColorMap = {
     teal: "text-teal-500",
     fuchsia: "text-fuchsia-500",
@@ -111,7 +122,9 @@ function SectionHeader({ tag, tagColor, title, description, badge, badgeColor })
   return (
     <div className="mb-4 flex items-center justify-between">
       <div>
-        <p className={`text-xs font-semibold uppercase ${tagColorMap[tagColor]}`}>
+        <p
+          className={`text-xs font-semibold uppercase ${tagColorMap[tagColor]}`}
+        >
           {tag}
         </p>
         <h2 className="mt-1 text-lg font-semibold text-slate-900">{title}</h2>
@@ -181,32 +194,32 @@ function renderModalContent(activeModal) {
       return {
         title: "학교 전체 공지",
         subtitle: "Notice",
-        hint:
-          "공지 유형(일반/중요), 게시 기간, 조회수 표시를 추천합니다.",
+        // hint: "공지 유형(일반/중요), 게시 기간, 조회수 표시를 추천합니다.",
+        hint: <NoticeList />,
       };
 
     case modalTypes.DEPARTMENT_NOTICE:
       return {
         title: "학과 공지사항",
         subtitle: "Notice · Department",
-        hint:
-          "소속 학과 기준 필터링된 공지 리스트 구성을 추천합니다.",
+        // hint: "소속 학과 기준 필터링된 공지 리스트 구성을 추천합니다.",
+        hint: <DepartmentNotice />,
       };
 
     case modalTypes.FREE_BOARD:
       return {
         title: "자유 게시판",
         subtitle: "Board · Post · Comment",
-        hint:
-          "게시글 목록 + 댓글 수 + 최신순 정렬 UI를 추천합니다.",
+        // hint: "게시글 목록 + 댓글 수 + 최신순 정렬 UI를 추천합니다.",
+        hint: <FreeBoard />,
       };
 
     case modalTypes.POST_WRITE:
       return {
         title: "게시글 작성",
         subtitle: "Post",
-        hint:
-          "제목, 내용 입력 + 수정/삭제 권한 체크 UI를 추천합니다.",
+        // hint: "제목, 내용 입력 + 수정/삭제 권한 체크 UI를 추천합니다.",
+        hint: <PostWrite />,
       };
 
     default:

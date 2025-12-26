@@ -23,6 +23,7 @@ export const adminmanagementRouter = [
     path: "",
     element: <Mainlayouts children={<AdminHomeDashboard />} />,
   },
+
   // {
   //   path: "notice",
   //   element: <Mainlayouts children={<Notice />} />,

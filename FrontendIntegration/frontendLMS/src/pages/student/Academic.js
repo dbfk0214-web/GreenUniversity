@@ -1,5 +1,11 @@
 // src/pages/studentmanagement/AcademicLmsDashboard.jsx
 import React, { useState } from "react";
+import CourseEnroll from "../../components/features/academic/CourseEnroll";
+import TimetableView from "../../components/features/academic/TimetableView";
+import AttendanceView from "../../components/features/attendance/AttendanceView";
+import AssignmentList from "../../components/features/assignment/AssignmentList";
+import AssignmentSubmit from "../../components/features/assignment/AssignmentSubmit";
+import CourseReviewWrite from "../../components/features/review/CourseReviewWrite";
 
 /* =========================
    Modal Types (소분류)
@@ -90,7 +96,14 @@ export default function AcademicLmsDashboard() {
 /* =========================
    Section Header
 ========================= */
-function SectionHeader({ tag, tagColor, title, description, badge, badgeColor }) {
+function SectionHeader({
+  tag,
+  tagColor,
+  title,
+  description,
+  badge,
+  badgeColor,
+}) {
   const tagColorMap = {
     teal: "text-teal-500",
   };
@@ -102,13 +115,17 @@ function SectionHeader({ tag, tagColor, title, description, badge, badgeColor })
   return (
     <div className="mb-4 flex items-center justify-between">
       <div>
-        <p className={`text-xs font-semibold uppercase ${tagColorMap[tagColor]}`}>
+        <p
+          className={`text-xs font-semibold uppercase ${tagColorMap[tagColor]}`}
+        >
           {tag}
         </p>
         <h2 className="mt-1 text-lg font-semibold text-slate-900">{title}</h2>
         <p className="mt-1 text-xs text-slate-500">{description}</p>
       </div>
-      <span className={`rounded-full px-3 py-1 text-xs ${badgeColorMap[badgeColor]}`}>
+      <span
+        className={`rounded-full px-3 py-1 text-xs ${badgeColorMap[badgeColor]}`}
+      >
         {badge}
       </span>
     </div>
@@ -170,37 +187,43 @@ function renderModalContent(activeModal) {
       return {
         title: "수강 신청 / 취소",
         subtitle: "CourseOffering · Enrollment",
-        hint: "개설 강의 목록 + 신청/취소 버튼 구조를 추천합니다.",
+        // hint: "개설 강의 목록 + 신청/취소 버튼 구조를 추천합니다.",
+        hint: <CourseEnroll />,
       };
     case modalTypes.TIMETABLE:
       return {
         title: "시간표 조회",
         subtitle: "TimeTable",
-        hint: "요일 × 교시 기반 주간 시간표 UI를 추천합니다.",
+        // hint: "요일 × 교시 기반 주간 시간표 UI를 추천합니다.",
+        hint: <TimetableView />,
       };
     case modalTypes.ATTENDANCE:
       return {
         title: "출석 현황",
         subtitle: "Attendance",
-        hint: "출석/지각/결석 상태 뱃지 표시를 추천합니다.",
+        // hint: "출석/지각/결석 상태 뱃지 표시를 추천합니다.",
+        hint: <AttendanceView />,
       };
     case modalTypes.ASSIGNMENT_LIST:
       return {
         title: "과제 목록",
         subtitle: "Assignment",
-        hint: "마감일 기준 정렬 및 상태 표시를 추천합니다.",
+        // hint: "마감일 기준 정렬 및 상태 표시를 추천합니다.",
+        hint: <AssignmentList />,
       };
     case modalTypes.ASSIGNMENT_SUBMIT:
       return {
         title: "과제 제출",
         subtitle: "Submission · FileAttachment",
-        hint: "파일 업로드 + 제출 이력 테이블 구조가 적합합니다.",
+        // hint: "파일 업로드 + 제출 이력 테이블 구조가 적합합니다.",
+        hint: <AssignmentSubmit />,
       };
     case modalTypes.COURSE_REVIEW:
       return {
         title: "강의 평가",
         subtitle: "Review",
-        hint: "별점 + 텍스트 리뷰 입력 UI를 추천합니다.",
+        // hint: "별점 + 텍스트 리뷰 입력 UI를 추천합니다.",
+        hint: <CourseReviewWrite />,
       };
     default:
       return {};

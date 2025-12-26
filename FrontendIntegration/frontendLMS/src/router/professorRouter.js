@@ -5,18 +5,26 @@ const ProfessorHomeDashboard = lazy(() =>
   import("../components/professor/ProfessorHomeDashboard")
 );
 
-// const Course = lazy(() => import("../pages/professor/Course"));
-// const Extra = lazy(() => import("../pages/professor/Extra"));
-// const Grade = lazy(() => import("../pages/professor/Grade"));
-// const Support = lazy(() => import("../pages/professor/Support"));
-// const Account = lazy(() => import("../pages/professor/Account"));
-// const Assignment = lazy(() => import("../pages/professor/Assignment"));
-// const Attendance = lazy(() => import("../pages/professor/Attendance"));
+const Academic = lazy(() => import("../pages/professor/Academic"));
+const Grade = lazy(() => import("../pages/professor/Grade"));
+const Review = lazy(() => import("../pages/professor/Review"));
 
 export const professorRouter = [
   {
     path: "",
     element: <Mainlayouts children={<ProfessorHomeDashboard />} />,
+  },
+  {
+    path: "academic",
+    element: <Mainlayouts children={<Academic />} />,
+  },
+  {
+    path: "grade",
+    element: <Mainlayouts children={<Grade />} />,
+  },
+  {
+    path: "review",
+    element: <Mainlayouts children={<Review />} />,
   },
   // {
   //   path: "assignment",
