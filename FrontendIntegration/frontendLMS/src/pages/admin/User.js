@@ -1,10 +1,6 @@
 // src/pages/adminmanagement/UserManagementDashboard.jsx
 import React, { useState } from "react";
-import UserRegister from "../../components/features/user/UserRegister";
-import UserEdit from "../../components/features/user/UserEdit";
-import UserDeactivate from "../../components/features/user/UserDeactivate";
-import UserRoleBulkUpdate from "../../components/features/user/UserRoleBulkUpdate";
-import UserAcademicStatusUpdate from "../../components/features/user/UserAcademicStatusUpdate";
+
 
 /* =========================
    Modal Types (소분류)
@@ -178,31 +174,31 @@ function renderModalContent(activeModal) {
       return {
         title: "사용자 등록",
         subtitle: "User · Role",
-        content: <UserRegister />,
+        content: "",
       };
     case modalTypes.USER_EDIT:
       return {
         title: "사용자 수정",
         subtitle: "User Profile",
-        content: <UserEdit />,
+        content: "",
       };
     case modalTypes.USER_DEACTIVATE:
       return {
         title: "계정 비활성화",
         subtitle: "Account Status",
-        content: <UserDeactivate />,
+        content: "",
       };
     case modalTypes.USER_ROLE_BULK:
       return {
         title: "권한 일괄 수정",
         subtitle: "Role Management",
-        content: <UserRoleBulkUpdate />,
+        content: "",
       };
     case modalTypes.USER_ACADEMIC_STATUS:
       return {
         title: "학적 상태 수정",
         subtitle: "Academic Status",
-        content: <UserAcademicStatusUpdate />,
+        content: "",
       };
     default:
       return {};
