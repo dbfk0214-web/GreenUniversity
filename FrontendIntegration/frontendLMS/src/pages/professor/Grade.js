@@ -223,7 +223,7 @@ function DashboardButton({ label, description, onClick }) {
 function DashboardModal({ activeModal, onClose }) {
   if (!activeModal) return null;
 
-  const { title, subtitle, hint } = renderModalContent(activeModal);
+  const { title, subtitle, hint, content } = renderModalContent(activeModal);
 
   return (
     <div className="fixed inset-0 z-40 flex items-center justify-center bg-black/25">
@@ -254,7 +254,7 @@ function renderModalContent(activeModal) {
         title: "평가 기준 설정",
         subtitle: "GradeItem",
         // hint: "평가 항목별 반영 비율 합계 100% 검증 로직을 추천합니다.",
-        hint: <GradePolicyManage />,
+        content: <GradePolicyManage />,
       };
 
     case modalTypes.ATTENDANCE_MANAGE:
@@ -262,7 +262,7 @@ function renderModalContent(activeModal) {
         title: "출석 관리",
         subtitle: "Attendance",
         // hint: "전자출결 + 수동 수정 이력 관리 UI를 추천합니다.",
-        hint: <AttendanceManage />,
+        content: <AttendanceManage />,
       };
 
     case modalTypes.ABSENCE_APPROVAL:
@@ -270,7 +270,7 @@ function renderModalContent(activeModal) {
         title: "병가 증빙 승인",
         subtitle: "Attendance · absenceDoc",
         // hint: "증빙 파일 미리보기 + 승인/반려 처리를 추천합니다.",
-        hint: <AbsenceApproval />,
+        content: <AbsenceApproval />,
       };
 
     case modalTypes.ASSIGNMENT_CREATE:
@@ -278,7 +278,7 @@ function renderModalContent(activeModal) {
         title: "과제 생성",
         subtitle: "Assignment",
         // hint: "마감일, 만점, 첨부 자료 업로드 UI를 추천합니다.",
-        hint: <AssignmentManage />,
+        content: <AssignmentManage />,
       };
 
     case modalTypes.SUBMISSION_REVIEW:
@@ -286,7 +286,7 @@ function renderModalContent(activeModal) {
         title: "제출물 확인 및 채점",
         subtitle: "Submission",
         // hint: "학생별 제출 상태 + 점수 입력 테이블을 추천합니다.",
-        hint: <SubmissionReview />,
+        content: <SubmissionReview />,
       };
 
     case modalTypes.SCORE_INPUT:
@@ -294,7 +294,7 @@ function renderModalContent(activeModal) {
         title: "점수 입력",
         subtitle: "StudentScore",
         // hint: "평가 항목별 점수 입력 및 자동 합산을 추천합니다.",
-        hint: <ScoreInput />,
+        content: <ScoreInput />,
       };
 
     case modalTypes.FINAL_GRADE_CONFIRM:
@@ -302,7 +302,7 @@ function renderModalContent(activeModal) {
         title: "최종 성적 확정",
         subtitle: "Grade",
         // hint: "성적 확정 후 수정 불가 처리 경고를 추천합니다.",
-        hint: <FinalGradeConfirm />,
+        content: <FinalGradeConfirm />,
       };
 
     default:

@@ -1,5 +1,10 @@
 // src/pages/studentmanagement/StudentUserDashboard.jsx
 import React, { useState } from "react";
+import MyInfo from "../../components/features/user/MyInfo";
+import PasswordManage from "../../components/features/user/PasswordManage";
+import StudentStatusHistory from "../../components/features/user/StudentStatusHistory";
+import ReturnRequest from "../../components/features/user/ReturnRequest";
+import StudentStatusApproval from "../../components/features/user/StudentStatusApproval";
 
 
 /* =========================
@@ -167,7 +172,7 @@ function DashboardButton({ label, description, onClick }) {
 function DashboardModal({ activeModal, onClose }) {
   if (!activeModal) return null;
 
-  const { title, subtitle, hint } = renderModalContent(activeModal);
+  const { title, subtitle, hint, content } = renderModalContent(activeModal);
 
   return (
     <div className="fixed inset-0 z-40 flex items-center justify-center bg-black/25">
@@ -199,6 +204,7 @@ function renderModalContent(activeModal) {
         subtitle: "User",
         // hint: "이메일, 이름, 학번 등 기본 정보 표시를 추천합니다.",
         hint: "",
+        content:<MyInfo/>
       };
 
     case modalTypes.PASSWORD_CHANGE:
@@ -207,6 +213,7 @@ function renderModalContent(activeModal) {
         subtitle: "User",
         // hint: "현재 비밀번호 검증 + 새 비밀번호 규칙 안내를 추천합니다.",
         hint: "",
+        content:<PasswordManage/>
       };
 
     case modalTypes.LEAVE_REQUEST:
@@ -215,6 +222,7 @@ function renderModalContent(activeModal) {
         subtitle: "StudentStatusHistory",
         // hint: "휴학 사유, 기간 선택 UI를 추천합니다.",
         hint: "",
+        content:<StudentStatusHistory/>
       };
 
     case modalTypes.RETURN_REQUEST:
@@ -223,6 +231,7 @@ function renderModalContent(activeModal) {
         subtitle: "StudentStatusHistory",
         // hint: "복학 희망 학기 선택 UI를 추천합니다.",
         hint: "",
+        content:<ReturnRequest/>
       };
 
     case modalTypes.STATUS_HISTORY:
@@ -231,13 +240,7 @@ function renderModalContent(activeModal) {
         subtitle: "StudentStatusHistory",
         // hint: "신청 유형, 처리 상태, 승인 일자 테이블 구성을 추천합니다.",
         hint: "",
-      };
-
-    default:
-      return {
-        title: "개인 · 행정",
-        subtitle: "",
-        hint: "",
+        content:<StudentStatusApproval/>
       };
   }
 }

@@ -1,5 +1,8 @@
 // src/pages/adminmanagement/UserManagementDashboard.jsx
 import React, { useState } from "react";
+import UserManage from "../../components/features/user/UserManage";
+import UserCreate from "../../components/features/user/UserCreate";
+import StudentStatusApproval from "../../components/features/user/StudentStatusApproval";
 
 
 /* =========================
@@ -174,31 +177,31 @@ function renderModalContent(activeModal) {
       return {
         title: "사용자 등록",
         subtitle: "User · Role",
-        content: "",
+        content: <UserCreate/>
       };
     case modalTypes.USER_EDIT:
       return {
         title: "사용자 수정",
         subtitle: "User Profile",
-        content: "",
+        content: <UserManage/>
       };
     case modalTypes.USER_DEACTIVATE:
       return {
         title: "계정 비활성화",
         subtitle: "Account Status",
-        content: "",
+        content: <UserManage/>,
       };
     case modalTypes.USER_ROLE_BULK:
       return {
         title: "권한 일괄 수정",
         subtitle: "Role Management",
-        content: "",
+        content: <UserManage/>,
       };
     case modalTypes.USER_ACADEMIC_STATUS:
       return {
-        title: "학적 상태 수정",
+        title: "학적 변동 승인",
         subtitle: "Academic Status",
-        content: "",
+        content: <StudentStatusApproval/>,
       };
     default:
       return {};
