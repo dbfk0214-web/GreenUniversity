@@ -6,8 +6,7 @@ import accountRouter from "./accountRouter";
 
 // 통합된 단일 Router
 
-
-import { adminmanagementRouter, adminRouter } from "./adminmanagementRouter";
+import { adminRouter } from "./adminRouter";
 import { studentRouter } from "./studentRouter";
 import { professorRouter } from "./professorRouter";
 
@@ -32,7 +31,7 @@ const root = createBrowserRouter([
   },
   {
     path: "admin",
-    children: adminmanagementRouter,
+    children: adminRouter,
   },
   {
     path: "student",
