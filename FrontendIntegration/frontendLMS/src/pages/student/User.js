@@ -6,7 +6,6 @@ import StudentStatusHistory from "../../components/features/user/StudentStatusHi
 import ReturnRequest from "../../components/features/user/ReturnRequest";
 import StudentStatusApproval from "../../components/features/user/StudentStatusApproval";
 
-
 /* =========================
    Modal Types (학생용)
 ========================= */
@@ -186,7 +185,7 @@ function DashboardModal({ activeModal, onClose }) {
         </div>
 
         <div className="rounded-xl border border-dashed p-4 text-xs text-slate-500">
-          {hint}
+          {content}
         </div>
       </div>
     </div>
@@ -204,7 +203,7 @@ function renderModalContent(activeModal) {
         subtitle: "User",
         // hint: "이메일, 이름, 학번 등 기본 정보 표시를 추천합니다.",
         hint: "",
-        content:<MyInfo/>
+        content: <MyInfo />,
       };
 
     case modalTypes.PASSWORD_CHANGE:
@@ -213,7 +212,7 @@ function renderModalContent(activeModal) {
         subtitle: "User",
         // hint: "현재 비밀번호 검증 + 새 비밀번호 규칙 안내를 추천합니다.",
         hint: "",
-        content:<PasswordManage/>
+        content: <PasswordManage />,
       };
 
     case modalTypes.LEAVE_REQUEST:
@@ -222,7 +221,7 @@ function renderModalContent(activeModal) {
         subtitle: "StudentStatusHistory",
         // hint: "휴학 사유, 기간 선택 UI를 추천합니다.",
         hint: "",
-        content:<StudentStatusHistory/>
+        content: <StudentStatusHistory />,
       };
 
     case modalTypes.RETURN_REQUEST:
@@ -231,7 +230,7 @@ function renderModalContent(activeModal) {
         subtitle: "StudentStatusHistory",
         // hint: "복학 희망 학기 선택 UI를 추천합니다.",
         hint: "",
-        content:<ReturnRequest/>
+        content: <ReturnRequest />,
       };
 
     case modalTypes.STATUS_HISTORY:
@@ -240,7 +239,7 @@ function renderModalContent(activeModal) {
         subtitle: "StudentStatusHistory",
         // hint: "신청 유형, 처리 상태, 승인 일자 테이블 구성을 추천합니다.",
         hint: "",
-        content:<StudentStatusApproval/>
+        content: <StudentStatusApproval />,
       };
   }
 }

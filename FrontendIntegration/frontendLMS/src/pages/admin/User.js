@@ -4,7 +4,6 @@ import UserManage from "../../components/features/user/UserManage";
 import UserCreate from "../../components/features/user/UserCreate";
 import StudentStatusApproval from "../../components/features/user/StudentStatusApproval";
 
-
 /* =========================
    Modal Types (소분류)
 ========================= */
@@ -27,9 +26,7 @@ export default function UserManagementDashboard() {
     <div className="min-h-screen bg-slate-50 px-6 py-8">
       {/* ===== 대분류 헤더 ===== */}
       <header className="mb-8 flex flex-col gap-2">
-        <h1 className="text-2xl font-semibold text-slate-900">
-          유저 관리
-        </h1>
+        <h1 className="text-2xl font-semibold text-slate-900">유저 관리</h1>
         <p className="text-sm text-slate-500">
           사용자 계정, 권한, 학적 상태를 관리합니다.
         </p>
@@ -71,9 +68,7 @@ export default function UserManagementDashboard() {
             <DashboardButton
               label="학적 상태 수정"
               description="재학, 휴학, 졸업 등 학적 상태를 변경합니다."
-              onClick={() =>
-                setActiveModal(modalTypes.USER_ACADEMIC_STATUS)
-              }
+              onClick={() => setActiveModal(modalTypes.USER_ACADEMIC_STATUS)}
             />
           </div>
         </section>
@@ -107,7 +102,9 @@ function SectionHeader({
   return (
     <div className="mb-4 flex items-center justify-between">
       <div>
-        <p className={`text-xs font-semibold uppercase ${tagColorMap[tagColor]}`}>
+        <p
+          className={`text-xs font-semibold uppercase ${tagColorMap[tagColor]}`}
+        >
           {tag}
         </p>
         <h2 className="mt-1 text-lg font-semibold text-slate-900">{title}</h2>
@@ -160,9 +157,7 @@ function DashboardModal({ activeModal, onClose }) {
           <button onClick={onClose}>✕</button>
         </div>
 
-        <div className="rounded-xl border border-dashed p-4">
-          {content}
-        </div>
+        <div className="rounded-xl border border-dashed p-4">{content}</div>
       </div>
     </div>
   );
@@ -177,31 +172,31 @@ function renderModalContent(activeModal) {
       return {
         title: "사용자 등록",
         subtitle: "User · Role",
-        content: <UserCreate/>
+        content: <UserCreate />,
       };
     case modalTypes.USER_EDIT:
       return {
         title: "사용자 수정",
         subtitle: "User Profile",
-        content: <UserManage/>
+        content: <UserManage />,
       };
     case modalTypes.USER_DEACTIVATE:
       return {
         title: "계정 비활성화",
         subtitle: "Account Status",
-        content: <UserManage/>,
+        content: <UserManage />,
       };
     case modalTypes.USER_ROLE_BULK:
       return {
         title: "권한 일괄 수정",
         subtitle: "Role Management",
-        content: <UserManage/>,
+        content: <UserManage />,
       };
     case modalTypes.USER_ACADEMIC_STATUS:
       return {
         title: "학적 변동 승인",
         subtitle: "Academic Status",
-        content: <StudentStatusApproval/>,
+        content: <StudentStatusApproval />,
       };
     default:
       return {};

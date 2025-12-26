@@ -194,7 +194,7 @@ function DashboardModal({ activeModal, onClose }) {
         </div>
 
         <div className="rounded-xl border border-dashed p-4 text-xs text-slate-500">
-          {hint}
+          {content}
         </div>
       </div>
     </div>
