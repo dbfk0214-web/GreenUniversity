@@ -1,26 +1,28 @@
-// src/pages/adminmanagement/UserManagementDashboard.jsx
+// src/pages/studentmanagement/CertificateRecordDashboard.jsx
 import React, { useState } from "react";
-import UserRegister from "../../components/features/user/UserRegister";
-import UserEdit from "../../components/features/user/UserEdit";
-import UserDeactivate from "../../components/features/user/UserDeactivate";
-import UserRoleBulkUpdate from "../../components/features/user/UserRoleBulkUpdate";
-import UserAcademicStatusUpdate from "../../components/features/user/UserAcademicStatusUpdate";
+import CertificateIssue from "../../components/features/certificate/CertificateIssue";
+import TuitionInvoice from "../../components/features/finance/TuitionInvoice";
+import TuitionPaymentStatus from "../../components/features/finance/TuitionPaymentStatus";
+import ScholarshipEligibility from "../../components/features/scholarship/ScholarshipEligibility";
+import ScholarshipApply from "../../components/features/scholarship/ScholarshipApply";
+import AppealHistory from "../../components/features/appeal/AppealHistory";
 
 /* =========================
    Modal Types (소분류)
 ========================= */
 const modalTypes = {
-  USER_REGISTER: "USER_REGISTER",
-  USER_EDIT: "USER_EDIT",
-  USER_DEACTIVATE: "USER_DEACTIVATE",
-  USER_ROLE_BULK: "USER_ROLE_BULK",
-  USER_ACADEMIC_STATUS: "USER_ACADEMIC_STATUS",
+  CERTIFICATE_ISSUE: "CERTIFICATE_ISSUE",
+  TUITION_INVOICE: "TUITION_INVOICE",
+  TUITION_PAYMENT_STATUS: "TUITION_PAYMENT_STATUS",
+  SCHOLARSHIP_ELIGIBILITY: "SCHOLARSHIP_ELIGIBILITY",
+  SCHOLARSHIP_APPLY: "SCHOLARSHIP_APPLY",
+  APPEAL_HISTORY: "APPEAL_HISTORY",
 };
 
 /* =========================
    Main Dashboard
 ========================= */
-export default function UserManagementDashboard() {
+export default function CertificateRecordDashboard() {
   const [activeModal, setActiveModal] = useState(null);
   const closeModal = () => setActiveModal(null);
 
@@ -29,10 +31,10 @@ export default function UserManagementDashboard() {
       {/* ===== 대분류 헤더 ===== */}
       <header className="mb-8 flex flex-col gap-2">
         <h1 className="text-2xl font-semibold text-slate-900">
-          유저 관리
+          증명 · 기록 관리
         </h1>
         <p className="text-sm text-slate-500">
-          사용자 계정, 권한, 학적 상태를 관리합니다.
+          증명서 발급, 등록금·장학금, 이의 신청 내역을 관리합니다.
         </p>
       </header>
 
@@ -40,41 +42,48 @@ export default function UserManagementDashboard() {
       <div className="grid gap-6 lg:grid-cols-1">
         <section className="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-slate-100">
           <SectionHeader
-            tag="User Management"
-            tagColor="indigo"
-            title="사용자 · 계정 관리"
-            description="학생, 교수, 관리자 계정을 통합 관리합니다."
-            badge="Admin"
-            badgeColor="indigo"
+            tag="Certificate & Records"
+            tagColor="sky"
+            title="증명 · 재정 · 이의 기록"
+            description="공식 증명서와 재정·신청 이력을 관리합니다."
+            badge="Student"
+            badgeColor="sky"
           />
 
           <div className="space-y-3">
             <DashboardButton
-              label="사용자 등록"
-              description="신규 사용자 계정을 생성합니다."
-              onClick={() => setActiveModal(modalTypes.USER_REGISTER)}
+              label="증명서 발급"
+              description="재학·성적·졸업 증명서를 발급합니다."
+              onClick={() => setActiveModal(modalTypes.CERTIFICATE_ISSUE)}
             />
             <DashboardButton
-              label="사용자 수정"
-              description="기존 사용자 정보를 수정합니다."
-              onClick={() => setActiveModal(modalTypes.USER_EDIT)}
+              label="등록금 고지서"
+              description="학기별 등록금 고지서를 확인합니다."
+              onClick={() => setActiveModal(modalTypes.TUITION_INVOICE)}
             />
             <DashboardButton
-              label="계정 비활성화"
-              description="사용자 계정을 비활성화 처리합니다."
-              onClick={() => setActiveModal(modalTypes.USER_DEACTIVATE)}
-            />
-            <DashboardButton
-              label="권한 일괄 수정"
-              description="여러 사용자의 권한을 한 번에 변경합니다."
-              onClick={() => setActiveModal(modalTypes.USER_ROLE_BULK)}
-            />
-            <DashboardButton
-              label="학적 상태 수정"
-              description="재학, 휴학, 졸업 등 학적 상태를 변경합니다."
+              label="등록금 납부 현황"
+              description="등록금 납부 여부 및 이력을 조회합니다."
               onClick={() =>
-                setActiveModal(modalTypes.USER_ACADEMIC_STATUS)
+                setActiveModal(modalTypes.TUITION_PAYMENT_STATUS)
               }
+            />
+            <DashboardButton
+              label="장학금 가능 여부"
+              description="신청 가능한 장학금 여부를 확인합니다."
+              onClick={() =>
+                setActiveModal(modalTypes.SCHOLARSHIP_ELIGIBILITY)
+              }
+            />
+            <DashboardButton
+              label="장학금 신청"
+              description="장학금을 신청하고 진행 상태를 확인합니다."
+              onClick={() => setActiveModal(modalTypes.SCHOLARSHIP_APPLY)}
+            />
+            <DashboardButton
+              label="이의 신청 내역"
+              description="성적·등록금 관련 이의 신청 내역을 확인합니다."
+              onClick={() => setActiveModal(modalTypes.APPEAL_HISTORY)}
             />
           </div>
         </section>
@@ -98,11 +107,11 @@ function SectionHeader({
   badgeColor,
 }) {
   const tagColorMap = {
-    indigo: "text-indigo-500",
+    sky: "text-sky-500",
   };
 
   const badgeColorMap = {
-    indigo: "text-indigo-500 bg-indigo-50",
+    sky: "text-sky-500 bg-sky-50",
   };
 
   return (
@@ -174,35 +183,41 @@ function DashboardModal({ activeModal, onClose }) {
 ========================= */
 function renderModalContent(activeModal) {
   switch (activeModal) {
-    case modalTypes.USER_REGISTER:
+    case modalTypes.CERTIFICATE_ISSUE:
       return {
-        title: "사용자 등록",
-        subtitle: "User · Role",
-        content: <UserRegister />,
+        title: "증명서 발급",
+        subtitle: "Certificate",
+        content: <CertificateIssue />,
       };
-    case modalTypes.USER_EDIT:
+    case modalTypes.TUITION_INVOICE:
       return {
-        title: "사용자 수정",
-        subtitle: "User Profile",
-        content: <UserEdit />,
+        title: "등록금 고지서",
+        subtitle: "Tuition Invoice",
+        content: <TuitionInvoice />,
       };
-    case modalTypes.USER_DEACTIVATE:
+    case modalTypes.TUITION_PAYMENT_STATUS:
       return {
-        title: "계정 비활성화",
-        subtitle: "Account Status",
-        content: <UserDeactivate />,
+        title: "등록금 납부 현황",
+        subtitle: "Payment Status",
+        content: <TuitionPaymentStatus />,
       };
-    case modalTypes.USER_ROLE_BULK:
+    case modalTypes.SCHOLARSHIP_ELIGIBILITY:
       return {
-        title: "권한 일괄 수정",
-        subtitle: "Role Management",
-        content: <UserRoleBulkUpdate />,
+        title: "장학금 가능 여부",
+        subtitle: "Scholarship Eligibility",
+        content: <ScholarshipEligibility />,
       };
-    case modalTypes.USER_ACADEMIC_STATUS:
+    case modalTypes.SCHOLARSHIP_APPLY:
       return {
-        title: "학적 상태 수정",
-        subtitle: "Academic Status",
-        content: <UserAcademicStatusUpdate />,
+        title: "장학금 신청",
+        subtitle: "Scholarship Application",
+        content: <ScholarshipApply />,
+      };
+    case modalTypes.APPEAL_HISTORY:
+      return {
+        title: "이의 신청 내역",
+        subtitle: "Appeal",
+        content: <AppealHistory />,
       };
     default:
       return {};

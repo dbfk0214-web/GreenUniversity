@@ -1,26 +1,22 @@
-// src/pages/adminmanagement/UserManagementDashboard.jsx
+// src/pages/adminmanagement/ManagementDashboard.jsx
 import React, { useState } from "react";
-import UserRegister from "../../components/features/user/UserRegister";
-import UserEdit from "../../components/features/user/UserEdit";
-import UserDeactivate from "../../components/features/user/UserDeactivate";
-import UserRoleBulkUpdate from "../../components/features/user/UserRoleBulkUpdate";
-import UserAcademicStatusUpdate from "../../components/features/user/UserAcademicStatusUpdate";
+import TuitionManagement from "../../components/features/management/TuitionManagement";
+import ScholarshipManagement from "../../components/features/management/ScholarshipManagement";
+import ExamScheduleManagement from "../../components/features/management/ExamScheduleManagement";
 
 /* =========================
    Modal Types (소분류)
 ========================= */
 const modalTypes = {
-  USER_REGISTER: "USER_REGISTER",
-  USER_EDIT: "USER_EDIT",
-  USER_DEACTIVATE: "USER_DEACTIVATE",
-  USER_ROLE_BULK: "USER_ROLE_BULK",
-  USER_ACADEMIC_STATUS: "USER_ACADEMIC_STATUS",
+  TUITION_MANAGE: "TUITION_MANAGE",
+  SCHOLARSHIP_MANAGE: "SCHOLARSHIP_MANAGE",
+  EXAM_SCHEDULE_MANAGE: "EXAM_SCHEDULE_MANAGE",
 };
 
 /* =========================
    Main Dashboard
 ========================= */
-export default function UserManagementDashboard() {
+export default function ManagementDashboard() {
   const [activeModal, setActiveModal] = useState(null);
   const closeModal = () => setActiveModal(null);
 
@@ -29,10 +25,10 @@ export default function UserManagementDashboard() {
       {/* ===== 대분류 헤더 ===== */}
       <header className="mb-8 flex flex-col gap-2">
         <h1 className="text-2xl font-semibold text-slate-900">
-          유저 관리
+          관리
         </h1>
         <p className="text-sm text-slate-500">
-          사용자 계정, 권한, 학적 상태를 관리합니다.
+          등록금, 장학금, 시험 일정을 관리합니다.
         </p>
       </header>
 
@@ -40,40 +36,30 @@ export default function UserManagementDashboard() {
       <div className="grid gap-6 lg:grid-cols-1">
         <section className="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-slate-100">
           <SectionHeader
-            tag="User Management"
-            tagColor="indigo"
-            title="사용자 · 계정 관리"
-            description="학생, 교수, 관리자 계정을 통합 관리합니다."
+            tag="Administration"
+            tagColor="emerald"
+            title="재정 · 시험 관리"
+            description="학사 운영에 필요한 재정 및 시험 일정을 관리합니다."
             badge="Admin"
-            badgeColor="indigo"
+            badgeColor="emerald"
           />
 
           <div className="space-y-3">
             <DashboardButton
-              label="사용자 등록"
-              description="신규 사용자 계정을 생성합니다."
-              onClick={() => setActiveModal(modalTypes.USER_REGISTER)}
+              label="등록금 관리"
+              description="학기별 등록금 및 납부 상태를 관리합니다."
+              onClick={() => setActiveModal(modalTypes.TUITION_MANAGE)}
             />
             <DashboardButton
-              label="사용자 수정"
-              description="기존 사용자 정보를 수정합니다."
-              onClick={() => setActiveModal(modalTypes.USER_EDIT)}
+              label="장학금 관리"
+              description="장학금 유형, 지급 기준 및 수혜자를 관리합니다."
+              onClick={() => setActiveModal(modalTypes.SCHOLARSHIP_MANAGE)}
             />
             <DashboardButton
-              label="계정 비활성화"
-              description="사용자 계정을 비활성화 처리합니다."
-              onClick={() => setActiveModal(modalTypes.USER_DEACTIVATE)}
-            />
-            <DashboardButton
-              label="권한 일괄 수정"
-              description="여러 사용자의 권한을 한 번에 변경합니다."
-              onClick={() => setActiveModal(modalTypes.USER_ROLE_BULK)}
-            />
-            <DashboardButton
-              label="학적 상태 수정"
-              description="재학, 휴학, 졸업 등 학적 상태를 변경합니다."
+              label="시험 일정 관리"
+              description="중간·기말 시험 일정을 등록 및 수정합니다."
               onClick={() =>
-                setActiveModal(modalTypes.USER_ACADEMIC_STATUS)
+                setActiveModal(modalTypes.EXAM_SCHEDULE_MANAGE)
               }
             />
           </div>
@@ -98,11 +84,11 @@ function SectionHeader({
   badgeColor,
 }) {
   const tagColorMap = {
-    indigo: "text-indigo-500",
+    emerald: "text-emerald-500",
   };
 
   const badgeColorMap = {
-    indigo: "text-indigo-500 bg-indigo-50",
+    emerald: "text-emerald-500 bg-emerald-50",
   };
 
   return (
@@ -174,35 +160,23 @@ function DashboardModal({ activeModal, onClose }) {
 ========================= */
 function renderModalContent(activeModal) {
   switch (activeModal) {
-    case modalTypes.USER_REGISTER:
+    case modalTypes.TUITION_MANAGE:
       return {
-        title: "사용자 등록",
-        subtitle: "User · Role",
-        content: <UserRegister />,
+        title: "등록금 관리",
+        subtitle: "Tuition · Payment",
+        content: <TuitionManagement />,
       };
-    case modalTypes.USER_EDIT:
+    case modalTypes.SCHOLARSHIP_MANAGE:
       return {
-        title: "사용자 수정",
-        subtitle: "User Profile",
-        content: <UserEdit />,
+        title: "장학금 관리",
+        subtitle: "Scholarship",
+        content: <ScholarshipManagement />,
       };
-    case modalTypes.USER_DEACTIVATE:
+    case modalTypes.EXAM_SCHEDULE_MANAGE:
       return {
-        title: "계정 비활성화",
-        subtitle: "Account Status",
-        content: <UserDeactivate />,
-      };
-    case modalTypes.USER_ROLE_BULK:
-      return {
-        title: "권한 일괄 수정",
-        subtitle: "Role Management",
-        content: <UserRoleBulkUpdate />,
-      };
-    case modalTypes.USER_ACADEMIC_STATUS:
-      return {
-        title: "학적 상태 수정",
-        subtitle: "Academic Status",
-        content: <UserAcademicStatusUpdate />,
+        title: "시험 일정 관리",
+        subtitle: "Exam Schedule",
+        content: <ExamScheduleManagement />,
       };
     default:
       return {};
