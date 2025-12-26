@@ -29,7 +29,7 @@ export const studentRouter = [
     element: <Mainlayouts children={<Finance />} />,
   },
   {
-    path: "Grade",
+    path: "grade",
     element: <Mainlayouts children={<Grade />} />,
   },
   {
