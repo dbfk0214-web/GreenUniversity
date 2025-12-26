@@ -1,13 +1,12 @@
 import { lazy, Suspense } from "react";
 import { createBrowserRouter } from "react-router-dom";
 import gradesAcademicRecordsRouter from "./gradesAcademicRecordsRouter";
-import communityRouter from "./communityRouter";
+// import communityRouter from "./communityRouter";
 import accountRouter from "./accountRouter";
 
 // 통합된 단일 Router
 
-
-import { adminmanagementRouter, adminRouter } from "./adminmanagementRouter";
+import { adminRouter } from "./adminRouter";
 import { studentRouter } from "./studentRouter";
 import { professorRouter } from "./professorRouter";
 
@@ -22,17 +21,17 @@ const root = createBrowserRouter([
     path: "gradesacademicrecords",
     children: gradesAcademicRecordsRouter(),
   },
-  {
-    path: "community",
-    children: communityRouter(),
-  },
+  // {
+  //   path: "community",
+  //   children: communityRouter(),
+  // },
   {
     path: "account",
     children: accountRouter(),
   },
   {
     path: "admin",
-    children: adminmanagementRouter,
+    children: adminRouter,
   },
   {
     path: "student",

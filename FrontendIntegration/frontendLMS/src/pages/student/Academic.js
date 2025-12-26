@@ -1,26 +1,30 @@
-// src/pages/studentmanagement/AcademicAffairsDashboard.jsx
+// src/pages/studentmanagement/AcademicLmsDashboard.jsx
 import React, { useState } from "react";
+import CourseEnroll from "../../components/features/academic/CourseEnroll";
+import TimetableView from "../../components/features/academic/TimetableView";
+import AttendanceView from "../../components/features/attendance/AttendanceView";
+import AssignmentList from "../../components/features/assignment/AssignmentList";
+import AssignmentSubmit from "../../components/features/assignment/AssignmentSubmit";
+import CourseReviewWrite from "../../components/features/review/CourseReviewWrite";
 
 /* =========================
    Modal Types (소분류)
 ========================= */
 const modalTypes = {
-  CREDIT_MANAGE: "CREDIT_MANAGE",
-  STUDENT_STATUS: "STUDENT_STATUS",
-  GRADUATION_CHECK: "GRADUATION_CHECK",
+  COURSE_ENROLL: "COURSE_ENROLL",
+  TIMETABLE: "TIMETABLE",
+  ATTENDANCE: "ATTENDANCE",
 
-  DEGREE_CERT: "DEGREE_CERT",
-  RECORD_CORRECTION: "RECORD_CORRECTION",
+  ASSIGNMENT_LIST: "ASSIGNMENT_LIST",
+  ASSIGNMENT_SUBMIT: "ASSIGNMENT_SUBMIT",
 
-  ACADEMIC_CALENDAR: "ACADEMIC_CALENDAR",
-  TUITION_MANAGE: "TUITION_MANAGE",
-  SCHOLARSHIP_MANAGE: "SCHOLARSHIP_MANAGE",
+  COURSE_REVIEW: "COURSE_REVIEW",
 };
 
 /* =========================
    Main Dashboard
 ========================= */
-export default function AcademicAffairsDashboard() {
+export default function AcademicLmsDashboard() {
   const [activeModal, setActiveModal] = useState(null);
   const closeModal = () => setActiveModal(null);
 
@@ -29,102 +33,55 @@ export default function AcademicAffairsDashboard() {
       {/* ===== 대분류 헤더 ===== */}
       <header className="mb-8 flex flex-col gap-2">
         <h1 className="text-2xl font-semibold text-slate-900">
-          학사 · 행정 관리
+          수업 및 학사 관리
         </h1>
         <p className="text-sm text-slate-500">
-          학적, 성적, 증명, 재정 관련 학사 행정을 관리합니다.
+          수강 신청, 출결, 과제, 강의 평가 등 학습 활동을 관리합니다.
         </p>
       </header>
 
-      {/* ===== 중분류 카드 영역 ===== */}
-      <div className="grid gap-6 lg:grid-cols-3">
-        {/* ===============================
-            중분류 1: 학적 · 성적
-        =============================== */}
+      {/* ===== 중분류 카드 ===== */}
+      <div className="grid gap-6 lg:grid-cols-1">
         <section className="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-slate-100">
           <SectionHeader
-            tag="Academic Records"
+            tag="Academic & LMS"
             tagColor="teal"
-            title="학적 · 성적 관리"
-            description="학생의 학적 상태 및 학점을 관리합니다."
-            badge="Academic"
+            title="수강 · 학습 관리"
+            description="수업 참여와 학습 전반을 관리합니다."
+            badge="Student"
             badgeColor="teal"
           />
 
           <div className="space-y-3">
             <DashboardButton
-              label="학점 관리"
-              description="학생별 이수 학점과 성적을 관리합니다."
-              onClick={() => setActiveModal(modalTypes.CREDIT_MANAGE)}
+              label="수강 신청 / 취소"
+              description="개설된 강의를 조회하고 수강 신청 또는 취소합니다."
+              onClick={() => setActiveModal(modalTypes.COURSE_ENROLL)}
             />
             <DashboardButton
-              label="학적 상태 관리"
-              description="재학, 휴학, 복학, 제적 상태를 관리합니다."
-              onClick={() => setActiveModal(modalTypes.STUDENT_STATUS)}
+              label="시간표 조회"
+              description="나의 수강 내역을 바탕으로 주간 시간표를 확인합니다."
+              onClick={() => setActiveModal(modalTypes.TIMETABLE)}
             />
             <DashboardButton
-              label="졸업 요건 점검"
-              description="졸업 요건 충족 여부를 확인합니다."
-              onClick={() => setActiveModal(modalTypes.GRADUATION_CHECK)}
-            />
-          </div>
-        </section>
-
-        {/* ===============================
-            중분류 2: 증명 · 기록
-        =============================== */}
-        <section className="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-slate-100">
-          <SectionHeader
-            tag="Certificates"
-            tagColor="lime"
-            title="증명 · 기록 관리"
-            description="학사 증명서 발급 및 기록 정정을 처리합니다."
-            badge="Documents"
-            badgeColor="lime"
-          />
-
-          <div className="space-y-3">
-            <DashboardButton
-              label="증명서 발급"
-              description="재학·성적·졸업 증명서를 발급합니다."
-              onClick={() => setActiveModal(modalTypes.DEGREE_CERT)}
+              label="출석 현황 확인"
+              description="과목별 출석, 지각, 결석 현황을 조회합니다."
+              onClick={() => setActiveModal(modalTypes.ATTENDANCE)}
             />
             <DashboardButton
-              label="학적 기록 정정"
-              description="학적 및 성적 기록 정정을 처리합니다."
-              onClick={() => setActiveModal(modalTypes.RECORD_CORRECTION)}
-            />
-          </div>
-        </section>
-
-        {/* ===============================
-            중분류 3: 일정 · 재정
-        =============================== */}
-        <section className="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-slate-100">
-          <SectionHeader
-            tag="Finance & Schedule"
-            tagColor="fuchsia"
-            title="일정 · 재정 관리"
-            description="학사 일정 및 등록금·장학금을 관리합니다."
-            badge="Finance"
-            badgeColor="fuchsia"
-          />
-
-          <div className="space-y-3">
-            <DashboardButton
-              label="학사 일정 관리"
-              description="학기별 주요 학사 일정을 관리합니다."
-              onClick={() => setActiveModal(modalTypes.ACADEMIC_CALENDAR)}
+              label="과제 목록 확인"
+              description="과제 목록과 상세 내용을 확인합니다."
+              onClick={() => setActiveModal(modalTypes.ASSIGNMENT_LIST)}
             />
             <DashboardButton
-              label="등록금 관리"
-              description="등록금 고지 및 납부 상태를 관리합니다."
-              onClick={() => setActiveModal(modalTypes.TUITION_MANAGE)}
+              label="과제 제출"
+              description="파일 업로드를 통해 과제를 제출합니다."
+              onClick={() => setActiveModal(modalTypes.ASSIGNMENT_SUBMIT)}
             />
             <DashboardButton
-              label="장학금 관리"
-              description="장학금 지급 내역을 관리합니다."
-              onClick={() => setActiveModal(modalTypes.SCHOLARSHIP_MANAGE)}
+              label="강의 평가"
+              description="종강 후 수강 과목에 대한 평가와 평점을 등록합니다."
+              onClick={() => setActiveModal(modalTypes.COURSE_REVIEW)}
             />
           </div>
         </section>
@@ -149,21 +106,17 @@ function SectionHeader({
 }) {
   const tagColorMap = {
     teal: "text-teal-500",
-    lime: "text-lime-500",
-    fuchsia: "text-fuchsia-500",
   };
 
   const badgeColorMap = {
     teal: "text-teal-500 bg-teal-50",
-    lime: "text-lime-500 bg-lime-50",
-    fuchsia: "text-fuchsia-500 bg-fuchsia-50",
   };
 
   return (
     <div className="mb-4 flex items-center justify-between">
       <div>
         <p
-          className={`text-xs font-semibold uppercase tracking-wide ${tagColorMap[tagColor]}`}
+          className={`text-xs font-semibold uppercase ${tagColorMap[tagColor]}`}
         >
           {tag}
         </p>
@@ -171,7 +124,7 @@ function SectionHeader({
         <p className="mt-1 text-xs text-slate-500">{description}</p>
       </div>
       <span
-        className={`rounded-full px-3 py-1 text-xs font-medium ${badgeColorMap[badgeColor]}`}
+        className={`rounded-full px-3 py-1 text-xs ${badgeColorMap[badgeColor]}`}
       >
         {badge}
       </span>
@@ -187,19 +140,13 @@ function DashboardButton({ label, description, onClick }) {
     <button
       type="button"
       onClick={onClick}
-      className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-left text-sm transition hover:border-slate-300 hover:bg-white hover:shadow-sm"
+      className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-left text-sm hover:bg-white hover:shadow-sm"
     >
-      <div className="flex items-center justify-between">
+      <div className="flex justify-between">
         <span className="font-medium text-slate-800">{label}</span>
-        <span className="text-[10px] uppercase tracking-wide text-slate-400">
-          Open
-        </span>
+        <span className="text-[10px] text-slate-400">Open</span>
       </div>
-      {description && (
-        <p className="mt-1 text-xs leading-relaxed text-slate-500">
-          {description}
-        </p>
-      )}
+      <p className="mt-1 text-xs text-slate-500">{description}</p>
     </button>
   );
 }
@@ -210,64 +157,21 @@ function DashboardButton({ label, description, onClick }) {
 function DashboardModal({ activeModal, onClose }) {
   if (!activeModal) return null;
 
-  const { title, subtitle, hint, content } = renderModalContent(activeModal);
+  const { title, subtitle, hint } = renderModalContent(activeModal);
 
   return (
     <div className="fixed inset-0 z-40 flex items-center justify-center bg-black/25">
-      <div className="w-full max-w-[80%] rounded-2xl bg-white p-6 shadow-xl ring-1 ring-slate-200">
-        <div className="mb-4 flex items-start justify-between">
+      <div className="w-full max-w-3xl rounded-2xl bg-white p-6 shadow-xl">
+        <div className="mb-4 flex justify-between">
           <div>
-            <h3 className="text-lg font-semibold text-slate-900">{title}</h3>
-            {subtitle && (
-              <p className="mt-1 text-xs text-slate-500">{subtitle}</p>
-            )}
+            <h3 className="text-lg font-semibold">{title}</h3>
+            <p className="text-xs text-slate-500">{subtitle}</p>
           </div>
-          <button
-            type="button"
-            onClick={onClose}
-            className="rounded-full p-1 text-slate-400 hover:bg-slate-100"
-          >
-            ✕
-          </button>
+          <button onClick={onClose}>✕</button>
         </div>
 
-        <div className="rounded-xl border border-dashed border-slate-200 bg-slate-50 p-4">
-          {content ? (
-            content
-          ) : (
-            <>
-              <p className="mb-2 text-xs font-medium text-slate-700">
-                💬 학생 커뮤니티 영역
-              </p>
-              <p className="text-xs leading-relaxed text-slate-500">
-                게시글 작성, 조회, 댓글 기능을 사용할 수 있습니다.
-              </p>
-
-              {hint && (
-                <p className="mt-3 text-[11px] text-slate-500">
-                  <span className="font-semibold">UI 힌트: </span>
-                  {hint}
-                </p>
-              )}
-            </>
-          )}
-        </div>
-
-        <div className="mt-5 flex justify-end">
-          <button
-            type="button"
-            onClick={onClose}
-            className="rounded-lg border border-slate-200 px-3 py-1.5 text-xs"
-          >
-            닫기
-          </button>
-          <button
-            type="button"
-            className="rounded-lg bg-slate-900 px-3 py-1.5 text-xs font-medium text-white opacity-60"
-            disabled
-          >
-            저장 (폼 연결 후 활성화)
-          </button>
+        <div className="rounded-xl border border-dashed p-4 text-xs text-slate-500">
+          {hint}
         </div>
       </div>
     </div>
@@ -279,59 +183,49 @@ function DashboardModal({ activeModal, onClose }) {
 ========================= */
 function renderModalContent(activeModal) {
   switch (activeModal) {
-    case modalTypes.CREDIT_MANAGE:
+    case modalTypes.COURSE_ENROLL:
       return {
-        title: "학점 관리",
-        subtitle: "학생의 이수 학점을 관리합니다.",
-        hint: "학기별 성적 테이블과 필수/선택 구분 표시를 추천합니다.",
+        title: "수강 신청 / 취소",
+        subtitle: "CourseOffering · Enrollment",
+        // hint: "개설 강의 목록 + 신청/취소 버튼 구조를 추천합니다.",
+        hint: <CourseEnroll />,
       };
-    case modalTypes.STUDENT_STATUS:
+    case modalTypes.TIMETABLE:
       return {
-        title: "학적 상태 관리",
-        subtitle: "학생의 학적 상태를 관리합니다.",
-        hint: "변경 이력 및 사유 입력 UI를 고려하세요.",
+        title: "시간표 조회",
+        subtitle: "TimeTable",
+        // hint: "요일 × 교시 기반 주간 시간표 UI를 추천합니다.",
+        hint: <TimetableView />,
       };
-    case modalTypes.GRADUATION_CHECK:
+    case modalTypes.ATTENDANCE:
       return {
-        title: "졸업 요건 점검",
-        subtitle: "졸업 가능 여부를 확인합니다.",
-        hint: "이수 학점 및 평균 평점 자동 계산을 추천합니다.",
+        title: "출석 현황",
+        subtitle: "Attendance",
+        // hint: "출석/지각/결석 상태 뱃지 표시를 추천합니다.",
+        hint: <AttendanceView />,
       };
-    case modalTypes.DEGREE_CERT:
+    case modalTypes.ASSIGNMENT_LIST:
       return {
-        title: "증명서 발급",
-        subtitle: "학사 증명서를 발급합니다.",
-        hint: "PDF 미리보기 및 발급 이력 테이블을 추천합니다.",
+        title: "과제 목록",
+        subtitle: "Assignment",
+        // hint: "마감일 기준 정렬 및 상태 표시를 추천합니다.",
+        hint: <AssignmentList />,
       };
-    case modalTypes.RECORD_CORRECTION:
+    case modalTypes.ASSIGNMENT_SUBMIT:
       return {
-        title: "학적 기록 정정",
-        subtitle: "기록 정정 요청을 처리합니다.",
-        hint: "증빙 자료 업로드 및 승인 프로세스를 고려하세요.",
+        title: "과제 제출",
+        subtitle: "Submission · FileAttachment",
+        // hint: "파일 업로드 + 제출 이력 테이블 구조가 적합합니다.",
+        hint: <AssignmentSubmit />,
       };
-    case modalTypes.ACADEMIC_CALENDAR:
+    case modalTypes.COURSE_REVIEW:
       return {
-        title: "학사 일정 관리",
-        subtitle: "학기별 학사 일정을 관리합니다.",
-        hint: "캘린더 UI + 일정 유형 필터를 추천합니다.",
-      };
-    case modalTypes.TUITION_MANAGE:
-      return {
-        title: "등록금 관리",
-        subtitle: "등록금 납부 상태를 관리합니다.",
-        hint: "고지서 다운로드 및 미납 필터 기능을 고려하세요.",
-      };
-    case modalTypes.SCHOLARSHIP_MANAGE:
-      return {
-        title: "장학금 관리",
-        subtitle: "장학금 지급 내역을 관리합니다.",
-        hint: "장학 유형별 지급 현황 요약을 추천합니다.",
+        title: "강의 평가",
+        subtitle: "Review",
+        // hint: "별점 + 텍스트 리뷰 입력 UI를 추천합니다.",
+        hint: <CourseReviewWrite />,
       };
     default:
-      return {
-        title: "학사 행정",
-        subtitle: "",
-        hint: "",
-      };
+      return {};
   }
 }

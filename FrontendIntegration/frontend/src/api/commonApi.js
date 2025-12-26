@@ -16,84 +16,78 @@ export const typeEnum = {
   modal: "modal",
 };
 
-export const createCrudApi = (tableName) => ({
-  readAll: () => {
-    console.log(`${tableName} readAll`);
-    return axios
-      .get(`${API_SERVER_HOST}/api/${tableName}/all`)
-      .then((r) => r.data);
-  },
-  readOne: (id) => {
-    console.log(`${tableName} readOne`);
-    return axios
-      .get(`${API_SERVER_HOST}/api/${tableName}/one/${id}`)
-      .then((r) => r.data);
-  },
-  writeOne: async (dto, userEmail) => {
-    console.log(`${tableName} writeOne`, dto, userEmail);
-    try {
-      const r = await axios.post(
-        `${API_SERVER_HOST}/api/${tableName}/create`,
-        dto,
-        {
-          headers: {
-            "X-User-Email": userEmail, // 실제로는 로그인한 사용자 이메일
-          },
-        }
-      );
-      return r.data;
-    } catch (error) {
-      console.error(`${tableName} writeOne error:`, error);
-      console.log("실제 전송 데이터:", JSON.stringify(dto, null, 2));
+/**
+ * @param {string} method - 'get', 'post', 'put', 'delete'
+ * @param {string} url - 요청 URL
+ * @param {string} userEmail - 인증 헤더용 이메일
+ * @param {object} data - 전송할 데이터 (post, put 용)
+ */
+const sendAuthRequest = async (method, url, userEmail, data = null) => {
+  try {
+    const config = {
+      method: method,
+      url: url,
+      headers: {
+        "X-User-Email": userEmail,
+      },
+      data: data,
+    };
+
+    const response = await axios(config);
+    return response.data;
+  } catch (error) {
+    // 공통 에러 처리 로직
+    console.error(`[API Error] ${url}:`, error);
+
+    // 데이터가 있었을 경우 로깅 (디버깅용)
+    if (data) {
+      console.log("실제 전송 시도 데이터:", JSON.stringify(data, null, 2));
+    }
+
+    // 백엔드 응답 에러 로깅
+    if (error.response?.data) {
       console.error(
-        "백엔드 오류",
-        JSON.stringify(error.response?.data, null, 2)
+        "백엔드 오류 상세:",
+        JSON.stringify(error.response.data, null, 2)
       );
-      throw error;
     }
-  },
-  updateOne: async (dto, userEmail) => {
-    console.log(`${tableName} writeOne`, dto, userEmail);
-    try {
-      const r = await axios.put(
-        `${API_SERVER_HOST}/api/${tableName}/update`,
-        dto,
-        {
-          headers: {
-            "X-User-Email": userEmail, // 실제로는 로그인한 사용자 이메일
-          },
-        }
-      );
-      return r.data;
-    } catch (error) {
-      console.error(`${tableName} updateOne error:`, error);
-      console.log("실제 전송 데이터:", JSON.stringify(dto, null, 2));
-      throw error;
-    }
-  },
-  deleteOne: async (id, userEmail) => {
-    console.log(`${tableName} writeOne`, id, userEmail);
-    try {
-      const r = await axios.delete(
-        `${API_SERVER_HOST}/api/${tableName}/delete/${id}`,
-        {
-          headers: {
-            "X-User-Email": userEmail, // 실제로는 로그인한 사용자 이메일
-          },
-        }
-      );
-      return r.data;
-    } catch (error) {
-      console.error(`${tableName} deleteOne error:`, error);
-      console.log("실제 전송 데이터:", JSON.stringify(id, null, 2));
-      console.error(
-        "백엔드 오류",
-        JSON.stringify(error.response?.data, null, 2)
-      );
-      throw error;
-    }
-  },
-});
+
+    throw error;
+  }
+};
+
+//api내부에 주석 처리된 콘솔로그 진행중 오류 발생하면 주석 해제하고 확인하면 댐다
+
+export const createCrudApi = (tableName) => {
+  const BASE_URL = `${API_SERVER_HOST}/api/${tableName}`;
+
+  return {
+    readAll: (userEmail) => {
+      // console.log(`${tableName} readAll`);
+      return sendAuthRequest("get", `${BASE_URL}/all`, userEmail);
+    },
+
+    readOne: (id, userEmail) => {
+      // console.log(`${tableName} readOne`);
+      return sendAuthRequest("get", `${BASE_URL}/one/${id}`, userEmail);
+    },
+
+    writeOne: (dto, userEmail) => {
+      // console.log(`${tableName} writeOne`, dto, userEmail);
+      return sendAuthRequest("post", `${BASE_URL}/create`, userEmail, dto);
+    },
+
+    updateOne: (dto, userEmail) => {
+      // console.log(`${tableName} updateOne`, dto, userEmail);
+      return sendAuthRequest("put", `${BASE_URL}/update`, userEmail, dto);
+    },
+
+    deleteOne: (id, userEmail) => {
+      // console.log(`${tableName} deleteOne`, id, userEmail);
+      return sendAuthRequest("delete", `${BASE_URL}/delete/${id}`, userEmail);
+    },
+  };
+};
 
 const createExtraApi = (tableName) => ({
   findByKeyword: async (selectKeyword, searchText) => {

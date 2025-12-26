@@ -5,13 +5,9 @@ const ProfessorHomeDashboard = lazy(() =>
   import("../components/professor/ProfessorHomeDashboard")
 );
 
-const Course = lazy(() => import("../pages/professor/Course"));
-const Extra = lazy(() => import("../pages/professor/Extra"));
+const Academic = lazy(() => import("../pages/professor/Academic"));
 const Grade = lazy(() => import("../pages/professor/Grade"));
-const Support = lazy(() => import("../pages/professor/Support"));
-const Account = lazy(() => import("../pages/professor/Account"));
-const Assignment = lazy(() => import("../pages/professor/Assignment"));
-const Attendance = lazy(() => import("../pages/professor/Attendance"));
+const Review = lazy(() => import("../pages/professor/Review"));
 
 export const professorRouter = [
   {
@@ -19,59 +15,71 @@ export const professorRouter = [
     element: <Mainlayouts children={<ProfessorHomeDashboard />} />,
   },
   {
-    path: "assignment",
-    element: (
-      <Suspense>
-        <Mainlayouts children={<Assignment />} />
-      </Suspense>
-    ),
-  },
-  {
-    path: "course",
-    element: (
-      <Suspense>
-        <Mainlayouts children={<Course />} />
-      </Suspense>
-    ),
-  },
-  {
-    path: "extra",
-    element: (
-      <Suspense>
-        <Mainlayouts children={<Extra />} />
-      </Suspense>
-    ),
+    path: "academic",
+    element: <Mainlayouts children={<Academic />} />,
   },
   {
     path: "grade",
-    element: (
-      <Suspense>
-        <Mainlayouts children={<Grade />} />
-      </Suspense>
-    ),
+    element: <Mainlayouts children={<Grade />} />,
   },
   {
-    path: "attendance",
-    element: (
-      <Suspense>
-        <Mainlayouts children={<Attendance />} />
-      </Suspense>
-    ),
+    path: "review",
+    element: <Mainlayouts children={<Review />} />,
   },
-  {
-    path: "support",
-    element: (
-      <Suspense>
-        <Mainlayouts children={<Support />} />
-      </Suspense>
-    ),
-  },
-  {
-    path: "account",
-    element: (
-      <Suspense>
-        <Mainlayouts children={<Account />} />
-      </Suspense>
-    ),
-  },
+  // {
+  //   path: "assignment",
+  //   element: (
+  //     <Suspense>
+  //       <Mainlayouts children={<Assignment />} />
+  //     </Suspense>
+  //   ),
+  // },
+  // {
+  //   path: "course",
+  //   element: (
+  //     <Suspense>
+  //       <Mainlayouts children={<Course />} />
+  //     </Suspense>
+  //   ),
+  // },
+  // {
+  //   path: "extra",
+  //   element: (
+  //     <Suspense>
+  //       <Mainlayouts children={<Extra />} />
+  //     </Suspense>
+  //   ),
+  // },
+  // {
+  //   path: "grade",
+  //   element: (
+  //     <Suspense>
+  //       <Mainlayouts children={<Grade />} />
+  //     </Suspense>
+  //   ),
+  // },
+  // {
+  //   path: "attendance",
+  //   element: (
+  //     <Suspense>
+  //       <Mainlayouts children={<Attendance />} />
+  //     </Suspense>
+  //   ),
+  // },
+  // {
+  //   path: "support",
+  //   element: (
+  //     <Suspense>
+  //       <Mainlayouts children={<Support />} />
+  //     </Suspense>
+  //   ),
+  // },
+  // {
+  //   path: "account",
+  //   element: (
+  //     <Suspense>
+  //       <Mainlayouts children={<Account />} />
+  //     </Suspense>
+  //   ),
+  // },
 ];

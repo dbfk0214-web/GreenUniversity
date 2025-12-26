@@ -6,12 +6,10 @@ const StudentHomeDashboard = lazy(() =>
 );
 
 const Academic = lazy(() => import("../pages/student/Academic"));
-const Course = lazy(() => import("../pages/student/Course"));
-const Extra = lazy(() => import("../pages/student/Extra"));
-const Grade = lazy(() => import("../pages/student/Grade"));
-const Support = lazy(() => import("../pages/student/Support"));
 const Community = lazy(() => import("../pages/student/Community"));
-const Account = lazy(() => import("../pages/student/Account"));
+const Finance = lazy(() => import("../pages/student/Finance"));
+const Grade = lazy(() => import("../pages/student/Grade"));
+const User = lazy(() => import("../pages/student/User"));
 
 export const studentRouter = [
   {
@@ -20,58 +18,78 @@ export const studentRouter = [
   },
   {
     path: "academic",
-    element: (
-      <Suspense>
-        <Mainlayouts children={<Academic />} />
-      </Suspense>
-    ),
-  },
-  {
-    path: "course",
-    element: (
-      <Suspense>
-        <Mainlayouts children={<Course />} />
-      </Suspense>
-    ),
-  },
-  {
-    path: "extra",
-    element: (
-      <Suspense>
-        <Mainlayouts children={<Extra />} />
-      </Suspense>
-    ),
-  },
-  {
-    path: "grade",
-    element: (
-      <Suspense>
-        <Mainlayouts children={<Grade />} />
-      </Suspense>
-    ),
-  },
-  {
-    path: "support",
-    element: (
-      <Suspense>
-        <Mainlayouts children={<Support />} />
-      </Suspense>
-    ),
+    element: <Mainlayouts children={<Academic />} />,
   },
   {
     path: "community",
-    element: (
-      <Suspense>
-        <Mainlayouts children={<Community />} />
-      </Suspense>
-    ),
+    element: <Mainlayouts children={<Community />} />,
   },
-    {
-    path: "account",
-    element: (
-      <Suspense>
-        <Mainlayouts children={<Account />} />
-      </Suspense>
-    ),
+  {
+    path: "finance",
+    element: <Mainlayouts children={<Finance />} />,
   },
+  {
+    path: "grade",
+    element: <Mainlayouts children={<Grade />} />,
+  },
+  {
+    path: "user",
+    element: <Mainlayouts children={<User />} />,
+  },
+  // {
+  //   path: "academic",
+  //   element: (
+  //     <Suspense>
+  //       <Mainlayouts children={<Academic />} />
+  //     </Suspense>
+  //   ),
+  // },
+  // {
+  //   path: "course",
+  //   element: (
+  //     <Suspense>
+  //       <Mainlayouts children={<Course />} />
+  //     </Suspense>
+  //   ),
+  // },
+  // {
+  //   path: "extra",
+  //   element: (
+  //     <Suspense>
+  //       <Mainlayouts children={<Extra />} />
+  //     </Suspense>
+  //   ),
+  // },
+  // {
+  //   path: "grade",
+  //   element: (
+  //     <Suspense>
+  //       <Mainlayouts children={<Grade />} />
+  //     </Suspense>
+  //   ),
+  // },
+  // {
+  //   path: "support",
+  //   element: (
+  //     <Suspense>
+  //       <Mainlayouts children={<Support />} />
+  //     </Suspense>
+  //   ),
+  // },
+  // {
+  //   path: "community",
+  //   element: (
+  //     <Suspense>
+  //       <Mainlayouts children={<Community />} />
+  //     </Suspense>
+  //   ),
+  // },
+  // {
+  //   path: "account",
+  //   element: (
+  //     <Suspense>
+  //       <Mainlayouts children={<Account />} />
+  //     </Suspense>
+  //   ),
+  // },
 ];
