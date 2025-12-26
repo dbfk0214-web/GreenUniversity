@@ -1,5 +1,12 @@
 // src/pages/professormanagement/ProfessorGradeLmsDashboard.jsx
 import React, { useState } from "react";
+import GradePolicyManage from "../../components/features/grade/GradePolicyManage";
+import AttendanceManage from "../../components/features/attendance/AttendanceManage";
+import AbsenceApproval from "../../components/features/attendance/AbsenceApproval";
+import AssignmentManage from "../../components/features/assignment/AssignmentManage";
+import SubmissionReview from "../../components/features/assignment/SubmissionReview";
+import ScoreInput from "../../components/features/grade/ScoreInput";
+import FinalGradeConfirm from "../../components/features/grade/FinalGradeConfirm";
 
 /* =========================
    Modal Types (교수용)
@@ -149,7 +156,14 @@ export default function ProfessorGradeLmsDashboard() {
 /* =========================
    Section Header
 ========================= */
-function SectionHeader({ tag, tagColor, title, description, badge, badgeColor }) {
+function SectionHeader({
+  tag,
+  tagColor,
+  title,
+  description,
+  badge,
+  badgeColor,
+}) {
   const tagColorMap = {
     teal: "text-teal-500",
     lime: "text-lime-500",
@@ -167,13 +181,17 @@ function SectionHeader({ tag, tagColor, title, description, badge, badgeColor })
   return (
     <div className="mb-4 flex items-center justify-between">
       <div>
-        <p className={`text-xs font-semibold uppercase ${tagColorMap[tagColor]}`}>
+        <p
+          className={`text-xs font-semibold uppercase ${tagColorMap[tagColor]}`}
+        >
           {tag}
         </p>
         <h2 className="mt-1 text-lg font-semibold text-slate-900">{title}</h2>
         <p className="mt-1 text-xs text-slate-500">{description}</p>
       </div>
-      <span className={`rounded-full px-3 py-1 text-xs ${badgeColorMap[badgeColor]}`}>
+      <span
+        className={`rounded-full px-3 py-1 text-xs ${badgeColorMap[badgeColor]}`}
+      >
         {badge}
       </span>
     </div>
@@ -235,49 +253,56 @@ function renderModalContent(activeModal) {
       return {
         title: "평가 기준 설정",
         subtitle: "GradeItem",
-        hint: "평가 항목별 반영 비율 합계 100% 검증 로직을 추천합니다.",
+        // hint: "평가 항목별 반영 비율 합계 100% 검증 로직을 추천합니다.",
+        hint: <GradePolicyManage />,
       };
 
     case modalTypes.ATTENDANCE_MANAGE:
       return {
         title: "출석 관리",
         subtitle: "Attendance",
-        hint: "전자출결 + 수동 수정 이력 관리 UI를 추천합니다.",
+        // hint: "전자출결 + 수동 수정 이력 관리 UI를 추천합니다.",
+        hint: <AttendanceManage />,
       };
 
     case modalTypes.ABSENCE_APPROVAL:
       return {
         title: "병가 증빙 승인",
         subtitle: "Attendance · absenceDoc",
-        hint: "증빙 파일 미리보기 + 승인/반려 처리를 추천합니다.",
+        // hint: "증빙 파일 미리보기 + 승인/반려 처리를 추천합니다.",
+        hint: <AbsenceApproval />,
       };
 
     case modalTypes.ASSIGNMENT_CREATE:
       return {
         title: "과제 생성",
         subtitle: "Assignment",
-        hint: "마감일, 만점, 첨부 자료 업로드 UI를 추천합니다.",
+        // hint: "마감일, 만점, 첨부 자료 업로드 UI를 추천합니다.",
+        hint: <AssignmentManage />,
       };
 
     case modalTypes.SUBMISSION_REVIEW:
       return {
         title: "제출물 확인 및 채점",
         subtitle: "Submission",
-        hint: "학생별 제출 상태 + 점수 입력 테이블을 추천합니다.",
+        // hint: "학생별 제출 상태 + 점수 입력 테이블을 추천합니다.",
+        hint: <SubmissionReview />,
       };
 
     case modalTypes.SCORE_INPUT:
       return {
         title: "점수 입력",
         subtitle: "StudentScore",
-        hint: "평가 항목별 점수 입력 및 자동 합산을 추천합니다.",
+        // hint: "평가 항목별 점수 입력 및 자동 합산을 추천합니다.",
+        hint: <ScoreInput />,
       };
 
     case modalTypes.FINAL_GRADE_CONFIRM:
       return {
         title: "최종 성적 확정",
         subtitle: "Grade",
-        hint: "성적 확정 후 수정 불가 처리 경고를 추천합니다.",
+        // hint: "성적 확정 후 수정 불가 처리 경고를 추천합니다.",
+        hint: <FinalGradeConfirm />,
       };
 
     default:

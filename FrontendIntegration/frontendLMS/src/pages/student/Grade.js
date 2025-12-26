@@ -1,5 +1,13 @@
 // src/pages/studentmanagement/StudentGradeDashboard.jsx
 import React, { useState } from "react";
+import MyGrades from "../../components/features/grade/MyGrades";
+import CourseGrades from "../../components/features/grade/CourseGrades";
+import ScoreDetail from "../../components/features/grade/ScoreDetail";
+import FinalGradeView from "../../components/features/grade/FinalGradeView";
+import GpaOverview from "../../components/features/grade/GpaOverview";
+import AttendanceView from "../../components/features/attendance/AttendanceView";
+import ExamScheduleView from "../../components/features/exam/ExamScheduleView";
+import GradeAppeal from "../../components/features/grade/GradeAppeal";
 
 /* =========================
    Modal Types (학생용)
@@ -222,63 +230,72 @@ function renderModalContent(activeModal) {
       return {
         title: "전체 성적 조회",
         subtitle: "Grade · Semester",
-        hint: "학기 선택 + 성적 테이블 구성을 추천합니다.",
+        // hint: "학기 선택 + 성적 테이블 구성을 추천합니다.",
+        hint: <MyGrades />,
       };
 
     case modalTypes.COURSE_GRADES:
       return {
         title: "과목별 성적",
         subtitle: "Grade · Course",
-        hint: "과목별 점수 및 등급 표시를 추천합니다.",
+        // hint: "과목별 점수 및 등급 표시를 추천합니다.",
+        hint: <CourseGrades />,
       };
 
     case modalTypes.STUDENT_SCORE_DETAIL:
       return {
         title: "상세 점수 확인",
         subtitle: "Mid · Final · Assignment",
-        hint: "과목 선택 → 평가 항목별 점수 테이블 UI를 추천합니다.",
+        // hint: "과목 선택 → 평가 항목별 점수 테이블 UI를 추천합니다.",
+        hint: <ScoreDetail />,
       };
 
     case modalTypes.FINAL_GRADE:
       return {
         title: "최종 성적 조회",
         subtitle: "Final Grade",
-        hint: "학기별 최종 등급(A+, B 등) + 평점 요약 UI를 추천합니다.",
+        // hint: "학기별 최종 등급(A+, B 등) + 평점 요약 UI를 추천합니다.",
+        hint: <FinalGradeView />,
       };
 
     case modalTypes.GPA_OVERVIEW:
       return {
         title: "평균 평점(GPA)",
         subtitle: "GPA Overview",
-        hint: "그래프 + 기준선 표시를 추천합니다.",
+        // hint: "그래프 + 기준선 표시를 추천합니다.",
+        hint: <GpaOverview />,
       };
 
     case modalTypes.ATTENDANCE_STATUS:
       return {
         title: "출결 현황",
         subtitle: "Attendance",
-        hint: "출석/지각/결석 색상 구분 UI를 추천합니다.",
+        // hint: "출석/지각/결석 색상 구분 UI를 추천합니다.",
+        hint: <AttendanceView />,
       };
 
     case modalTypes.EXAM_SCHEDULE:
       return {
         title: "시험 일정 조회",
         subtitle: "Exam Schedule",
-        hint: "캘린더 또는 리스트 UI를 추천합니다.",
+        // hint: "캘린더 또는 리스트 UI를 추천합니다.",
+        hint: <ExamScheduleView />,
       };
 
     case modalTypes.ACADEMIC_WARNING:
       return {
         title: "학사 경고 내역",
         subtitle: "Academic Warning",
-        hint: "경고 사유 및 기준 표시를 추천합니다.",
+        // hint: "경고 사유 및 기준 표시를 추천합니다.",
+        hint: <ExamScheduleView />,
       };
 
     case modalTypes.GRADE_APPEAL:
       return {
         title: "성적 이의 신청",
         subtitle: "Grade Appeal",
-        hint: "사유 입력 + 증빙 첨부 UI를 추천합니다.",
+        // hint: "사유 입력 + 증빙 첨부 UI를 추천합니다.",
+        hint: <GradeAppeal />,
       };
 
     default:

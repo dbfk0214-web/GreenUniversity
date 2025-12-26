@@ -1,5 +1,8 @@
 // src/pages/professormanagement/ProfessorAcademicDashboard.jsx
 import React, { useState } from "react";
+import MyCourses from "../../components/features/academic/MyCourses";
+import StudentList from "../../components/features/academic/StudentList";
+import CourseNotice from "../../components/features/notice/CourseNotice";
 
 /* =========================
    Modal Types (교수용)
@@ -90,7 +93,14 @@ export default function ProfessorAcademicDashboard() {
 /* =========================
    Section Header
 ========================= */
-function SectionHeader({ tag, tagColor, title, description, badge, badgeColor }) {
+function SectionHeader({
+  tag,
+  tagColor,
+  title,
+  description,
+  badge,
+  badgeColor,
+}) {
   const tagColorMap = {
     teal: "text-teal-500",
     fuchsia: "text-fuchsia-500",
@@ -104,7 +114,9 @@ function SectionHeader({ tag, tagColor, title, description, badge, badgeColor })
   return (
     <div className="mb-4 flex items-center justify-between">
       <div>
-        <p className={`text-xs font-semibold uppercase ${tagColorMap[tagColor]}`}>
+        <p
+          className={`text-xs font-semibold uppercase ${tagColorMap[tagColor]}`}
+        >
           {tag}
         </p>
         <h2 className="mt-1 text-lg font-semibold text-slate-900">{title}</h2>
@@ -174,24 +186,24 @@ function renderModalContent(activeModal) {
       return {
         title: "담당 강의 조회",
         subtitle: "CourseOffering",
-        hint:
-          "학기 기준 담당 강의 목록 + 강의 코드, 분반 표시를 추천합니다.",
+        // hint: "학기 기준 담당 강의 목록 + 강의 코드, 분반 표시를 추천합니다.",
+        hint: <MyCourses />,
       };
 
     case modalTypes.STUDENT_LIST:
       return {
         title: "수강생 명단 조회",
         subtitle: "Enrollment · User",
-        hint:
-          "학생 이름, 학번, 학과 정보 테이블 구성을 추천합니다.",
+        // hint: "학생 이름, 학번, 학과 정보 테이블 구성을 추천합니다.",
+        hint: <StudentList />,
       };
 
     case modalTypes.COURSE_NOTICE:
       return {
         title: "강의 공지 등록",
         subtitle: "Notice",
-        hint:
-          "공지 제목, 내용 입력 + 파일 첨부 UI를 추천합니다.",
+        // hint: "공지 제목, 내용 입력 + 파일 첨부 UI를 추천합니다.",
+        hint: <CourseNotice />,
       };
 
     default:

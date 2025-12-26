@@ -1,5 +1,6 @@
 // src/pages/professormanagement/ProfessorFeedbackDashboard.jsx
 import React, { useState } from "react";
+import CourseReviewView from "../../components/features/review/CourseReviewView";
 
 /* =========================
    Modal Types (교수용)
@@ -19,9 +20,7 @@ export default function ProfessorFeedbackDashboard() {
     <div className="min-h-screen bg-slate-50 px-6 py-8">
       {/* ===== 대분류 헤더 ===== */}
       <header className="mb-8 flex flex-col gap-2">
-        <h1 className="text-2xl font-semibold text-slate-900">
-          강의 피드백
-        </h1>
+        <h1 className="text-2xl font-semibold text-slate-900">강의 피드백</h1>
         <p className="text-sm text-slate-500">
           학생들이 남긴 강의 평가를 익명으로 확인합니다.
         </p>
@@ -56,7 +55,14 @@ export default function ProfessorFeedbackDashboard() {
 /* =========================
    Section Header
 ========================= */
-function SectionHeader({ tag, tagColor, title, description, badge, badgeColor }) {
+function SectionHeader({
+  tag,
+  tagColor,
+  title,
+  description,
+  badge,
+  badgeColor,
+}) {
   const tagColorMap = {
     teal: "text-teal-500",
   };
@@ -68,7 +74,9 @@ function SectionHeader({ tag, tagColor, title, description, badge, badgeColor })
   return (
     <div className="mb-4 flex items-center justify-between">
       <div>
-        <p className={`text-xs font-semibold uppercase ${tagColorMap[tagColor]}`}>
+        <p
+          className={`text-xs font-semibold uppercase ${tagColorMap[tagColor]}`}
+        >
           {tag}
         </p>
         <h2 className="mt-1 text-lg font-semibold text-slate-900">{title}</h2>
@@ -138,8 +146,8 @@ function renderModalContent(activeModal) {
       return {
         title: "강의 평가 조회",
         subtitle: "Review",
-        hint:
-          "과목/학기 필터 + 평균 평점 그래프 + 익명 코멘트 리스트 구성을 추천합니다.",
+        // hint: "과목/학기 필터 + 평균 평점 그래프 + 익명 코멘트 리스트 구성을 추천합니다.",
+        hint: <CourseReviewView />,
       };
 
     default:

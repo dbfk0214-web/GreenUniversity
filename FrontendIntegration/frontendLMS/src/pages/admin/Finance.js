@@ -1,5 +1,8 @@
 // src/pages/adminmanagement/AdminFinanceDashboard.jsx
 import React, { useState } from "react";
+import TuitionManage from "../../components/features/finance/TuitionManage";
+import ScholarshipTypeManage from "../../components/features/finance/ScholarshipTypeManage";
+import ScholarshipAssign from "../../components/features/finance/ScholarshipAssign";
 
 /* =========================
    Modal Types (관리자용)
@@ -22,9 +25,7 @@ export default function AdminFinanceDashboard() {
     <div className="min-h-screen bg-slate-50 px-6 py-8">
       {/* ===== 대분류 헤더 ===== */}
       <header className="mb-8 flex flex-col gap-2">
-        <h1 className="text-2xl font-semibold text-slate-900">
-          재무 관리
-        </h1>
+        <h1 className="text-2xl font-semibold text-slate-900">재무 관리</h1>
         <p className="text-sm text-slate-500">
           등록금 고지 및 장학금 지급을 관리합니다.
         </p>
@@ -89,7 +90,14 @@ export default function AdminFinanceDashboard() {
 /* =========================
    Section Header
 ========================= */
-function SectionHeader({ tag, tagColor, title, description, badge, badgeColor }) {
+function SectionHeader({
+  tag,
+  tagColor,
+  title,
+  description,
+  badge,
+  badgeColor,
+}) {
   const tagColorMap = {
     teal: "text-teal-500",
     fuchsia: "text-fuchsia-500",
@@ -103,7 +111,9 @@ function SectionHeader({ tag, tagColor, title, description, badge, badgeColor })
   return (
     <div className="mb-4 flex items-center justify-between">
       <div>
-        <p className={`text-xs font-semibold uppercase ${tagColorMap[tagColor]}`}>
+        <p
+          className={`text-xs font-semibold uppercase ${tagColorMap[tagColor]}`}
+        >
           {tag}
         </p>
         <h2 className="mt-1 text-lg font-semibold text-slate-900">{title}</h2>
@@ -173,24 +183,24 @@ function renderModalContent(activeModal) {
       return {
         title: "등록금 책정 및 고지",
         subtitle: "TuitionPayment",
-        hint:
-          "학생/학기 선택 → 등록금 금액 입력 → 납부 상태(PAID/UNPAID) 관리 UI를 추천합니다.",
+        // hint: "학생/학기 선택 → 등록금 금액 입력 → 납부 상태(PAID/UNPAID) 관리 UI를 추천합니다.",
+        hint: <TuitionManage />,
       };
 
     case modalTypes.SCHOLARSHIP_TYPE:
       return {
         title: "장학금 종류 관리",
         subtitle: "Scholarship",
-        hint:
-          "장학금명, 지급 기준, 금액/비율 설정 UI를 추천합니다.",
+        // hint: "장학금명, 지급 기준, 금액/비율 설정 UI를 추천합니다.",
+        hint: <ScholarshipTypeManage />,
       };
 
     case modalTypes.SCHOLARSHIP_ASSIGN:
       return {
         title: "장학금 수여",
         subtitle: "ScholarshipHistory",
-        hint:
-          "학생 선택 → 장학금 선택 → 수여 금액 및 이력 관리 UI를 추천합니다.",
+        // hint: "학생 선택 → 장학금 선택 → 수여 금액 및 이력 관리 UI를 추천합니다.",
+        hint: <ScholarshipAssign />,
       };
 
     default:

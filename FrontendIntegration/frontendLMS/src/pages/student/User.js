@@ -1,5 +1,10 @@
 // src/pages/studentmanagement/StudentUserDashboard.jsx
 import React, { useState } from "react";
+import MyInfo from "../../components/features/user/MyInfo";
+import PasswordManage from "../../components/features/user/PasswordManage";
+import LeaveRequest from "../../components/features/user/LeaveRequest";
+import ReturnRequest from "../../components/features/user/ReturnRequest";
+import StudentStatusHistory from "../../components/features/user/StudentStatusHistory";
 
 /* =========================
    Modal Types (학생용)
@@ -103,7 +108,14 @@ export default function StudentUserDashboard() {
 /* =========================
    Section Header
 ========================= */
-function SectionHeader({ tag, tagColor, title, description, badge, badgeColor }) {
+function SectionHeader({
+  tag,
+  tagColor,
+  title,
+  description,
+  badge,
+  badgeColor,
+}) {
   const tagColorMap = {
     teal: "text-teal-500",
     fuchsia: "text-fuchsia-500",
@@ -117,7 +129,9 @@ function SectionHeader({ tag, tagColor, title, description, badge, badgeColor })
   return (
     <div className="mb-4 flex items-center justify-between">
       <div>
-        <p className={`text-xs font-semibold uppercase ${tagColorMap[tagColor]}`}>
+        <p
+          className={`text-xs font-semibold uppercase ${tagColorMap[tagColor]}`}
+        >
           {tag}
         </p>
         <h2 className="mt-1 text-lg font-semibold text-slate-900">{title}</h2>
@@ -187,35 +201,40 @@ function renderModalContent(activeModal) {
       return {
         title: "내 정보 조회",
         subtitle: "User",
-        hint: "이메일, 이름, 학번 등 기본 정보 표시를 추천합니다.",
+        // hint: "이메일, 이름, 학번 등 기본 정보 표시를 추천합니다.",
+        hint: <MyInfo />,
       };
 
     case modalTypes.PASSWORD_CHANGE:
       return {
         title: "비밀번호 변경",
         subtitle: "User",
-        hint: "현재 비밀번호 검증 + 새 비밀번호 규칙 안내를 추천합니다.",
+        // hint: "현재 비밀번호 검증 + 새 비밀번호 규칙 안내를 추천합니다.",
+        hint: <PasswordManage />,
       };
 
     case modalTypes.LEAVE_REQUEST:
       return {
         title: "휴학 신청",
         subtitle: "StudentStatusHistory",
-        hint: "휴학 사유, 기간 선택 UI를 추천합니다.",
+        // hint: "휴학 사유, 기간 선택 UI를 추천합니다.",
+        hint: <LeaveRequest />,
       };
 
     case modalTypes.RETURN_REQUEST:
       return {
         title: "복학 신청",
         subtitle: "StudentStatusHistory",
-        hint: "복학 희망 학기 선택 UI를 추천합니다.",
+        // hint: "복학 희망 학기 선택 UI를 추천합니다.",
+        hint: <ReturnRequest />,
       };
 
     case modalTypes.STATUS_HISTORY:
       return {
         title: "학적 변동 처리 내역",
         subtitle: "StudentStatusHistory",
-        hint: "신청 유형, 처리 상태, 승인 일자 테이블 구성을 추천합니다.",
+        // hint: "신청 유형, 처리 상태, 승인 일자 테이블 구성을 추천합니다.",
+        hint: <StudentStatusHistory />,
       };
 
     default:

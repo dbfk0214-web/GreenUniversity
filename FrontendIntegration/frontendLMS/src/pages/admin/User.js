@@ -1,5 +1,10 @@
 // src/pages/adminmanagement/AdminUserBaseDashboard.jsx
 import React, { useState } from "react";
+import DepartmentManage from "../../components/features/user/DepartmentManage";
+import UserManage from "../../components/features/user/UserManage";
+import UserCreate from "../../components/features/user/UserCreate";
+import PasswordManage from "../../components/features/user/PasswordManage";
+import StudentStatusApproval from "../../components/features/user/StudentStatusApproval";
 
 /* =========================
    Modal Types (관리자용)
@@ -117,7 +122,14 @@ export default function AdminUserBaseDashboard() {
 /* =========================
    Section Header
 ========================= */
-function SectionHeader({ tag, tagColor, title, description, badge, badgeColor }) {
+function SectionHeader({
+  tag,
+  tagColor,
+  title,
+  description,
+  badge,
+  badgeColor,
+}) {
   const tagColorMap = {
     teal: "text-teal-500",
     fuchsia: "text-fuchsia-500",
@@ -133,7 +145,9 @@ function SectionHeader({ tag, tagColor, title, description, badge, badgeColor })
   return (
     <div className="mb-4 flex items-center justify-between">
       <div>
-        <p className={`text-xs font-semibold uppercase ${tagColorMap[tagColor]}`}>
+        <p
+          className={`text-xs font-semibold uppercase ${tagColorMap[tagColor]}`}
+        >
           {tag}
         </p>
         <h2 className="mt-1 text-lg font-semibold text-slate-900">{title}</h2>
@@ -203,35 +217,40 @@ function renderModalContent(activeModal) {
       return {
         title: "학과 관리",
         subtitle: "Department",
-        hint: "학과 코드, 학과명, 소속 단과대 입력 UI를 추천합니다.",
+        // hint: "학과 코드, 학과명, 소속 단과대 입력 UI를 추천합니다.",
+        hint: <DepartmentManage />,
       };
 
     case modalTypes.USER_CREATE:
       return {
         title: "계정 생성",
         subtitle: "User",
-        hint: "역할(교수/학생) 선택 + 기본 정보 입력 UI를 추천합니다.",
+        // hint: "역할(교수/학생) 선택 + 기본 정보 입력 UI를 추천합니다.",
+        hint: <UserCreate />,
       };
 
     case modalTypes.USER_MANAGE:
       return {
         title: "계정 정보 관리",
         subtitle: "User",
-        hint: "계정 활성/비활성 및 정보 수정 UI를 추천합니다.",
+        // hint: "계정 활성/비활성 및 정보 수정 UI를 추천합니다.",
+        hint: <UserManage />,
       };
 
     case modalTypes.PASSWORD_RESET:
       return {
         title: "비밀번호 초기화",
         subtitle: "User",
-        hint: "임시 비밀번호 발급 및 안내 처리 UI를 추천합니다.",
+        // hint: "임시 비밀번호 발급 및 안내 처리 UI를 추천합니다.",
+        hint: <PasswordManage />,
       };
 
     case modalTypes.STATUS_APPROVAL:
       return {
         title: "학적 변동 승인",
         subtitle: "StudentStatusHistory",
-        hint: "휴학/복학 신청 승인·반려 및 처리 상태 관리 UI를 추천합니다.",
+        // hint: "휴학/복학 신청 승인·반려 및 처리 상태 관리 UI를 추천합니다.",
+        hint: <StudentStatusApproval />,
       };
 
     default:
