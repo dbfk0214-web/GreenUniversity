@@ -156,7 +156,7 @@ function DashboardButton({ label, description, onClick }) {
 function DashboardModal({ activeModal, onClose }) {
   if (!activeModal) return null;
 
-  const { title, subtitle, hint } = renderModalContent(activeModal);
+  const { title, subtitle, hint, content } = renderModalContent(activeModal);
 
   return (
     <div className="fixed inset-0 z-40 flex items-center justify-center bg-black/25">
@@ -170,7 +170,7 @@ function DashboardModal({ activeModal, onClose }) {
         </div>
 
         <div className="rounded-xl border border-dashed p-4 text-xs text-slate-500">
-          {hint}
+          {content}
         </div>
       </div>
     </div>
@@ -187,7 +187,7 @@ function renderModalContent(activeModal) {
         title: "담당 강의 조회",
         subtitle: "CourseOffering",
         // hint: "학기 기준 담당 강의 목록 + 강의 코드, 분반 표시를 추천합니다.",
-        hint: <MyCourses />,
+        content: <MyCourses />,
       };
 
     case modalTypes.STUDENT_LIST:
@@ -195,7 +195,7 @@ function renderModalContent(activeModal) {
         title: "수강생 명단 조회",
         subtitle: "Enrollment · User",
         // hint: "학생 이름, 학번, 학과 정보 테이블 구성을 추천합니다.",
-        hint: <StudentList />,
+        content: <StudentList />,
       };
 
     case modalTypes.COURSE_NOTICE:
@@ -203,7 +203,7 @@ function renderModalContent(activeModal) {
         title: "강의 공지 등록",
         subtitle: "Notice",
         // hint: "공지 제목, 내용 입력 + 파일 첨부 UI를 추천합니다.",
-        hint: <CourseNotice />,
+        content: <CourseNotice />,
       };
 
     default:

@@ -164,7 +164,7 @@ function DashboardButton({ label, description, onClick }) {
 function DashboardModal({ activeModal, onClose }) {
   if (!activeModal) return null;
 
-  const { title, subtitle, hint } = renderModalContent(activeModal);
+  const { title, subtitle, hint, content } = renderModalContent(activeModal);
 
   return (
     <div className="fixed inset-0 z-40 flex items-center justify-center bg-black/25">
@@ -178,7 +178,7 @@ function DashboardModal({ activeModal, onClose }) {
         </div>
 
         <div className="rounded-xl border border-dashed p-4 text-xs text-slate-500">
-          {hint}
+          {content}
         </div>
       </div>
     </div>
@@ -195,7 +195,7 @@ function renderModalContent(activeModal) {
         title: "학교 전체 공지",
         subtitle: "Notice",
         // hint: "공지 유형(일반/중요), 게시 기간, 조회수 표시를 추천합니다.",
-        hint: <NoticeList />,
+        content: <NoticeList />,
       };
 
     case modalTypes.DEPARTMENT_NOTICE:
@@ -203,7 +203,7 @@ function renderModalContent(activeModal) {
         title: "학과 공지사항",
         subtitle: "Notice · Department",
         // hint: "소속 학과 기준 필터링된 공지 리스트 구성을 추천합니다.",
-        hint: <DepartmentNotice />,
+        content: <DepartmentNotice />,
       };
 
     case modalTypes.FREE_BOARD:
@@ -211,7 +211,7 @@ function renderModalContent(activeModal) {
         title: "자유 게시판",
         subtitle: "Board · Post · Comment",
         // hint: "게시글 목록 + 댓글 수 + 최신순 정렬 UI를 추천합니다.",
-        hint: <FreeBoard />,
+        content: <FreeBoard />,
       };
 
     case modalTypes.POST_WRITE:
@@ -219,14 +219,7 @@ function renderModalContent(activeModal) {
         title: "게시글 작성",
         subtitle: "Post",
         // hint: "제목, 내용 입력 + 수정/삭제 권한 체크 UI를 추천합니다.",
-        hint: <PostWrite />,
-      };
-
-    default:
-      return {
-        title: "커뮤니티",
-        subtitle: "",
-        hint: "",
+        content: <PostWrite />,
       };
   }
 }
