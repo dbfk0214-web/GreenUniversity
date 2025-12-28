@@ -2,7 +2,7 @@ export const SubmissionDef = {
   key: "submission",
   primaryKey: "submissionId",
   tableEng: "Submission",
-  tableName: "과제 제출내역",
+  tableName: "제출내역",
   allColumns: {
     columns: {
       submissionId: "ID",
@@ -20,8 +20,8 @@ export const SubmissionDef = {
     },
     responseColumns: {
       submissionId: "ID",
-      assignment: "과제 정보",
-      student: "학생 정보",
+      assignmentTitle: "과제 정보",
+      studentName: "학생 정보",
       submittedAt: "제출일시",
       score: "점수",
       fileUrl: "파일 다운로드",
