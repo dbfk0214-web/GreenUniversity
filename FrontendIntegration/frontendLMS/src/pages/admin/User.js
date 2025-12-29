@@ -56,16 +56,6 @@ export default function UserManagementDashboard() {
               onClick={() => setActiveModal(modalTypes.USER_EDIT)}
             />
             <DashboardButton
-              label="계정 비활성화"
-              description="사용자 계정을 비활성화 처리합니다."
-              onClick={() => setActiveModal(modalTypes.USER_DEACTIVATE)}
-            />
-            <DashboardButton
-              label="권한 일괄 수정"
-              description="여러 사용자의 권한을 한 번에 변경합니다."
-              onClick={() => setActiveModal(modalTypes.USER_ROLE_BULK)}
-            />
-            <DashboardButton
               label="학적 상태 수정"
               description="재학, 휴학, 졸업 등 학적 상태를 변경합니다."
               onClick={() => setActiveModal(modalTypes.USER_ACADEMIC_STATUS)}
@@ -178,18 +168,6 @@ function renderModalContent(activeModal) {
       return {
         title: "사용자 수정",
         subtitle: "User Profile",
-        content: <UserManage />,
-      };
-    case modalTypes.USER_DEACTIVATE:
-      return {
-        title: "계정 비활성화",
-        subtitle: "Account Status",
-        content: <UserManage />,
-      };
-    case modalTypes.USER_ROLE_BULK:
-      return {
-        title: "권한 일괄 수정",
-        subtitle: "Role Management",
         content: <UserManage />,
       };
     case modalTypes.USER_ACADEMIC_STATUS:

@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import NoticeList from "../../components/features/notice/NoticeList";
 import DepartmentNotice from "../../components/features/notice/DepartmentNotice";
+import FreeBoard from "../../components/features/board/FreeBoard";
 import PostWrite from "../../components/features/board/PostWrite";
 import CommunityBoard from "../../components/features/board/CommunityBoard";
 
@@ -55,11 +56,6 @@ export default function StudentCommunityDashboard() {
               label="학교 전체 공지"
               description="학교 전체 공지사항을 확인합니다."
               onClick={() => setActiveModal(modalTypes.NOTICE_LIST)}
-            />
-            <DashboardButton
-              label="학과 공지사항"
-              description="소속 학과 공지사항을 확인합니다."
-              onClick={() => setActiveModal(modalTypes.DEPARTMENT_NOTICE)}
             />
           </div>
         </section>
@@ -198,14 +194,6 @@ function renderModalContent(activeModal) {
         subtitle: "Notice",
         // hint: "공지 유형(일반/중요), 게시 기간, 조회수 표시를 추천합니다.",
         content: <NoticeList />,
-      };
-
-    case modalTypes.DEPARTMENT_NOTICE:
-      return {
-        title: "학과 공지사항",
-        subtitle: "Notice · Department",
-        // hint: "소속 학과 기준 필터링된 공지 리스트 구성을 추천합니다.",
-        content: <DepartmentNotice />,
       };
 
     case modalTypes.FREE_BOARD:

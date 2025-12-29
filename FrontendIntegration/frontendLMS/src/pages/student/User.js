@@ -2,8 +2,6 @@
 import React, { useState } from "react";
 import MyInfo from "../../components/features/user/MyInfo";
 import PasswordManage from "../../components/features/user/PasswordManage";
-import StudentStatusHistory from "../../components/features/user/StudentStatusHistory";
-import ReturnRequest from "../../components/features/user/ReturnRequest";
 import StudentStatusApproval from "../../components/features/user/StudentStatusApproval";
 
 /* =========================
@@ -81,18 +79,8 @@ export default function StudentUserDashboard() {
 
           <div className="space-y-3">
             <DashboardButton
-              label="휴학 신청"
-              description="휴학 신청을 진행합니다."
-              onClick={() => setActiveModal(modalTypes.LEAVE_REQUEST)}
-            />
-            <DashboardButton
-              label="복학 신청"
-              description="복학 신청을 진행합니다."
-              onClick={() => setActiveModal(modalTypes.RETURN_REQUEST)}
-            />
-            <DashboardButton
-              label="학적 변동 처리 내역"
-              description="신청 결과 및 처리 상태를 확인합니다."
+              label="학적 변동 처리"
+              description="학작 변동 신청 및 처리 상태를 확인합니다."
               onClick={() => setActiveModal(modalTypes.STATUS_HISTORY)}
             />
           </div>
@@ -215,24 +203,8 @@ function renderModalContent(activeModal) {
         content: <PasswordManage />,
       };
 
-    case modalTypes.LEAVE_REQUEST:
-      return {
-        title: "휴학 신청",
-        subtitle: "StudentStatusHistory",
-        // hint: "휴학 사유, 기간 선택 UI를 추천합니다.",
-        hint: "",
-        content: <StudentStatusHistory />,
-      };
-
-    case modalTypes.RETURN_REQUEST:
-      return {
-        title: "복학 신청",
-        subtitle: "StudentStatusHistory",
-        // hint: "복학 희망 학기 선택 UI를 추천합니다.",
-        hint: "",
-        content: <ReturnRequest />,
-      };
-
+    // 휴학 : StudentStatusHistory
+    // 복학 : ReturnRequest
     case modalTypes.STATUS_HISTORY:
       return {
         title: "학적 변동 처리 내역",
