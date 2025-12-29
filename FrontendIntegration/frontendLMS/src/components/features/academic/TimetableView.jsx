@@ -1,37 +1,16 @@
-import React, { useEffect, useState, useMemo } from "react";
-import TimeTableApi from "../../../api/TimeTableApi";
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
+import {
+  useTimetableData,
+  DAYS,
+  PERIODS,
+} from "../../../hook/timeTable/useTimetableData"; // 훅 import
 
-// --- 요일 변환 및 정렬 헬퍼 ---
-const DAY_MAP = {
-  MONDAY: "월",
-  TUESDAY: "화",
-  WEDNESDAY: "수",
-  THURSDAY: "목",
-  FRIDAY: "금",
-  SATURDAY: "토",
-  SUNDAY: "일",
-};
-
-const DAY_ORDER = {
-  MONDAY: 1,
-  TUESDAY: 2,
-  WEDNESDAY: 3,
-  THURSDAY: 4,
-  FRIDAY: 5,
-  SATURDAY: 6,
-  SUNDAY: 7,
-};
-
-// --- 시간 → 교시 변환 (09:00 → 0교시, 10:00 → 1교시) ---
-const timeToIndex = (time) => {
-  if (!time) return -1;
-  const hour = parseInt(time.substring(0, 2));
-  return hour - 9; // 09:00부터 시작 (0교시 = 09:00)
-};
-
-// --- 전공별 배경색 ---
-const getBgClassByMajor = (major) => {
-  const majorColors = {
+// =============================================================================
+// UI 헬퍼 & 서브 컴포넌트
+// =============================================================================
+const getBgClass = (major) => {
+  const colors = {
     컴퓨터공학: "bg-blue-100",
     소프트웨어: "bg-green-100",
     정보통신: "bg-purple-100",
@@ -39,116 +18,208 @@ const getBgClassByMajor = (major) => {
     종합설계: "bg-pink-100",
     자율학습: "bg-gray-100",
   };
-  return majorColors[major] || "bg-sky-100";
+  return colors[major] || "bg-sky-100";
 };
 
-export default function TimetableView({ onClose, role = "student" }) {
-  const [timeTables, setTimeTables] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [selectedLecture, setSelectedLecture] = useState(null);
+// 1. 통계 카드
+const StatsBoard = ({ stats }) => (
+  <div className="mb-6 grid grid-cols-1 gap-4 sm:grid-cols-2">
+    <div className="rounded-xl bg-white p-5 shadow-sm ring-1 ring-slate-900/5">
+      <div className="text-sm text-slate-500">수강 과목 수</div>
+      <div className="mt-1 text-2xl font-bold text-slate-900">
+        {stats.uniqueCourses}개
+      </div>
+    </div>
+    <div className="rounded-xl bg-white p-5 shadow-sm ring-1 ring-slate-900/5">
+      <div className="text-sm text-slate-500">주간 수업 횟수</div>
+      <div className="mt-1 text-2xl font-bold text-slate-900">
+        {stats.totalClasses}회
+      </div>
+    </div>
+  </div>
+);
+
+// 2. 그리드 뷰
+const GridView = ({ gridData, onSelect }) => (
+  <div className="overflow-x-auto">
+    <table className="min-w-[600px] w-full border-collapse border border-slate-300 text-center text-sm bg-white rounded-xl shadow-sm">
+      <thead>
+        <tr>
+          <th className="border px-3 py-3 bg-slate-100 font-semibold w-20">
+            교시
+          </th>
+          {DAYS.map((day) => (
+            <th
+              key={day}
+              className="border px-3 py-3 bg-slate-100 font-semibold"
+            >
+              {day}
+            </th>
+          ))}
+        </tr>
+      </thead>
+      <tbody>
+        {PERIODS.map((period, idx) => (
+          <tr key={idx}>
+            <td className="border px-3 py-3 bg-slate-50 font-medium text-xs whitespace-nowrap">
+              {period}
+            </td>
+            {DAYS.map((day) => {
+              const lec = gridData[day][idx];
+              if (!lec)
+                return (
+                  <td key={day} className="border px-3 py-3 hover:bg-slate-50">
+                    -
+                  </td>
+                );
+              if (!lec.isFirst)
+                return (
+                  <td
+                    key={day}
+                    className={`border px-3 py-3 ${getBgClass(
+                      lec.major
+                    )} opacity-50 text-xs text-slate-500`}
+                  >
+                    ▼
+                  </td>
+                );
+
+              return (
+                <td
+                  key={day}
+                  onClick={() => onSelect(lec)}
+                  className={`border px-3 py-3 cursor-pointer transition ${getBgClass(
+                    lec.major
+                  )} hover:brightness-95`}
+                >
+                  <div className="font-semibold text-sm">{lec.name}</div>
+                  <div className="text-xs text-slate-700">{lec.major}</div>
+                  <div className="text-xs text-slate-500">{lec.classroom}</div>
+                </td>
+              );
+            })}
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+);
+
+// 3. 리스트 뷰
+const ListView = ({ data }) => (
+  <div className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
+    <table className="w-full text-left text-sm">
+      <thead className="bg-slate-50 text-slate-500">
+        <tr>
+          <th className="px-6 py-3 font-medium">요일</th>
+          <th className="px-6 py-3 font-medium">시간</th>
+          <th className="px-6 py-3 font-medium">교과목명</th>
+          <th className="px-6 py-3 font-medium">분반/교수</th>
+          <th className="px-6 py-3 font-medium">강의실</th>
+        </tr>
+      </thead>
+      <tbody className="divide-y divide-slate-100">
+        {data.length === 0 ? (
+          <tr>
+            <td colSpan="5" className="py-10 text-center text-slate-400">
+              시간표가 없습니다.
+            </td>
+          </tr>
+        ) : (
+          data.map((t, i) => (
+            <tr key={i} className="hover:bg-slate-50">
+              <td className="px-6 py-4">
+                <span className="bg-slate-100 px-2 py-1 rounded font-bold text-xs">
+                  {t.dayOfWeek}
+                </span>
+              </td>
+              <td className="px-6 py-4 text-slate-700">
+                {t.startTime?.substring(0, 5)} ~ {t.endTime?.substring(0, 5)}
+              </td>
+              <td className="px-6 py-4 font-bold text-slate-900">
+                {t.courseName}
+              </td>
+              <td className="px-6 py-4 text-slate-600">
+                {t.sectionName} / {t.professorName}
+              </td>
+              <td className="px-6 py-4 text-slate-600">{t.classroomName}</td>
+            </tr>
+          ))
+        )}
+      </tbody>
+    </table>
+  </div>
+);
+
+// 4. 모달
+const LectureDetailModal = ({ lecture, onClose }) => {
+  if (!lecture) return null;
+  return (
+    <div
+      className="fixed inset-0 bg-black/50 flex items-center justify-center z-50"
+      onClick={onClose}
+    >
+      <div
+        className="bg-white rounded-xl p-6 w-96 shadow-xl"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <h2 className="text-xl font-bold mb-4 border-b pb-2">{lecture.name}</h2>
+        <div className="space-y-3 text-sm text-slate-700 mb-6">
+          <div className="flex justify-between">
+            <span>분반</span>{" "}
+            <span className="font-medium">{lecture.major}</span>
+          </div>
+          <div className="flex justify-between">
+            <span>교수</span>{" "}
+            <span className="font-medium">{lecture.professor}</span>
+          </div>
+          <div className="flex justify-between">
+            <span>강의실</span>{" "}
+            <span className="font-medium">{lecture.classroom}</span>
+          </div>
+          <div className="flex justify-between">
+            <span>시간</span>{" "}
+            <span className="font-medium">
+              {lecture.startTime?.substring(0, 5)} ~{" "}
+              {lecture.endTime?.substring(0, 5)}
+            </span>
+          </div>
+        </div>
+        <button
+          onClick={onClose}
+          className="w-full py-2.5 bg-slate-900 text-white rounded-lg hover:bg-slate-800 transition"
+        >
+          닫기
+        </button>
+      </div>
+    </div>
+  );
+};
+
+// =============================================================================
+// 메인 컴포넌트 (TimetableView)
+// =============================================================================
+export default function TimetableView({ onClose }) {
+  // ✅ Redux 로그인 정보 사용 (실제 서비스용)
+  const loginState = useSelector((state) => state.loginSlice);
+  const userEmail = loginState?.email || "student@aaa.com"; // 비로그인 시 테스트용 계정
+
+  // ✅ Custom Hook을 통해 모든 데이터 로직 처리
+  const { timeTables, lectureGrid, stats, loading } = useTimetableData(
+    "my",
+    userEmail
+  );
+
   const [viewMode, setViewMode] = useState("grid"); // 'grid' | 'list'
-
-  // TODO: 실제 로그인한 유저 이메일로 변경
-  const userEmail = "student@aaa.com";
-
-  useEffect(() => {
-    fetchMyTimeTables();
-  }, []);
-
-  // ✅ API 호출
-  const fetchMyTimeTables = async () => {
-    setLoading(true);
-    try {
-      const data = await TimeTableApi.config.funcs.findByKeyword(
-        "my",
-        userEmail
-      );
-      const sortedData = (Array.isArray(data) ? data : []).sort((a, b) => {
-        const dayDiff =
-          (DAY_ORDER[a.dayOfWeek] || 99) - (DAY_ORDER[b.dayOfWeek] || 99);
-        if (dayDiff !== 0) return dayDiff;
-        return (a.startTime || "").localeCompare(b.startTime || "");
-      });
-      setTimeTables(sortedData);
-    } catch (error) {
-      console.error("시간표 조회 실패:", error);
-      setTimeTables([]);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  // ✅ 그리드 변환 (API 데이터 → 요일×교시 매트릭스)
-  const lectureGrid = useMemo(() => {
-    const days = ["월", "화", "수", "목", "금"];
-    const periods = 10; // 09:00 ~ 18:00 (10교시)
-
-    // 초기화
-    const grid = {};
-    days.forEach((day) => {
-      grid[day] = Array(periods).fill(null);
-    });
-
-    // 데이터 매핑
-    timeTables.forEach((t) => {
-      const day = DAY_MAP[t.dayOfWeek];
-      const startIdx = timeToIndex(t.startTime);
-      const endIdx = timeToIndex(t.endTime);
-
-      if (day && startIdx >= 0 && startIdx < periods) {
-        // 연강 처리 (startTime ~ endTime)
-        const duration = endIdx - startIdx || 1;
-        for (let i = 0; i < duration; i++) {
-          if (startIdx + i < periods) {
-            grid[day][startIdx + i] = {
-              name: t.courseName,
-              major: t.sectionName || "일반",
-              professor: t.professorName || "미정",
-              classroom: t.classroomName || "미정",
-              startTime: t.startTime,
-              endTime: t.endTime,
-              isFirst: i === 0, // 첫 시간인지 (연강 표시용)
-            };
-          }
-        }
-      }
-    });
-
-    return grid;
-  }, [timeTables]);
-
-  // ✅ 통계
-  const stats = useMemo(() => {
-    const uniqueCourses = new Set(timeTables.map((t) => t.courseName)).size;
-    return {
-      totalClasses: timeTables.length,
-      uniqueCourses,
-    };
-  }, [timeTables]);
-
-  // ✅ 교시 라벨
-  const periods = [
-    "1교시 (09:00~10:00)",
-    "2교시 (10:00~11:00)",
-    "3교시 (11:00~12:00)",
-    "4교시 (13:00~14:00)",
-    "5교시 (14:00~15:00)",
-    "6교시 (15:00~16:00)",
-    "7교시 (16:00~17:00)",
-    "8교시 (17:00~18:00)",
-    "9교시 (18:00~19:00)",
-    "10교시 (19:00~20:00)",
-  ];
-
-  const days = ["월", "화", "수", "목", "금"];
+  const [selectedLecture, setSelectedLecture] = useState(null);
 
   return (
-    <div className="relative w-full bg-slate-50 p-6 font-sans text-slate-800">
-      {/* 🔴 모달 닫기 버튼 */}
+    <div className="relative w-full bg-slate-50 p-6 font-sans text-slate-800 max-h-[75vh] overflow-y-auto">
+      {/* 닫기 버튼 */}
       {onClose && (
         <button
           onClick={onClose}
-          className="absolute right-4 top-4 rounded-full p-2 text-slate-400 hover:bg-slate-200 hover:text-slate-600 transition-colors z-10"
+          className="absolute right-4 top-4 p-2 text-slate-400 hover:text-slate-600 rounded-full hover:bg-slate-200 transition"
         >
           <svg
             className="h-6 w-6"
@@ -167,218 +238,61 @@ export default function TimetableView({ onClose, role = "student" }) {
       )}
 
       {/* 헤더 */}
-      <header className="mb-6 flex flex-col gap-2">
+      <header className="mb-6">
         <h1 className="text-2xl font-bold text-slate-900">📚 내 시간표</h1>
         <p className="text-sm text-slate-500">
           수강 신청된 과목의 강의 시간과 강의실을 확인합니다.
         </p>
       </header>
 
-      {/* 요약 카드 */}
-      <div className="mb-6 grid grid-cols-1 gap-4 sm:grid-cols-2">
-        <div className="rounded-xl bg-white p-5 shadow-sm ring-1 ring-slate-900/5">
-          <div className="text-sm text-slate-500">수강 과목 수</div>
-          <div className="mt-1 text-2xl font-bold text-slate-900">
-            {stats.uniqueCourses}개
-          </div>
-        </div>
-        <div className="rounded-xl bg-white p-5 shadow-sm ring-1 ring-slate-900/5">
-          <div className="text-sm text-slate-500">주간 수업 횟수</div>
-          <div className="mt-1 text-2xl font-bold text-slate-900">
-            {stats.totalClasses}회
-          </div>
-        </div>
-      </div>
+      {/* 통계 보드 */}
+      <StatsBoard stats={stats} />
 
-      {/* 보기 모드 전환 */}
+      {/* 뷰 모드 전환 */}
       <div className="mb-4 flex justify-end gap-2">
-        <button
-          onClick={() => setViewMode("grid")}
-          className={`px-4 py-2 rounded-lg text-sm font-medium ${
-            viewMode === "grid"
-              ? "bg-slate-900 text-white"
-              : "bg-white text-slate-700 border"
-          }`}
-        >
-          그리드 보기
-        </button>
-        <button
-          onClick={() => setViewMode("list")}
-          className={`px-4 py-2 rounded-lg text-sm font-medium ${
-            viewMode === "list"
-              ? "bg-slate-900 text-white"
-              : "bg-white text-slate-700 border"
-          }`}
-        >
-          목록 보기
-        </button>
+        {["grid", "list"].map((mode) => (
+          <button
+            key={mode}
+            onClick={() => setViewMode(mode)}
+            className={`px-4 py-2 rounded-lg text-sm font-medium border transition ${
+              viewMode === mode
+                ? "bg-slate-900 text-white border-slate-900"
+                : "bg-white text-slate-700 border-slate-300 hover:bg-slate-50"
+            }`}
+          >
+            {mode === "grid" ? "그리드 보기" : "목록 보기"}
+          </button>
+        ))}
       </div>
 
+      {/* 메인 컨텐츠 */}
       {loading ? (
-        <div className="py-20 text-center text-slate-400">로딩 중...</div>
+        <div className="py-20 text-center text-slate-400 animate-pulse">
+          데이터를 불러오는 중입니다...
+        </div>
       ) : viewMode === "grid" ? (
-        /* ========== 그리드 뷰 ========== */
-        <div className="overflow-x-auto">
-          <table className="min-w-[600px] w-full border-collapse border border-slate-300 text-center text-sm bg-white rounded-xl shadow-sm">
-            <thead>
-              <tr>
-                <th className="border border-slate-300 px-3 py-3 bg-slate-100 font-semibold">
-                  교시
-                </th>
-                {days.map((day) => (
-                  <th
-                    key={day}
-                    className="border border-slate-300 px-3 py-3 bg-slate-100 font-semibold"
-                  >
-                    {day}
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {periods.map((period, idx) => (
-                <tr key={idx}>
-                  <td className="border px-3 py-3 bg-slate-50 font-medium text-xs whitespace-nowrap">
-                    {period}
-                  </td>
-                  {days.map((day) => {
-                    const lec = lectureGrid[day][idx];
-
-                    if (!lec) {
-                      return (
-                        <td
-                          key={day}
-                          className="border px-3 py-3 cursor-pointer transition hover:bg-slate-100"
-                        >
-                          -
-                        </td>
-                      );
-                    }
-
-                    // 연강 표시 (첫 시간만 표시, 나머지는 빈 칸 or 화살표)
-                    if (!lec.isFirst) {
-                      return (
-                        <td
-                          key={day}
-                          className={`border px-3 py-3 ${getBgClassByMajor(
-                            lec.major
-                          )} opacity-50`}
-                        >
-                          <div className="text-xs text-slate-500">▼</div>
-                        </td>
-                      );
-                    }
-
-                    const bgClass = getBgClassByMajor(lec.major);
-
-                    return (
-                      <td
-                        key={day}
-                        className={`border px-3 py-3 cursor-pointer transition ${bgClass} hover:brightness-95`}
-                        onClick={() => setSelectedLecture(lec)}
-                      >
-                        <div className="font-semibold text-sm">{lec.name}</div>
-                        <div className="text-xs text-slate-700">
-                          {lec.major}
-                        </div>
-                      </td>
-                    );
-                  })}
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+        <GridView gridData={lectureGrid} onSelect={setSelectedLecture} />
       ) : (
-        /* ========== 목록 뷰 ========== */
-        <div className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
-          <table className="w-full text-left text-sm">
-            <thead className="bg-slate-50 text-slate-500">
-              <tr>
-                <th className="px-6 py-3 font-medium">요일</th>
-                <th className="px-6 py-3 font-medium">시간</th>
-                <th className="px-6 py-3 font-medium">교과목명</th>
-                <th className="px-6 py-3 font-medium">분반</th>
-                <th className="px-6 py-3 font-medium">강의실</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-slate-100">
-              {timeTables.length > 0 ? (
-                timeTables.map((t, idx) => (
-                  <tr key={t.timetableId || idx} className="hover:bg-slate-50">
-                    <td className="px-6 py-4">
-                      <span className="inline-flex rounded-md px-2 py-1 text-xs font-bold bg-slate-100">
-                        {DAY_MAP[t.dayOfWeek] || t.dayOfWeek}
-                      </span>
-                    </td>
-                    <td className="px-6 py-4 font-medium text-slate-700">
-                      {t.startTime?.substring(0, 5)} ~{" "}
-                      {t.endTime?.substring(0, 5)}
-                    </td>
-                    <td className="px-6 py-4 font-medium text-slate-900">
-                      {t.courseName}
-                    </td>
-                    <td className="px-6 py-4 text-slate-600">
-                      {t.sectionName}
-                    </td>
-                    <td className="px-6 py-4 text-slate-600">
-                      {t.classroomName || "미정"}
-                    </td>
-                  </tr>
-                ))
-              ) : (
-                <tr>
-                  <td colSpan="5" className="py-10 text-center text-slate-400">
-                    시간표가 없습니다.
-                  </td>
-                </tr>
-              )}
-            </tbody>
-          </table>
-        </div>
+        <ListView data={timeTables} />
       )}
 
-      {/* 강의 상세 모달 */}
-      {selectedLecture && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-          <div className="bg-white rounded-xl p-6 w-96 shadow-xl">
-            <h2 className="text-xl font-bold mb-3">{selectedLecture.name}</h2>
-            <div className="text-sm text-slate-700 space-y-2 mb-5">
-              <p>
-                <b>분반:</b> {selectedLecture.major}
-              </p>
-              <p>
-                <b>교수:</b> {selectedLecture.professor}
-              </p>
-              <p>
-                <b>강의실:</b> {selectedLecture.classroom}
-              </p>
-              <p>
-                <b>시간:</b> {selectedLecture.startTime?.substring(0, 5)} ~{" "}
-                {selectedLecture.endTime?.substring(0, 5)}
-              </p>
-            </div>
-            <button
-              onClick={() => setSelectedLecture(null)}
-              className="w-full py-2 bg-slate-900 text-white rounded-lg hover:bg-slate-800 transition"
-            >
-              닫기
-            </button>
-          </div>
-        </div>
-      )}
-
-      {/* 🔴 하단 닫기 버튼 */}
+      {/* 하단 닫기 버튼 (옵션) */}
       {onClose && (
         <div className="mt-6 flex justify-end border-t border-slate-200 pt-4">
           <button
             onClick={onClose}
-            className="rounded-lg bg-slate-800 px-6 py-2.5 text-sm font-semibold text-white hover:bg-slate-700 transition-all"
+            className="bg-slate-800 text-white px-6 py-2.5 rounded-lg text-sm font-bold hover:bg-slate-700 transition"
           >
             닫기
           </button>
         </div>
       )}
+
+      {/* 상세 모달 */}
+      <LectureDetailModal
+        lecture={selectedLecture}
+        onClose={() => setSelectedLecture(null)}
+      />
     </div>
   );
 }

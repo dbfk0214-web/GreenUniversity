@@ -34,6 +34,8 @@ export const TimeTableDef = {
       sectionId: "분반 ID",
       sectionName: "분반명", // 예: "A반"
       courseName: "강의명", // 예: "자바 프로그래밍"
+
+      professorName: "교수",
     },
     updateColumns: {
       timetableId: "시간표 Id",

@@ -197,6 +197,7 @@ function renderModalContent(activeModal) {
         // hint: "요일 × 교시 기반 주간 시간표 UI를 추천합니다.",
         content: <TimetableView />,
       };
+
     case modalTypes.ATTENDANCE:
       return {
         title: "출석 현황",
