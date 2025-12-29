@@ -2,8 +2,8 @@
 import React, { useState } from "react";
 import NoticeList from "../../components/features/notice/NoticeList";
 import DepartmentNotice from "../../components/features/notice/DepartmentNotice";
-import FreeBoard from "../../components/features/board/FreeBoard";
 import PostWrite from "../../components/features/board/PostWrite";
+import CommunityBoard from "../../components/features/board/CommunityBoard";
 
 /* =========================
    Modal Types (학생용)
@@ -168,7 +168,8 @@ function DashboardModal({ activeModal, onClose }) {
 
   return (
     <div className="fixed inset-0 z-40 flex items-center justify-center bg-black/25">
-      <div className="w-full max-w-3xl rounded-2xl bg-white p-6 shadow-xl">
+      {/* 모달 컨테이너: 최대 높이 제한 */}
+      <div className="w-full max-w-3xl max-h-[80vh] rounded-2xl bg-white p-6 shadow-xl overflow-hidden">
         <div className="mb-4 flex justify-between">
           <div>
             <h3 className="text-lg font-semibold">{title}</h3>
@@ -177,7 +178,8 @@ function DashboardModal({ activeModal, onClose }) {
           <button onClick={onClose}>✕</button>
         </div>
 
-        <div className="rounded-xl border border-dashed p-4 text-xs text-slate-500">
+        {/* 콘텐츠 영역: 스크롤 처리 */}
+        <div className="rounded-xl border border-dashed p-4 text-xs text-slate-500 max-h-[60vh] overflow-y-auto">
           {content}
         </div>
       </div>
@@ -211,7 +213,7 @@ function renderModalContent(activeModal) {
         title: "자유 게시판",
         subtitle: "Board · Post · Comment",
         // hint: "게시글 목록 + 댓글 수 + 최신순 정렬 UI를 추천합니다.",
-        content: <FreeBoard />,
+        content: <CommunityBoard />,
       };
 
     case modalTypes.POST_WRITE:

@@ -1,5 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { getPostsByBoard } from "../../../api/PostApi";
+import { getPostsByBoard } from "../../../api/BoardApi";
+
+const pick = (obj, keys, fallback = "") => {
+  for (const k of keys) {
+    if (obj && obj[k] !== undefined && obj[k] !== null && obj[k] !== "")
+      return obj[k];
+  }
+  return fallback;
+};
 
 export default function CommunityBoard() {
   const [active, setActive] = useState("FREE");
@@ -19,40 +27,46 @@ export default function CommunityBoard() {
     { key: "NOTICE", title: "공지사항", desc: "중요한 학교 공지 안내" },
   ];
 
-  // 게시글 불러오기
+  // ✅ 탭(active) 바뀔 때마다 해당 boardType으로 다시 조회
   useEffect(() => {
     setLoading(true);
 
-    getPostsByBoard("자유게시판")
+    getPostsByBoard(active) // ← "FREE" / "QNA" / "NOTICE"
       .then((res) => {
-        const {data}=  res
-        console.log(data)
-        setPosts(data)
+        const { data } = res;
+        setPosts(Array.isArray(data) ? data : []);
       })
       .catch((err) => {
         console.error(err);
         alert("게시글 불러오기 실패");
+        setPosts([]);
       })
       .finally(() => setLoading(false));
-  }, ["자유게시판"]);
+  }, [active]);
 
   // 댓글 추가
   const addComment = () => {
     if (!commentInput.trim() || !selectedPost) return;
 
+    const postKey = selectedPost.postId ?? selectedPost.id; // 방어
+    if (!postKey) return;
+
     setComments((prev) => ({
       ...prev,
-      [selectedPost.id]: [
-        ...(prev[selectedPost.id] || []),
-        {
-          text: commentInput,
-          date: new Date().toLocaleString(),
-        },
+      [postKey]: [
+        ...(prev[postKey] || []),
+        { text: commentInput, date: new Date().toLocaleString() },
       ],
     }));
 
     setCommentInput("");
   };
+
+  const selectedBoardType = pick(
+    selectedPost,
+    ["boardType", "board", "type"],
+    ""
+  );
 
   return (
     <div className="w-full max-h-[80vh] overflow-y-auto bg-gradient-to-b from-sky-50 to-white px-4 py-6">
@@ -80,38 +94,46 @@ export default function CommunityBoard() {
             </button>
           ))}
         </div>
+
         <section className="rounded-2xl border border-sky-100 bg-white p-5 shadow-sm">
-          <ul className="space-y-3">
-            {Array.isArray(posts) && posts.length > 0 ? (
-              posts.map((Post) => (
-                <li
-                  key={Post.postId}
-                  onClick={() => setSelectedPost(Post)}
-                  className="cursor-pointer rounded-lg border border-sky-100 p-3 hover:bg-sky-50"
-                >
-                  <div className="text-sm font-medium text-sky-900">
-                    {Post.title}
-                  </div>
-                  <div className="text-xs text-sky-600 mt-0.5">
-                    {Post.createdAt}
-                  </div>
+          {loading ? (
+            <div className="text-sm text-sky-400 text-center py-6">
+              불러오는 중...
+            </div>
+          ) : (
+            <ul className="space-y-3">
+              {Array.isArray(posts) && posts.length > 0 ? (
+                posts.map((Post) => (
+                  <li
+                    key={Post.postId}
+                    onClick={() => setSelectedPost(Post)}
+                    className="cursor-pointer rounded-lg border border-sky-100 p-3 hover:bg-sky-50"
+                  >
+                    <div className="text-sm font-medium text-sky-900">
+                      {pick(Post, ["title"], "(제목 없음)")}
+                    </div>
+                    <div className="text-xs text-sky-600 mt-0.5">
+                      {pick(Post, ["createdAt"], "-")}
+                    </div>
+                  </li>
+                ))
+              ) : (
+                <li className="text-sm text-sky-400 text-center py-6">
+                  게시글이 없습니다.
                 </li>
-              ))
-            ) : (
-              <li className="text-sm text-sky-400 text-center py-6">
-                게시글이 없습니다.
-              </li>
-            )}
-          </ul>
+              )}
+            </ul>
+          )}
         </section>
       </div>
+
       {selectedPost && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
           <div className="w-full max-w-2xl max-h-[80vh] overflow-y-auto rounded-2xl bg-white p-6 shadow-lg">
             {/* Header */}
             <div className="flex justify-between items-start mb-4">
               <h2 className="text-xl font-bold text-sky-900">
-                {selectedPost.title}
+                {pick(selectedPost, ["title"], "(제목 없음)")}
               </h2>
               <button
                 onClick={() => setSelectedPost(null)}
@@ -123,22 +145,23 @@ export default function CommunityBoard() {
 
             {/* Content */}
             <p className="text-sky-800 mb-4 whitespace-pre-line">
-              {selectedPost.content}
+              {pick(selectedPost, ["content"], "(내용 없음)")}
             </p>
 
             <div className="text-xs text-sky-500 mb-6">
-              {selectedPost.author} · {selectedPost.date}
+              {pick(selectedPost, ["nickname", "author", "writer"], "익명")} ·{" "}
+              {pick(selectedPost, ["createdAt", "date"], "-")}
             </div>
 
             {/* Comments / Answers */}
-            {selectedPost.board !== "NOTICE" ? (
+            {selectedBoardType !== "NOTICE" ? (
               <>
                 <h3 className="text-sm font-semibold text-sky-900 mb-2">
-                  {selectedPost.board === "QNA" ? "답변" : "댓글"}
+                  {selectedBoardType === "QNA" ? "답변" : "댓글"}
                 </h3>
 
                 <ul className="space-y-2 mb-4">
-                  {(comments[selectedPost.id] || []).map((c, i) => (
+                  {(comments[selectedPost.postId] || []).map((c, i) => (
                     <li
                       key={i}
                       className="rounded-lg bg-sky-50 px-3 py-2 text-sm"
@@ -156,7 +179,7 @@ export default function CommunityBoard() {
                     onChange={(e) => setCommentInput(e.target.value)}
                     className="flex-1 rounded-lg border border-sky-200 px-3 py-2 text-sm"
                     placeholder={
-                      selectedPost.board === "QNA"
+                      selectedBoardType === "QNA"
                         ? "답변을 입력하세요"
                         : "댓글을 입력하세요"
                     }
