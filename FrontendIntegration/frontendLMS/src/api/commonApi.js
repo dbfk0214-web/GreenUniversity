@@ -22,7 +22,7 @@ export const typeEnum = {
  * @param {string} userEmail - 인증 헤더용 이메일
  * @param {object} data - 전송할 데이터 (post, put 용)
  */
-const sendAuthRequest = async (method, url, userEmail, data = null) => {
+export const sendAuthRequest = async (method, url, userEmail, data = null) => {
   try {
     const config = {
       method: method,
