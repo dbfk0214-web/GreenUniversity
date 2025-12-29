@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 
 const CourseEnroll = () => {
-  // ───────────────── 수강 가능 강의 더미 ─────────────────
   const [courses, setCourses] = useState([
     {
       id: 1,
@@ -9,11 +8,10 @@ const CourseEnroll = () => {
       name: "웹 프로그래밍",
       professor: "김교수",
       credit: 3,
-      dayTime: "월 · 수 09:00 ~ 10:15",
-      room: "IT관 301호",
-      capacity: 45,
+      time: "월·수 09:00-10:15",
       enrolled: 42,
-      status: "OPEN", // OPEN | FULL | ENROLLED
+      capacity: 45,
+      isEnrolled: false,
     },
     {
       id: 2,
@@ -21,11 +19,10 @@ const CourseEnroll = () => {
       name: "자료구조",
       professor: "이교수",
       credit: 3,
-      dayTime: "화 · 목 13:00 ~ 14:15",
-      room: "공학관 204호",
-      capacity: 40,
+      time: "화·목 13:00-14:15",
       enrolled: 40,
-      status: "FULL",
+      capacity: 40,
+      isEnrolled: false,
     },
     {
       id: 3,
@@ -33,128 +30,75 @@ const CourseEnroll = () => {
       name: "React 심화",
       professor: "박교수",
       credit: 3,
-      dayTime: "금 10:00 ~ 12:50",
-      room: "IT관 402호",
+      time: "금 10:00-12:50",
+      enrolled: 28,
       capacity: 30,
-      enrolled: 30,
-      status: "ENROLLED",
+      isEnrolled: false,
     },
   ]);
 
-  // ───────────────── 수강신청 / 취소 ─────────────────
   const handleEnroll = (id) => {
     setCourses((prev) =>
       prev.map((c) =>
-        c.id === id
-          ? { ...c, status: "ENROLLED", enrolled: c.enrolled + 1 }
-          : c
+        c.id === id ? { ...c, isEnrolled: true, enrolled: c.enrolled + 1 } : c
       )
     );
-    alert("수강 신청이 완료되었습니다. (더미)");
   };
 
-  const handleCancel = (id) => {
-    setCourses((prev) =>
-      prev.map((c) =>
-        c.id === id
-          ? { ...c, status: "OPEN", enrolled: c.enrolled - 1 }
-          : c
-      )
-    );
-    alert("수강 신청이 취소되었습니다. (더미)");
-  };
-
-  // ───────────────── JSX ─────────────────
   return (
-    <div className="space-y-4 text-[0.85rem]">
-      {/* 안내 */}
-      <div className="rounded-md border border-slate-200 bg-slate-50 px-3 py-2 text-slate-600">
-        ※ 수강 가능 강의 목록입니다. 정원 초과 시 신청이 제한됩니다.
-      </div>
+    <div className="max-w-4xl mx-auto p-6">
+      <h1 className="text-2xl font-bold mb-6">수강신청</h1>
 
-      {/* 강의 목록 */}
-      <div className="overflow-x-auto">
-        <table className="min-w-full border-collapse">
-          <thead>
-            <tr className="border-b border-slate-200 bg-slate-50 text-left text-slate-600">
-              <th className="px-2 py-2">과목</th>
-              <th className="px-2 py-2">담당교수</th>
-              <th className="px-2 py-2">학점</th>
-              <th className="px-2 py-2">시간</th>
-              <th className="px-2 py-2">정원</th>
-              <th className="px-2 py-2 text-center">신청</th>
-            </tr>
-          </thead>
-          <tbody>
-            {courses.map((c, idx) => (
-              <tr
-                key={c.id}
-                className={`border-b border-slate-100 ${
-                  idx % 2 === 0 ? "bg-white" : "bg-slate-50/60"
-                }`}
-              >
-                <td className="px-2 py-2 align-middle">
-                  <p className="font-medium text-slate-800">{c.name}</p>
-                  <p className="text-[0.7rem] text-slate-500">
-                    {c.code} · {c.room}
-                  </p>
-                </td>
-                <td className="px-2 py-2 align-middle text-slate-700">
-                  {c.professor}
-                </td>
-                <td className="px-2 py-2 align-middle text-slate-700">
-                  {c.credit}
-                </td>
-                <td className="px-2 py-2 align-middle text-slate-700">
-                  {c.dayTime}
-                </td>
-                <td className="px-2 py-2 align-middle text-slate-700">
-                  {c.enrolled} / {c.capacity}
-                </td>
-                <td className="px-2 py-2 text-center align-middle">
-                  {c.status === "OPEN" && (
+      <div className="space-y-3">
+        {courses.map((course) => {
+          const isFull = course.enrolled >= course.capacity;
+
+          return (
+            <div
+              key={course.id}
+              className="border rounded-lg p-4 hover:shadow-md transition-shadow"
+            >
+              <div className="flex items-start justify-between">
+                <div className="flex-1">
+                  <div className="flex items-center gap-3 mb-2">
+                    <h3 className="text-lg font-semibold">{course.name}</h3>
+                    <span className="text-sm text-gray-500">{course.code}</span>
+                    <span className="text-sm text-gray-500">
+                      {course.credit}학점
+                    </span>
+                  </div>
+                  <div className="text-sm text-gray-600 space-y-1">
+                    <p>담당: {course.professor}</p>
+                    <p>시간: {course.time}</p>
+                    <p>
+                      정원: {course.enrolled}/{course.capacity}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="ml-4">
+                  {course.isEnrolled ? (
+                    <span className="px-4 py-2 bg-green-100 text-green-700 rounded inline-block">
+                      신청완료
+                    </span>
+                  ) : isFull ? (
+                    <span className="px-4 py-2 bg-gray-200 text-gray-500 rounded inline-block">
+                      마감
+                    </span>
+                  ) : (
                     <button
-                      onClick={() => handleEnroll(c.id)}
-                      className="rounded-md bg-emerald-500 px-3 py-1 text-[0.75rem] font-medium text-white hover:bg-emerald-600"
+                      onClick={() => handleEnroll(course.id)}
+                      className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors"
                     >
                       신청
                     </button>
                   )}
-                  {c.status === "FULL" && (
-                    <span className="rounded-md bg-slate-200 px-3 py-1 text-[0.7rem] text-slate-500">
-                      정원 마감
-                    </span>
-                  )}
-                  {c.status === "ENROLLED" && (
-                    <button
-                      onClick={() => handleCancel(c.id)}
-                      className="rounded-md bg-rose-500 px-3 py-1 text-[0.75rem] font-medium text-white hover:bg-rose-600"
-                    >
-                      취소
-                    </button>
-                  )}
-                </td>
-              </tr>
-            ))}
-            {courses.length === 0 && (
-              <tr>
-                <td
-                  colSpan={6}
-                  className="px-2 py-4 text-center text-slate-400"
-                >
-                  수강 가능한 강의가 없습니다.
-                </td>
-              </tr>
-            )}
-          </tbody>
-        </table>
+                </div>
+              </div>
+            </div>
+          );
+        })}
       </div>
-
-      {/* 하단 요약 */}
-      <p className="text-[0.75rem] text-slate-400">
-        ※ 실제 서비스에서는 시간표 중복, 최대 학점 제한, 수강신청 기간 체크
-        로직이 서버에서 검증됩니다.
-      </p>
     </div>
   );
 };

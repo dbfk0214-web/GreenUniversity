@@ -4,10 +4,8 @@ import MyGrades from "../../components/features/grade/MyGrades";
 import CourseGrades from "../../components/features/grade/CourseGrades";
 import ScoreDetail from "../../components/features/grade/ScoreDetail";
 import FinalGradeView from "../../components/features/grade/FinalGradeView";
-import GpaOverview from "../../components/features/grade/GpaOverview";
 import AttendanceView from "../../components/features/attendance/AttendanceView";
 import ExamScheduleView from "../../components/features/exam/ExamScheduleView";
-import GradeAppeal from "../../components/features/grade/GradeAppeal";
 
 /* =========================
    Modal Types (학생용)
@@ -82,11 +80,6 @@ export default function StudentGradeDashboard() {
               description="학기별 최종 등급과 평점을 확인합니다."
               onClick={() => setActiveModal(modalTypes.FINAL_GRADE)}
             />
-            <DashboardButton
-              label="평균 평점(GPA)"
-              description="누적 GPA 현황을 확인합니다."
-              onClick={() => setActiveModal(modalTypes.GPA_OVERVIEW)}
-            />
           </div>
         </section>
 
@@ -113,16 +106,6 @@ export default function StudentGradeDashboard() {
               label="시험 일정 조회"
               description="중간·기말 시험 일정을 확인합니다."
               onClick={() => setActiveModal(modalTypes.EXAM_SCHEDULE)}
-            />
-            <DashboardButton
-              label="학사 경고 내역"
-              description="학사 경고 여부 및 사유를 확인합니다."
-              onClick={() => setActiveModal(modalTypes.ACADEMIC_WARNING)}
-            />
-            <DashboardButton
-              label="성적 이의 신청"
-              description="성적 이의 신청을 제출합니다."
-              onClick={() => setActiveModal(modalTypes.GRADE_APPEAL)}
             />
           </div>
         </section>
@@ -258,14 +241,6 @@ function renderModalContent(activeModal) {
         content: <FinalGradeView />,
       };
 
-    case modalTypes.GPA_OVERVIEW:
-      return {
-        title: "평균 평점(GPA)",
-        subtitle: "GPA Overview",
-        // hint: "그래프 + 기준선 표시를 추천합니다.",
-        content: <GpaOverview />,
-      };
-
     case modalTypes.ATTENDANCE_STATUS:
       return {
         title: "출결 현황",
@@ -280,22 +255,6 @@ function renderModalContent(activeModal) {
         subtitle: "Exam Schedule",
         // hint: "캘린더 또는 리스트 UI를 추천합니다.",
         content: <ExamScheduleView />,
-      };
-
-    case modalTypes.ACADEMIC_WARNING:
-      return {
-        title: "학사 경고 내역",
-        subtitle: "Academic Warning",
-        // hint: "경고 사유 및 기준 표시를 추천합니다.",
-        content: <ExamScheduleView />,
-      };
-
-    case modalTypes.GRADE_APPEAL:
-      return {
-        title: "성적 이의 신청",
-        subtitle: "Grade Appeal",
-        // hint: "사유 입력 + 증빙 첨부 UI를 추천합니다.",
-        content: <GradeAppeal />,
       };
 
     default:

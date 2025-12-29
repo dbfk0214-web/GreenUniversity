@@ -54,8 +54,8 @@ export default function AcademicLmsDashboard() {
 
           <div className="space-y-3">
             <DashboardButton
-              label="수강 신청 / 취소"
-              description="개설된 강의를 조회하고 수강 신청 또는 취소합니다."
+              label="수강 신청"
+              description="개설된 강의를 조회하고 수강 신청합니다."
               onClick={() => setActiveModal(modalTypes.COURSE_ENROLL)}
             />
             <DashboardButton
@@ -185,7 +185,7 @@ function renderModalContent(activeModal) {
   switch (activeModal) {
     case modalTypes.COURSE_ENROLL:
       return {
-        title: "수강 신청 / 취소",
+        title: "수강 신청",
         subtitle: "CourseOffering · Enrollment",
         // hint: "개설 강의 목록 + 신청/취소 버튼 구조를 추천합니다.",
         content: <CourseEnroll />,

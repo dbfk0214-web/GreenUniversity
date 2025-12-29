@@ -5,7 +5,6 @@ import TuitionInvoice from "../../components/features/finance/TuitionInvoice";
 import TuitionPaymentStatus from "../../components/features/finance/TuitionPaymentStatus";
 import ScholarshipEligibility from "../../components/features/scholarship/ScholarshipEligibility";
 import ScholarshipApply from "../../components/features/scholarship/ScholarshipApply";
-import AppealHistory from "../../components/features/appeal/AppealHistory";
 
 /* =========================
    Modal Types (소분류)
@@ -64,26 +63,17 @@ export default function CertificateRecordDashboard() {
             <DashboardButton
               label="등록금 납부 현황"
               description="등록금 납부 여부 및 이력을 조회합니다."
-              onClick={() =>
-                setActiveModal(modalTypes.TUITION_PAYMENT_STATUS)
-              }
+              onClick={() => setActiveModal(modalTypes.TUITION_PAYMENT_STATUS)}
             />
             <DashboardButton
               label="장학금 가능 여부"
               description="신청 가능한 장학금 여부를 확인합니다."
-              onClick={() =>
-                setActiveModal(modalTypes.SCHOLARSHIP_ELIGIBILITY)
-              }
+              onClick={() => setActiveModal(modalTypes.SCHOLARSHIP_ELIGIBILITY)}
             />
             <DashboardButton
               label="장학금 신청"
               description="장학금을 신청하고 진행 상태를 확인합니다."
               onClick={() => setActiveModal(modalTypes.SCHOLARSHIP_APPLY)}
-            />
-            <DashboardButton
-              label="이의 신청 내역"
-              description="성적·등록금 관련 이의 신청 내역을 확인합니다."
-              onClick={() => setActiveModal(modalTypes.APPEAL_HISTORY)}
             />
           </div>
         </section>
@@ -117,7 +107,9 @@ function SectionHeader({
   return (
     <div className="mb-4 flex items-center justify-between">
       <div>
-        <p className={`text-xs font-semibold uppercase ${tagColorMap[tagColor]}`}>
+        <p
+          className={`text-xs font-semibold uppercase ${tagColorMap[tagColor]}`}
+        >
           {tag}
         </p>
         <h2 className="mt-1 text-lg font-semibold text-slate-900">{title}</h2>
@@ -170,9 +162,7 @@ function DashboardModal({ activeModal, onClose }) {
           <button onClick={onClose}>✕</button>
         </div>
 
-        <div className="rounded-xl border border-dashed p-4">
-          {content}
-        </div>
+        <div className="rounded-xl border border-dashed p-4">{content}</div>
       </div>
     </div>
   );
@@ -212,12 +202,6 @@ function renderModalContent(activeModal) {
         title: "장학금 신청",
         subtitle: "Scholarship Application",
         content: <ScholarshipApply />,
-      };
-    case modalTypes.APPEAL_HISTORY:
-      return {
-        title: "이의 신청 내역",
-        subtitle: "Appeal",
-        content: <AppealHistory />,
       };
     default:
       return {};
