@@ -206,11 +206,12 @@ function DashboardButton({ label, description, onClick }) {
 function DashboardModal({ activeModal, onClose }) {
   if (!activeModal) return null;
 
-  const { title, subtitle, hint } = renderModalContent(activeModal);
+  const { title, subtitle, hint, content } = renderModalContent(activeModal);
 
   return (
     <div className="fixed inset-0 z-40 flex items-center justify-center bg-black/25">
-      <div className="w-full max-w-3xl rounded-2xl bg-white p-6 shadow-xl">
+      {/* 모달 컨테이너: 최대 높이 제한 */}
+      <div className="w-full max-w-3xl max-h-[80vh] rounded-2xl bg-white p-6 shadow-xl overflow-hidden">
         <div className="mb-4 flex justify-between">
           <div>
             <h3 className="text-lg font-semibold">{title}</h3>
@@ -219,8 +220,9 @@ function DashboardModal({ activeModal, onClose }) {
           <button onClick={onClose}>✕</button>
         </div>
 
-        <div className="rounded-xl border border-dashed p-4 text-xs text-slate-500">
-          {hint}
+        {/* 콘텐츠 영역: 스크롤 처리 */}
+        <div className="rounded-xl border border-dashed p-4 text-xs text-slate-500 max-h-[60vh] overflow-y-auto">
+          {content}
         </div>
       </div>
     </div>
@@ -237,7 +239,7 @@ function renderModalContent(activeModal) {
         title: "학기 관리",
         subtitle: "AcademicTerm",
         // hint: "학기 시작/종료일, 현재 학기 설정 및 수강신청 기간 설정 UI를 추천합니다.",
-        hint: <TermManage />,
+        content: <TermManage />,
       };
 
     case modalTypes.COURSE_MANAGE:
@@ -245,7 +247,7 @@ function renderModalContent(activeModal) {
         title: "과목 관리",
         subtitle: "Course",
         // hint: "과목 코드, 과목명, 학점 입력 및 활성/비활성 관리 UI를 추천합니다.",
-        hint: <CourseManage />,
+        content: <CourseManage />,
       };
 
     case modalTypes.COURSE_OFFERING:
@@ -253,7 +255,7 @@ function renderModalContent(activeModal) {
         title: "강의 개설",
         subtitle: "CourseOffering",
         // hint: "학기 선택 → 과목 선택 → 담당 교수 배정 → 정원 설정 플로우를 추천합니다.",
-        hint: <CourseOfferingManage />,
+        content: <CourseOfferingManage />,
       };
 
     case modalTypes.CLASS_SECTION:
@@ -261,7 +263,7 @@ function renderModalContent(activeModal) {
         title: "분반 관리",
         subtitle: "ClassSection",
         // hint: "분반 번호, 정원, 연결된 강의 정보 설정 UI를 추천합니다.",
-        hint: <ClassSectionManage />,
+        content: <ClassSectionManage />,
       };
 
     case modalTypes.TIMETABLE_MANAGE:
@@ -269,7 +271,7 @@ function renderModalContent(activeModal) {
         title: "시간표 관리",
         subtitle: "TimeTable · Classroom",
         // hint: "요일/교시 기반 시간표 + 강의실 중복 체크 로직을 추천합니다.",
-        hint: <TimetableManage />,
+        content: <TimetableManage />,
       };
 
     default:

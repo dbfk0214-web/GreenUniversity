@@ -37,7 +37,7 @@ export default function AdminSystemCommunityDashboard() {
       </header>
 
       {/* ===== 중분류 카드 ===== */}
-      <div className="grid gap-6 lg:grid-cols-3">
+      <div className="grid gap-6 lg:grid-cols-2">
         {/* ===============================
             중분류 1: 전체 공지 관리
         =============================== */}
@@ -83,26 +83,6 @@ export default function AdminSystemCommunityDashboard() {
               onClick={() => setActiveModal(modalTypes.COMMENT_MODERATION)}
             />
           </div>
-        </section>
-
-        {/* ===============================
-            중분류 3: 검색 기록 조회
-        =============================== */}
-        <section className="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-slate-100">
-          <SectionHeader
-            tag="Analytics"
-            tagColor="amber"
-            title="검색 기록 조회"
-            description="사용자 검색 키워드 통계를 확인합니다."
-            badge="Log"
-            badgeColor="amber"
-          />
-
-          <DashboardButton
-            label="검색 기록 통계"
-            description="검색 키워드 및 빈도를 분석합니다."
-            onClick={() => setActiveModal(modalTypes.SEARCH_HISTORY)}
-          />
         </section>
       </div>
 
@@ -180,7 +160,7 @@ function DashboardButton({ label, description, onClick }) {
 function DashboardModal({ activeModal, onClose }) {
   if (!activeModal) return null;
 
-  const { title, subtitle, hint } = renderModalContent(activeModal);
+  const { title, subtitle, hint, content } = renderModalContent(activeModal);
 
   return (
     <div className="fixed inset-0 z-40 flex items-center justify-center bg-black/25">
@@ -194,7 +174,7 @@ function DashboardModal({ activeModal, onClose }) {
         </div>
 
         <div className="rounded-xl border border-dashed p-4 text-xs text-slate-500">
-          {hint}
+          {content}
         </div>
       </div>
     </div>
@@ -211,7 +191,7 @@ function renderModalContent(activeModal) {
         title: "전체 공지 관리",
         subtitle: "Notice",
         // hint: "중요 공지 여부, 게시 기간 설정 및 상단 고정 처리 UI를 추천합니다.",
-        hint: <NoticeManage />,
+        content: <NoticeManage />,
       };
 
     case modalTypes.POST_MODERATION:
@@ -219,7 +199,7 @@ function renderModalContent(activeModal) {
         title: "게시글 관리",
         subtitle: "Post",
         // hint: "신고 횟수 표시 + 삭제 사유 기록 UI를 추천합니다.",
-        hint: <PostModeration />,
+        content: <PostModeration />,
       };
 
     case modalTypes.COMMENT_MODERATION:
@@ -227,15 +207,7 @@ function renderModalContent(activeModal) {
         title: "댓글 관리",
         subtitle: "Comment",
         // hint: "부적절 댓글 필터링 및 삭제 로그 관리 UI를 추천합니다.",
-        hint: <CommentModeration />,
-      };
-
-    case modalTypes.SEARCH_HISTORY:
-      return {
-        title: "검색 기록 조회",
-        subtitle: "SearchHistory",
-        // hint: "기간별 인기 검색어 차트 및 검색 빈도 테이블을 추천합니다.",
-        hint: <SearchHistory />,
+        content: <CommentModeration />,
       };
 
     default:

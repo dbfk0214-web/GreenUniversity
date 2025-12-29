@@ -2,9 +2,7 @@
 import React, { useState } from "react";
 import MyInfo from "../../components/features/user/MyInfo";
 import PasswordManage from "../../components/features/user/PasswordManage";
-import LeaveRequest from "../../components/features/user/LeaveRequest";
-import ReturnRequest from "../../components/features/user/ReturnRequest";
-import StudentStatusHistory from "../../components/features/user/StudentStatusHistory";
+import StudentStatusApproval from "../../components/features/user/StudentStatusApproval";
 
 /* =========================
    Modal Types (학생용)
@@ -81,18 +79,8 @@ export default function StudentUserDashboard() {
 
           <div className="space-y-3">
             <DashboardButton
-              label="휴학 신청"
-              description="휴학 신청을 진행합니다."
-              onClick={() => setActiveModal(modalTypes.LEAVE_REQUEST)}
-            />
-            <DashboardButton
-              label="복학 신청"
-              description="복학 신청을 진행합니다."
-              onClick={() => setActiveModal(modalTypes.RETURN_REQUEST)}
-            />
-            <DashboardButton
-              label="학적 변동 처리 내역"
-              description="신청 결과 및 처리 상태를 확인합니다."
+              label="학적 변동 처리"
+              description="학작 변동 신청 및 처리 상태를 확인합니다."
               onClick={() => setActiveModal(modalTypes.STATUS_HISTORY)}
             />
           </div>
@@ -171,7 +159,7 @@ function DashboardButton({ label, description, onClick }) {
 function DashboardModal({ activeModal, onClose }) {
   if (!activeModal) return null;
 
-  const { title, subtitle, hint } = renderModalContent(activeModal);
+  const { title, subtitle, hint, content } = renderModalContent(activeModal);
 
   return (
     <div className="fixed inset-0 z-40 flex items-center justify-center bg-black/25">
@@ -185,7 +173,7 @@ function DashboardModal({ activeModal, onClose }) {
         </div>
 
         <div className="rounded-xl border border-dashed p-4 text-xs text-slate-500">
-          {hint}
+          {content}
         </div>
       </div>
     </div>
@@ -202,7 +190,8 @@ function renderModalContent(activeModal) {
         title: "내 정보 조회",
         subtitle: "User",
         // hint: "이메일, 이름, 학번 등 기본 정보 표시를 추천합니다.",
-        hint: <MyInfo />,
+        hint: "",
+        content: <MyInfo />,
       };
 
     case modalTypes.PASSWORD_CHANGE:
@@ -210,38 +199,19 @@ function renderModalContent(activeModal) {
         title: "비밀번호 변경",
         subtitle: "User",
         // hint: "현재 비밀번호 검증 + 새 비밀번호 규칙 안내를 추천합니다.",
-        hint: <PasswordManage />,
+        hint: "",
+        content: <PasswordManage />,
       };
 
-    case modalTypes.LEAVE_REQUEST:
-      return {
-        title: "휴학 신청",
-        subtitle: "StudentStatusHistory",
-        // hint: "휴학 사유, 기간 선택 UI를 추천합니다.",
-        hint: <LeaveRequest />,
-      };
-
-    case modalTypes.RETURN_REQUEST:
-      return {
-        title: "복학 신청",
-        subtitle: "StudentStatusHistory",
-        // hint: "복학 희망 학기 선택 UI를 추천합니다.",
-        hint: <ReturnRequest />,
-      };
-
+    // 휴학 : StudentStatusHistory
+    // 복학 : ReturnRequest
     case modalTypes.STATUS_HISTORY:
       return {
         title: "학적 변동 처리 내역",
         subtitle: "StudentStatusHistory",
         // hint: "신청 유형, 처리 상태, 승인 일자 테이블 구성을 추천합니다.",
-        hint: <StudentStatusHistory />,
-      };
-
-    default:
-      return {
-        title: "개인 · 행정",
-        subtitle: "",
         hint: "",
+        content: <StudentStatusApproval />,
       };
   }
 }

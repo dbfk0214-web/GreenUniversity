@@ -149,7 +149,7 @@ function DashboardButton({ label, description, onClick }) {
 function DashboardModal({ activeModal, onClose }) {
   if (!activeModal) return null;
 
-  const { title, subtitle, hint } = renderModalContent(activeModal);
+  const { title, subtitle, hint, content } = renderModalContent(activeModal);
 
   return (
     <div className="fixed inset-0 z-40 flex items-center justify-center bg-black/25">
@@ -163,7 +163,7 @@ function DashboardModal({ activeModal, onClose }) {
         </div>
 
         <div className="rounded-xl border border-dashed p-4 text-xs text-slate-500">
-          {hint}
+          {content}
         </div>
       </div>
     </div>
@@ -180,7 +180,7 @@ function renderModalContent(activeModal) {
         title: "등록금 고지서 확인",
         subtitle: "TuitionPayment",
         // hint: "학기별 고지 금액, 납부 상태(PAID / UNPAID), 납부 일자 표시를 추천합니다.",
-        hint: <TuitionBillView />,
+        content: <TuitionBillView />,
       };
 
     case modalTypes.SCHOLARSHIP_HISTORY:
@@ -188,14 +188,7 @@ function renderModalContent(activeModal) {
         title: "장학 내역 조회",
         subtitle: "ScholarshipHistory",
         // hint: "장학금 유형, 수혜 학기, 지급 금액 테이블 구성을 추천합니다.",
-        hint: <ScholarshipHistory />,
-      };
-
-    default:
-      return {
-        title: "재무 · 장학",
-        subtitle: "",
-        hint: "",
+        content: <ScholarshipHistory />,
       };
   }
 }

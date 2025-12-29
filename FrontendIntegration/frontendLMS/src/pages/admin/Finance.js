@@ -153,7 +153,7 @@ function DashboardButton({ label, description, onClick }) {
 function DashboardModal({ activeModal, onClose }) {
   if (!activeModal) return null;
 
-  const { title, subtitle, hint } = renderModalContent(activeModal);
+  const { title, subtitle, hint, content } = renderModalContent(activeModal);
 
   return (
     <div className="fixed inset-0 z-40 flex items-center justify-center bg-black/25">
@@ -167,7 +167,7 @@ function DashboardModal({ activeModal, onClose }) {
         </div>
 
         <div className="rounded-xl border border-dashed p-4 text-xs text-slate-500">
-          {hint}
+          {content}
         </div>
       </div>
     </div>
@@ -184,7 +184,7 @@ function renderModalContent(activeModal) {
         title: "등록금 책정 및 고지",
         subtitle: "TuitionPayment",
         // hint: "학생/학기 선택 → 등록금 금액 입력 → 납부 상태(PAID/UNPAID) 관리 UI를 추천합니다.",
-        hint: <TuitionManage />,
+        content: <TuitionManage />,
       };
 
     case modalTypes.SCHOLARSHIP_TYPE:
@@ -192,7 +192,7 @@ function renderModalContent(activeModal) {
         title: "장학금 종류 관리",
         subtitle: "Scholarship",
         // hint: "장학금명, 지급 기준, 금액/비율 설정 UI를 추천합니다.",
-        hint: <ScholarshipTypeManage />,
+        content: <ScholarshipTypeManage />,
       };
 
     case modalTypes.SCHOLARSHIP_ASSIGN:
@@ -200,7 +200,7 @@ function renderModalContent(activeModal) {
         title: "장학금 수여",
         subtitle: "ScholarshipHistory",
         // hint: "학생 선택 → 장학금 선택 → 수여 금액 및 이력 관리 UI를 추천합니다.",
-        hint: <ScholarshipAssign />,
+        content: <ScholarshipAssign />,
       };
 
     default:

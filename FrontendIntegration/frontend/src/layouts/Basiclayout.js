@@ -8,11 +8,8 @@ const BasicLayout = ({ children }) => {
   const datas = {
     aboutGreen: {
       campusguide: "aboutgreen/campusguide",
-      greenvision: "aboutgreen/greenvision",
-      historyofgreen: "aboutgreen/historyofgreen",
       president: "aboutgreen/president",
       universityoverview: "aboutgreen/universityoverview",
-      universitysymbols: "aboutgreen/universitysymbols",
     },
     academicsupport: {
       academicinformation: "academicsupport/academicinformation",
@@ -37,10 +34,6 @@ const BasicLayout = ({ children }) => {
       serviceguide: "campuslife/serviceguide",
       studentactivities: "campuslife/studentactivities",
     },
-    extraservices: {
-      chatbot: "extraservices/chatbot",
-      donate: "extraservices/donate",
-    },
     information: {
       careers: "information/careers",
       faq: "information/faq",
@@ -54,11 +47,11 @@ const BasicLayout = ({ children }) => {
     },
   };
   return (
-    <div className="w-full overflowx--hidden h-screen flex flex-col">
-      <div className="h-20 shrink-0 bg-sky-300">
+    <div className="w-full overflowx--hidden h-screen flex flex-col mt-10">
+      <div className="h-10 shrink-0 bg-sky-300">
         <Header />
       </div>
-      <div className="w-full h-screen">{children}</div>
+      <div className="w-full h-screen mt-5">{children}</div>
       <div></div>
     </div>
   );

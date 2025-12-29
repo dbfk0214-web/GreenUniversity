@@ -116,7 +116,7 @@ function DashboardButton({ label, description, onClick }) {
 function DashboardModal({ activeModal, onClose }) {
   if (!activeModal) return null;
 
-  const { title, subtitle, hint } = renderModalContent(activeModal);
+  const { title, subtitle, hint, content } = renderModalContent(activeModal);
 
   return (
     <div className="fixed inset-0 z-40 flex items-center justify-center bg-black/25">
@@ -130,7 +130,7 @@ function DashboardModal({ activeModal, onClose }) {
         </div>
 
         <div className="rounded-xl border border-dashed p-4 text-xs text-slate-500">
-          {hint}
+          {content}
         </div>
       </div>
     </div>
@@ -147,7 +147,7 @@ function renderModalContent(activeModal) {
         title: "강의 평가 조회",
         subtitle: "Review",
         // hint: "과목/학기 필터 + 평균 평점 그래프 + 익명 코멘트 리스트 구성을 추천합니다.",
-        hint: <CourseReviewView />,
+        content: <CourseReviewView />,
       };
 
     default:

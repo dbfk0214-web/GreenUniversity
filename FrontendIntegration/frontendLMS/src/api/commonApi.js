@@ -90,11 +90,27 @@ export const createCrudApi = (tableName) => {
 };
 
 const createExtraApi = (tableName) => ({
+  //범용 키워드 검색(이메일 등) (T-3 내 시간표 조회 등에 사용)
   findByKeyword: async (selectKeyword, searchText) => {
     console.log(`${tableName} keyword`);
     // API_SERVER_HOST =>
     return axios
       .get(`${API_SERVER_HOST}/api/${tableName}/${selectKeyword}/${searchText}`)
+      .then((r) => r.data);
+  },
+  //특정 offeringId 로 목록 조회하는 경우의 api 사용처(T-2)
+  findListByOffering: async (offeringId) => {
+    console.log(`${tableName} list by offeringId: ${offeringId}`);
+    return axios
+      .get(`${API_SERVER_HOST}/api/${tableName}/list/offering/${offeringId}`)
+      .then((r) => r.data);
+  },
+
+  findMySections: async (userEmail) => {
+    return axios
+      .get(`${API_SERVER_HOST}/api/class-section/my`, {
+        headers: { "X-User-Email": userEmail },
+      })
       .then((r) => r.data);
   },
 });

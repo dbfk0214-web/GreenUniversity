@@ -54,8 +54,8 @@ export default function AcademicLmsDashboard() {
 
           <div className="space-y-3">
             <DashboardButton
-              label="수강 신청 / 취소"
-              description="개설된 강의를 조회하고 수강 신청 또는 취소합니다."
+              label="수강 신청"
+              description="개설된 강의를 조회하고 수강 신청합니다."
               onClick={() => setActiveModal(modalTypes.COURSE_ENROLL)}
             />
             <DashboardButton
@@ -157,7 +157,7 @@ function DashboardButton({ label, description, onClick }) {
 function DashboardModal({ activeModal, onClose }) {
   if (!activeModal) return null;
 
-  const { title, subtitle, hint } = renderModalContent(activeModal);
+  const { title, subtitle, hint, content } = renderModalContent(activeModal);
 
   return (
     <div className="fixed inset-0 z-40 flex items-center justify-center bg-black/25">
@@ -171,7 +171,7 @@ function DashboardModal({ activeModal, onClose }) {
         </div>
 
         <div className="rounded-xl border border-dashed p-4 text-xs text-slate-500">
-          {hint}
+          {content}
         </div>
       </div>
     </div>
@@ -185,45 +185,46 @@ function renderModalContent(activeModal) {
   switch (activeModal) {
     case modalTypes.COURSE_ENROLL:
       return {
-        title: "수강 신청 / 취소",
+        title: "수강 신청",
         subtitle: "CourseOffering · Enrollment",
         // hint: "개설 강의 목록 + 신청/취소 버튼 구조를 추천합니다.",
-        hint: <CourseEnroll />,
+        content: <CourseEnroll />,
       };
     case modalTypes.TIMETABLE:
       return {
         title: "시간표 조회",
         subtitle: "TimeTable",
         // hint: "요일 × 교시 기반 주간 시간표 UI를 추천합니다.",
-        hint: <TimetableView />,
+        content: <TimetableView />,
       };
+
     case modalTypes.ATTENDANCE:
       return {
         title: "출석 현황",
         subtitle: "Attendance",
         // hint: "출석/지각/결석 상태 뱃지 표시를 추천합니다.",
-        hint: <AttendanceView />,
+        content: <AttendanceView />,
       };
     case modalTypes.ASSIGNMENT_LIST:
       return {
         title: "과제 목록",
         subtitle: "Assignment",
         // hint: "마감일 기준 정렬 및 상태 표시를 추천합니다.",
-        hint: <AssignmentList />,
+        content: <AssignmentList />,
       };
     case modalTypes.ASSIGNMENT_SUBMIT:
       return {
         title: "과제 제출",
         subtitle: "Submission · FileAttachment",
         // hint: "파일 업로드 + 제출 이력 테이블 구조가 적합합니다.",
-        hint: <AssignmentSubmit />,
+        content: <AssignmentSubmit />,
       };
     case modalTypes.COURSE_REVIEW:
       return {
         title: "강의 평가",
         subtitle: "Review",
         // hint: "별점 + 텍스트 리뷰 입력 UI를 추천합니다.",
-        hint: <CourseReviewWrite />,
+        content: <CourseReviewWrite />,
       };
     default:
       return {};

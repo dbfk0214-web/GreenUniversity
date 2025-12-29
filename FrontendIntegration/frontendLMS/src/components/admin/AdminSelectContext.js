@@ -13,6 +13,8 @@ const AdminSelectedContext = createContext({
     department: "none",
     enrollment: "none",
     grade: "none",
+    gradeItem: "none",
+    studentScore: "none",
     notice: "none",
     post: "none",
     review: "none",
