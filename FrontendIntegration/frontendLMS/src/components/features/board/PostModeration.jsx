@@ -1,171 +1,304 @@
-import React, { useState } from "react";
+// src/pages/admin/PostModeration.jsx
+import React, { useEffect, useMemo, useState } from "react";
+import { getPosts, getPostDetail, deletePost } from "../../../api/PostApi";
+
+const pick = (obj, keys, fallback = "") => {
+  for (const k of keys) {
+    if (obj && obj[k] !== undefined && obj[k] !== null && obj[k] !== "")
+      return obj[k];
+  }
+  return fallback;
+};
+
+const formatDate = (v) => {
+  if (!v) return "-";
+  // createdAt이 ISO string / timestamp / LocalDateTime string 등일 수 있어 방어적으로 처리
+  const d = new Date(v);
+  if (!Number.isNaN(d.getTime())) return d.toLocaleString();
+  return String(v);
+};
 
 const PostModeration = () => {
-  // ───────────────── 게시글 더미 ─────────────────
-  const initialPosts = [
-    {
-      id: 1,
-      title: "웹프로그래밍 수강 후기",
-      author: "김학생",
-      reportedCount: 0,
-      status: "ACTIVE", // ACTIVE | HIDDEN | DELETED
-      createdAt: "2025-09-08",
-    },
-    {
-      id: 2,
-      title: "이 강의 솔직히 별로임",
-      author: "이예제",
-      reportedCount: 3,
-      status: "HIDDEN",
-      createdAt: "2025-09-09",
-    },
-    {
-      id: 3,
-      title: "과제 너무 많은 거 아님?",
-      author: "박테스트",
-      reportedCount: 5,
-      status: "ACTIVE",
-      createdAt: "2025-09-10",
-    },
-  ];
+  const [posts, setPosts] = useState([]);
+  const [selectedId, setSelectedId] = useState(null);
+  const [detail, setDetail] = useState(null);
 
-  const [posts, setPosts] = useState(initialPosts);
+  const [keyword, setKeyword] = useState("");
+  const [boardType, setBoardType] = useState("ALL");
 
-  // ───────────────── 상태 라벨 ─────────────────
-  const statusLabel = (status) => {
-    if (status === "ACTIVE") return "노출";
-    if (status === "HIDDEN") return "숨김";
-    return "삭제";
+  const [loading, setLoading] = useState(false);
+  const [detailLoading, setDetailLoading] = useState(false);
+  const [error, setError] = useState("");
+
+  const load = async () => {
+    try {
+      setLoading(true);
+      setError("");
+      const data = await getPosts();
+      setPosts(Array.isArray(data) ? data : []);
+    } catch (e) {
+      console.error(e);
+      setError("게시글 목록을 불러오지 못했습니다. (CORS/경로/서버 확인)");
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const statusStyle = (status) => {
-    if (status === "ACTIVE")
-      return "bg-emerald-50 text-emerald-700";
-    if (status === "HIDDEN")
-      return "bg-slate-200 text-slate-600";
-    return "bg-rose-50 text-rose-700";
+  useEffect(() => {
+    load();
+  }, []);
+
+  const filtered = useMemo(() => {
+    const k = keyword.trim().toLowerCase();
+    return posts.filter((p) => {
+      const t = String(
+        pick(p, ["boardType", "type", "category"], "")
+      ).toUpperCase();
+      const title = String(pick(p, ["title", "postTitle"], "")).toLowerCase();
+      const content = String(
+        pick(p, ["content", "postContent"], "")
+      ).toLowerCase();
+      const writer = String(
+        pick(p, ["nickname", "writer", "userName", "email"], "")
+      ).toLowerCase();
+
+      const typeOk = boardType === "ALL" ? true : t === boardType;
+      const keywordOk = !k
+        ? true
+        : title.includes(k) || content.includes(k) || writer.includes(k);
+      return typeOk && keywordOk;
+    });
+  }, [posts, keyword, boardType]);
+
+  const onSelect = async (p) => {
+    const id = pick(p, ["postId", "id", "post_id"]);
+    if (!id) return;
+
+    setSelectedId(id);
+    setDetail(null);
+
+    try {
+      setDetailLoading(true);
+      const d = await getPostDetail(id);
+      setDetail(d);
+    } catch (e) {
+      console.error(e);
+      // 상세 API가 없거나 DTO가 다르면 목록 데이터로라도 보여주기
+      setDetail(p);
+    } finally {
+      setDetailLoading(false);
+    }
   };
 
-  // ───────────────── 숨김 / 복구 ─────────────────
-  const toggleHidden = (id) => {
-    setPosts((prev) =>
-      prev.map((p) => {
-        if (p.id !== id) return p;
-        if (p.status === "DELETED") return p;
-
-        return {
-          ...p,
-          status: p.status === "HIDDEN" ? "ACTIVE" : "HIDDEN",
-        };
-      })
-    );
-  };
-
-  // ───────────────── 삭제 (논리 삭제) ─────────────────
-  const deletePost = (id) => {
-    const ok = window.confirm("이 게시글을 삭제하시겠습니까?");
+  const onDelete = async (id) => {
+    if (!id) return;
+    const ok = window.confirm("정말 삭제할까요?");
     if (!ok) return;
 
-    setPosts((prev) =>
-      prev.map((p) =>
-        p.id === id ? { ...p, status: "DELETED" } : p
-      )
-    );
+    try {
+      await deletePost(id);
+      await load();
+      if (selectedId === id) {
+        setSelectedId(null);
+        setDetail(null);
+      }
+    } catch (e) {
+      console.error(e);
+      alert("삭제 실패 (서버/권한/경로 확인)");
+    }
   };
 
-  // ───────────────── JSX ─────────────────
   return (
-    <div className="space-y-4 text-[0.85rem]">
-      {/* 안내 */}
-      <div className="rounded-md border border-slate-200 bg-slate-50 px-3 py-2 text-slate-600">
-        ※ 신고된 게시글을 검토하고 숨김 또는 삭제 처리할 수 있습니다.
+    <div className="w-full">
+      {/* 상단 헤더 */}
+      <div className="flex items-center justify-between mb-4">
+        <div>
+          <h2 className="text-xl font-bold">게시글 관리</h2>
+          <p className="text-sm text-gray-500">
+            목록 조회 · 검색 · 상세 확인 · 삭제
+          </p>
+        </div>
+        <button
+          onClick={load}
+          className="px-3 py-2 rounded-lg border bg-white hover:bg-gray-50 text-sm"
+        >
+          새로고침
+        </button>
       </div>
 
-      {/* 게시글 테이블 */}
-      <div className="overflow-x-auto">
-        <table className="min-w-full border-collapse">
-          <thead>
-            <tr className="border-b border-slate-200 bg-slate-50 text-left text-slate-600">
-              <th className="px-2 py-2">제목</th>
-              <th className="px-2 py-2">작성자</th>
-              <th className="px-2 py-2 text-center">신고 수</th>
-              <th className="px-2 py-2 text-center">상태</th>
-              <th className="px-2 py-2 text-center">관리</th>
-            </tr>
-          </thead>
-          <tbody>
-            {posts.map((p, idx) => (
-              <tr
-                key={p.id}
-                className={`border-b border-slate-100 ${
-                  idx % 2 === 0 ? "bg-white" : "bg-slate-50/60"
-                }`}
-              >
-                <td className="px-2 py-2">
-                  {p.status === "DELETED" ? (
-                    <span className="italic text-slate-400">
-                      (삭제된 게시글)
-                    </span>
-                  ) : (
-                    <span className="text-slate-800">
-                      {p.title}
-                    </span>
-                  )}
-                </td>
-                <td className="px-2 py-2 text-slate-700">
-                  {p.author}
-                </td>
-                <td className="px-2 py-2 text-center text-slate-700">
-                  {p.reportedCount}
-                </td>
-                <td className="px-2 py-2 text-center">
-                  <span
-                    className={`rounded-full px-2 py-0.5 text-[0.7rem] ${statusStyle(
-                      p.status
-                    )}`}
-                  >
-                    {statusLabel(p.status)}
-                  </span>
-                </td>
-                <td className="px-2 py-2 text-center space-x-1">
-                  {p.status !== "DELETED" && (
-                    <button
-                      onClick={() => toggleHidden(p.id)}
-                      className="rounded-md border border-slate-300 bg-white px-2 py-1 text-[0.7rem] hover:bg-slate-50"
-                    >
-                      {p.status === "HIDDEN" ? "복구" : "숨김"}
-                    </button>
-                  )}
-                  {p.status !== "DELETED" && (
-                    <button
-                      onClick={() => deletePost(p.id)}
-                      className="rounded-md border border-rose-300 bg-white px-2 py-1 text-[0.7rem] text-rose-600 hover:bg-rose-50"
-                    >
-                      삭제
-                    </button>
-                  )}
-                </td>
-              </tr>
-            ))}
-            {posts.length === 0 && (
-              <tr>
-                <td
-                  colSpan={5}
-                  className="px-2 py-4 text-center text-slate-400"
-                >
-                  게시글이 없습니다.
-                </td>
-              </tr>
+      {/* 필터 */}
+      <div className="flex flex-col md:flex-row gap-2 mb-4">
+        <select
+          value={boardType}
+          onChange={(e) => setBoardType(e.target.value)}
+          className="px-3 py-2 rounded-lg border bg-white text-sm"
+        >
+          <option value="ALL">전체</option>
+          <option value="FREE">FREE</option>
+          <option value="DEPT">DEPT</option>
+          <option value="NOTICE">NOTICE</option>
+        </select>
+
+        <input
+          value={keyword}
+          onChange={(e) => setKeyword(e.target.value)}
+          placeholder="제목/내용/작성자 검색"
+          className="flex-1 px-3 py-2 rounded-lg border text-sm"
+        />
+      </div>
+
+      {/* 본문: 좌(리스트) + 우(상세) */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+        {/* 리스트 */}
+        <div className="lg:col-span-2 rounded-2xl border bg-white overflow-hidden">
+          <div className="px-4 py-3 border-b flex items-center justify-between">
+            <div className="text-sm font-semibold">
+              목록 <span className="text-gray-500">({filtered.length})</span>
+            </div>
+            {loading && (
+              <div className="text-xs text-gray-500">불러오는 중...</div>
             )}
-          </tbody>
-        </table>
-      </div>
+          </div>
 
-      {/* 안내 */}
-      <p className="text-[0.75rem] text-slate-400">
-        ※ 삭제는 실제 DB 삭제가 아닌 상태 변경(논리 삭제)으로
-        처리되는 구조를 가정합니다.
-      </p>
+          {error ? (
+            <div className="p-4 text-sm text-red-600">{error}</div>
+          ) : filtered.length === 0 ? (
+            <div className="p-8 text-center text-sm text-gray-500">
+              표시할 게시글이 없습니다.
+            </div>
+          ) : (
+            <div className="divide-y">
+              {filtered.map((p, idx) => {
+                const id = pick(p, ["postId", "id", "post_id"]);
+                const title = pick(p, ["title", "postTitle"], "(제목 없음)");
+                const type = String(
+                  pick(p, ["boardType", "type", "category"], "-")
+                ).toUpperCase();
+                const writer = pick(
+                  p,
+                  ["nickname", "writer", "userName", "email"],
+                  "-"
+                );
+                const createdAt = formatDate(
+                  pick(p, ["createdAt", "created_at", "regDate", "createdDate"])
+                );
+
+                const active = String(id) === String(selectedId);
+
+                return (
+                  <button
+                    key={id ?? idx}
+                    onClick={() => onSelect(p)}
+                    className={[
+                      "w-full text-left px-4 py-3 hover:bg-gray-50",
+                      active ? "bg-gray-50" : "",
+                    ].join(" ")}
+                  >
+                    <div className="flex items-start justify-between gap-3">
+                      <div className="min-w-0">
+                        <div className="flex items-center gap-2 mb-1">
+                          <span className="text-xs px-2 py-0.5 rounded-full border bg-white">
+                            {type}
+                          </span>
+                          <span className="font-semibold truncate">
+                            {title}
+                          </span>
+                        </div>
+                        <div className="text-xs text-gray-500 flex flex-wrap gap-x-3 gap-y-1">
+                          <span>작성자: {writer}</span>
+                          <span>작성일: {createdAt}</span>
+                          <span>ID: {id ?? "-"}</span>
+                        </div>
+                      </div>
+
+                      {id && (
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            onDelete(id);
+                          }}
+                          className="shrink-0 text-xs px-2 py-1 rounded-lg border bg-white hover:bg-red-50 hover:border-red-200 hover:text-red-600"
+                        >
+                          삭제
+                        </button>
+                      )}
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+          )}
+        </div>
+
+        {/* 상세 */}
+        <div className="rounded-2xl border bg-white overflow-hidden">
+          <div className="px-4 py-3 border-b">
+            <div className="text-sm font-semibold">상세</div>
+          </div>
+
+          {!selectedId ? (
+            <div className="p-8 text-center text-sm text-gray-500">
+              왼쪽에서 게시글을 선택하세요.
+            </div>
+          ) : detailLoading ? (
+            <div className="p-4 text-sm text-gray-500">상세 불러오는 중...</div>
+          ) : !detail ? (
+            <div className="p-4 text-sm text-gray-500">
+              상세 데이터가 없습니다.
+            </div>
+          ) : (
+            <div className="p-4 space-y-3">
+              <div>
+                <div className="text-xs text-gray-500 mb-1">제목</div>
+                <div className="font-bold">
+                  {pick(detail, ["title", "postTitle"], "(제목 없음)")}
+                </div>
+              </div>
+
+              <div className="flex flex-wrap gap-2 text-xs">
+                <span className="px-2 py-1 rounded-full border bg-white">
+                  {String(
+                    pick(detail, ["boardType", "type", "category"], "-")
+                  ).toUpperCase()}
+                </span>
+                <span className="px-2 py-1 rounded-full border bg-white">
+                  작성자:{" "}
+                  {pick(
+                    detail,
+                    ["nickname", "writer", "userName", "email"],
+                    "-"
+                  )}
+                </span>
+                <span className="px-2 py-1 rounded-full border bg-white">
+                  작성일:{" "}
+                  {formatDate(
+                    pick(detail, [
+                      "createdAt",
+                      "created_at",
+                      "regDate",
+                      "createdDate",
+                    ])
+                  )}
+                </span>
+              </div>
+
+              <div>
+                <div className="text-xs text-gray-500 mb-1">내용</div>
+                <div className="text-sm whitespace-pre-wrap leading-6">
+                  {pick(detail, ["content", "postContent"], "(내용 없음)")}
+                </div>
+              </div>
+
+              <details className="text-xs text-gray-500">
+                <summary className="cursor-pointer">원본 데이터 보기</summary>
+                <pre className="mt-2 p-2 rounded-lg bg-gray-50 overflow-auto">
+                  {JSON.stringify(detail, null, 2)}
+                </pre>
+              </details>
+            </div>
+          )}
+        </div>
+      </div>
     </div>
   );
 };

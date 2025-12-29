@@ -11,7 +11,7 @@ const JoinComponent = () => {
     password: "",
     nickname: "",
     positon: "",
-    role: "",
+    role: "STUDENT",
   };
   const [form, setForm] = useState(initialState);
   const [errMsg, setErrMsg] = useState("");
@@ -45,6 +45,7 @@ const JoinComponent = () => {
   const changeHandler = (e) => {
     console.log("선택이 되었어요", e.target.value);
     const { name, value } = e.target;
+
     setForm({ ...form, [name]: value });
   };
   return (
@@ -123,7 +124,7 @@ const JoinComponent = () => {
             />
           </div>
           <div>
-            <select name="role" onChange={changeHandler}>
+            <select name="role" value={form.role} onChange={changeHandler}>
               <option>학생</option>
               <option>교수</option>
             </select>

@@ -1,35 +1,55 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import NoticeApi from "../../../api/NoticeApi";
+
+const getId = (n) => n?.noticeId ?? n?.id ?? null;
 
 const NoticeList = () => {
-  // ───────────────── 공지 더미 데이터 ─────────────────
-  const notices = [
-    {
-      id: 1,
-      title: "2025-1학기 성적 공개 일정 안내",
-      author: "학사팀",
-      date: "2025-06-20",
-      important: true,
-      views: 312,
-    },
-    {
-      id: 2,
-      title: "중간고사 기간 학사 운영 안내",
-      author: "교무처",
-      date: "2025-04-05",
-      important: false,
-      views: 198,
-    },
-    {
-      id: 3,
-      title: "LMS 시스템 점검 안내",
-      author: "전산팀",
-      date: "2025-03-15",
-      important: false,
-      views: 421,
-    },
-  ];
+  const [notices, setNotices] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [reloadTick, setReloadTick] = useState(0);
 
-  // ───────────────── JSX ─────────────────
+  // 공지 목록 조회
+  useEffect(() => {
+    setLoading(true);
+
+    const funcs = NoticeApi.config?.funcs || {};
+    const fetchAll =
+      funcs.all ||
+      funcs.readAll ||
+      funcs.getAll ||
+      funcs.list ||
+      funcs.readPage;
+
+    if (!fetchAll) {
+      console.error(
+        "NoticeApi.config.funcs 안에 전체조회 함수가 없습니다.",
+        funcs
+      );
+      setNotices([]);
+      setLoading(false);
+      return;
+    }
+
+    fetchAll()
+      .then((res) => {
+        const payload = res?.data ?? res;
+
+        let data = [];
+        if (Array.isArray(payload)) data = payload;
+        else if (Array.isArray(payload?.data)) data = payload.data;
+        else if (Array.isArray(payload?.content)) data = payload.content;
+        else if (Array.isArray(payload?.result)) data = payload.result;
+
+        // id 정규화
+        setNotices(data.map((n) => ({ ...n, id: getId(n) })));
+      })
+      .catch((err) => {
+        console.error("공지 불러오기 실패:", err);
+        setNotices([]);
+      })
+      .finally(() => setLoading(false));
+  }, [reloadTick]);
+
   return (
     <div className="space-y-4 text-[0.85rem]">
       {/* 상단 안내 */}
@@ -39,9 +59,7 @@ const NoticeList = () => {
 
       {/* 공지 목록 */}
       <div className="rounded-md border border-slate-200 bg-white px-4 py-4">
-        <h3 className="mb-3 font-semibold text-slate-800">
-          공지사항
-        </h3>
+        <h3 className="mb-3 font-semibold text-slate-800">공지사항</h3>
 
         <div className="overflow-x-auto">
           <table className="min-w-full border-collapse">
@@ -54,52 +72,60 @@ const NoticeList = () => {
                 <th className="px-2 py-2 text-center">조회수</th>
               </tr>
             </thead>
+
             <tbody>
-              {notices.map((n, idx) => (
-                <tr
-                  key={n.id}
-                  className={`border-b border-slate-100 ${
-                    idx % 2 === 0 ? "bg-white" : "bg-slate-50/60"
-                  } hover:bg-slate-50 cursor-pointer`}
-                >
-                  <td className="px-2 py-2 text-center text-slate-500">
-                    {n.important ? (
-                      <span className="rounded-full bg-rose-50 px-2 py-0.5 text-[0.7rem] text-rose-600">
-                        중요
-                      </span>
-                    ) : (
-                      notices.length - idx
-                    )}
-                  </td>
-
-                  <td className="px-2 py-2 text-slate-800">
-                    <div className="flex items-center gap-2">
-                      {n.important && (
-                        <span className="rounded-full bg-rose-50 px-1.5 py-0.5 text-[0.65rem] text-rose-600">
-                          중요
-                        </span>
-                      )}
-                      <span className="font-medium">
-                        {n.title}
-                      </span>
-                    </div>
-                  </td>
-
-                  <td className="px-2 py-2 text-slate-700">
-                    {n.author}
-                  </td>
-
-                  <td className="px-2 py-2 text-center text-slate-600">
-                    {n.date}
-                  </td>
-
-                  <td className="px-2 py-2 text-center text-slate-600">
-                    {n.views}
+              {loading && (
+                <tr>
+                  <td colSpan={5} className="py-6 text-center text-slate-400">
+                    불러오는 중…
                   </td>
                 </tr>
-              ))}
+              )}
 
-              {notices.length === 0 && (
+              {!loading &&
+                notices.map((n, idx) => (
+                  <tr
+                    key={n.id}
+                    className={`border-b border-slate-100 ${
+                      idx % 2 === 0 ? "bg-white" : "bg-slate-50/60"
+                    } hover:bg-slate-50 cursor-pointer`}
+                  >
+                    <td className="px-2 py-2 text-center text-slate-500">
+                      {n.importance === "HIGH" ? (
+                        <span className="rounded-full bg-rose-50 px-2 py-0.5 text-[0.7rem] text-rose-600">
+                          중요
+                        </span>
+                      ) : (
+                        notices.length - idx
+                      )}
+                    </td>
+
+                    <td className="px-2 py-2 text-slate-800">
+                      <div className="flex items-center gap-2">
+                        {n.importance === "HIGH" && (
+                          <span className="rounded-full bg-rose-50 px-1.5 py-0.5 text-[0.65rem] text-rose-600">
+                            중요
+                          </span>
+                        )}
+                        <span className="font-medium">{n.title}</span>
+                      </div>
+                    </td>
+
+                    <td className="px-2 py-2 text-slate-700">
+                      {n.author}
+                    </td>
+
+                    <td className="px-2 py-2 text-center text-slate-600">
+                      {n.createdAt}
+                    </td>
+
+                    <td className="px-2 py-2 text-center text-slate-600">
+                      {n.views}
+                    </td>
+                  </tr>
+                ))}
+
+              {!loading && notices.length === 0 && (
                 <tr>
                   <td
                     colSpan={5}

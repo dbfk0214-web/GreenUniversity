@@ -2,8 +2,8 @@
 import React, { useState } from "react";
 import NoticeList from "../../components/features/notice/NoticeList";
 import DepartmentNotice from "../../components/features/notice/DepartmentNotice";
-import FreeBoard from "../../components/features/board/FreeBoard";
 import PostWrite from "../../components/features/board/PostWrite";
+import CommunityBoard from "../../components/features/board/CommunityBoard";
 
 /* =========================
    Modal Types (학생용)
@@ -213,7 +213,7 @@ function renderModalContent(activeModal) {
         title: "자유 게시판",
         subtitle: "Board · Post · Comment",
         // hint: "게시글 목록 + 댓글 수 + 최신순 정렬 UI를 추천합니다.",
-        content: <FreeBoard />,
+        content: <CommunityBoard />,
       };
 
     case modalTypes.POST_WRITE:

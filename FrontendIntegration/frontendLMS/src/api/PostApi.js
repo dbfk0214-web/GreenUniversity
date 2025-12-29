@@ -1,67 +1,65 @@
+// src/api/postApi.js
 import axios from "axios";
-import { createTableConfig, excludeColumns } from "./commonApi";
+import { createTableConfig } from "./commonApi";
 import { tableDefinitions } from "./tablesConfig";
 
 const tableName = "post";
 
-const extraButtons =
-  [
-   
-  ];
+const extraButtons = [];
 
-var tableDefinition = tableDefinitions[tableName];
+let tableDefinition = tableDefinitions[tableName];
 tableDefinition = {
   ...tableDefinition,
   allColumns: {
     ...tableDefinition.allColumns,
     searchColumns: {
-      "one": tableDefinition.allColumns.responseColumns
-    }
-  }
-}
+      one: tableDefinition.allColumns.responseColumns,
+    },
+  },
+};
+
 const config = createTableConfig(tableDefinition, extraButtons);
 
-const api = "http://localhost:8080/api"
-// const api = axios.create({
-//   baseURL: "http://localhost:8080/api/",
-//   withCredentials: true,
-// });
+// ✅ 문자열이 아니라 axios 인스턴스여야 함
+const api = axios.create({
+  baseURL: "http://localhost:8080/api",
+  withCredentials: true, // 필요 없으면 false로
+});
 
-/** 게시글 목록 조회 */
-export const getPosts = ({ boardType, keyword }) =>
-  api.get("/post", {
-    params: {
-      boardType, // FREE / DEPT / NOTICE
-      keyword,   // 검색어
-    },
+// ✅ (백엔드) GET /api/post
+export const getPosts = async () => {
+  const res = await api.get("/post");
+  return res.data; // List<PostDTO>
+};
+
+// ✅ (백엔드) GET /api/one/{postId}
+export const getPostDetail = async (postId) => {
+  const res = await api.get(`/one/${postId}`);
+  return res.data; // PostResponseDTO
+};
+
+// ✅ (백엔드) POST /api/create
+export const createPost = async (postData, email = "test@aaa.com") => {
+  const res = await api.post("/create", postData, {
+    headers: { "X-User-Email": email },
   });
-
-/** 게시글 상세 */
-export const getPostDetail = (id) =>
-  api.get(`/post/${id}`);
-
-/** 게시글 작성 */
-export const createPost = async (postData) => {
-  const response = await api.post("/post", postData);
-  return response.data;
-};
-/** 게시글 수정 */
-export const updatePost = (id, data) =>
-  api.put(`/post/${id}`, data);
-
-/** 게시글 삭제 */
-export const deletePost = (id) =>
-  api.delete(`/post/${id}`);
-
-/** 보드 안에 포스트 */
-export const getPostsByBoard = async () => {
-  console.log('boardType')
-  const url =`${api}/post`;
-  console.log('url',url)
-  const res = await axios.get(url)
-  console.log('res',res)
-  return res 
+  return res.data;
 };
 
+// ✅ (백엔드) PUT /api/update  (Body로 DTO 통째로 보냄)
+export const updatePost = async (updateDto, email = "test@aaa.com") => {
+  const res = await api.put("/update", updateDto, {
+    headers: { "X-User-Email": email },
+  });
+  return res.data;
+};
 
-export default { config };  
+// ✅ (백엔드) DELETE /api/delete/{postId}
+export const deletePost = async (postId, email = "test@aaa.com") => {
+  const res = await api.delete(`/delete/${postId}`, {
+    headers: { "X-User-Email": email },
+  });
+  return res.data;
+};
+
+export default { config };
