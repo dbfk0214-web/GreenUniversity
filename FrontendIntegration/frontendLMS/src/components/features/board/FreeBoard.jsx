@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { getPostsByBoard } from "../../../api/PostApi";
+import PostApi from "../../../api/PostApi";
 
 export default function CommunityBoard() {
   const [active, setActive] = useState("FREE");
