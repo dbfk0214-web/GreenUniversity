@@ -25,7 +25,7 @@ export const AssignmentDef = {
       description: "설명",
       dueDate: "마감기한",
       maxScore: "배점",
-      classSection: "분반 정보",
+      sectionName: "분반 정보",
     },
     updateColumns: {
       assignmentId: "ID",

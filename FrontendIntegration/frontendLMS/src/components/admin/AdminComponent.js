@@ -18,6 +18,8 @@ import userApi from "../../api/UserApi";
 
 import AdminSelectedContext from "./AdminSelectContext";
 import { excludeColumns } from "../../api/commonApi";
+import GradeItemApi from "../../api/GradeItemApi";
+import StudentScoreApi from "../../api/StudentScoreApi";
 
 const AdminComponent = () => {
   // 상태 통합
@@ -31,6 +33,8 @@ const AdminComponent = () => {
     department: "none",
     enrollment: "none",
     grade: "none",
+    gradeItem: "none",
+    studentScore: "none",
     notice: "none",
     post: "none",
     review: "none",
@@ -53,6 +57,8 @@ const AdminComponent = () => {
     department: DepartmentApi,
     enrollment: EnrollmentApi,
     grade: GradeApi,
+    gradeItem: GradeItemApi,
+    studentScore: StudentScoreApi,
     notice: NoticeApi,
     post: PostApi,
     review: ReviewApi,
