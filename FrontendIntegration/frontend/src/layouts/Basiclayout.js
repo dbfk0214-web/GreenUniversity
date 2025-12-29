@@ -38,6 +38,7 @@ const BasicLayout = ({ children }) => {
       careers: "information/careers",
       faq: "information/faq",
       legalnotice: "information/legalnotice",
+      privacypolicy: "information/privacypolicy",
       sitemap: "information/sitemap",
     },
     account: {
@@ -46,11 +47,11 @@ const BasicLayout = ({ children }) => {
     },
   };
   return (
-    <div className="w-full overflowx--hidden h-screen flex flex-col">
+    <div className="w-full overflowx--hidden h-screen flex flex-col mt-10">
       <div className="h-10 shrink-0 bg-sky-300">
         <Header />
       </div>
-      <div className="w-full h-screen">{children}</div>
+      <div className="w-full h-screen mt-5">{children}</div>
       <div></div>
     </div>
   );
