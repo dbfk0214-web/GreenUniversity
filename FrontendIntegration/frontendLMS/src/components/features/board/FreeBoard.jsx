@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { getPostsByBoard } from "../../../api/PostApi";
+import PostApi from "../../../api/PostApi";
 
 export default function CommunityBoard() {
   const [active, setActive] = useState("FREE");
@@ -19,22 +19,22 @@ export default function CommunityBoard() {
     { key: "NOTICE", title: "공지사항", desc: "중요한 학교 공지 안내" },
   ];
 
-  // 게시글 불러오기
-  useEffect(() => {
-    setLoading(true);
+  // // 게시글 불러오기
+  // useEffect(() => {
+  //   setLoading(true);
 
-    getPostsByBoard("자유게시판")
-      .then((res) => {
-        const {data}=  res
-        console.log(data)
-        setPosts(data)
-      })
-      .catch((err) => {
-        console.error(err);
-        alert("게시글 불러오기 실패");
-      })
-      .finally(() => setLoading(false));
-  }, ["자유게시판"]);
+  //   getPostsByBoard("자유게시판")
+  //     .then((res) => {
+  //       const {data}=  res
+  //       console.log(data)
+  //       setPosts(data)
+  //     })
+  //     .catch((err) => {
+  //       console.error(err);
+  //       alert("게시글 불러오기 실패");
+  //     })
+  //     .finally(() => setLoading(false));
+  // }, ["자유게시판"]);
 
   // 댓글 추가
   const addComment = () => {
