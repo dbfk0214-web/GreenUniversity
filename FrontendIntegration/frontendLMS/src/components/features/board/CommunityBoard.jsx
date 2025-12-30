@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { getPostsByBoard } from "../../../api/BoardApi";
+import CommentApi from "../../../api/CommentApi";
+import { useSelector } from "react-redux";
+
 
 const pick = (obj, keys, fallback = "") => {
   for (const k of keys) {
@@ -16,7 +19,7 @@ export default function CommunityBoard() {
   const [commentInput, setCommentInput] = useState("");
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(false);
-
+const loginState = useSelector((state) => state.loginSlice);
   const BOARDS = [
     {
       key: "FREE",
@@ -45,22 +48,35 @@ export default function CommunityBoard() {
   }, [active]);
 
   // 댓글 추가
-  const addComment = () => {
-    if (!commentInput.trim() || !selectedPost) return;
 
-    const postKey = selectedPost.postId ?? selectedPost.id; // 방어
-    if (!postKey) return;
+const addComment = async () => {
+  if (!commentInput.trim() || !selectedPost) return;
+
+  const postId = selectedPost.postId ?? selectedPost.id;
+  if (!postId) return;
+
+  try {
+    await CommentApi.config.funcs.create({
+      postId,
+      content: commentInput,
+      userId: loginState?.userId ?? null,
+    });
+
+    // 🔄 댓글 재조회 (정석)
+    const res = await CommentApi.config.funcs.listByPost(postId);
+    const list = res?.data ?? [];
 
     setComments((prev) => ({
       ...prev,
-      [postKey]: [
-        ...(prev[postKey] || []),
-        { text: commentInput, date: new Date().toLocaleString() },
-      ],
+      [postId]: list,
     }));
 
     setCommentInput("");
-  };
+  } catch (e) {
+    console.error("댓글 등록 실패:", e);
+  }
+};
+
 
   const selectedBoardType = pick(
     selectedPost,
