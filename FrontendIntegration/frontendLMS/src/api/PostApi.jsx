@@ -40,7 +40,7 @@ export const getPostDetail = async (postId) => {
 
 // ✅ (백엔드) POST /api/create
 export const createPost = async (postData, email = "test@aaa.com") => {
-  const res = await api.post("/create", postData, {
+  const res = await api.post("/post/create", postData, {
     headers: { "X-User-Email": email },
   });
   return res.data;
@@ -62,4 +62,11 @@ export const deletePost = async (postId, email = "test@aaa.com") => {
   return res.data;
 };
 
-export default { config };
+export default { 
+  config, 
+  getPosts, 
+  getPostDetail, 
+  createPost, 
+  updatePost, 
+  deletePost 
+};

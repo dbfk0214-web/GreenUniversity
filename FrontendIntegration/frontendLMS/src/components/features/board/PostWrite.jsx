@@ -2,148 +2,135 @@ import React, { useEffect, useState } from "react";
 import PostApi from "../../../api/PostApi";
 
 const PostWrite = ({ post, onPostCreated }) => {
-  /* ================= 상태 ================= */
-  const [board, setBoard] = useState("FREE");
+  /* ================= 상태 관리 ================= */
+  const [boardType, setBoardType] = useState("FREE");
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
 
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
-  const [reloadTick, setReloadTick] = useState(0);
 
+  // post 프롭스의 존재 여부에 따라 수정 모드 결정
   const isEditMode = !!post;
 
-  /* ================= 수정 모드 값 세팅 ================= */
+  /* ================= 수정 모드 데이터 세팅 ================= */
   useEffect(() => {
     if (post) {
-      setBoard(post.board);
-      setTitle(post.title);
-      setContent(post.content);
+      setBoardType(post.boardType ?? "FREE");
+      setTitle(post.title ?? "");
+      setContent(post.content ?? "");
     } else {
-      setBoard("FREE");
+      // 작성 모드일 때는 폼 초기화
+      setBoardType("FREE");
       setTitle("");
       setContent("");
       setSubmitted(false);
     }
   }, [post]);
 
-  /* ================= (참고용) 게시글 목록 재조회 패턴 ================= */
-  useEffect(() => {
-    // ⚠️ PostWrite 자체에서는 목록 상태를 직접 쓰지 않지만
-    // Notice 패턴 참고용 + 확장 대비 구조
-    const funcs = PostApi.config?.funcs || {};
-    const fetchAll =
-      funcs.all || funcs.readAll || funcs.getAll || funcs.list || funcs.readPage;
+/* ================= PostWrite.jsx 수정본 ================= */
+const handleSubmit = async () => {
+  if (!title.trim() || !content.trim()) {
+    alert("제목과 내용을 모두 입력해주세요.");
+    return;
+  }
 
-    if (!fetchAll) {
-      console.error(
-        "PostApi.config.funcs 안에 전체조회 함수가 없습니다.",
-        funcs
-      );
-      return;
+  try {
+    setLoading(true);
+
+    // 1. 서버의 PostDTO 구조에 맞게 데이터 재구성
+    const payload = {
+      title: title,
+      content: content,
+      // viewCount 등 기본값이 필요한 숫자 필드 초기화
+      viewCount: 0,
+      
+      // 2. UserDTO user 필드 대응 (객체 형태여야 함)
+      // 서버에서 이메일로 사용자를 찾는다면 아래와 같이 구성
+      user: {
+        email: "test@aaa.com" // 실제 DB에 존재하는 이메일이어야 합니다.
+      },
+
+      // 3. 만약 boardType 정보를 전달해야 한다면 
+      // 현재 DTO에는 board 필드가 CommentResponseDTO로 되어 있으니 확인 필요
+      // 일단 단순 필드로 추가하거나 필요 없다면 생략
+      boardType: boardType 
+    };
+
+    console.log("최종 전송 데이터:", payload);
+
+    if (isEditMode) {
+      // 수정 시에는 postId를 반드시 포함
+      const updateDto = {
+        ...payload,
+        postId: post.postId
+      };
+      await PostApi.updatePost(updateDto);
+    } else {
+      // 생성
+      await PostApi.createPost(payload);
     }
 
-    // 👉 실제 목록 state는 부모에서 관리하므로
-    // 여기서는 onPostCreated로 위임
-    fetchAll().catch((err) =>
-      console.error("게시글 목록 조회 실패:", err)
-    );
-  }, [reloadTick]);
-
-  /* ================= 저장 ================= */
-  const handleSubmit = async () => {
-    if (!title.trim() || !content.trim()) {
-      alert("제목과 내용을 모두 입력해주세요.");
-      return;
+    setSubmitted(true);
+    onPostCreated?.();
+    
+    if (!isEditMode) {
+      setTitle("");
+      setContent("");
     }
+  } catch (err) {
+    // 에러 메시지 상세 출력
+    const errorMsg = err.response?.data || err.message;
+    console.error("서버 응답 에러:", errorMsg);
+    alert(`저장 실패: ${typeof errorMsg === 'string' ? errorMsg : '데이터 형식을 확인하세요.'}`);
+  } finally {
+    setLoading(false);
+  }
+};
 
-    try {
-      setLoading(true);
-
-      if (isEditMode) {
-        // UPDATE
-        await PostApi.config.funcs.update(post.postId, {
-          board,
-          title,
-          content,
-        });
-      } else {
-        // CREATE
-        await PostApi.config.funcs.create({
-          board,
-          title,
-          content,
-        });
-      }
-
-      setSubmitted(true);
-      setReloadTick((v) => v + 1); // 🔁 Notice 패턴과 동일
-      onPostCreated?.();
-
-      // 작성 모드일 때만 초기화
-      if (!isEditMode) {
-        setTimeout(() => {
-          setBoard("FREE");
-          setTitle("");
-          setContent("");
-          setSubmitted(false);
-        }, 1200);
-      }
-    } catch (err) {
-      console.error(
-        `게시글 ${isEditMode ? "수정" : "작성"} 실패:`,
-        err
-      );
-      alert(`게시글 ${isEditMode ? "수정" : "작성"}에 실패했습니다.`);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  /* ================= JSX ================= */
+  /* ================= JSX 레이아웃 ================= */
   return (
-    <div className="space-y-3">
+    <div className="flex flex-col space-y-3">
       <select
-        value={board}
-        onChange={(e) => setBoard(e.target.value)}
-        className="rounded border px-2 py-1"
+        value={boardType}
+        onChange={(e) => setBoardType(e.target.value)}
+        className="w-32 rounded border border-gray-300 px-2 py-1 focus:outline-none focus:ring-2 focus:ring-sky-500"
       >
         <option value="FREE">자유게시판</option>
-        <option value="NOTICE">공지사항</option>
       </select>
 
       <input
         value={title}
         onChange={(e) => setTitle(e.target.value)}
-        placeholder="제목"
-        className="w-full rounded border px-3 py-2"
+        placeholder="제목을 입력하세요"
+        className="w-full rounded border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-sky-500"
       />
 
       <textarea
         value={content}
         onChange={(e) => setContent(e.target.value)}
-        placeholder="내용"
-        rows={6}
-        className="w-full rounded border px-3 py-2"
+        placeholder="내용을 입력하세요"
+        rows={8}
+        className="w-full rounded border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-sky-500"
       />
 
-      <button
-        onClick={handleSubmit}
-        disabled={loading}
-        className="rounded bg-sky-600 px-4 py-2 text-white"
-      >
-        {loading
-          ? "저장 중..."
-          : isEditMode
-          ? "게시글 수정"
-          : "게시글 작성"}
-      </button>
+      <div className="flex items-center justify-between">
+        <button
+          onClick={handleSubmit}
+          disabled={loading}
+          className={`rounded px-6 py-2 text-white transition-colors ${
+            loading ? "bg-gray-400" : "bg-sky-600 hover:bg-sky-700"
+          }`}
+        >
+          {loading ? "처리 중..." : isEditMode ? "수정 완료" : "등록하기"}
+        </button>
 
-      {submitted && (
-        <p className="text-sm text-green-600">
-          게시글이 성공적으로 {isEditMode ? "수정" : "작성"}되었습니다.
-        </p>
-      )}
+        {submitted && (
+          <span className="text-sm font-medium text-green-600 animate-pulse">
+            성공적으로 저장되었습니다!
+          </span>
+        )}
+      </div>
     </div>
   );
 };
