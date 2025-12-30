@@ -103,13 +103,17 @@ export const createExtraApi = (tableName) => {
     },
     //범용 키워드 검색(이메일 등) (T-3 내 시간표 조회 등에 사용)
     findByKeywordHttp: async (
-      selectKeyword,
+      selectKeyword, // 함수 이름
       searchText,
       userEmail,
       method = "get",
       data = null
     ) => {
-      const url = `${API_SERVER_HOST}/api/${tableName}/${selectKeyword}/${searchText}`;
+      // searchText가 null이면 URL에서 제외
+      const url = searchText
+        ? `${API_SERVER_HOST}/api/${tableName}/${selectKeyword}/${searchText}`
+        : `${API_SERVER_HOST}/api/${tableName}/${selectKeyword}`;
+
       return sendAuthRequest(method, url, userEmail, data);
     },
     //특정 offeringId 로 목록 조회하는 경우의 api 사용처(T-2)
