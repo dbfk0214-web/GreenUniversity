@@ -34,7 +34,7 @@ export const getPosts = async () => {
 
 // ✅ (백엔드) GET /api/one/{postId}
 export const getPostDetail = async (postId) => {
-  const res = await api.get(`/one/${postId}`);
+  const res = await api.get(`/post/one/${postId}`);
   return res.data; // PostResponseDTO
 };
 
@@ -48,7 +48,7 @@ export const createPost = async (postData, email = "test@aaa.com") => {
 
 // ✅ (백엔드) PUT /api/update  (Body로 DTO 통째로 보냄)
 export const updatePost = async (updateDto, email = "test@aaa.com") => {
-  const res = await api.put("/update", updateDto, {
+  const res = await api.put("/post/update", updateDto, {
     headers: { "X-User-Email": email },
   });
   return res.data;
@@ -56,11 +56,15 @@ export const updatePost = async (updateDto, email = "test@aaa.com") => {
 
 // ✅ (백엔드) DELETE /api/delete/{postId}
 export const deletePost = async (postId, email = "test@aaa.com") => {
-  const res = await api.delete(`/delete/${postId}`, {
+  const res = await api.delete(`/post/delete/${postId}`, {
     headers: { "X-User-Email": email },
   });
   return res.data;
 };
+
+/** 게시글별 댓글 조회 */
+export const getCommentsByPost = (postId) =>
+  api.get(`/posts/${postId}/comment`);
 
 export default { 
   config, 
