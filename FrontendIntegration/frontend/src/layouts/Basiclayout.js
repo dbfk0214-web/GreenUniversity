@@ -37,8 +37,6 @@ const BasicLayout = ({ children }) => {
     information: {
       careers: "information/careers",
       faq: "information/faq",
-      legalnotice: "information/legalnotice",
-      privacypolicy: "information/privacypolicy",
       sitemap: "information/sitemap",
     },
     account: {

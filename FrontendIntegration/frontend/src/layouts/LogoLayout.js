@@ -21,7 +21,6 @@ const LogoLayout = () => {
           <TextRingComponent />
         </div>
       </div>
-      <img src="http://localhost:8080/uploads/b48bef17-bf62-49a7-9c2f-bb12fe307097.jpg"></img>
     </div>
   );
 };
