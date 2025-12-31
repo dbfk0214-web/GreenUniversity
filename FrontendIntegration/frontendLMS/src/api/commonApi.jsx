@@ -62,26 +62,27 @@ export const createCrudApi = (tableName) => {
   const BASE_URL = `${API_SERVER_HOST}/api/${tableName}`;
 
   return {
+    //전체조회
     readAll: (userEmail) => {
       // console.log(`${tableName} readAll`);
       return sendAuthRequest("get", `${BASE_URL}/all`, userEmail);
     },
-
+    //단건조회
     readOne: (id, userEmail) => {
       // console.log(`${tableName} readOne`);
       return sendAuthRequest("get", `${BASE_URL}/one/${id}`, userEmail);
     },
-
+    //작성
     writeOne: (dto, userEmail) => {
       // console.log(`${tableName} writeOne`, dto, userEmail);
       return sendAuthRequest("post", `${BASE_URL}/create`, userEmail, dto);
     },
-
+    //수정
     updateOne: (dto, userEmail) => {
       // console.log(`${tableName} updateOne`, dto, userEmail);
       return sendAuthRequest("put", `${BASE_URL}/update`, userEmail, dto);
     },
-
+    //삭제
     deleteOne: (id, userEmail) => {
       // console.log(`${tableName} deleteOne`, id, userEmail);
       return sendAuthRequest("delete", `${BASE_URL}/delete/${id}`, userEmail);
@@ -127,6 +128,52 @@ export const createExtraApi = (tableName) => {
     findMySections: async (userEmail) => {
       return axios
         .get(`${API_SERVER_HOST}/api/class-section/my`, {
+          headers: { "X-User-Email": userEmail },
+        })
+        .then((r) => r.data);
+    },
+
+    // -------------------------------------------------------------------------
+    // [추가] 성적/출결/강의 관리를 위한 공통 함수 4종 세트 (기존 코드 하단에 추가됨)
+    // -------------------------------------------------------------------------
+
+    // ① 내 데이터 조회 (Header 방식: 교수 강의 목록, 내 수강신청 내역 등)
+    // URL: /api/{tableName}/my
+    findMy: async (userEmail) => {
+      console.log(`[${tableName}] 내 목록 조회 요청: ${userEmail}`);
+      return axios
+        .get(`${API_SERVER_HOST}/api/${tableName}/my`, {
+          headers: { "X-User-Email": userEmail },
+        })
+        .then((r) => r.data);
+    },
+
+    // ② 특정 강의(Offering) 하위 데이터 조회 (성적, 출결, 과제 등)
+    // URL: /api/{tableName}/offering/{offeringId}
+    findByOffering: async (offeringId) => {
+      console.log(`[${tableName}] 과목별 조회: ${offeringId}`);
+      return axios
+        .get(`${API_SERVER_HOST}/api/${tableName}/offering/${offeringId}`)
+        .then((r) => r.data);
+    },
+
+    // ③ 내 데이터 조회 (URL 파라미터 방식: 학생 성적 조회 등)
+    // URL: /api/{tableName}/my/{email}
+    findMyByEmail: async (email) => {
+      console.log(`[${tableName}] 개인별 조회: ${email}`);
+      return axios
+        .get(`${API_SERVER_HOST}/api/${tableName}/my/${email}`, {
+          headers: { "X-User-Email": email }, // 🔥 [추가됨] 이제 이메일 명찰을 달고 갑니다!
+        })
+        .then((r) => r.data);
+    },
+
+    // ④ 커스텀 저장/수정 (POST /save)
+    // URL: /api/{tableName}/save
+    saveCustom: async (dto, userEmail) => {
+      console.log(`[${tableName}] 커스텀 저장:`, dto);
+      return axios
+        .post(`${API_SERVER_HOST}/api/${tableName}/save`, dto, {
           headers: { "X-User-Email": userEmail },
         })
         .then((r) => r.data);
