@@ -89,31 +89,50 @@ export const createCrudApi = (tableName) => {
   };
 };
 
-const createExtraApi = (tableName) => ({
-  //범용 키워드 검색(이메일 등) (T-3 내 시간표 조회 등에 사용)
-  findByKeyword: async (selectKeyword, searchText) => {
-    console.log(`${tableName} keyword`);
-    // API_SERVER_HOST =>
-    return axios
-      .get(`${API_SERVER_HOST}/api/${tableName}/${selectKeyword}/${searchText}`)
-      .then((r) => r.data);
-  },
-  //특정 offeringId 로 목록 조회하는 경우의 api 사용처(T-2)
-  findListByOffering: async (offeringId) => {
-    console.log(`${tableName} list by offeringId: ${offeringId}`);
-    return axios
-      .get(`${API_SERVER_HOST}/api/${tableName}/list/offering/${offeringId}`)
-      .then((r) => r.data);
-  },
+export const createExtraApi = (tableName) => {
+  return {
+    //범용 키워드 검색(이메일 등) (T-3 내 시간표 조회 등에 사용)
+    findByKeyword: async (selectKeyword, searchText) => {
+      console.log(`${tableName} keyword`);
+      // API_SERVER_HOST =>
+      return axios
+        .get(
+          `${API_SERVER_HOST}/api/${tableName}/${selectKeyword}/${searchText}`
+        )
+        .then((r) => r.data);
+    },
+    //범용 키워드 검색(이메일 등) (T-3 내 시간표 조회 등에 사용)
+    findByKeywordHttp: async (
+      selectKeyword, // 함수 이름
+      searchText,
+      userEmail,
+      method = "get",
+      data = null
+    ) => {
+      // searchText가 null이면 URL에서 제외
+      const url = searchText
+        ? `${API_SERVER_HOST}/api/${tableName}/${selectKeyword}/${searchText}`
+        : `${API_SERVER_HOST}/api/${tableName}/${selectKeyword}`;
 
-  findMySections: async (userEmail) => {
-    return axios
-      .get(`${API_SERVER_HOST}/api/class-section/my`, {
-        headers: { "X-User-Email": userEmail },
-      })
-      .then((r) => r.data);
-  },
-});
+      return sendAuthRequest(method, url, userEmail, data);
+    },
+    //특정 offeringId 로 목록 조회하는 경우의 api 사용처(T-2)
+    findListByOffering: async (offeringId) => {
+      console.log(`${tableName} list by offeringId: ${offeringId}`);
+      return axios
+        .get(`${API_SERVER_HOST}/api/${tableName}/list/offering/${offeringId}`)
+        .then((r) => r.data);
+    },
+
+    findMySections: async (userEmail) => {
+      return axios
+        .get(`${API_SERVER_HOST}/api/class-section/my`, {
+          headers: { "X-User-Email": userEmail },
+        })
+        .then((r) => r.data);
+    },
+  };
+};
 
 // 함수 정의
 // export const excludeColumns = (columns, excludeArray) => {
@@ -162,7 +181,7 @@ export const createTableConfig = (tabelDef, extraButtons = []) => {
     fileList,
   } = tabelDef;
 
-  const funcs = {
+  var funcs = {
     ...createCrudApi(key),
     ...createExtraApi(key),
   };
