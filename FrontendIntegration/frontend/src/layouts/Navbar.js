@@ -55,8 +55,6 @@ const menuData = [
       { label: "사이트맵", link: "/information/sitemap" },
       { label: "FAQ", link: "/information/faq" },
       { label: "채용안내", link: "/information/careers" },
-      { label: "개인정보보호방침", link: "/information/privacypolicy" },
-      { label: "법적고지", link: "/information/legalnotice" },
     ],
   },
   {
