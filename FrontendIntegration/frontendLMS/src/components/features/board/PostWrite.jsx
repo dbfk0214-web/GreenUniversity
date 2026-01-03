@@ -48,7 +48,7 @@ const PostWrite = ({ post, onPostCreated }) => {
         // 2. UserDTO user 필드 대응 (객체 형태여야 함)
         // 서버에서 이메일로 사용자를 찾는다면 아래와 같이 구성
         user: {
-          email: "student@aaa.com", // 실제 DB에 존재하는 이메일이어야 합니다.
+          email: "test@aaa.com", // 실제 DB에 존재하는 이메일이어야 합니다.
         },
 
         // 3. 만약 boardType 정보를 전달해야 한다면

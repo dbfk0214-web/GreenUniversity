@@ -115,7 +115,7 @@ export default function CommunityBoard() {
               </h2>
               <button
                 onClick={() => setSelectedPost(null)}
-                className="text-sky-500 hover:text-sky-700 items-end"
+                className="text-sky-500 hover:text-sky-700 justify-end"
               >
                 ✕
               </button>

@@ -53,9 +53,14 @@ export default function CommunityBoard() {
       const res = await listFunc(postId);
       const list = res?.data || res || [];
 
+      // ✅ 서버 댓글은 무조건 isTemp 제거 (정규화)
+      const normalized = Array.isArray(list)
+        ? list.map((c) => ({ ...c, isTemp: false }))
+        : [];
+
       setComments((prev) => ({
         ...prev,
-        [postId]: Array.isArray(list) ? list : [],
+        [postId]: normalized,
       }));
     } catch (e) {
       console.error("댓글 로드 실패", e);
@@ -68,7 +73,7 @@ export default function CommunityBoard() {
     if (postId) fetchComments(postId);
   }, [selectedPost]);
 
-
+  /* ================= 댓글 등록 ================= */
   const addComment = async () => {
     if (!commentInput.trim() || !selectedPost) return;
 
@@ -77,7 +82,7 @@ export default function CommunityBoard() {
 
     const tempComment = createTempComment(commentInput);
 
-    // 1. 최상단 표시
+    // 1. 임시 댓글 즉시 표시
     setComments((prev) => ({
       ...prev,
       [postId]: [tempComment, ...(prev[postId] || [])],
@@ -85,20 +90,36 @@ export default function CommunityBoard() {
 
     setCommentInput("");
 
+    // 2. 5초 후 임시 상태 해제 (서버 지연 대비)
+    const tempTimer = setTimeout(() => {
+      setComments((prev) => ({
+        ...prev,
+        [postId]: (prev[postId] || []).map((c) =>
+          c.commentId === tempComment.commentId
+            ? { ...c, isTemp: false }
+            : c
+        ),
+      }));
+    }, 5000);
+
     try {
-      // 2. 서버 저장
+      // 3. 서버 저장
       await CommentApi.create(postId, {
         content: tempComment.content,
         email: loginState?.email || "test@aaa.com",
         postId,
       });
 
-      // 3. 서버 기준 동기화
+      // 4. 서버 기준으로 다시 동기화
       await fetchComments(postId);
+
+      clearTimeout(tempTimer);
     } catch (e) {
       console.error("댓글 등록 실패", e);
 
-      // ❌ 실패 시 임시 댓글 제거
+      clearTimeout(tempTimer);
+
+      // 실패 시 임시 댓글 제거
       setComments((prev) => ({
         ...prev,
         [postId]: (prev[postId] || []).filter(
@@ -116,7 +137,9 @@ export default function CommunityBoard() {
   return (
     <div className="w-full min-h-screen bg-sky-50 px-4 py-8">
       <div className="mx-auto max-w-5xl">
-        <h1 className="text-3xl font-bold text-sky-900 mb-8">자유 게시판</h1>
+        <h1 className="text-3xl font-bold text-sky-900 mb-8">
+          자유 게시판
+        </h1>
 
         <div className="bg-white p-6 rounded-3xl border border-sky-100">
           {loading ? (
@@ -145,17 +168,19 @@ export default function CommunityBoard() {
       {/* ================= 모달 ================= */}
       {selectedPost && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 p-4">
-          <div className="bg-white w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-3xl p-8">
+          <div className="relative bg-white w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-3xl p-8">
             <button
               onClick={() => setSelectedPost(null)}
-              className="mb-4 text-sky-400"
+              className="absolute top-4 right-4 text-sky-400 text-xl font-bold hover:text-sky-600"
+              aria-label="모달 닫기"
             >
-              ✕ 닫기
+              ✕
             </button>
 
             <h2 className="text-2xl font-bold mb-4">
               {selectedPost.title}
             </h2>
+
             <p className="mb-6 whitespace-pre-wrap">
               {selectedPost.content}
             </p>
