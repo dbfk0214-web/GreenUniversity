@@ -15,7 +15,7 @@ const Header = () => {
       <header className="flex justify-between items-center px-8 py-4 bg-sky-500 text-white border-b border-gray-800 h-[68px]">
         <div className="text-2xl font-bold">
           <div>
-            <img src={Img1} alt="1.png" className="object-contain h-12"></img>
+            <Link to={"http://localhost:3001"}><img src={Img1} alt="1.png" className="object-contain h-12"></img></Link>
           </div>
         </div>
         <div>

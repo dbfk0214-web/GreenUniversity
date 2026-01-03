@@ -68,7 +68,7 @@ export default function CommunityBoard() {
     if (postId) fetchComments(postId);
   }, [selectedPost]);
 
-  /* ================= 댓글 등록 (🔥 즉시 표시) ================= */
+
   const addComment = async () => {
     if (!commentInput.trim() || !selectedPost) return;
 
@@ -77,7 +77,7 @@ export default function CommunityBoard() {
 
     const tempComment = createTempComment(commentInput);
 
-    // 🔥 1. 즉시 최상단 표시
+    // 1. 최상단 표시
     setComments((prev) => ({
       ...prev,
       [postId]: [tempComment, ...(prev[postId] || [])],
