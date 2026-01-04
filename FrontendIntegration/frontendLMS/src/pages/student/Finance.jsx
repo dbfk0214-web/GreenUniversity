@@ -1,7 +1,6 @@
 // src/pages/studentmanagement/StudentFinanceScholarshipDashboard.jsx
 import React, { useState } from "react";
 import TuitionBillView from "../../components/features/finance/TuitionBillView";
-import ScholarshipHistory from "../../components/features/finance/ScholarshipHistory";
 
 /* =========================
    Modal Types (학생용)
@@ -31,7 +30,7 @@ export default function StudentFinanceScholarshipDashboard() {
       </header>
 
       {/* ===== 중분류 카드 ===== */}
-      <div className="grid gap-6 lg:grid-cols-2">
+      <div className="grid gap-6">
         {/* ===============================
             중분류 1: 등록금
         =============================== */}
@@ -50,28 +49,6 @@ export default function StudentFinanceScholarshipDashboard() {
               label="등록금 고지서 확인"
               description="납부 금액 및 납부 상태를 확인합니다."
               onClick={() => setActiveModal(modalTypes.TUITION_BILL)}
-            />
-          </div>
-        </section>
-
-        {/* ===============================
-            중분류 2: 장학금
-        =============================== */}
-        <section className="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-slate-100">
-          <SectionHeader
-            tag="Scholarship"
-            tagColor="fuchsia"
-            title="장학 내역"
-            description="수혜한 장학금 내역을 확인합니다."
-            badge="Support"
-            badgeColor="fuchsia"
-          />
-
-          <div className="space-y-3">
-            <DashboardButton
-              label="장학 내역 조회"
-              description="장학금 유형 및 수혜 금액을 확인합니다."
-              onClick={() => setActiveModal(modalTypes.SCHOLARSHIP_HISTORY)}
             />
           </div>
         </section>
@@ -181,14 +158,6 @@ function renderModalContent(activeModal) {
         subtitle: "TuitionPayment",
         // hint: "학기별 고지 금액, 납부 상태(PAID / UNPAID), 납부 일자 표시를 추천합니다.",
         content: <TuitionBillView />,
-      };
-
-    case modalTypes.SCHOLARSHIP_HISTORY:
-      return {
-        title: "장학 내역 조회",
-        subtitle: "ScholarshipHistory",
-        // hint: "장학금 유형, 수혜 학기, 지급 금액 테이블 구성을 추천합니다.",
-        content: <ScholarshipHistory />,
       };
   }
 }

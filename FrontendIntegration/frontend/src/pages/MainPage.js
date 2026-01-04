@@ -25,6 +25,7 @@ const specialData = [
   { title: "SPECIAL 5", text: "다양한 국비지원\n교육과정 운영" },
   { title: "SPECIAL 6", text: "체계적인 취업지원\n프로그램 제공" },
   { title: "SPECIAL 7", text: "현장 중심 맞춤형\n전문 인재 양성" },
+  { title: "SPECIAL 8", text: "산업 트렌드를 반영한\n최신 커리큘럼 지속 개편" },
 ];
 
 const MainPage = () => {

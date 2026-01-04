@@ -2,7 +2,6 @@
 import React, { useState } from "react";
 import MyCourses from "../../components/features/academic/MyCourses";
 import StudentList from "../../components/features/academic/StudentList";
-import CourseNotice from "../../components/features/notice/CourseNotice";
 // 🔥 [1] 관리자용 시간표 컴포넌트 Import
 import TimeTableManager from "../../components/features/academic/TimeTableManager";
 
@@ -12,7 +11,6 @@ import TimeTableManager from "../../components/features/academic/TimeTableManage
 const modalTypes = {
   MY_COURSES: "MY_COURSES",
   STUDENT_LIST: "STUDENT_LIST",
-  COURSE_NOTICE: "COURSE_NOTICE",
   TIMETABLE_MANAGEMENT: "TIMETABLE_MANAGEMENT", // 신규
 };
 
@@ -84,27 +82,6 @@ export default function ProfessorAcademicDashboard() {
               style="bg-indigo-50 border-indigo-100 hover:bg-indigo-100 ring-1 ring-indigo-200" // 강조 스타일
             />
             {/* 추후 휴강 관리 등이 추가될 수 있음 */}
-          </div>
-        </section>
-
-        {/* ===============================
-            [3] 강의 공지 관리
-        =============================== */}
-        <section className="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-slate-100">
-          <SectionHeader
-            tag="Notice"
-            tagColor="fuchsia"
-            title="강의 공지"
-            description="수강생들에게 알릴 공지사항을 등록합니다."
-            badge="Manage"
-            badgeColor="fuchsia"
-          />
-          <div className="space-y-3">
-            <DashboardButton
-              label="강의 공지 등록"
-              description="휴강, 시험 일정 등의 공지를 등록합니다."
-              onClick={() => setActiveModal(modalTypes.COURSE_NOTICE)}
-            />
           </div>
         </section>
       </div>
@@ -239,13 +216,6 @@ function renderModalContent(activeModal) {
         title: "수강생 명단 조회",
         subtitle: "Enrollment · User",
         content: <StudentList />,
-      };
-
-    case modalTypes.COURSE_NOTICE:
-      return {
-        title: "강의 공지 등록",
-        subtitle: "Notice",
-        content: <CourseNotice />,
       };
 
     case modalTypes.TIMETABLE_MANAGEMENT:
