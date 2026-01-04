@@ -4,6 +4,7 @@ import MyCourses from "../../components/features/academic/MyCourses";
 import StudentList from "../../components/features/academic/StudentList";
 // 🔥 [1] 관리자용 시간표 컴포넌트 Import
 import TimeTableManager from "../../components/features/academic/TimeTableManager";
+import { DashboardModal } from "../../components/common/DashboardModal";
 
 /* =========================
    Modal Types (교수용)
@@ -35,7 +36,7 @@ export default function ProfessorAcademicDashboard() {
 
       {/* ===== 중분류 카드 그리드 ===== */}
       {/* lg:grid-cols-3 로 변경하여 3단 배열하거나, 2단 유지하되 섹션을 나눔 */}
-      <div className="grid gap-6 lg:grid-cols-2 xl:grid-cols-3">
+      <div className="grid gap-6 lg:grid-cols-2 xl:grid-cols-2">
         {/* ===============================
             [1] 강의 기본 관리
         =============================== */}
@@ -87,7 +88,11 @@ export default function ProfessorAcademicDashboard() {
       </div>
 
       {/* ===== 공통 모달 ===== */}
-      <DashboardModal activeModal={activeModal} onClose={closeModal} />
+      <DashboardModal
+        activeModal={activeModal}
+        onClose={closeModal}
+        renderModalContent={renderModalContent}
+      />
     </div>
   );
 }
@@ -164,40 +169,40 @@ function DashboardButton({ label, description, onClick, style }) {
 }
 
 /* =========================
-   Dashboard Modal (크기 자동 조절)
+   Dashboard Modal
 ========================= */
-function DashboardModal({ activeModal, onClose }) {
-  if (!activeModal) return null;
+// function DashboardModal({ activeModal, onClose }) {
+//   if (!activeModal) return null;
 
-  const { title, subtitle, content } = renderModalContent(activeModal);
+//   // ✅ 기존 로직 그대로 사용
+//   const { title, subtitle, content } = renderModalContent(activeModal);
 
-  // 시간표 관리일 때만 모달을 넓게(Wide) 설정
-  const isWideModal = activeModal === modalTypes.TIMETABLE_MANAGEMENT;
+//   return (
+//     <div className="fixed inset-0 z-40 flex items-center justify-center bg-black/25">
+//       {/* 모달 컨테이너 (높이 제한) */}
+//       <div className="w-full max-w-3xl max-h-[80vh] rounded-2xl bg-white p-6 shadow-xl overflow-hidden">
+//         {/* 헤더 영역 (고정) */}
+//         <div className="mb-4 flex items-start justify-between">
+//           <div>
+//             <h3 className="text-lg font-semibold">{title}</h3>
+//             <p className="text-xs text-slate-500">{subtitle}</p>
+//           </div>
+//           <button
+//             onClick={onClose}
+//             className="p-2 text-slate-400 hover:text-slate-600"
+//           >
+//             ✕
+//           </button>
+//         </div>
 
-  return (
-    <div className="fixed inset-0 z-40 flex items-center justify-center bg-black/25 backdrop-blur-sm animate-fade-in p-4">
-      <div
-        className={`w-full bg-white rounded-2xl p-6 shadow-2xl flex flex-col max-h-[90vh]
-        ${isWideModal ? "max-w-6xl" : "max-w-3xl"} transition-all duration-300`}
-      >
-        <div className="mb-4 flex justify-between shrink-0 border-b pb-4">
-          <div>
-            <h3 className="text-xl font-bold text-slate-800">{title}</h3>
-            <p className="text-xs text-slate-500 mt-1">{subtitle}</p>
-          </div>
-          <button
-            onClick={onClose}
-            className="p-2 text-slate-400 hover:text-slate-600 hover:bg-slate-100 rounded-full h-fit"
-          >
-            ✕
-          </button>
-        </div>
-
-        <div className="flex-1 overflow-y-auto rounded-xl p-1">{content}</div>
-      </div>
-    </div>
-  );
-}
+//         {/* 콘텐츠 영역 (스크롤) */}
+//         <div className="max-h-[60vh] overflow-y-auto rounded-xl border border-dashed p-4 text-xs text-slate-500">
+//           {content}
+//         </div>
+//       </div>
+//     </div>
+//   );
+// }
 
 /* =========================
    Modal Resolver
