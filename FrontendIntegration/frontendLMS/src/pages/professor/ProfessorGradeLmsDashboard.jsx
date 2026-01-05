@@ -5,7 +5,6 @@ import { API_SERVER_HOST } from "../../api/commonApi";
 
 import GradePolicyManage from "../../components/features/grade/GradePolicyManage";
 import AttendanceManage from "../../components/features/attendance/AttendanceManage";
-import AbsenceApproval from "../../components/features/attendance/AbsenceApproval";
 import AssignmentManage from "../../components/features/assignment/AssignmentManage";
 import SubmissionReview from "../../components/features/assignment/SubmissionReview";
 import ScoreInput from "../../components/features/grade/ScoreInput";
@@ -114,14 +113,6 @@ export default function ProfessorGradeLmsDashboard() {
           subtitle: "Attendance",
           content: <AttendanceManage offeringId={selectedOfferingId} />,
         };
-
-      case modalTypes.ABSENCE_APPROVAL:
-        return {
-          title: "병가 증빙 승인",
-          subtitle: "Attendance · absenceDoc",
-          content: <AbsenceApproval offeringId={selectedOfferingId} />,
-        };
-
       case modalTypes.ASSIGNMENT_CREATE:
         return {
           title: "과제 생성",
@@ -249,11 +240,6 @@ export default function ProfessorGradeLmsDashboard() {
               label="출석 체크 / 수정"
               description="전자출결 및 수동 출석을 관리합니다."
               onClick={() => setActiveModal(modalTypes.ATTENDANCE_MANAGE)}
-            />
-            <DashboardButton
-              label="병가 증빙 승인"
-              description="병가 증빙 서류를 확인하고 출석 인정 처리합니다."
-              onClick={() => setActiveModal(modalTypes.ABSENCE_APPROVAL)}
             />
           </div>
         </section>

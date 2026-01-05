@@ -1,7 +1,7 @@
 // src/pages/studentmanagement/StudentFinanceScholarshipDashboard.jsx
 import React, { useState } from "react";
 import TuitionBillView from "../../components/features/finance/TuitionBillView";
-import ScholarshipHistory from "../../components/features/finance/ScholarshipHistory";
+import { DashboardModal } from "../../components/common/DashboardModal";
 
 /* =========================
    Modal Types (학생용)
@@ -31,7 +31,7 @@ export default function StudentFinanceScholarshipDashboard() {
       </header>
 
       {/* ===== 중분류 카드 ===== */}
-      <div className="grid gap-6 lg:grid-cols-2">
+      <div className="grid gap-6">
         {/* ===============================
             중분류 1: 등록금
         =============================== */}
@@ -53,32 +53,15 @@ export default function StudentFinanceScholarshipDashboard() {
             />
           </div>
         </section>
-
-        {/* ===============================
-            중분류 2: 장학금
-        =============================== */}
-        <section className="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-slate-100">
-          <SectionHeader
-            tag="Scholarship"
-            tagColor="fuchsia"
-            title="장학 내역"
-            description="수혜한 장학금 내역을 확인합니다."
-            badge="Support"
-            badgeColor="fuchsia"
-          />
-
-          <div className="space-y-3">
-            <DashboardButton
-              label="장학 내역 조회"
-              description="장학금 유형 및 수혜 금액을 확인합니다."
-              onClick={() => setActiveModal(modalTypes.SCHOLARSHIP_HISTORY)}
-            />
-          </div>
-        </section>
       </div>
 
       {/* ===== 공통 모달 ===== */}
-      <DashboardModal activeModal={activeModal} onClose={closeModal} />
+      {/* <DashboardModal activeModal={activeModal} onClose={closeModal} /> */}
+      <DashboardModal
+        activeModal={activeModal}
+        onClose={closeModal}
+        renderModalContent={renderModalContent}
+      />
     </div>
   );
 }
@@ -146,29 +129,29 @@ function DashboardButton({ label, description, onClick }) {
 /* =========================
    Dashboard Modal
 ========================= */
-function DashboardModal({ activeModal, onClose }) {
-  if (!activeModal) return null;
+// function DashboardModal({ activeModal, onClose }) {
+//   if (!activeModal) return null;
 
-  const { title, subtitle, hint, content } = renderModalContent(activeModal);
+//   const { title, subtitle, hint, content } = renderModalContent(activeModal);
 
-  return (
-    <div className="fixed inset-0 z-40 flex items-center justify-center bg-black/25">
-      <div className="w-full max-w-3xl rounded-2xl bg-white p-6 shadow-xl">
-        <div className="mb-4 flex justify-between">
-          <div>
-            <h3 className="text-lg font-semibold">{title}</h3>
-            <p className="text-xs text-slate-500">{subtitle}</p>
-          </div>
-          <button onClick={onClose}>✕</button>
-        </div>
+//   return (
+//     <div className="fixed inset-0 z-40 flex items-center justify-center bg-black/25">
+//       <div className="w-full max-w-3xl rounded-2xl bg-white p-6 shadow-xl">
+//         <div className="mb-4 flex justify-between">
+//           <div>
+//             <h3 className="text-lg font-semibold">{title}</h3>
+//             <p className="text-xs text-slate-500">{subtitle}</p>
+//           </div>
+//           <button onClick={onClose}>✕</button>
+//         </div>
 
-        <div className="rounded-xl border border-dashed p-4 text-xs text-slate-500">
-          {content}
-        </div>
-      </div>
-    </div>
-  );
-}
+//         <div className="rounded-xl border border-dashed p-4 text-xs text-slate-500">
+//           {content}
+//         </div>
+//       </div>
+//     </div>
+//   );
+// }
 
 /* =========================
    Modal Resolver
@@ -181,14 +164,6 @@ function renderModalContent(activeModal) {
         subtitle: "TuitionPayment",
         // hint: "학기별 고지 금액, 납부 상태(PAID / UNPAID), 납부 일자 표시를 추천합니다.",
         content: <TuitionBillView />,
-      };
-
-    case modalTypes.SCHOLARSHIP_HISTORY:
-      return {
-        title: "장학 내역 조회",
-        subtitle: "ScholarshipHistory",
-        // hint: "장학금 유형, 수혜 학기, 지급 금액 테이블 구성을 추천합니다.",
-        content: <ScholarshipHistory />,
       };
   }
 }

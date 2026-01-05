@@ -6,6 +6,7 @@ import CourseOfferingManage from "../../components/features/academic/CourseOffer
 import CourseManage from "../../components/features/academic/CourseManage";
 import ClassSectionManage from "../../components/features/academic/ClassSectionManage";
 import TimeTableManager from "../../components/features/academic/TimeTableManager";
+import { DashboardModal } from "../../components/common/DashboardModal";
 
 /* =========================
    Modal Types (관리자용)
@@ -131,10 +132,17 @@ export default function AdminAcademicDashboard() {
       </div>
 
       {/* ===== 공통 모달 ===== */}
-      <DashboardModal
+      {/* <DashboardModal
         activeModal={activeModal}
         onClose={closeModal}
         modalContent={activeModal ? renderModalContent(activeModal) : null}
+      /> */}
+
+      {/* ===== 공통 모달 ===== */}
+      <DashboardModal
+        activeModal={activeModal}
+        onClose={closeModal}
+        renderModalContent={renderModalContent}
       />
     </div>
   );
@@ -207,35 +215,38 @@ function DashboardButton({ label, description, onClick }) {
 /* =========================
    Dashboard Modal
 ========================= */
-function DashboardModal({ activeModal, onClose, modalContent }) {
-  if (!activeModal || !modalContent) return null;
+// function DashboardModal({ activeModal, onClose, modalContent }) {
+//   if (!activeModal || !modalContent) return null;
 
-  const { title, subtitle, content } = modalContent;
+//   const { title, subtitle, content } = modalContent;
 
-  return (
-    <div className="fixed inset-0 z-40 flex items-center justify-center bg-black/25">
-      <div className="w-full max-w-3xl rounded-2xl bg-white p-6 shadow-xl max-h-[90vh] overflow-y-auto">
-        {/* 헤더 영역 */}
-        <div className="mb-4 flex justify-between items-start">
-          <div>
-            <h3 className="text-lg font-semibold">{title}</h3>
-            <p className="text-xs text-slate-500">{subtitle}</p>
-          </div>
-          <button
-            onClick={onClose}
-            className="p-2 text-slate-400 hover:text-slate-600"
-          >
-            ✕
-          </button>
-        </div>
+//   return (
+//     <div className="fixed inset-0 z-40 flex items-center justify-center bg-black/25">
+//       {/* 모달 컨테이너 (높이 제한) */}
+//       <div className="w-full max-w-3xl max-h-[80vh] rounded-2xl bg-white p-6 shadow-xl overflow-hidden">
+//         {/* 헤더 영역 (고정) */}
+//         <div className="mb-4 flex items-start justify-between">
+//           <div>
+//             <h3 className="text-lg font-semibold">{title}</h3>
+//             <p className="text-xs text-slate-500">{subtitle}</p>
+//           </div>
+//           <button
+//             onClick={onClose}
+//             className="p-2 text-slate-400 hover:text-slate-600"
+//           >
+//             ✕
+//           </button>
+//         </div>
 
-        <div className="rounded-xl border border-dashed p-4 text-xs text-slate-500">
-          {content}
-        </div>
-      </div>
-    </div>
-  );
-}
+//         {/* 콘텐츠 영역 (스크롤) */}
+//         <div className="max-h-[60vh] overflow-y-auto rounded-xl border border-dashed p-4 text-xs text-slate-500">
+//           {content}
+//         </div>
+//       </div>
+//     </div>
+//   );
+// }
+
 /* =========================
    Modal Resolver
 ========================= */

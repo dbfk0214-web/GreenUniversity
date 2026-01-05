@@ -7,7 +7,7 @@ const System = lazy(() => import("../pages/admin/System"));
 const User = lazy(() => import("../pages/admin/User"));
 
 const AdminHomeDashboard = lazy(() =>
-  import("../components/admin/AdminHomeDashboard")
+  import("../layouts/subheader/AdminHomeDashboard")
 );
 
 export const adminRouter = [
