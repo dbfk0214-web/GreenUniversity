@@ -31,44 +31,65 @@ const AdminUserSummary = () => {
     ADMIN: activeUsers.filter((u) => u.role === "ADMIN").length,
   };
 
-  const Card = ({ icon, title, children }) => (
-    <div className="bg-white rounded-2xl border border-gray-200 p-5 hover:shadow-lg transition-shadow duration-300">
-      <div className="flex items-center gap-2 mb-4">
-        <span className="text-2xl">{icon}</span>
-        <h2 className="font-bold text-gray-800">{title}</h2>
-      </div>
-      {children}
-    </div>
-  );
-
-  const Row = ({ label, value }) => (
-    <div className="flex justify-between items-center bg-gradient-to-r from-gray-50 to-gray-100 rounded-lg px-4 py-3 border border-gray-200">
-      <span className="text-sm font-medium text-gray-700">{label}</span>
-      <span className="font-bold text-gray-800">{value}</span>
-    </div>
-  );
-
   return (
     <div className="space-y-6">
-      {/* 사용자 현황 */}
-      <Card icon="👥" title="사용자 현황">
+      {/* 사용자 통계 */}
+      <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-5 hover:shadow-lg transition-shadow duration-300">
+        <div className="flex items-center gap-2 mb-4">
+          <span className="text-2xl">👥</span>
+          <h2 className="font-bold text-gray-800">사용자 현황</h2>
+        </div>
         <div className="space-y-3">
-          <Row label="활성 계정" value={`${activeUsers.length}명`} />
-          <Row label="비활성 계정" value={`${deletedUsers.length}명`} />
-
+          <div className="flex justify-between items-center bg-gradient-to-r from-gray-50 to-gray-100 rounded-xl px-4 py-3 border border-gray-200">
+            <span className="text-sm font-medium text-gray-700">활성 계정</span>
+            <span className="font-bold text-lg text-gray-800">
+              {activeUsers.length}명
+            </span>
+          </div>
+          <div className="flex justify-between items-center bg-gradient-to-r from-gray-50 to-gray-100 rounded-xl px-4 py-3 border border-gray-200">
+            <span className="text-sm font-medium text-gray-700">
+              비활성 계정
+            </span>
+            <span className="font-bold text-lg text-gray-800">
+              {deletedUsers.length}명
+            </span>
+          </div>
           <div className="border-t border-gray-200 pt-3 mt-3 space-y-2">
-            <Row label="학생" value={`${roleCount.STUDENT}명`} />
-            <Row label="교수" value={`${roleCount.PROFESSOR}명`} />
-            <Row label="관리자" value={`${roleCount.ADMIN}명`} />
+            <div className="flex justify-between items-center text-xs text-gray-600 bg-gray-50 px-3 py-2 rounded-lg border border-gray-200">
+              <span>학생</span>
+              <span className="font-bold text-gray-800">
+                {roleCount.STUDENT}명
+              </span>
+            </div>
+            <div className="flex justify-between items-center text-xs text-gray-600 bg-gray-50 px-3 py-2 rounded-lg border border-gray-200">
+              <span>교수</span>
+              <span className="font-bold text-gray-800">
+                {roleCount.PROFESSOR}명
+              </span>
+            </div>
+            <div className="flex justify-between items-center text-xs text-gray-600 bg-gray-50 px-3 py-2 rounded-lg border border-gray-200">
+              <span>관리자</span>
+              <span className="font-bold text-gray-800">
+                {roleCount.ADMIN}명
+              </span>
+            </div>
           </div>
         </div>
-      </Card>
+      </div>
 
-      {/* 학적 변동 승인 */}
-      <Card icon="📋" title="학적 변동 승인">
+      {/* 학적 변동 승인 대기 */}
+      <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-5 hover:shadow-lg transition-shadow duration-300">
+        <div className="flex items-center gap-2 mb-4">
+          <span className="text-2xl">📋</span>
+          <h2 className="font-bold text-gray-800">학적 변동 승인</h2>
+        </div>
         <div className="space-y-3">
-          <Row label="승인 대기" value={`${pendingRequests.length}건`} />
-
+          <div className="flex justify-between items-center bg-gradient-to-r from-gray-50 to-gray-100 rounded-xl px-4 py-3 border border-gray-200">
+            <span className="text-sm font-medium text-gray-700">승인 대기</span>
+            <span className="font-bold text-lg text-gray-800">
+              {pendingRequests.length}건
+            </span>
+          </div>
           {pendingRequests.length > 0 && (
             <div className="space-y-2">
               {pendingRequests.slice(0, 3).map((req) => (
@@ -85,10 +106,14 @@ const AdminUserSummary = () => {
             </div>
           )}
         </div>
-      </Card>
+      </div>
 
-      {/* 최근 가입자 */}
-      <Card icon="🆕" title="최근 가입자">
+      {/* 최근 가입 */}
+      <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-5 hover:shadow-lg transition-shadow duration-300">
+        <div className="flex items-center gap-2 mb-4">
+          <span className="text-2xl">🆕</span>
+          <h2 className="font-bold text-gray-800">최근 가입자</h2>
+        </div>
         <div className="space-y-2">
           {activeUsers
             .slice(-3)
@@ -105,14 +130,13 @@ const AdminUserSummary = () => {
                 <span className="text-gray-500">{u.email}</span>
               </div>
             ))}
-
           {activeUsers.length === 0 && (
             <p className="text-xs text-gray-400 text-center py-4">
               가입자가 없습니다
             </p>
           )}
         </div>
-      </Card>
+      </div>
     </div>
   );
 };
