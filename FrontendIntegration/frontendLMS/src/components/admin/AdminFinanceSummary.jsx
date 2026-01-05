@@ -3,19 +3,9 @@ import React from "react";
 
 const AdminFinanceSummary = () => {
   const summary = [
-    { label: "미납", value: 3, color: "text-red-600", bg: "bg-red-50" },
-    {
-      label: "납부 완료",
-      value: 12,
-      color: "text-green-600",
-      bg: "bg-green-50",
-    },
-    {
-      label: "총액",
-      value: "₩48,000,000",
-      color: "text-blue-600",
-      bg: "bg-blue-50",
-    },
+    { label: "미납", value: 3 },
+    { label: "납부 완료", value: 12 },
+    { label: "총액", value: "₩48,000,000" },
   ];
 
   return (
@@ -24,14 +14,15 @@ const AdminFinanceSummary = () => {
         <span className="text-2xl">💰</span>
         <h2 className="font-bold text-gray-800">등록금 현황</h2>
       </div>
-      <div className="space-y-3">
+
+      <div className="space-y-2">
         {summary.map((s, i) => (
           <div
             key={i}
-            className={`flex justify-between items-center ${s.bg} rounded-xl px-4 py-3 border border-gray-200`}
+            className="flex justify-between items-center bg-gradient-to-r from-gray-50 to-gray-100 p-3 rounded-lg border border-gray-200"
           >
             <span className="text-sm font-medium text-gray-700">{s.label}</span>
-            <span className={`font-bold text-lg ${s.color}`}>{s.value}</span>
+            <span className="font-bold text-gray-800">{s.value}</span>
           </div>
         ))}
       </div>

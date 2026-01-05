@@ -27,25 +27,39 @@ const AdminSystemCommunitySummary = () => {
   }, []);
 
   const reportedComments = comments.filter((c) => c.reported).length;
+
   const todayPosts = posts.filter((p) => {
     const created = new Date(p.createAt || p.createdAt);
     const today = new Date();
     return created.toDateString() === today.toDateString();
   }).length;
 
+  const Card = ({ icon, title, children }) => (
+    <div className="bg-white rounded-2xl border border-gray-200 p-5 hover:shadow-lg transition-shadow duration-300">
+      <div className="flex items-center gap-2 mb-4">
+        <span className="text-2xl">{icon}</span>
+        <h2 className="font-bold text-gray-800">{title}</h2>
+      </div>
+      {children}
+    </div>
+  );
+
+  const Row = ({ label, value }) => (
+    <div className="flex justify-between items-center bg-gradient-to-r from-gray-50 to-gray-100 rounded-lg px-4 py-3 border border-gray-200">
+      <span className="text-sm font-medium text-gray-700">{label}</span>
+      <span className="font-bold text-gray-800">{value}</span>
+    </div>
+  );
+
   return (
     <div className="space-y-6">
       {/* 공지사항 */}
-      <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-5 hover:shadow-lg transition-shadow duration-300">
-        <div className="flex items-center gap-2 mb-4">
-          <span className="text-2xl">📢</span>
-          <h2 className="font-bold text-gray-800">공지사항</h2>
-        </div>
+      <Card icon="📢" title="공지사항">
         <div className="space-y-2">
           {notices.slice(0, 3).map((n) => (
             <div
               key={n.noticeId || n.id}
-              className="text-xs text-gray-700 bg-gradient-to-r from-yellow-50 to-orange-50 p-3 rounded-lg border border-orange-200"
+              className="text-xs text-gray-700 bg-gradient-to-r from-gray-50 to-gray-100 p-3 rounded-lg border border-gray-200"
             >
               <span className="font-medium">• {n.title}</span>
             </div>
@@ -56,59 +70,23 @@ const AdminSystemCommunitySummary = () => {
             </p>
           )}
         </div>
-      </div>
+      </Card>
 
       {/* 게시글 현황 */}
-      <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-5 hover:shadow-lg transition-shadow duration-300">
-        <div className="flex items-center gap-2 mb-4">
-          <span className="text-2xl">📝</span>
-          <h2 className="font-bold text-gray-800">게시글 현황</h2>
-        </div>
+      <Card icon="📝" title="게시글 현황">
         <div className="space-y-3">
-          <div className="flex justify-between items-center bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl px-4 py-3 border border-blue-200">
-            <span className="text-sm font-medium text-gray-700">
-              전체 게시글
-            </span>
-            <span className="font-bold text-lg text-blue-600">
-              {posts.length}개
-            </span>
-          </div>
-          <div className="flex justify-between items-center bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl px-4 py-3 border border-green-200">
-            <span className="text-sm font-medium text-gray-700">오늘 작성</span>
-            <span className="font-bold text-lg text-green-600">
-              {todayPosts}개
-            </span>
-          </div>
+          <Row label="전체 게시글" value={`${posts.length}개`} />
+          <Row label="오늘 작성" value={`${todayPosts}개`} />
         </div>
-      </div>
+      </Card>
 
       {/* 댓글 관리 */}
-      <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-5 hover:shadow-lg transition-shadow duration-300">
-        <div className="flex items-center gap-2 mb-4">
-          <span className="text-2xl">💬</span>
-          <h2 className="font-bold text-gray-800">댓글 관리</h2>
-        </div>
+      <Card icon="💬" title="댓글 관리">
         <div className="space-y-3">
-          <div className="flex justify-between items-center bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl px-4 py-3 border border-purple-200">
-            <span className="text-sm font-medium text-gray-700">전체 댓글</span>
-            <span className="font-bold text-lg text-purple-600">
-              {comments.length}개
-            </span>
-          </div>
-          <div className="flex justify-between items-center bg-gradient-to-r from-red-50 to-rose-50 rounded-xl px-4 py-3 border border-red-200">
-            <span className="text-sm font-medium text-gray-700">
-              신고된 댓글
-            </span>
-            <span
-              className={`font-bold text-lg ${
-                reportedComments > 0 ? "text-red-600" : "text-gray-400"
-              }`}
-            >
-              {reportedComments}개
-            </span>
-          </div>
+          <Row label="전체 댓글" value={`${comments.length}개`} />
+          <Row label="신고된 댓글" value={`${reportedComments}개`} />
         </div>
-      </div>
+      </Card>
     </div>
   );
 };
