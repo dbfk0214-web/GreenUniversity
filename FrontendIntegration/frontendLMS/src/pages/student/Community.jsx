@@ -1,8 +1,6 @@
 // src/pages/studentmanagement/StudentCommunityDashboard.jsx
 import React, { useState } from "react";
 import NoticeList from "../../components/features/notice/NoticeList";
-import DepartmentNotice from "../../components/features/notice/DepartmentNotice";
-import FreeBoard from "../../components/features/board/FreeBoard";
 import PostWrite from "../../components/features/board/PostWrite";
 import CommunityBoard from "../../components/features/board/CommunityBoard";
 import { DashboardModal } from "../../components/common/DashboardModal";
