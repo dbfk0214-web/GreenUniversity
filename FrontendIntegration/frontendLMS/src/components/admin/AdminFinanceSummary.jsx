@@ -1,23 +1,37 @@
+// src/components/admin/AdminFinanceSummary.jsx
 import React from "react";
 
 const AdminFinanceSummary = () => {
   const summary = [
-    { label: "미납", value: 3 },
-    { label: "납부 완료", value: 12 },
-    { label: "이번 학기 총액", value: "₩48,000,000" },
+    { label: "미납", value: 3, color: "text-red-600", bg: "bg-red-50" },
+    {
+      label: "납부 완료",
+      value: 12,
+      color: "text-green-600",
+      bg: "bg-green-50",
+    },
+    {
+      label: "총액",
+      value: "₩48,000,000",
+      color: "text-blue-600",
+      bg: "bg-blue-50",
+    },
   ];
 
   return (
-    <div className="bg-white border rounded-2xl p-5 space-y-3">
-      <h2 className="font-semibold">💰 등록금</h2>
-      <div className="space-y-2 text-sm">
+    <div className="bg-white border border-gray-200 rounded-2xl p-5 hover:shadow-lg transition-shadow duration-300">
+      <div className="flex items-center gap-2 mb-4">
+        <span className="text-2xl">💰</span>
+        <h2 className="font-bold text-gray-800">등록금 현황</h2>
+      </div>
+      <div className="space-y-3">
         {summary.map((s, i) => (
           <div
             key={i}
-            className="flex justify-between bg-slate-50 rounded px-3 py-2"
+            className={`flex justify-between items-center ${s.bg} rounded-xl px-4 py-3 border border-gray-200`}
           >
-            <span className="text-slate-600">{s.label}</span>
-            <span className="font-medium">{s.value}</span>
+            <span className="text-sm font-medium text-gray-700">{s.label}</span>
+            <span className={`font-bold text-lg ${s.color}`}>{s.value}</span>
           </div>
         ))}
       </div>

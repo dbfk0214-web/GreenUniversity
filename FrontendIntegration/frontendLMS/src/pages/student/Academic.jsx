@@ -3,8 +3,8 @@ import React, { useState } from "react";
 import CourseEnroll from "../../components/features/academic/CourseEnroll";
 import TimetableView from "../../components/features/academic/TimetableView";
 import AttendanceView from "../../components/features/attendance/AttendanceView";
-import AssignmentList from "../../components/features/assignment/AssignmentList";
-import AssignmentSubmit from "../../components/features/assignment/AssignmentSubmit";
+// import AssignmentList from "../../components/features/assignment/AssignmentList";
+// import AssignmentSubmit from "../../components/features/assignment/AssignmentSubmit";
 import CourseReviewWrite from "../../components/features/review/CourseReviewWrite";
 import { DashboardModal } from "../../components/common/DashboardModal";
 
@@ -213,20 +213,20 @@ function renderModalContent(activeModal) {
         // hint: "출석/지각/결석 상태 뱃지 표시를 추천합니다.",
         content: <AttendanceView />,
       };
-    case modalTypes.ASSIGNMENT_LIST:
-      return {
-        title: "과제 목록",
-        subtitle: "Assignment",
-        // hint: "마감일 기준 정렬 및 상태 표시를 추천합니다.",
-        content: <AssignmentList />,
-      };
-    case modalTypes.ASSIGNMENT_SUBMIT:
-      return {
-        title: "과제 제출",
-        subtitle: "Submission · FileAttachment",
-        // hint: "파일 업로드 + 제출 이력 테이블 구조가 적합합니다.",
-        content: <AssignmentSubmit />,
-      };
+    // case modalTypes.ASSIGNMENT_LIST:
+    //   return {
+    //     title: "과제 목록",
+    //     subtitle: "Assignment",
+    //     // hint: "마감일 기준 정렬 및 상태 표시를 추천합니다.",
+    //     content: <AssignmentList />,
+    //   };
+    // case modalTypes.ASSIGNMENT_SUBMIT:
+    //   return {
+    //     title: "과제 제출",
+    //     subtitle: "Submission · FileAttachment",
+    //     // hint: "파일 업로드 + 제출 이력 테이블 구조가 적합합니다.",
+    //     content: <AssignmentSubmit />,
+    //   };
     case modalTypes.COURSE_REVIEW:
       return {
         title: "강의 평가",
