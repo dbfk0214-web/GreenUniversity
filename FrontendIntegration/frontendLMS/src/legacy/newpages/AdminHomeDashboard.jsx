@@ -46,7 +46,8 @@ export default function AdminHomeDashboard() {
               <span className="text-sm text-blue-500">바로가기 →</span>
             </div>
             <p className="text-sm text-gray-500 mb-4">
-              강의 / 수업, 시간표, 커리큘럼, 학사 일정·행사, 민원 처리 등 학사 전반을 관리합니다.
+              강의 / 수업, 시간표, 커리큘럼, 학사 일정·행사, 민원 처리 등 학사
+              전반을 관리합니다.
             </p>
             <ul className="text-xs text-gray-500 space-y-1">
               <li>• 강의 개설 · 정원 · 수강 현황</li>
