@@ -14,7 +14,7 @@ const ProfessorReviewSummary = ({ selectedOfferingId }) => {
 
     setLoading(true);
     ReviewApi.config.funcs
-      .findByKeywordHttp("my", null, userEmail, "get")
+      .findByKeywordHttp("course", selectedOfferingId, userEmail, "get")
       .then((result) => {
         // selectedOfferingId와 매칭되는 리뷰만 필터링 (필요시)
         setReviews(result || []);

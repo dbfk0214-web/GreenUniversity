@@ -76,7 +76,7 @@ export default function AdminHomeDashboard() {
       </section>
 
       {/* 4열 레이아웃 */}
-      <section className="grid grid-cols-1 xl:grid-cols-4 gap-6">
+      <section className="grid grid-cols-1 xl:grid-cols-3 gap-6">
         {/* 1열: 학사 운영 */}
         <div className="space-y-6">
           <AdminSummary
@@ -87,7 +87,7 @@ export default function AdminHomeDashboard() {
         </div>
 
         {/* 2열: 재무 */}
-        <AdminFinanceSummary />
+        {/* <AdminFinanceSummary /> */}
 
         {/* 3열: 커뮤니티 */}
         <AdminSystemCommunitySummary />
