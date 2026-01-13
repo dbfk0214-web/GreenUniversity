@@ -1,18 +1,27 @@
+// src/components/admin/AdminSummary.jsx
 import React from "react";
 
 const AdminSummary = ({ terms, courses, timetables }) => {
-  const InfoCard = ({ title, link, items, render, empty }) => (
-    <div className="bg-white border rounded-2xl p-5">
-      <div className="flex justify-between mb-3">
-        <h2 className="font-semibold">{title}</h2>
+  const InfoCard = ({ title, icon, items, render, empty, color }) => (
+    <div className="bg-white border border-gray-200 rounded-2xl p-5 hover:shadow-lg transition-shadow duration-300">
+      <div className="flex items-center gap-2 mb-4">
+        <span className={`text-2xl ${color}`}>{icon}</span>
+        <h2 className="font-bold text-gray-800">{title}</h2>
       </div>
-      <div className="space-y-2 text-xs text-gray-600">
+      <div className="space-y-2">
         {items.slice(0, 3).map((v, i) => (
-          <div key={i} className="bg-gray-50 p-2 rounded">
-            • {render(v)}
+          <div
+            key={i}
+            className="text-xs text-gray-700 bg-gradient-to-r from-gray-50 to-gray-100 p-3 rounded-lg border border-gray-200"
+          >
+            <span className="font-medium">• {render(v)}</span>
           </div>
         ))}
-        {items.length === 0 && <p className="text-gray-400">{empty}</p>}
+        {items.length === 0 && (
+          <p className="text-xs text-gray-400 italic text-center py-4">
+            {empty}
+          </p>
+        )}
       </div>
     </div>
   );
@@ -20,22 +29,28 @@ const AdminSummary = ({ terms, courses, timetables }) => {
   return (
     <>
       <InfoCard
-        title="📅 학기"
+        title="학기 정보"
+        icon="📅"
+        color="text-blue-500"
         items={terms}
-        empty="학기 없음"
+        empty="등록된 학기가 없습니다"
         render={(t) => `${t.year}년 ${t.semester}`}
       />
       <InfoCard
-        title="📚 강의"
+        title="강의 현황"
+        icon="📚"
+        color="text-green-500"
         items={courses}
-        empty="강의 없음"
+        empty="개설된 강의가 없습니다"
         render={(c) => c.courseName}
       />
       <InfoCard
-        title="🕐 시간표"
+        title="시간표"
+        icon="🕐"
+        color="text-purple-500"
         items={timetables}
-        empty="시간표 없음"
-        render={(tt) => `${tt.dayOfWeek} ${tt.startTime}~${tt.endTime}`}
+        empty="등록된 시간표가 없습니다"
+        render={(tt) => `${tt.dayOfWeek}요일 ${tt.startTime}~${tt.endTime}`}
       />
     </>
   );

@@ -6,22 +6,14 @@ export default function TuitionPaymentStatusComponent() {
     <div className="space-y-6">
       {/* ===== 요약 영역 ===== */}
       <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-        <SummaryCard
-          title="총 등록금"
-          value="4,200,000원"
-          sub="2025년 1학기"
-        />
+        <SummaryCard title="총 등록금" value="4,200,000원" sub="2025년 1학기" />
         <SummaryCard
           title="납부 금액"
           value="4,200,000원"
           sub="전액 납부"
           highlight
         />
-        <SummaryCard
-          title="미납 금액"
-          value="0원"
-          sub="잔여 없음"
-        />
+        <SummaryCard title="미납 금액" value="0원" sub="잔여 없음" />
       </div>
 
       {/* ===== 납부 내역 테이블 ===== */}
@@ -29,21 +21,11 @@ export default function TuitionPaymentStatusComponent() {
         <table className="w-full text-sm">
           <thead className="bg-slate-100 text-slate-600">
             <tr>
-              <th className="px-4 py-3 text-left font-medium">
-                학기
-              </th>
-              <th className="px-4 py-3 text-left font-medium">
-                납부 구분
-              </th>
-              <th className="px-4 py-3 text-right font-medium">
-                금액
-              </th>
-              <th className="px-4 py-3 text-center font-medium">
-                상태
-              </th>
-              <th className="px-4 py-3 text-left font-medium">
-                납부일
-              </th>
+              <th className="px-4 py-3 text-left font-medium">학기</th>
+              <th className="px-4 py-3 text-left font-medium">납부 구분</th>
+              <th className="px-4 py-3 text-right font-medium">금액</th>
+              <th className="px-4 py-3 text-center font-medium">상태</th>
+              <th className="px-4 py-3 text-left font-medium">납부일</th>
             </tr>
           </thead>
           <tbody className="divide-y">
@@ -67,11 +49,11 @@ export default function TuitionPaymentStatusComponent() {
 
       {/* ===== 안내 문구 ===== */}
       <div className="rounded-lg bg-slate-50 p-4 text-xs text-slate-500">
-        <p className="font-medium text-slate-600">
-          💡 안내
-        </p>
+        <p className="font-medium text-slate-600">💡 안내</p>
         <ul className="mt-1 list-disc space-y-1 pl-4">
-          <li>등록금 납부 완료 시 상태가 <b>납부 완료</b>로 표시됩니다.</li>
+          <li>
+            등록금 납부 완료 시 상태가 <b>납부 완료</b>로 표시됩니다.
+          </li>
           <li>미납 내역이 있는 경우 학사 일정에 제한이 있을 수 있습니다.</li>
           <li>문의: 학사행정팀 (02-0000-0000)</li>
         </ul>
@@ -87,20 +69,12 @@ function SummaryCard({ title, value, sub, highlight }) {
   return (
     <div
       className={`rounded-xl border p-4 ${
-        highlight
-          ? "border-teal-200 bg-teal-50"
-          : "border-slate-200 bg-white"
+        highlight ? "border-teal-200 bg-teal-50" : "border-slate-200 bg-white"
       }`}
     >
-      <p className="text-xs font-medium text-slate-500">
-        {title}
-      </p>
-      <p className="mt-1 text-lg font-semibold text-slate-900">
-        {value}
-      </p>
-      <p className="mt-1 text-xs text-slate-400">
-        {sub}
-      </p>
+      <p className="text-xs font-medium text-slate-500">{title}</p>
+      <p className="mt-1 text-lg font-semibold text-slate-900">{value}</p>
+      <p className="mt-1 text-xs text-slate-400">{sub}</p>
     </div>
   );
 }
@@ -108,13 +82,7 @@ function SummaryCard({ title, value, sub, highlight }) {
 /* =========================
    테이블 Row
 ========================= */
-function PaymentRow({
-  semester,
-  type,
-  amount,
-  status,
-  date,
-}) {
+function PaymentRow({ semester, type, amount, status, date }) {
   const statusMap = {
     PAID: {
       label: "납부 완료",
@@ -132,15 +100,9 @@ function PaymentRow({
 
   return (
     <tr className="bg-white">
-      <td className="px-4 py-3">
-        {semester}
-      </td>
-      <td className="px-4 py-3">
-        {type}
-      </td>
-      <td className="px-4 py-3 text-right">
-        {amount}
-      </td>
+      <td className="px-4 py-3">{semester}</td>
+      <td className="px-4 py-3">{type}</td>
+      <td className="px-4 py-3 text-right">{amount}</td>
       <td className="px-4 py-3 text-center">
         <span
           className={`rounded-full px-3 py-1 text-xs font-medium ${statusMap[status].className}`}
@@ -148,9 +110,7 @@ function PaymentRow({
           {statusMap[status].label}
         </span>
       </td>
-      <td className="px-4 py-3">
-        {date}
-      </td>
+      <td className="px-4 py-3">{date}</td>
     </tr>
   );
 }

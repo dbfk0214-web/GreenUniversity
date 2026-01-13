@@ -33,9 +33,7 @@ export default function ProfessorSupportNoticeComponent() {
       {/* ===== 공지 리스트 ===== */}
       <div className="space-y-3">
         {notices.length === 0 ? (
-          <p className="text-sm text-slate-400">
-            등록된 지원 공지가 없습니다.
-          </p>
+          <p className="text-sm text-slate-400">등록된 지원 공지가 없습니다.</p>
         ) : (
           notices.map((notice) => (
             <SupportNoticeItem
@@ -63,13 +61,7 @@ export default function ProfessorSupportNoticeComponent() {
   );
 }
 
-function SupportNoticeItem({
-  type,
-  title,
-  date,
-  department,
-  important,
-}) {
+function SupportNoticeItem({ type, title, date, department, important }) {
   const typeColorMap = {
     IT: "bg-blue-100 text-blue-700",
     시설: "bg-green-100 text-green-700",
@@ -79,32 +71,22 @@ function SupportNoticeItem({
   return (
     <div
       className={`rounded-xl border p-4 ${
-        important
-          ? "border-red-200 bg-red-50"
-          : "border-slate-200 bg-white"
+        important ? "border-red-200 bg-red-50" : "border-slate-200 bg-white"
       }`}
     >
       <div className="flex items-start justify-between">
         <div>
           <div className="flex items-center gap-2">
             <span
-              className={`rounded-full px-2 py-0.5 text-[10px] font-medium ${
-                typeColorMap[type]
-              }`}
+              className={`rounded-full px-2 py-0.5 text-[10px] font-medium ${typeColorMap[type]}`}
             >
               {type}
             </span>
-            <p className="text-sm font-semibold text-slate-800">
-              {title}
-            </p>
+            <p className="text-sm font-semibold text-slate-800">{title}</p>
           </div>
 
-          <p className="mt-1 text-xs text-slate-500">
-            공지일: {date}
-          </p>
-          <p className="mt-1 text-xs text-slate-500">
-            담당 부서: {department}
-          </p>
+          <p className="mt-1 text-xs text-slate-500">공지일: {date}</p>
+          <p className="mt-1 text-xs text-slate-500">담당 부서: {department}</p>
         </div>
 
         {important && (
