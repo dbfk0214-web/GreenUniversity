@@ -7,7 +7,7 @@ const StudentHomeDashboard = lazy(() =>
 
 const Academic = lazy(() => import("../pages/student/Academic"));
 const Community = lazy(() => import("../pages/student/Community"));
-const Finance = lazy(() => import("../pages/student/Finance"));
+// const Finance = lazy(() => import("../pages/student/Finance"));
 const Grade = lazy(() => import("../pages/student/Grade"));
 const User = lazy(() => import("../pages/student/User"));
 
@@ -24,10 +24,10 @@ export const studentRouter = [
     path: "community",
     element: <Mainlayouts children={<Community />} />,
   },
-  {
-    path: "finance",
-    element: <Mainlayouts children={<Finance />} />,
-  },
+  // {
+  //   path: "finance",
+  //   element: <Mainlayouts children={<Finance />} />,
+  // },
   {
     path: "grade",
     element: <Mainlayouts children={<Grade />} />,
