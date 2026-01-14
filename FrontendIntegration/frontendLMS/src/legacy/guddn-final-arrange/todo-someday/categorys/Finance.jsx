@@ -1,6 +1,5 @@
 // src/pages/adminmanagement/AdminFinanceDashboard.jsx
 import React, { useState } from "react";
-import TuitionManage from "../../components/features/finance/TuitionManage";
 import { DashboardModal } from "../../components/common/DashboardModal";
 
 /* =========================
@@ -163,13 +162,13 @@ function DashboardButton({ label, description, onClick }) {
 ========================= */
 function renderModalContent(activeModal) {
   switch (activeModal) {
-    case modalTypes.TUITION_MANAGE:
-      return {
-        title: "등록금 책정 및 고지",
-        subtitle: "TuitionPayment",
-        // hint: "학생/학기 선택 → 등록금 금액 입력 → 납부 상태(PAID/UNPAID) 관리 UI를 추천합니다.",
-        content: <TuitionManage />,
-      };
+    // case modalTypes.TUITION_MANAGE:
+    //   return {
+    //     title: "등록금 책정 및 고지",
+    //     subtitle: "TuitionPayment",
+    //     // hint: "학생/학기 선택 → 등록금 금액 입력 → 납부 상태(PAID/UNPAID) 관리 UI를 추천합니다.",
+    //     content: <TuitionManage />,
+    //   };
     default:
       return {
         title: "재무 관리",

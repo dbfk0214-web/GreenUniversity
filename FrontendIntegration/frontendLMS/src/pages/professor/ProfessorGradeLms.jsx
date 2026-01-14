@@ -5,10 +5,8 @@ import { API_SERVER_HOST } from "../../api/commonApi";
 
 import GradePolicyManage from "../../components/features/grade/GradePolicyManage";
 import AttendanceManage from "../../components/features/attendance/AttendanceManage";
-import AssignmentManage from "../../components/features/assignment/AssignmentManage";
-import SubmissionReview from "../../components/features/assignment/SubmissionReview";
 import ScoreInput from "../../components/features/grade/ScoreInput";
-import FinalGradeConfirm from "../../components/features/grade/FinalGradeConfirm";
+// import FinalGradeConfirm from "../../components/features/grade/FinalGradeConfirm";
 
 /* =========================
    Modal Types (교수용)
@@ -113,19 +111,19 @@ export default function ProfessorGradeLms() {
           subtitle: "Attendance",
           content: <AttendanceManage offeringId={selectedOfferingId} />,
         };
-      case modalTypes.ASSIGNMENT_CREATE:
-        return {
-          title: "과제 생성",
-          subtitle: "Assignment",
-          content: <AssignmentManage offeringId={selectedOfferingId} />,
-        };
+      // case modalTypes.ASSIGNMENT_CREATE:
+      //   return {
+      //     title: "과제 생성",
+      //     subtitle: "Assignment",
+      //     content: <AssignmentManage offeringId={selectedOfferingId} />,
+      //   };
 
-      case modalTypes.SUBMISSION_REVIEW:
-        return {
-          title: "제출물 확인 및 채점",
-          subtitle: "Submission",
-          content: <SubmissionReview offeringId={selectedOfferingId} />,
-        };
+      // case modalTypes.SUBMISSION_REVIEW:
+      //   return {
+      //     title: "제출물 확인 및 채점",
+      //     subtitle: "Submission",
+      //     content: <SubmissionReview offeringId={selectedOfferingId} />,
+      //   };
 
       case modalTypes.SCORE_INPUT:
         return {
@@ -134,12 +132,12 @@ export default function ProfessorGradeLms() {
           content: <ScoreInput offeringId={selectedOfferingId} />,
         };
 
-      case modalTypes.FINAL_GRADE_CONFIRM:
-        return {
-          title: "최종 성적 확정",
-          subtitle: "Grade",
-          content: <FinalGradeConfirm offeringId={selectedOfferingId} />,
-        };
+      // case modalTypes.FINAL_GRADE_CONFIRM:
+      //   return {
+      //     title: "최종 성적 확정",
+      //     subtitle: "Grade",
+      //     content: <FinalGradeConfirm offeringId={selectedOfferingId} />,
+      //   };
 
       default:
         return {
@@ -245,7 +243,7 @@ export default function ProfessorGradeLms() {
         </section>
 
         {/* 3. 과제 관리 */}
-        <section className="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-slate-100">
+        {/* <section className="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-slate-100">
           <SectionHeader
             tag="Assignment"
             tagColor="fuchsia"
@@ -266,7 +264,7 @@ export default function ProfessorGradeLms() {
               onClick={() => setActiveModal(modalTypes.SUBMISSION_REVIEW)}
             />
           </div>
-        </section>
+        </section> */}
 
         {/* 4. 성적 처리 */}
         <section className="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-slate-100">
@@ -284,11 +282,11 @@ export default function ProfessorGradeLms() {
               description="학생별 평가 항목 점수를 입력합니다."
               onClick={() => setActiveModal(modalTypes.SCORE_INPUT)}
             />
-            <DashboardButton
+            {/* <DashboardButton
               label="최종 성적 확정"
               description="성적을 산출하고 최종 확정합니다."
               onClick={() => setActiveModal(modalTypes.FINAL_GRADE_CONFIRM)}
-            />
+            /> */}
           </div>
         </section>
       </div>

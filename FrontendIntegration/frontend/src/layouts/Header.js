@@ -26,12 +26,12 @@ const Header = () => {
         <div className="max-w-7xl mx-auto flex items-center justify-between px-6 h-16">
           {/* 🔹 LEFT: 로고 */}
           <Link to={"http://localhost:3000"}>
-          <button
-            onClick={Home}
-            className="flex items-center gap-2 hover:opacity-90"
-          >
-            <img src={logo} alt="로고" className="h-9" />
-          </button>
+            <button
+              onClick={Home}
+              className="flex items-center gap-2 hover:opacity-90"
+            >
+              <img src={logo} alt="로고" className="h-9" />
+            </button>
           </Link>
 
           {/* 🔹 CENTER: 메뉴 버튼 */}
@@ -53,17 +53,19 @@ const Header = () => {
               </span>
             )}
 
-            {loginState.email ? (
+            {/* {loginState.email ? (
               <SignedLoginComponent />
             ) : (
               <UnSignedLoginComponent />
-            )}
+            )} */}
           </div>
         </div>
       </div>
 
       {/* ===== 네비게이션 ===== */}
-      {user.role !== "GUEST" && <Navbar open={navOpen} setOpen={setNavOpen} />}
+      {user.role !== "GUEST" && (
+        <Navbar open={navOpen} setOpen={setNavOpen} role={user.role} />
+      )}
     </header>
   );
 };
