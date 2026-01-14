@@ -1,10 +1,8 @@
 // src/pages/adminmanagement/AdminAcademicDashboard.jsx
 import React, { useState } from "react";
-import CourseEnroll from "../../components/features/academic/CourseEnroll";
 import TermManage from "../../components/features/academic/TermManage";
 import CourseOfferingManage from "../../components/features/academic/CourseOfferingManage";
 import CourseManage from "../../components/features/academic/CourseManage";
-import ClassSectionManage from "../../components/features/academic/ClassSectionManage";
 import TimeTableManager from "../../components/features/academic/TimeTableManager";
 import { DashboardModal } from "../../components/common/DashboardModal";
 
@@ -117,11 +115,6 @@ export default function AdminAcademicDashboard() {
           />
 
           <div className="space-y-3">
-            <DashboardButton
-              label="분반 관리"
-              description="분반(ClassSection)을 생성합니다."
-              onClick={() => setActiveModal(modalTypes.CLASS_SECTION)}
-            />
             <DashboardButton
               label="시간표 관리"
               description="강의실 배정 및 시간표를 입력합니다."
@@ -274,14 +267,6 @@ function renderModalContent(activeModal) {
         subtitle: "CourseOffering",
         // hint: "학기 선택 → 과목 선택 → 담당 교수 배정 → 정원 설정 플로우를 추천합니다.",
         content: <CourseOfferingManage />,
-      };
-
-    case modalTypes.CLASS_SECTION:
-      return {
-        title: "분반 관리",
-        subtitle: "ClassSection",
-        // hint: "분반 번호, 정원, 연결된 강의 정보 설정 UI를 추천합니다.",
-        content: <ClassSectionManage />,
       };
 
     case modalTypes.TIMETABLE_MANAGER:

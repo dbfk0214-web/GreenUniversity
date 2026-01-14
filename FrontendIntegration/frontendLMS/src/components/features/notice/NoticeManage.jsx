@@ -179,11 +179,11 @@ const NoticeManage = () => {
               <h2 className="text-lg font-bold text-sky-800 break-words">
                 {n.title}
               </h2>
-              {n.pinned && (
+              {/* {n.pinned && (
                 <span className="shrink-0 rounded-full bg-amber-100 px-2 py-0.5 text-xs font-semibold text-amber-700">
                   고정
                 </span>
-              )}
+              )} */}
             </header>
 
             <p className="mt-2 text-sm text-sky-600">
@@ -197,9 +197,9 @@ const NoticeManage = () => {
             </p>
 
             <div className="mt-4 flex flex-wrap justify-between items-center gap-2">
-              <span className="text-xs font-semibold text-sky-600">
+              {/* <span className="text-xs font-semibold text-sky-600">
                 중요도: {n.importance}
-              </span>
+              </span> */}
 
               <div className="flex gap-2">
                 <button
@@ -214,12 +214,12 @@ const NoticeManage = () => {
                 >
                   삭제
                 </button>
-                <button
+                {/* <button
                   onClick={() => togglePin(n.id)}
                   className="rounded-xl border px-3 py-1.5 text-sm"
                 >
                   {n.pinned ? "고정 해제" : "고정"}
-                </button>
+                </button> */}
               </div>
             </div>
           </li>
